@@ -2,16 +2,27 @@ package br.com.votehub.model.vo;
 
 public class Votante {
 
+	private int id;
 	private String nome;
-	private String id;
+	private String cpf;
 	private String ocupacao;
 	
-	public Votante(String nome, String id, String ocupacao) {
-		this.nome = nome;
+	public Votante( int id,String nome,String cpf, String ocupacao) {
 		this.id = id;
+		this.nome = nome;
+		this.cpf = cpf;
 		this.ocupacao = ocupacao;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	
 	public String getNome() {
 		return nome;
 	}
@@ -19,13 +30,12 @@ public class Votante {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public String getId() {
-		return id;
+	public String getcpf() {
+		return cpf;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setcpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	public String getOcupacao() {
@@ -38,7 +48,7 @@ public class Votante {
 
 
 	public String toString() {
-		return "[" + this.nome + ", " + this.id + ", " + this.ocupacao + "]";
+		return "[" + this.id  + ", " + this.nome + ", " + this.cpf + ", " + this.ocupacao + "]";
 	}
 	
 

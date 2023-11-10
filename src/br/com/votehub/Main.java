@@ -1,30 +1,33 @@
 package br.com.votehub;
 
 import br.com.votehub.model.vo.*;
+import br.com.votehub.model.DAOs.*;
+import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
-		Votante kaio = new Votante("Kaio", "2023ADSPL0250", "Estudante");
-		System.out.println(kaio);
-		Votante rafael = new Votante("Rafael", "2023ADSPL0251", "Estudante");
-		System.out.println(kaio);
-		Votante kelly = new Votante("Kelly", "2009RH001", "Servidora");
+		Main programa = new Main();
+		programa.addvotante();
 		
-		Candidato george = new Candidato("George", 1, "Reitor");
-		System.out.println(george);
-		
-		Eleicao eleicaoReitor = new Eleicao(1, "22/11/2023", "Reitor");
-		System.out.println(eleicaoReitor);
-		
-		eleicaoReitor.adicionarCandidato(george);
-		System.out.println(eleicaoReitor.getCandidatos());
-		
-		eleicaoReitor.adicionarVotante(kaio);
-		eleicaoReitor.adicionarVotante(rafael);
-		eleicaoReitor.adicionarVotante(kelly);
-		System.out.println(eleicaoReitor.getVotantes());
 	}
+		   private void addvotante() {
+			    Scanner sc = new Scanner(System.in);
+		        System.out.print("Digite o id do votante: ");
+		        int id = sc.nextInt();
+		        System.out.print("Digite o nome do votante: ");
+		        String nome = sc.next();
+		        System.out.print("Digite o cpf do votante: ");
+		        String cpf = sc.next();
+		        System.out.print("Digite a ocupação do votante: ");
+		        String ocupação = sc.next();
 
-}
+		        Votante v = new Votante(id, nome, cpf, ocupação);
+
+		        votanteDAO vdao = new votanteDAO();
+		        vdao.addvotante(v);
+		        sc.close();
+		   }
+	}
+	
