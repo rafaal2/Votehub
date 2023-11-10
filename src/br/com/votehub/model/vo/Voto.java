@@ -2,43 +2,40 @@ package br.com.votehub.model.vo;
 
 public class Voto {
 	
-	private int idVoto;
-	private int idEleicao;
-	private Votante votante;
-	private Candidato candidato;
-	//private Boolean validez; //alterado apenas quando o voto for anulado
+	private int id;
+	private int id_candidato;
+	private int id_votante;
 	
-	public Voto(int idVoto, int idEleicao, Votante votante, Candidato candidato) {
-		this.idVoto = idVoto;
-		this.idEleicao = idEleicao;
-		this.votante = votante;
-		this.candidato = candidato;
+	public Voto(int id, int id_candidato ,int id_votante) {
+		this.id = id;
+		this.id_candidato = id_candidato;
+		this.id_votante = id_votante;
 		
-		//this.validez = true; //por padrão o voto é valido
 	}
 	
-	public int getIdVoto() {
-		return idVoto;
+	public int getId() {
+		return id;
 	}
-	
-	public int getIdEleicao() {
-		return idEleicao;
+
+	public void setId(int id) {
+		this.id = id;
 	}
-	
-	//public Votante getVotante() { 
-	//	return this.votante;
-	//}
-	
-	public Candidato getCandidato() {
-		return candidato;
+
+	public int getId_candidato() {
+		return id_candidato;
 	}
-	
-	//public Boolean ehValido() {
-	//	return validez;
-	//}
-	
-	//public void anularVoto() { //seria chamado a partir da ação do "btnNulo"
-	//	this.validez = false;
-	//}
+
+	public void setId_candidato(int id_candidato) {
+		this.id_candidato = id_candidato;
+	}
+
+	public int getId_votante() {
+		return id_votante;
+	}
+
+	public void setId_votante(int id_votante) {
+		this.id_votante = id_votante;
+	}
+
 	
 }
