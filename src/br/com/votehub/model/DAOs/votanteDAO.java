@@ -17,7 +17,7 @@ public class votanteDAO {
 		PreparedStatement stt1 = null;
 		PreparedStatement stt2 = null;
 		
-		public void mostarvotantes() {
+		public void mostrarVotantes() {
 		try {
 			conn = DB.getConnection();
 			st = conn.createStatement();
@@ -36,7 +36,7 @@ public class votanteDAO {
 			}
 			
 		}
-		public void addvotante(Votante v) {
+		public void addVotante(Votante v) {
 			try {
 				conn = DB.getConnection();
 				stt = conn.prepareStatement("INSERT INTO votante" + "(nome, cpf, ocupação)" + "VALUES" +"(?, ?, ?, ?)");
@@ -58,7 +58,7 @@ public class votanteDAO {
 			}
 	
 		}
-		public void updatevotante() {
+		public void updateVotante() {
 			try {
 				conn = DB.getConnection();
 				stt1 = conn.prepareStatement("Update votante " 
@@ -80,7 +80,7 @@ public class votanteDAO {
 				DB.closeConnection();
 			}
 		}
-		public void deletevotante() {
+		public void deleteVotante() {
 			try {
 				conn = DB.getConnection();
 				stt2 = conn.prepareStatement("DELETE FROM votante " 

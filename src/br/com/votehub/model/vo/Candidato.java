@@ -3,12 +3,12 @@ package br.com.votehub.model.vo;
 public class Candidato {
 	
 	private String nome;
-	private int idCandidato;
+	private int id;
 	private String cargo;
 	
-	public Candidato(String nome, int idCandidato, String cargo) {
+	public Candidato(String nome, int id, String cargo) {
 		this.nome = nome;
-		this.idCandidato = idCandidato;
+		this.id = id;
 		this.cargo = cargo;
 	}
 
@@ -20,12 +20,12 @@ public class Candidato {
 		this.nome = nome;
 	}
 
-	public int getIdCandidato() {
-		return idCandidato;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdCandidato(int idCandidato) {
-		this.idCandidato = idCandidato;
+	public void setId(int idCandidato) {
+		this.id = idCandidato;
 	}
 
 	public String getCargo() {
@@ -38,7 +38,7 @@ public class Candidato {
 
 
 	public String toString() {
-		return "Candidato: " + this.nome + " | id: " + idCandidato + " | " + cargo;
+		return "Candidato: " + this.nome + " | id: " + id + " | " + cargo;
 	}
 	
 	
