@@ -16,7 +16,7 @@ public class VotoDAO {
 	PreparedStatement stt1 = null;
 	PreparedStatement stt2 = null;
 
-	public void addvoto(Voto vt) {
+	public void addVoto(Voto vt) {
 		try {
 			conn = DB.getConnection();
 			stt = conn.prepareStatement("INSERT INTO voto" + "(id, id_candidato, id_votante)" + "VALUES" + "(?, ?, ?)");
@@ -36,4 +36,45 @@ public class VotoDAO {
 
 		
 	}
+	
+	public void deleteVoto(int id) { //pode ser substituido por um metodo "anularVoto()" futuramente
+		try {
+			conn = DB.getConnection();
+			stt2 = conn.prepareStatement("DELETE FROM voto " 
+										+"WHERE " 
+										+"id = ?");
+			
+			stt2.setInt(1, id);
+			
+			stt2.executeUpdate();
+			System.out.println("voto deletado!");
+		}
+		catch(SQLException e) {
+			throw new DbIntegrityException(e.getMessage());
+		}
+		finally {
+			DB.closestatement(stt2);
+			DB.closeConnection();
+		}
+	}
+	
+	public void mostarVotos() {
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * \r\n"
+					+ "FROM voto \r\n");
+			while(rs.next()) {
+				System.out.println("Voto: " + rs.getInt("id") + " | Candidato " + rs.getInt("id_candidato"));
+			}}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			finally {
+				DB.closeResultSet(rs);
+				DB.closestatement(st);
+				DB.closeConnection();
+			}
+			
+		}
 }
