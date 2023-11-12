@@ -21,6 +21,11 @@ public class Main {
 		int id = sc.nextInt();
 		System.out.println("Cargo do candidato:");
 		String cargo = sc.next();
+		
+		Candidato c = new Candidato(nome, id, cargo);
+		candidatoDAO cdao = new candidatoDAO();
+		cdao.addCandidato(c);
+		sc.close();
 	}
 
 	/* private void addVoto() {
