@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import br.com.votehub.model.criptografia.Encriptador;
 import br.com.votehub.model.vo.Votante;
 
 
@@ -37,12 +38,13 @@ public class votanteDAO {
 			
 		}
 		public void addVotante(Votante v) {
+			Encriptador encrip = new Encriptador();
 			try {
 				conn = DB.getConnection();
 				stt = conn.prepareStatement("INSERT INTO votante" + "(id, nome, cpf, ocupação)" + "VALUES" +"(?, ?, ?, ?)");
 				
 				stt.setInt(1, v.getId());
-				stt.setString(2, v.getNome());
+				stt.setString(2, encrip.encriptadorDeValores(v.getNome(), "C" ));
 				stt.setString(3, v.getcpf());
 				stt.setString(4, v.getOcupacao());
 				

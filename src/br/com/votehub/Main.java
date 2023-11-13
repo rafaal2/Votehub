@@ -1,19 +1,40 @@
 package br.com.votehub;
 
-import br.com.votehub.model.vo.*;
-import br.com.votehub.model.DAOs.*;
 import java.util.Scanner;
+
+import br.com.votehub.model.DAOs.votanteDAO;
+import br.com.votehub.model.criptografia.CriptografiaVotante;
+import br.com.votehub.model.criptografia.Encriptador;
+import br.com.votehub.model.vo.Votante;
 
 public class Main {
 
 	public static void main(String[] args) {
+		System.out.println(CriptografiaVotante.obterChaveSecreta());
 
 		Main programa = new Main();
-		programa.addCandidato();
-
+		programa.addVotante();
 	}
 	
-	private void addCandidato() {
+	private void addVotante() {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Digite o id do votante: ");
+		int id = sc.nextInt();
+		System.out.print("Digite o nome do votante: ");
+		String nome = sc.next();
+		System.out.print("Digite o cpf do votante: ");
+		String cpf = sc.next();
+		System.out.print("Digite a ocupação do votante: ");
+		String ocupacao = sc.next();
+
+		Votante v = new Votante(id, nome, cpf, ocupacao);
+
+		votanteDAO vdao = new votanteDAO();
+		vdao.addVotante(v);
+		sc.close();
+	}
+	
+	/*private void addCandidato() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Nome do candidato:");
 		String nome = sc.next();
@@ -28,7 +49,7 @@ public class Main {
 		sc.close();
 	}
 
-	/* private void addVoto() {
+	 private void addVoto() {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Digite o id do voto: ");
 		int id = sc.nextInt();
@@ -42,22 +63,8 @@ public class Main {
 		VotoDAO vtdao = new VotoDAO();
 		vtdao.addvoto(vt);
 		sc.close();
-	}
+	}*/
 
-	private void addVotante() {
-		Scanner sc = new Scanner(System.in);
-		System.out.print("Digite o nome do votante: ");
-		String nome = sc.nextLine();
-		System.out.print("Digite o cpf do votante: ");
-		String cpf = sc.nextLine();
-		System.out.print("Digite a ocupação do votante: ");
-		String ocupacao = sc.nextLine();
 
-		Votante v = new Votante(cpf, nome, ocupacao);
-
-		votanteDAO vdao = new votanteDAO();
-		vdao.addVotante(v);
-		sc.close();
-	}
-	*/
+	
 }
