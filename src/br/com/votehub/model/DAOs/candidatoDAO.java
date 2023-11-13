@@ -81,7 +81,7 @@ public class candidatoDAO {
 			stt2.setInt(1, 5);
 
 			stt2.executeUpdate();
-			System.out.println("Votante deletado");
+			System.out.println("candidato deletado");
 		} catch (SQLException e) {
 			throw new DbIntegrityException(e.getMessage());
 		} finally {

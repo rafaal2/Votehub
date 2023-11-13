@@ -25,22 +25,21 @@ public class Main {
 		System.out.println("operação 2: adicionar candidato");
 		System.out.println("operação 3: adicionar voto");
 		int op = sc.nextInt();
-				if(op == 1) {
-					addVotante();
-				}
-				if(op == 2) {
-					addCandidato();
-				}
-				if(op == 3) {
-					addVoto();
-				}else {
-					System.out.println("digite uma operação valida");
-				}
-		
+		if (op == 1) {
+			addVotante();
+		}
+		if (op == 2) {
+			addCandidato();
+		}
+		if (op == 3) {
+			addVoto();
+		} else {
+			System.out.println("digite uma operação valida");
+		}
+		sc.close();
+
 	}
 
-	
-	
 	private void addVotante() {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Digite o id do votante: ");

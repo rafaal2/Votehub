@@ -45,7 +45,7 @@ public class votanteDAO {
 				
 				stt.setInt(1, v.getId());
 				stt.setString(2, encrip.encriptadorDeValores(v.getNome(), "C" ));
-				stt.setString(3, v.getcpf());
+				stt.setString(3, encrip.encriptadorDeValores(v.getcpf(), "C"));
 				stt.setString(4, v.getOcupacao());
 				
 				stt.executeUpdate();
