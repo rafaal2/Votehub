@@ -24,6 +24,7 @@ public class Main {
 		System.out.println("operação 1: adicionar votante");
 		System.out.println("operação 2: adicionar candidato");
 		System.out.println("operação 3: adicionar voto");
+		System.out.println("operação 4: mostrar votantes");
 		int op = sc.nextInt();
 		if (op == 1) {
 			addVotante();
@@ -33,6 +34,8 @@ public class Main {
 		}
 		if (op == 3) {
 			addVoto();
+		}if (op == 4) {
+			mostrarVotantes();
 		} else {
 			System.out.println("digite uma operação valida");
 		}
@@ -89,6 +92,12 @@ public class Main {
 		VotoDAO vtdao = new VotoDAO();
 		vtdao.addVoto(vt);
 		sc.close();
+	}
+
+	private void mostrarVotantes() {
+		votanteDAO cd = new votanteDAO();
+		cd.mostrarVotantes();
+	
 	}
 
 }
