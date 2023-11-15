@@ -38,7 +38,7 @@ public class candidatoDAO {
 	public void addCandidato(Candidato c) {
 		try {
 			conn = DB.getConnection();
-			stt = conn.prepareStatement("INSERT INTO candidato" + "(id, nome, cargo)" + "VALUES" + "(?, ?, ?)");
+			stt = conn.prepareStatement("INSERT INTO candidato" + "(id, nome, id_cargo)" + "VALUES" + "(?, ?, ?)");
 
 			stt.setInt(1, c.getId());
 			stt.setString(2, c.getNome());
