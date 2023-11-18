@@ -63,16 +63,19 @@ public class votanteDAO {
 			}
 	
 		}
-		public void updateVotante() {
+		public void updateVotante(String novaMatricula, String novoNome, String novaSenha, String novaOcupacao) {
+			Encriptador encrip = new Encriptador();
 			try {
 				conn = DB.getConnection();
 				stt1 = conn.prepareStatement("Update votante " 
-											+ "SET cpf = ?" 
+											+ "SET matricula = ?, nome = ?, senha = ?, ocupação = ?" 
 											+ "WHERE" 
-											+"(id = ?)");
+											+"id_votante = ?");
 				
-				stt1.setString(1, "15111111");
-				stt1.setInt(2, 2);
+				stt1.setString(1, encrip.encriptadorDeValores(novaMatricula, "C"));
+		        stt1.setString(2, encrip.encriptadorDeValores(novoNome, "C"));
+		        stt1.setString(3, encrip.encriptadorDeValores(novaSenha, "C"));
+		        stt1.setString(4, encrip.encriptadorDeValores(novaOcupacao, "C"));
 				
 				stt1.executeUpdate();
 				System.out.println("informações atualizadas!");
@@ -85,14 +88,14 @@ public class votanteDAO {
 				DB.closeConnection();
 			}
 		}
-		public void deleteVotante() {
+		public void deleteVotante(int idVotante) {
 			try {
 				conn = DB.getConnection();
 				stt2 = conn.prepareStatement("DELETE FROM votante " 
 											+"WHERE " 
-											+"id = ?");
+											+"id_votante = ?");
 				
-				stt2.setInt(1, 9);
+				stt2.setInt(1, idVotante);
 				
 				stt2.executeUpdate();
 				System.out.println("votante deletado");
