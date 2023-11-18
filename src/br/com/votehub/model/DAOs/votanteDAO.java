@@ -52,7 +52,7 @@ public class votanteDAO {
 				stt.setString(5, encrip.encriptadorDeValores(v.getOcupação(), "C" ));
 				
 				stt.executeUpdate();
-				System.out.println("novo votante cadastrado");
+				System.out.println("Novo votante cadastrado");
 			}
 			catch(SQLException e) {
 				e.printStackTrace();
@@ -78,7 +78,7 @@ public class votanteDAO {
 		        stt1.setString(4, encrip.encriptadorDeValores(novaOcupacao, "C"));
 				
 				stt1.executeUpdate();
-				System.out.println("informações atualizadas!");
+				System.out.println("Informações atualizadas!");
 			}
 			catch(SQLException e) {
 				e.printStackTrace();
@@ -98,7 +98,7 @@ public class votanteDAO {
 				stt2.setInt(1, idVotante);
 				
 				stt2.executeUpdate();
-				System.out.println("votante deletado");
+				System.out.println("Votante deletado");
 			}
 			catch(SQLException e) {
 				throw new DbIntegrityException(e.getMessage());
