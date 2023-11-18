@@ -13,6 +13,7 @@ public class Votação {
 	private int id_votação;
 	private Date data_inicio;
 	private Date data_fim;
+	private boolean status;
 
 	public Votação(int id_votação, Date data_inicio, Date data_fim) {
 		this.id_votação = id_votação;
