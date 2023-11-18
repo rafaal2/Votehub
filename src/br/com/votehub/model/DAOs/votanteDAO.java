@@ -44,10 +44,10 @@ public class votanteDAO {
 				stt = conn.prepareStatement("INSERT INTO votante" + "(id_votante, matricula, nome, senha, ocupação)" + "VALUES" +"(?, ?, ?, ?, ?)");
 				
 				stt.setInt(1, v.getId_votante());
-				stt.setString(2, v.getMatricula());
+				stt.setString(2, encrip.encriptadorDeValores(v.getMatricula(), "C" ));
 				stt.setString(3, encrip.encriptadorDeValores(v.getNome(), "C" ));
-				stt.setString(4, v.getSenha());
-				stt.setString(5, v.getOcupação());
+				stt.setString(4, encrip.encriptadorDeValores(v.getSenha(), "C" ));
+				stt.setString(5, encrip.encriptadorDeValores(v.getOcupação(), "C" ));
 				
 				stt.executeUpdate();
 				System.out.println("novo votante cadastrado");

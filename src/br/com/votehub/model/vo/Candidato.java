@@ -1,15 +1,24 @@
 package br.com.votehub.model.vo;
 
 public class Candidato {
-	
+
+	private String numero_candidato;
 	private String nome;
-	private int id;
 	private String cargo;
-	
-	public Candidato(String nome, int id, String cargo) {
+
+	public Candidato(String numero_candidato, String nome, String cargo) {
+		super();
+		this.numero_candidato = numero_candidato;
 		this.nome = nome;
-		this.id = id;
 		this.cargo = cargo;
+	}
+
+	public String getNumero_candidato() {
+		return numero_candidato;
+	}
+
+	public void setNumero_candidato(String numero_candidatp) {
+		this.numero_candidato = numero_candidatp;
 	}
 
 	public String getNome() {
@@ -20,14 +29,6 @@ public class Candidato {
 		this.nome = nome;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int idCandidato) {
-		this.id = idCandidato;
-	}
-
 	public String getCargo() {
 		return cargo;
 	}
@@ -36,12 +37,8 @@ public class Candidato {
 		this.cargo = cargo;
 	}
 
-
 	public String toString() {
-		return "Candidato: " + this.nome + " | id: " + id + " | " + cargo;
+		return "Candidato [numero_candidato=" + numero_candidato + ", nome=" + nome + ", cargo=" + cargo + "]";
 	}
-	
-	
-	
-	
+
 }
