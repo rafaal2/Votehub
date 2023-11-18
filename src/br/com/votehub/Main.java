@@ -47,9 +47,9 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Digite o id do votante: ");
 		int id_votante = sc.nextInt();
-		System.out.print("Digite o nome do votante: ");
+		System.out.print("Digite a matricula do votante: ");
 		String matricula = sc.next();
-		System.out.print("Digite o cpf do votante: ");
+		System.out.print("Digite o nome do votante: ");
 		String nome = sc.next();
 		System.out.print("Digite a senha do votante: ");
 		String senha = sc.next();

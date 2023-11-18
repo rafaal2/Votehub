@@ -19,13 +19,15 @@ public class votanteDAO {
 		PreparedStatement stt2 = null;
 		
 		public void mostrarVotantes() {
+			Encriptador encrip = new Encriptador();
 		try {
 			conn = DB.getConnection();
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT * \r\n"
 					+ "FROM votante \r\n");
 			while(rs.next()) {
-				System.out.println("Votante: " + rs.getString("nome") + " / " + rs.getString("ocupação"));
+				String encryptedNome = encrip.encriptadorDeValores(rs.getString("nome"), "d");
+				System.out.println("Votante: " + encryptedNome + " / " + rs.getString("ocupação"));
 			}}
 			catch(SQLException e) {
 				e.printStackTrace();
