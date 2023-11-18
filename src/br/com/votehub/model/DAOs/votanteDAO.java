@@ -41,12 +41,13 @@ public class votanteDAO {
 			Encriptador encrip = new Encriptador();
 			try {
 				conn = DB.getConnection();
-				stt = conn.prepareStatement("INSERT INTO votante" + "(id, nome, cpf, ocupação)" + "VALUES" +"(?, ?, ?, ?)");
+				stt = conn.prepareStatement("INSERT INTO votante" + "(id_votante, matricula, nome, senha, ocupação)" + "VALUES" +"(?, ?, ?, ?, ?)");
 				
-				stt.setInt(1, v.getId());
-				stt.setString(2, encrip.encriptadorDeValores(v.getNome(), "C" ));
-				stt.setString(3, v.getcpf());
-				stt.setString(4, v.getOcupacao());
+				stt.setInt(1, v.getId_votante());
+				stt.setString(2, v.getMatricula());
+				stt.setString(3, encrip.encriptadorDeValores(v.getNome(), "C" ));
+				stt.setString(4, v.getSenha());
+				stt.setString(5, v.getOcupação());
 				
 				stt.executeUpdate();
 				System.out.println("novo votante cadastrado");

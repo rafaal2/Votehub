@@ -2,24 +2,34 @@ package br.com.votehub.model.vo;
 
 public class Votante {
 
+	private int id_votante;
+	private String matricula;
 	private String nome;
-	private int id;
-	private String cpf;
-	private String ocupacao;
+	private String senha;
+	private String ocupação;
 
-	public Votante(int id, String nome, String cpf, String ocupacao) {
-		this.id = id;
+	public Votante(int id_votante, String matricula, String nome, String senha, String ocupação) {
+		this.id_votante = id_votante;
+		this.matricula = matricula;
 		this.nome = nome;
-		this.cpf = cpf;
-		this.ocupacao = ocupacao;
+		this.senha = senha;
+		this.ocupação = ocupação;
 	}
 
-	public int getId() {
-		return id;
+	public int getId_votante() {
+		return id_votante;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId_votante(int id) {
+		this.id_votante = id;
+	}
+
+	public String getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
 	}
 
 	public String getNome() {
@@ -30,25 +40,23 @@ public class Votante {
 		this.nome = nome;
 	}
 
-
-	public String getcpf() {
-		return cpf;
+	public String getSenha() {
+		return senha;
 	}
 
-
-	public void setcpf(String cpf) {
-		this.cpf = cpf;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
-	public String getOcupacao() {
-		return ocupacao;
+	public String getOcupação() {
+		return ocupação;
 	}
 
-	public void setOcupacao(String ocupacao) {
-		this.ocupacao = ocupacao;
+	public void setOcupação(String ocupação) {
+		this.ocupação = ocupação;
 	}
 
 	public String toString() {
-		return "[" + this.id  + ", " + this.nome + ", " + this.cpf + ", " + this.ocupacao + "]";
+		return "[" + this.id_votante + ", " + this.matricula + ", " + this.nome + ", " + this.senha + ", " + this.ocupação + "]";
 	}
 }

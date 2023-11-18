@@ -46,15 +46,17 @@ public class Main {
 	private void addVotante() {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Digite o id do votante: ");
-		int id = sc.nextInt();
+		int id_votante = sc.nextInt();
 		System.out.print("Digite o nome do votante: ");
-		String nome = sc.next();
+		String matricula = sc.next();
 		System.out.print("Digite o cpf do votante: ");
-		String cpf = sc.next();
+		String nome = sc.next();
+		System.out.print("Digite a senha do votante: ");
+		String senha = sc.next();
 		System.out.print("Digite a ocupação do votante: ");
-		String ocupacao = sc.next();
+		String ocupação = sc.next();
 
-		Votante v = new Votante(id, nome, cpf, ocupacao);
+		Votante v = new Votante(id_votante, matricula, nome, senha, ocupação);
 
 		votanteDAO vdao = new votanteDAO();
 		vdao.addVotante(v);
