@@ -55,13 +55,14 @@ public class candidatoDAO {
 
 	}
 
-	public void updateCandidato() {
+	public void updateCandidato(String idCandidato, String nome, String cargo) {
 		try {
 			conn = DB.getConnection();
-			stt1 = conn.prepareStatement("Update candidato " + "SET nome = ?" + "WHERE" + "(id = ?)");
+			stt1 = conn.prepareStatement("Update candidato " + "SET nome = ?, cargo = ?" + "WHERE" + "numero_candidato = ?");
 
-			stt1.setString(1, "Teste");
-			stt1.setInt(2, 2);
+			stt1.setString(1, nome);
+			stt1.setString(2, cargo);
+			stt1.setString(3, idCandidato);
 
 			stt1.executeUpdate();
 			System.out.println("Informações atualizadas!");
@@ -73,15 +74,15 @@ public class candidatoDAO {
 		}
 	}
 
-	public void deleteCandidato() {
+	public void deleteCandidato(String idCandidato) {
 		try {
 			conn = DB.getConnection();
 			stt2 = conn.prepareStatement("DELETE FROM candidato " + "WHERE " + "id = ?");
 
-			stt2.setInt(1, 5);
+			stt2.setString(1, idCandidato);
 
 			stt2.executeUpdate();
-			System.out.println("candidato deletado");
+			System.out.println("Candidato deletado");
 		} catch (SQLException e) {
 			throw new DbIntegrityException(e.getMessage());
 		} finally {
