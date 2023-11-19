@@ -42,7 +42,7 @@ public class VotoDAO {
 			conn = DB.getConnection();
 			stt2 = conn.prepareStatement("DELETE FROM voto " 
 										+"WHERE " 
-										+"id = ?");
+										+"id_voto = ?");
 			
 			stt2.setInt(1, id);
 			
@@ -58,14 +58,14 @@ public class VotoDAO {
 		}
 	}
 	
-	public void mostarVotos() {
+	public void apurarVotos() {
 		try {
 			conn = DB.getConnection();
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT * \r\n"
 					+ "FROM voto \r\n");
 			while(rs.next()) {
-				System.out.println("Voto: " + rs.getInt("id") + " | Candidato " + rs.getInt("id_candidato"));
+				System.out.println("Voto: " + rs.getInt("id_voto") + " | Candidato " + rs.getInt("numero_candidato"));
 			}}
 			catch(SQLException e) {
 				e.printStackTrace();
