@@ -56,7 +56,7 @@ public class votacaoDAO {
 	        stt1.setInt(3, idVotacao);
 
 			stt1.executeUpdate();
-			System.out.println("Informações atualizadas!");
+			System.out.println("Informações da votação " +idVotacao+ "atualizadas!");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -73,7 +73,7 @@ public class votacaoDAO {
 			stt2.setString(1, idVotacao);
 
 			stt2.executeUpdate();
-			System.out.println("Votação deletada");
+			System.out.println("Votação " +idVotacao+ "deletada");
 		} catch (SQLException e) {
 			throw new DbIntegrityException(e.getMessage());
 		} finally {

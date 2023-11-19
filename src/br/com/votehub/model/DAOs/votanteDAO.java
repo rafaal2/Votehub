@@ -63,7 +63,7 @@ public class votanteDAO {
 			}
 	
 		}
-		public void updateVotante(String novaMatricula, String novoNome, String novaSenha, String novaOcupacao) {
+		public void updateVotante(int idVotante, String novaMatricula, String novoNome, String novaSenha, String novaOcupacao) {
 			Encriptador encrip = new Encriptador();
 			try {
 				conn = DB.getConnection();
@@ -76,9 +76,10 @@ public class votanteDAO {
 		        stt1.setString(2, encrip.encriptadorDeValores(novoNome, "C"));
 		        stt1.setString(3, encrip.encriptadorDeValores(novaSenha, "C"));
 		        stt1.setString(4, encrip.encriptadorDeValores(novaOcupacao, "C"));
+		        stt1.setInt(5, idVotante);
 				
 				stt1.executeUpdate();
-				System.out.println("Informações atualizadas!");
+				System.out.println("Informações do votante " +idVotante+ "atualizadas!");
 			}
 			catch(SQLException e) {
 				e.printStackTrace();
@@ -98,7 +99,7 @@ public class votanteDAO {
 				stt2.setInt(1, idVotante);
 				
 				stt2.executeUpdate();
-				System.out.println("Votante deletado");
+				System.out.println("Votante " + idVotante + "deletado");
 			}
 			catch(SQLException e) {
 				throw new DbIntegrityException(e.getMessage());

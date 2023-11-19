@@ -47,7 +47,7 @@ public class VotoDAO {
 			stt2.setInt(1, id);
 			
 			stt2.executeUpdate();
-			System.out.println("voto deletado!");
+			System.out.println("Voto " + id + "deletado!");
 		}
 		catch(SQLException e) {
 			throw new DbIntegrityException(e.getMessage());

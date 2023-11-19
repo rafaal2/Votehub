@@ -44,6 +44,7 @@ public class Votação {
 	public void setData_fim(Date data_fim) {
 		this.data_fim = data_fim;
 	}
+	
 
 	
 	

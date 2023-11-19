@@ -65,7 +65,7 @@ public class candidatoDAO {
 			stt1.setString(3, idCandidato);
 
 			stt1.executeUpdate();
-			System.out.println("Informações atualizadas!");
+			System.out.println("Informações do candidato " + idCandidato + "atualizadas!");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -82,7 +82,7 @@ public class candidatoDAO {
 			stt2.setString(1, idCandidato);
 
 			stt2.executeUpdate();
-			System.out.println("Candidato deletado");
+			System.out.println("Candidato" +idCandidato+ "deletado");
 		} catch (SQLException e) {
 			throw new DbIntegrityException(e.getMessage());
 		} finally {
