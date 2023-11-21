@@ -55,17 +55,17 @@ public class candidatoDAO {
 
 	}
 
-	public void updateCandidato(String idCandidato, String nome, String cargo) {
+	public void updateCandidato(String numeroCandidato, String nome, String cargo) {
 		try {
 			conn = DB.getConnection();
 			stt1 = conn.prepareStatement("Update candidato " + "SET nome = ?, cargo = ?" + "WHERE" + "numero_candidato = ?");
 
 			stt1.setString(1, nome);
 			stt1.setString(2, cargo);
-			stt1.setString(3, idCandidato);
+			stt1.setString(3, numeroCandidato);
 
 			stt1.executeUpdate();
-			System.out.println("Informações do candidato " + idCandidato + "atualizadas!");
+			System.out.println("Informações do candidato " + numeroCandidato + "atualizadas!");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -74,15 +74,15 @@ public class candidatoDAO {
 		}
 	}
 
-	public void deleteCandidato(String idCandidato) {
+	public void deleteCandidato(String numeroCandidato) {
 		try {
 			conn = DB.getConnection();
-			stt2 = conn.prepareStatement("DELETE FROM candidato " + "WHERE " + "id = ?");
+			stt2 = conn.prepareStatement("DELETE FROM candidato " + "WHERE " + "nomero_candidato = ?");
 
-			stt2.setString(1, idCandidato);
+			stt2.setString(1, numeroCandidato);
 
 			stt2.executeUpdate();
-			System.out.println("Candidato" +idCandidato+ "deletado");
+			System.out.println("Candidato" +numeroCandidato+ "deletado");
 		} catch (SQLException e) {
 			throw new DbIntegrityException(e.getMessage());
 		} finally {
@@ -90,5 +90,30 @@ public class candidatoDAO {
 			DB.closeConnection();
 		}
 	}
+	
+	public Candidato searchCandidatoById(String numeroCandidato) {
+		try {
+			conn = DB.getConnection();
+			stt = conn.prepareStatement("SELECT * FROM candidato " + "WHERE " + "numero_candidato = ?");
+
+			stt.setString(1, numeroCandidato);
+			
+			rs = stt.executeQuery();
+			if(rs.next()) {
+				
+			Candidato c = new Candidato(rs.getString("numero_candidato"), rs.getString("nome"), rs.getString("cargo"));
+			
+			return c;
+			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closestatement(stt);
+			DB.closeConnection();
+		}
+		return null;
+
+	}	
 
 }
