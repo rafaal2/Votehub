@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.jasypt.util.password.StrongPasswordEncryptor;
+
 import br.com.votehub.model.criptografia.Encriptador;
 import br.com.votehub.model.vo.Votante;
 
@@ -39,8 +41,30 @@ public class votanteDAO {
 			}
 			
 		}
+		public void mostrarsenha() {
+			Encriptador encrip = new Encriptador();
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * \r\n"
+					+ "FROM votante \r\n");
+			while(rs.next()) {
+				String encryptedNome = encrip.encriptadorDeValores(rs.getString("senha"), "d");
+				System.out.println("Votante: " + encryptedNome + " / " + rs.getString("ocupação"));
+			}}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			finally {
+				DB.closeResultSet(rs);
+				DB.closestatement(st);
+				DB.closeConnection();
+			}
+			
+		}
 		public void addVotante(Votante v) {
 			Encriptador encrip = new Encriptador();
+			StrongPasswordEncryptor senhacrip = new StrongPasswordEncryptor();
 			try {
 				conn = DB.getConnection();
 				stt = conn.prepareStatement("INSERT INTO votante" + "(id_votante, matricula, nome, senha, ocupação)" + "VALUES" +"(?, ?, ?, ?, ?)");
@@ -89,17 +113,17 @@ public class votanteDAO {
 				DB.closeConnection();
 			}
 		}
-		public void deleteVotante(int idVotante) {
+		public void deleteVotante(int id_Votante) {
 			try {
 				conn = DB.getConnection();
 				stt2 = conn.prepareStatement("DELETE FROM votante " 
 											+"WHERE " 
 											+"id_votante = ?");
 				
-				stt2.setInt(1, idVotante);
+				stt2.setInt(1, id_Votante);
 				
 				stt2.executeUpdate();
-				System.out.println("Votante " + idVotante + "deletado");
+				System.out.println("Votante " + id_Votante + "deletado");
 			}
 			catch(SQLException e) {
 				throw new DbIntegrityException(e.getMessage());

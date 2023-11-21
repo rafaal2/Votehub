@@ -1,21 +1,61 @@
 package br.com.votehub;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 
+
+
+import br.com.votehub.model.DAOs.DB;
 import br.com.votehub.model.DAOs.VotoDAO;
 import br.com.votehub.model.DAOs.candidatoDAO;
 import br.com.votehub.model.DAOs.votanteDAO;
-import br.com.votehub.model.criptografia.CriptografiaVotante;
+import br.com.votehub.model.criptografia.Encriptador;
 import br.com.votehub.model.vo.Candidato;
 import br.com.votehub.model.vo.Votante;
 import br.com.votehub.model.vo.Voto;
 
 public class Main {
+	//ajeitar dps colocar em algum Dao
+    static Encriptador encrip = new Encriptador();
+	public static boolean verificarsenha(String senhadigit) throws SQLException {
+		Connection conn = null;
+		ResultSet rs = null;
+		Statement st = null;
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT senha \r\n" + "FROM votante \r\n");
+			while (rs.next()) {
+				String senhabd = encrip.encriptadorDeValores(rs.getString("senha"), "d");
+				boolean check = senhadigit.equals(senhabd);
+				if (check == true) {
+					return check;
+				}else {
+					System.out.println("senha incorreta");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closeResultSet(rs);
+			DB.closestatement(st);
+			DB.closeConnection();
+		}
+		return false;
+	}
 
-	public static void main(String[] args) {
-
-		Main programa = new Main();
-		programa.operação();
+	public static void main(String[] args) throws SQLException {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("digite sua senha");
+		String senhadigit = sc.next();
+		boolean check = verificarsenha(senhadigit);
+		if (check) {
+			Main programa = new Main();
+			programa.operação();
+		}
 	}
 
 	public void operação() {
@@ -34,7 +74,8 @@ public class Main {
 		}
 		if (op == 3) {
 			addVoto();
-		}if (op == 4) {
+		}
+		if (op == 4) {
 			mostrarVotantes();
 		} else {
 			System.out.println("digite uma operação valida");
@@ -99,7 +140,7 @@ public class Main {
 	private void mostrarVotantes() {
 		votanteDAO cd = new votanteDAO();
 		cd.mostrarVotantes();
-	
+
 	}
 
 }
