@@ -33,7 +33,7 @@ CREATE TABLE votante (
   matricula char(200) DEFAULT NULL,
   nome varchar(200) DEFAULT NULL,
   senha varchar(100) DEFAULT NULL,
-  ocupação char(1) DEFAULT NULL,
+  ocupação char(100) DEFAULT NULL,
   PRIMARY KEY (id_votante)
 );
 
