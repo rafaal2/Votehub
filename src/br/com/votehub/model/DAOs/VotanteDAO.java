@@ -128,4 +128,29 @@ public class VotanteDAO {
 		}
 	}
 
+public Votante searchVotanteById(int id_votante) {
+	try {
+		conn = DB.getConnection();
+		stt = conn.prepareStatement("SELECT * FROM candidato " + "WHERE " + "numero_candidato = ?");
+
+		stt.setInt(1, id_votante);
+		
+		rs = stt.executeQuery();
+		if(rs.next()) {
+			
+		Votante vt = new Votante(rs.getInt("id_votante"), rs.getString("matricula"), rs.getString("nome"), rs.getString("senha"), rs.getString("ocupação"));
+		
+		return vt;
+		
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		DB.closestatement(stt);
+		DB.closeConnection();
+	}
+	return null;
+
+	}
+
 }
