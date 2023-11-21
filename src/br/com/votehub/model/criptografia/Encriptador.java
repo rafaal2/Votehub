@@ -28,7 +28,7 @@ public class Encriptador {
 		}
 	}
 	static Encriptador encrip = new Encriptador();
-	public static boolean verificarsenha(String senhadigit) throws SQLException {
+	public static boolean verificarsenhavot(String senhadigit) throws SQLException {
 		Connection conn = null;
 		ResultSet rs = null;
 		Statement st = null;
@@ -51,6 +51,85 @@ public class Encriptador {
 			DB.closeResultSet(rs);
 			DB.closestatement(st);
 			DB.closeConnection();
+		}
+		return false;
+	}
+	public static boolean verificarloginvot(String logindigit) throws SQLException {
+		Connection conn = null;
+		ResultSet rs = null;
+		Statement st = null;
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT matricula \r\n" + "FROM votante \r\n");
+			while (rs.next()){
+				String matriculabd = encrip.encriptadorDeValores(rs.getString("matricula"), "d");
+				boolean check = logindigit.equals(matriculabd);
+				if (check == true) {
+					return check;
+				}else {
+					System.out.println("senha incorreta");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closeResultSet(rs);
+			DB.closestatement(st);
+			
+		}
+		return false;
+	}
+	
+	public static boolean verificarsenhaadm(String senhadigit) throws SQLException {
+		Connection conn = null;
+		ResultSet rs = null;
+		Statement st = null;
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT senha \r\n" + "FROM adm \r\n");
+			while (rs.next()){
+				String senhabd = encrip.encriptadorDeValores(rs.getString("senha"), "d");
+				boolean check = senhadigit.equals(senhabd);
+				if (check == true) {
+					return check;
+				}else {
+					System.out.println("senha incorreta");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closeResultSet(rs);
+			DB.closestatement(st);
+			
+		}
+		return false;
+	}
+	public static boolean verificarloginadm(String logindigit) throws SQLException {
+		Connection conn = null;
+		ResultSet rs = null;
+		Statement st = null;
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT login \r\n" + "FROM adm \r\n");
+			while (rs.next()){
+				String matriculabd = encrip.encriptadorDeValores(rs.getString("login"), "d");
+				boolean check = logindigit.equals(matriculabd);
+				if (check == true) {
+					return check;
+				}else {
+					System.out.println("login incorreta");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closeResultSet(rs);
+			DB.closestatement(st);
+			
 		}
 		return false;
 	}
