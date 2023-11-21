@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 
 import br.com.votehub.model.vo.Votação;
 
-public class votacaoDAO {
+public class VotacaoDAO {
 	
 	Connection conn = null;
 	Statement st = null;

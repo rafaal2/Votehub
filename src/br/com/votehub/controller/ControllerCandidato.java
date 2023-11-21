@@ -4,7 +4,7 @@ import br.com.votehub.model.DAOs.CandidatoDAO;
 import br.com.votehub.model.DAOs.DB;
 import br.com.votehub.model.vo.Candidato;
 
-public class CandidatoController {
+public class ControllerCandidato {
 	
 	private CandidatoDAO candidatoRepository = new CandidatoDAO();
 	

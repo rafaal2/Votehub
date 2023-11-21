@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import br.com.votehub.model.DAOs.VotoDAO;
 import br.com.votehub.model.DAOs.CandidatoDAO;
-import br.com.votehub.model.DAOs.votanteDAO;
+import br.com.votehub.model.DAOs.VotanteDAO;
 import br.com.votehub.model.criptografia.Encriptador;
 import br.com.votehub.model.vo.Candidato;
 import br.com.votehub.model.vo.Votante;
@@ -16,14 +16,15 @@ import javax.swing.SwingUtilities;
 public class Main {
 
 	public static void main(String[] args) throws SQLException {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("digite sua senha");
-		String senhadigit = sc.next();
-		boolean check = Encriptador.verificarsenha(senhadigit);
-		if (check) {
-			Main programa = new Main();
-			programa.operação();
-		}
+		SwingUtilities.invokeLater(ConfirmacaoVoto::new);
+//		Scanner sc = new Scanner(System.in);
+//		System.out.println("digite sua senha");
+//		String senhadigit = sc.next();
+//		boolean check = Encriptador.verificarsenha(senhadigit);
+//		if (check) {
+//			Main programa = new Main();
+//			programa.operação();
+//		}
 	}
 //   ____TELAS____
 //	 SwingUtilities.invokeLater(TelaVotacao::new);
@@ -68,7 +69,7 @@ public class Main {
 
 		Votante v = new Votante(id_votante, matricula, nome, senha, ocupação);
 
-		votanteDAO vdao = new votanteDAO();
+		VotanteDAO vdao = new VotanteDAO();
 		vdao.addVotante(v);
 		sc.close();
 	}
@@ -107,7 +108,7 @@ public class Main {
 	}
 
 	private void mostrarVotantes() {
-		votanteDAO cd = new votanteDAO();
+		VotanteDAO cd = new VotanteDAO();
 		cd.mostrarVotantes();
 
 	}
