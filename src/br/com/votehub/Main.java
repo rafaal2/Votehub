@@ -10,6 +10,8 @@ import br.com.votehub.model.criptografia.Encriptador;
 import br.com.votehub.model.vo.Candidato;
 import br.com.votehub.model.vo.Votante;
 import br.com.votehub.model.vo.Voto;
+import br.com.votehub.view.*;
+import javax.swing.SwingUtilities;
 
 public class Main {
 
@@ -23,7 +25,11 @@ public class Main {
 			programa.operação();
 		}
 	}
-
+//   ____TELAS____
+//	 SwingUtilities.invokeLater(TelaVotacao::new);
+//	 SwingUtilities.invokeLater(ConfirmacaoVoto::new);   
+//	 SwingUtilities.invokeLater(LoginUsuario::new);
+	
 	public void operação() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("operação 1: adicionar votante");
@@ -34,14 +40,11 @@ public class Main {
 		int op = sc.nextInt();
 		if (op == 1) {
 			addVotante();
-		}
-		if (op == 2) {
+		} else if (op == 2) {
 			addCandidato();
-		}
-		if (op == 3) {
+		} else if (op == 3) {
 			addVoto();
-		}
-		if (op == 4) {
+		} else if (op == 4) {
 			mostrarVotantes();
 		} else {
 			System.out.println("digite uma operação valida");

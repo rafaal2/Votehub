@@ -9,6 +9,7 @@ import java.sql.Statement;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import br.com.votehub.model.criptografia.Encriptador;
+import br.com.votehub.model.criptografia.Hash;
 import br.com.votehub.model.vo.Votante;
 
 
@@ -72,7 +73,7 @@ public class votanteDAO {
 				stt.setInt(1, v.getId_votante());
 				stt.setString(2, encrip.encriptadorDeValores(v.getMatricula(), "C" ));
 				stt.setString(3, encrip.encriptadorDeValores(v.getNome(), "C" ));
-				stt.setString(4, encrip.encriptadorDeValores(v.getSenha(), "C" ));
+				stt.setString(4, encrip.encriptadorDeValores(v.getSenha(), "C" )); //stt.setString(4, Hash.gerarHash(v.getSenha()));
 				stt.setString(5, encrip.encriptadorDeValores(v.getOcupação(), "C" ));
 				
 				stt.executeUpdate();
@@ -98,7 +99,7 @@ public class votanteDAO {
 				
 				stt1.setString(1, encrip.encriptadorDeValores(novaMatricula, "C"));
 		        stt1.setString(2, encrip.encriptadorDeValores(novoNome, "C"));
-		        stt1.setString(3, encrip.encriptadorDeValores(novaSenha, "C"));
+		        stt1.setString(3, encrip.encriptadorDeValores(novaSenha, "C"));  //stt1.setString(4, Hash.gerarHash(novaSenha));
 		        stt1.setString(4, encrip.encriptadorDeValores(novaOcupacao, "C"));
 		        stt1.setInt(5, idVotante);
 				

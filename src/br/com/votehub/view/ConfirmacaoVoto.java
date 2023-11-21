@@ -1,41 +1,30 @@
 package br.com.votehub.view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-import java.awt.GridBagLayout;
 import java.time.LocalDate;
 
 import javax.swing.JLabel;
-import java.awt.GridBagConstraints;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
-import java.awt.Insets;
+import net.miginfocom.swing.MigLayout;
 
 public class ConfirmacaoVoto {
 
 	private JFrame frame;
-
-	/**
-	 * Launch the application.
-	 */
 	String ano = Integer.toString(LocalDate.now().getYear());
-	public static void confirmacaoVoto() {
-        EventQueue.invokeLater(() -> {
-            try {
-                ConfirmacaoVoto window = new ConfirmacaoVoto();
-                window.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                window.frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-	/**
-	 * Create the application.
-	 */
+	
+	// CHAMANDO A TELA -> SwingUtilities.invokeLater(ConfirmacaoVoto::new);
+	
 	public ConfirmacaoVoto() {
-		initialize();
+		try {
+			initialize();
+			frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+	        frame.setVisible(true);
+		}catch(Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro ao inicializar de Confirmação: " + e.getMessage());
+		}
 	}
 
 	/**
@@ -43,30 +32,17 @@ public class ConfirmacaoVoto {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("Confirmar Voto");
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		frame.getContentPane().setLayout(gridBagLayout);
+		frame.getContentPane().setLayout(new MigLayout("fill", "[grow][][grow][][grow]", "[][][][][][][][]"));
 		
 		JLabel lblNewLabel = new JLabel("Eleição " + ano);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 5;
-		gbc_lblNewLabel.gridy = 2;
-		frame.getContentPane().add(lblNewLabel, gbc_lblNewLabel);
+		frame.getContentPane().add(lblNewLabel, "cell 2 1,alignx center,aligny center");
 		
 		JLabel lblNewLabel_1 = new JLabel("New label");
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.gridheight = 2;
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 5;
-		gbc_lblNewLabel_1.gridy = 4;
-		frame.getContentPane().add(lblNewLabel_1, gbc_lblNewLabel_1);
+		frame.getContentPane().add(lblNewLabel_1, "cell 2 2,alignx center,aligny center");
 	}
 
 }

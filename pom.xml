@@ -38,7 +38,12 @@
 	    <artifactId>jasypt</artifactId>
 	    <version>1.9.3</version>
 	</dependency>
-	<!-- https://mvnrepository.com/artifact/org.mindrot.bcrypt/bcrypt -->
+	<!-- https://mvnrepository.com/artifact/com.miglayout/miglayout-swing -->
+	<dependency>
+	    <groupId>com.miglayout</groupId>
+	    <artifactId>miglayout-swing</artifactId>
+	    <version>5.0</version>
+	</dependency>
 
   </dependencies>
 </project>
