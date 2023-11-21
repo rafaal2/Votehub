@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import br.com.votehub.model.DAOs.VotoDAO;
-import br.com.votehub.model.DAOs.candidatoDAO;
+import br.com.votehub.model.DAOs.CandidatoDAO;
 import br.com.votehub.model.DAOs.votanteDAO;
 import br.com.votehub.model.criptografia.Encriptador;
 import br.com.votehub.model.vo.Candidato;
@@ -81,7 +81,7 @@ public class Main {
 		String cargo = sc.next();
 
 		Candidato c = new Candidato(numero_candidato, nome, cargo);
-		candidatoDAO cdao = new candidatoDAO();
+		CandidatoDAO cdao = new CandidatoDAO();
 		cdao.addCandidato(c);
 		sc.close();
 

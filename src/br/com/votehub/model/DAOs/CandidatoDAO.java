@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 import br.com.votehub.model.vo.Candidato;
 
-public class candidatoDAO {
+public class CandidatoDAO {
 	
 	Connection conn = null;
 	Statement st = null;
