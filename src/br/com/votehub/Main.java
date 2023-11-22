@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 import javax.swing.SwingUtilities;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Scalar.String;
+
 import br.com.votehub.model.DAOs.CandidatoDAO;
 import br.com.votehub.model.DAOs.VotanteDAO;
 import br.com.votehub.model.DAOs.VotoDAO;
@@ -12,7 +14,7 @@ import br.com.votehub.model.criptografia.Encriptador;
 import br.com.votehub.model.vo.Candidato;
 import br.com.votehub.model.vo.Votante;
 import br.com.votehub.model.vo.Voto;
-import br.com.votehub.view.*;
+import br.com.votehub.view.ConfirmacaoVoto;
 
 public class Main {
 
