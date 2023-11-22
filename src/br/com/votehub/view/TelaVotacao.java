@@ -13,6 +13,7 @@ import net.miginfocom.swing.MigLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 
@@ -57,7 +58,9 @@ public class TelaVotacao {
 		botaoCancelar = new JButton("  Cancelar");
 		botaoCancelar.setHorizontalAlignment(SwingConstants.LEFT);
 		botaoCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {			
+				SwingUtilities.invokeLater(LoginUsuario::new);
+				frame.dispose();
 			}
 		});
 		

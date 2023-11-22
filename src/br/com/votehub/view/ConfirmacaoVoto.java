@@ -57,6 +57,8 @@ public class ConfirmacaoVoto {
 		JButton botaoCancelar = new JButton("Cancelar");
 		botaoCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				SwingUtilities.invokeLater(TelaVotacao::new);
 			}
 		});
 		frame.getContentPane().add(botaoCancelar, "flowx,cell 5 4,alignx center,aligny center");
@@ -66,8 +68,8 @@ public class ConfirmacaoVoto {
 		botaoConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, "Voto Efetuado.");
-				frame.dispose();
 				SwingUtilities.invokeLater(LoginUsuario::new);
+				frame.dispose();
 			}
 			
 		});

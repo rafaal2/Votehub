@@ -17,6 +17,7 @@ import br.com.votehub.view.*;
 public class Main {
 
 	public static void main(String[] args) throws SQLException {
+		SwingUtilities.invokeLater(ConfirmacaoVoto::new);
 		Scanner sc = new Scanner(System.in);
 		System.out.println("digite sua senha");
 		String senhadigit = sc.next();
