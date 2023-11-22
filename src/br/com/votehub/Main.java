@@ -12,12 +12,11 @@ import br.com.votehub.model.criptografia.Encriptador;
 import br.com.votehub.model.vo.Candidato;
 import br.com.votehub.model.vo.Votante;
 import br.com.votehub.model.vo.Voto;
-import br.com.votehub.view.ConfirmacaoVoto;
+import br.com.votehub.view.*;
 
 public class Main {
 
 	public static void main(String[] args) throws SQLException {
-		SwingUtilities.invokeLater(ConfirmacaoVoto::new);	
 		Scanner sc = new Scanner(System.in);
 		System.out.println("digite sua senha");
 		String senhadigit = sc.next();

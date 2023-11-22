@@ -2,25 +2,29 @@ package br.com.votehub.view;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
-import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 import net.miginfocom.swing.MigLayout;
+import javax.swing.JFormattedTextField;
 
 public class LoginUsuario {
 
 	private JFrame frame;
-	private JTextField campoMatricula;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	String ano = Integer.toString(LocalDate.now().getYear());
-	private JTextField campoCpf;
+	private JFormattedTextField campoMatricula;
+	private JFormattedTextField campoCpf;
 	
 	// CHAMANDO A TELA -> SwingUtilities.invokeLater(LoginUsuario::new);
 	
@@ -29,6 +33,7 @@ public class LoginUsuario {
 			initialize();
 			frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	        frame.setVisible(true);
+	        
 		}catch(Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Erro ao inicializar a Tela de Login de Usuário: " + e.getMessage());
@@ -51,26 +56,30 @@ public class LoginUsuario {
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 17));
 		frame.getContentPane().add(lblNewLabel_2, "cell 2 2,alignx center");
 		
-		lblNewLabel = new JLabel("CPF:");
+		lblNewLabel = new JLabel("Matrícula:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		frame.getContentPane().add(lblNewLabel, "cell 1 3,alignx trailing");
 		
-		campoCpf = new JTextField();
-		frame.getContentPane().add(campoCpf, "cell 2 3,growx");
-		campoCpf.setColumns(10);
+		// Formatacao Campo Matricula
+		try {
+			MaskFormatter maskara = new MaskFormatter("**************");
+			campoMatricula = new JFormattedTextField(maskara);
+			campoMatricula.setToolTipText("Utilize Apenas Números e Letras.  ex: 20001r31rc0234");
+			campoMatricula = new JFormattedTextField(maskara);   
+            campoMatricula.setColumns(11);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+		frame.getContentPane().add(campoMatricula, "cell 2 3,growx");
 		
-		lblNewLabel_1 = new JLabel("Matrícula:");
+		lblNewLabel_1 = new JLabel("CPF:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		frame.getContentPane().add(lblNewLabel_1, "cell 1 4,alignx trailing");
 		
-		campoMatricula = new JTextField();
-		frame.getContentPane().add(campoMatricula, "cell 2 4,growx");
-		campoMatricula.setColumns(10);
-		
 		// AÇÃO BOTÃO ENTRAR
-		JButton btnNewButton = new JButton("Entrar");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton botaoEntrar = new JButton("Entrar");
+		botaoEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent entrar) {
 				String cpf, matricula;
 				try {
@@ -82,7 +91,41 @@ public class LoginUsuario {
 				}
 			}
 		});
-		frame.getContentPane().add(btnNewButton, "cell 2 5,alignx center");
+		frame.getContentPane().add(botaoEntrar, "cell 2 5,alignx center");
+		
+		// Formatacao Campo CPF	
+		try {
+			MaskFormatter maskara = new MaskFormatter("###########");
+			campoCpf = new JFormattedTextField(maskara);   
+			campoCpf.setToolTipText("Utilize Apenas Números.    ex:12378912301");
+            campoCpf.setColumns(11);
+            campoCpf.addKeyListener(new KeyListener() {
+                @Override
+                public void keyTyped(KeyEvent e) {
+                    char c = e.getKeyChar();
+                    if (!Character.isDigit(c)) {
+                        e.consume(); 
+                    }
+                }
+
+				@Override
+				public void keyPressed(KeyEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void keyReleased(KeyEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+            });
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+		frame.getContentPane().add(campoCpf, "cell 2 4,growx");
+		
 
 		
 	}
