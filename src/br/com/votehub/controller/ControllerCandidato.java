@@ -69,7 +69,6 @@ public class ControllerCandidato {
 	
 	public void validarAtualizacao(String numeroCandidato, String nome, String cargo) throws BusinessException {
 		if(candidatoRepository.searchCandidatoById(numeroCandidato) == null) {
-			
 			throw new BusinessException("Candidato referido não encontrado");
 			
 		}
@@ -86,6 +85,9 @@ public class ControllerCandidato {
 	
 	//deve ser alterado o quanto antes retornando uma lista de candidatos que possa ser exibida na interface grafica
 	public void exibirCandidato() { 
+		
 		candidatoRepository.mostrarCandidatos();
+		
 	}
+	
 }

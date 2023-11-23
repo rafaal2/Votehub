@@ -131,16 +131,16 @@ public class VotanteDAO {
 public Votante searchVotanteById(int id_votante) {
 	try {
 		conn = DB.getConnection();
-		stt = conn.prepareStatement("SELECT * FROM candidato " + "WHERE " + "numero_candidato = ?");
+		stt = conn.prepareStatement("SELECT * FROM votante " + "WHERE " + "id_votante = ?");
 
 		stt.setInt(1, id_votante);
 		
 		rs = stt.executeQuery();
 		if(rs.next()) {
 			
-		Votante vt = new Votante(rs.getInt("id_votante"), rs.getString("matricula"), rs.getString("nome"), rs.getString("senha"), rs.getString("ocupação"));
+		Votante vtt = new Votante(rs.getInt("id_votante"), rs.getString("matricula"), rs.getString("nome"), rs.getString("senha"), rs.getString("ocupação"));
 		
-		return vt;
+		return vtt;
 		
 		}
 	} catch (SQLException e) {

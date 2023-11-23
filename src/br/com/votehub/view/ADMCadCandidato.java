@@ -14,6 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;
+
+import br.com.votehub.controller.BusinessException;
+import br.com.votehub.controller.ControllerCandidato;
 import net.miginfocom.swing.MigLayout;
 
 public class ADMCadCandidato extends JFrame {
@@ -97,6 +101,25 @@ public class ADMCadCandidato extends JFrame {
 		JButton btnCadastrar = new JButton("CADASTRAR");
 		btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panel.add(btnCadastrar, "cell 8 10,alignx right,aligny bottom");
+		
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String numero_candidato = fieldNumCad.getText();
+				String nomeCandidato = fieldNomeCad.getText();
+				String cargoCandidato = filedCargoCad.getText();
+				
+				try {
+					ControllerCandidato contCandidato = new ControllerCandidato();
+					contCandidato.registrarCandidato(numero_candidato, nomeCandidato, cargoCandidato);
+				} catch(BusinessException error) {
+					System.out.println(error.getMessage());
+//					errorLabel.setText(e.getMessage());
+//					errorLabel.setVisible(true);
+				}
+				
+			}
+			
+		});
 	}
 
 }

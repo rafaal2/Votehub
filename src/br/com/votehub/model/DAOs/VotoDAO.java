@@ -77,4 +77,29 @@ public class VotoDAO {
 			}
 			
 		}
+	
+	public Voto searchVotoById(int idVoto) {
+		try {
+			conn = DB.getConnection();
+			stt = conn.prepareStatement("SELECT * FROM voto " + "WHERE " + "id_voto = ?");
+
+			stt.setInt(1, idVoto);
+			
+			rs = stt.executeQuery();
+			if(rs.next()) {
+				
+			Voto vt = new Voto(rs.getInt("id_voto"), rs.getString("numero_candidato"), rs.getInt("id_votante"));
+			
+			return vt;
+			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closestatement(stt);
+			DB.closeConnection();
+		}
+		return null;
+
+	}	
 }

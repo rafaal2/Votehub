@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 import javax.swing.SwingUtilities;
 
+import br.com.votehub.controller.BusinessException;
+import br.com.votehub.controller.ControllerCandidato;
 import br.com.votehub.model.DAOs.CandidatoDAO;
 import br.com.votehub.model.DAOs.VotanteDAO;
 import br.com.votehub.model.DAOs.VotoDAO;
@@ -13,24 +15,28 @@ import br.com.votehub.model.vo.Candidato;
 import br.com.votehub.model.vo.Votante;
 import br.com.votehub.model.vo.Voto;
 import br.com.votehub.view.ConfirmacaoVoto;
+import br.com.votehub.view.LoginUsuario;
+import br.com.votehub.view.TelaVotacao;
 
 public class Main {
 
-	public static void main(String[] args) throws SQLException {
-		SwingUtilities.invokeLater(ConfirmacaoVoto::new);
-		Scanner sc = new Scanner(System.in);
-		System.out.println("digite sua senha");
-		String senhadigit = sc.next();
-		boolean check = Encriptador.verificarsenhavot(senhadigit);
-		if (check) {
-			Main programa = new Main();
-			programa.operação();
-		}
+	public static void main(String[] args) throws SQLException, BusinessException {
+		SwingUtilities.invokeLater(TelaVotacao::new);
+//		SwingUtilities.invokeLater(LoginUsuario::new);
+//		Scanner sc = new Scanner(System.in);
+//		System.out.println("digite sua senha");
+//		String senhadigit = sc.next();
+//		boolean check = Encriptador.verificarsenhavot(senhadigit);
+//		if (check) {
+//			Main programa = new Main();
+//			programa.operação();
+//		}
+//	}
+		
 	}
   // ____TELAS____
-	// SwingUtilities.invokeLater(TelaVotacao::new);
+	// SwingUtilities.invokeLater(ConfirmacaoVoto::new);
 	// SwingUtilities.invokeLater(ConfirmacaoVoto::new);   
-	// SwingUtilities.invokeLater(LoginUsuario::new);
 	
 	public void operação() {
 		Scanner sc = new Scanner(System.in);
