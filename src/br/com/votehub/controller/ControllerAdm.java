@@ -1,6 +1,13 @@
 package br.com.votehub.controller;
 
+import java.beans.Statement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import br.com.votehub.model.DAOs.AdmDAO;
+import br.com.votehub.model.DAOs.DB;
+import br.com.votehub.model.criptografia.Encriptador;
 import br.com.votehub.model.vo.Adm;
 
 public class ControllerAdm {
@@ -50,6 +57,69 @@ public class ControllerAdm {
 		}
 
 	}
+	static Encriptador encrip = new Encriptador();
+
+	public boolean verificarloginadm(String logindigit) throws BusinessException, SQLException {
+		Connection conn = null;
+		ResultSet rs = null;
+		java.sql.Statement st = null;
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT login \r\n" + "FROM adm \r\n");
+			while (rs.next()) {
+				String matriculabd = encrip.encriptadorDeValores(rs.getString("login"), "d");
+				boolean check = logindigit.equals(matriculabd);
+				if (check == true) {
+					return check;
+				} else {
+					System.out.println("login incorreta");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closeResultSet(rs);
+			DB.closestatement((java.sql.Statement) st);
+
+		}
+		return false;
+	}
+
+	public void validarVerificarloginadm(String logindigit) throws BusinessException {
+		if (logindigit.isBlank()) {
+			throw new BusinessException("Todos os campos devem estar preenchidos!");
+		}
+
+	}
+
+	public boolean verificarsenhaadm(String senhadigit) throws BusinessException, SQLException {
+		Connection conn = null;
+		ResultSet rs = null;
+		java.sql.Statement st = null;
+		try {
+			conn = DB.getConnection();
+			st =  conn.createStatement();
+			rs =  st.executeQuery("SELECT senha \r\n" + "FROM adm \r\n");
+			while (rs.next()) {
+				String senhabd = encrip.encriptadorDeValores(rs.getString("senha"), "d");
+				boolean check = senhadigit.equals(senhabd);
+				if (check == true) {
+					return check;
+				} else {
+					System.out.println("senha incorreta");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closeResultSet(rs);
+			DB.closestatement((java.sql.Statement) st);
+
+		}
+		return false;
+	}
+	
 	
 	
 	

@@ -3,21 +3,15 @@ package br.com.votehub;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import javax.swing.SwingUtilities;
-
 import br.com.votehub.controller.BusinessException;
-import br.com.votehub.controller.ControllerCandidato;
 import br.com.votehub.controller.ControllerVotante;
+import br.com.votehub.model.DAOs.AdmDAO;
 import br.com.votehub.model.DAOs.CandidatoDAO;
 import br.com.votehub.model.DAOs.VotanteDAO;
 import br.com.votehub.model.DAOs.VotoDAO;
-import br.com.votehub.model.criptografia.Encriptador;
+import br.com.votehub.model.vo.Adm;
 import br.com.votehub.model.vo.Candidato;
-import br.com.votehub.model.vo.Votante;
 import br.com.votehub.model.vo.Voto;
-import br.com.votehub.view.ConfirmacaoVoto;
-import br.com.votehub.view.LoginUsuario;
-import br.com.votehub.view.TelaVotacao;
 
 public class Main {
 
@@ -45,6 +39,7 @@ public class Main {
 		System.out.println("operação 2: adicionar candidato");
 		System.out.println("operação 3: adicionar voto");
 		System.out.println("operação 4: mostrar votantes");
+		System.out.println("operação 5: adicionar novo adm");
 		System.out.print("digite a operação a ser realizada: ");
 		int op = sc.nextInt();
 		if (op == 1) {
@@ -55,6 +50,8 @@ public class Main {
 			addVoto();
 		} else if (op == 4) {
 			mostrarVotantes();
+		}else if (op == 5) {
+			addAdm();
 		} else {
 			System.out.println("digite uma operação valida");
 		}
@@ -124,6 +121,21 @@ public class Main {
 		VotanteDAO cd = new VotanteDAO();
 		cd.mostrarVotantes();
 
+	}
+	private void addAdm() {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Digite o id do adm: ");
+		int id_adm = sc.nextInt();
+		System.out.print("Digite o login do votante: ");
+		String login = sc.next();
+		System.out.print("Digite a senha do votante: ");
+		String senha = sc.next();
+
+		Adm ad = new Adm(id_adm, login, senha);
+
+		AdmDAO ADdao = new AdmDAO();
+		ADdao.addAdm(ad);
+		sc.close();
 	}
 
 }
