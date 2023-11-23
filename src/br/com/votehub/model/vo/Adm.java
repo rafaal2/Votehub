@@ -37,9 +37,5 @@ public class Adm {
 		this.senha = senha;
 	}
 
-	// autenticação simples a ser refeita
-	// public boolean login(String usuario, String senha) {
-	// return usuario.equals(this.usuario) && senha.equals(this.senha);
-	// }
 
 }
