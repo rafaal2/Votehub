@@ -10,11 +10,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;
+//import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;	
 
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.controller.ControllerCandidato;
@@ -112,9 +113,7 @@ public class ADMCadCandidato extends JFrame {
 					ControllerCandidato contCandidato = new ControllerCandidato();
 					contCandidato.registrarCandidato(numero_candidato, nomeCandidato, cargoCandidato);
 				} catch(BusinessException error) {
-					System.out.println(error.getMessage());
-//					errorLabel.setText(e.getMessage());
-//					errorLabel.setVisible(true);
+					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}

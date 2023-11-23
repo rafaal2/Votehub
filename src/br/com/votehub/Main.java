@@ -7,6 +7,7 @@ import javax.swing.SwingUtilities;
 
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.controller.ControllerCandidato;
+import br.com.votehub.controller.ControllerVotante;
 import br.com.votehub.model.DAOs.CandidatoDAO;
 import br.com.votehub.model.DAOs.VotanteDAO;
 import br.com.votehub.model.DAOs.VotoDAO;
@@ -21,15 +22,15 @@ import br.com.votehub.view.TelaVotacao;
 public class Main {
 
 	public static void main(String[] args) throws SQLException, BusinessException {
-		SwingUtilities.invokeLater(TelaVotacao::new);
+//		SwingUtilities.invokeLater(TelaVotacao::new);
 //		SwingUtilities.invokeLater(LoginUsuario::new);
 //		Scanner sc = new Scanner(System.in);
 //		System.out.println("digite sua senha");
 //		String senhadigit = sc.next();
 //		boolean check = Encriptador.verificarsenhavot(senhadigit);
 //		if (check) {
-//			Main programa = new Main();
-//			programa.operação();
+			Main programa = new Main();
+			programa.operação();
 //		}
 //	}
 		
@@ -74,11 +75,16 @@ public class Main {
 		System.out.print("Digite a ocupação do votante: ");
 		String ocupação = sc.next();
 
-		Votante v = new Votante(id_votante, matricula, nome, senha, ocupação);
-
-		VotanteDAO vdao = new VotanteDAO();
-		vdao.addVotante(v);
-		sc.close();
+		ControllerVotante cv = new ControllerVotante();
+        try {
+            cv.registrarVotante(id_votante, matricula, nome, senha, ocupação);
+        } catch (BusinessException e) {
+            System.out.println(e.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        sc.close();
 	}
 
 	private void addCandidato() {
