@@ -1,5 +1,7 @@
 package br.com.votehub.controller;
 
+import java.sql.SQLException;
+
 import br.com.votehub.model.DAOs.CandidatoDAO;
 import br.com.votehub.model.DAOs.DB;
 import br.com.votehub.model.vo.Candidato;
@@ -11,11 +13,17 @@ public class ControllerCandidato {
 	public void registrarCandidato(String numeroCandidato, String nome, String cargo) throws BusinessException {
 		validarRegistro(numeroCandidato, nome, cargo);
 		
-		Candidato cd = new Candidato(numeroCandidato, nome, cargo);
+		Candidato cd = new Candidato(numeroCandidato, nome, cargo);	
 		candidatoRepository.addCandidato(cd);
 	}
 	
 	public void validarRegistro(String numeroCandidato, String nome, String cargo) throws BusinessException {
+		try {
+			candidatoRepository.verificarSeNumeroExiste(numeroCandidato);
+		} catch(SQLException e) {
+			throw new BusinessException("Número do candidato já está em uso!");
+		}
+		
 		if(numeroCandidato.isBlank() || nome.isBlank() || cargo.isBlank()) {			
 			throw new BusinessException("Todos os campos devem estar preenchindos!");			
 		}
@@ -25,8 +33,9 @@ public class ControllerCandidato {
 		}
 		
 		if(nome.length() > 200) {
-			throw new BusinessException("O nome inserido deve possuir limite de 200 caracteres!");
-		}
+			throw new BusinessException("O nome inserido deve possuir limite de 200 caracteres");
+		}				
+		
 	}
 	
 	

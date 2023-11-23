@@ -8,25 +8,25 @@ import java.util.Date;
 import java.util.TimeZone;
 import java.sql.*;
 
-public class Votação {
+public class Votacao {
 	// '1000-01-01 00:00:00' formatação do date time
-	private int id_votação;
+	private int id_votacao;
 	private Date data_inicio;
 	private Date data_fim;
 	private boolean status;
 
-	public Votação(int id_votação, Date data_inicio, Date data_fim) {
-		this.id_votação = id_votação;
+	public Votacao(int id_votacao, Date data_inicio, Date data_fim) {
+		this.id_votacao = id_votacao;
 		this.data_inicio = data_inicio;
 		this.data_fim = data_fim;
 	}
 
-	public int getId_votação() {
-		return id_votação;
+	public int getId_votacao() {
+		return id_votacao;
 	}
 
-	public void setId_votação(int id_votação) {
-		this.id_votação = id_votação;
+	public void setId_votacao(int id_votacao) {
+		this.id_votacao = id_votacao;
 	}
 
 	public Date getData_inicio() {

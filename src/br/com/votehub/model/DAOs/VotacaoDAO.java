@@ -8,7 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 
-import br.com.votehub.model.vo.Votação;
+import br.com.votehub.model.vo.Candidato;
+import br.com.votehub.model.vo.Votacao;
 
 public class VotacaoDAO {
 	
@@ -19,7 +20,7 @@ public class VotacaoDAO {
 	PreparedStatement stt1 = null;
 	PreparedStatement stt2 = null;
 	
-	public void addVotacao(Votação votacao) {
+	public void addVotacao(Votacao votacao) {
 		try {
 			conn = DB.getConnection();
 			stt = conn.prepareStatement("INSERT INTO votacao" + "(data_inicio, data_fim)" + "VALUES" + "(?, ?)");
@@ -65,12 +66,12 @@ public class VotacaoDAO {
 		}
 	}
 	
-	public void deleteVotacao(String idVotacao) {
+	public void deleteVotacao(int idVotacao) {
 		try {
 			conn = DB.getConnection();
 			stt2 = conn.prepareStatement("DELETE FROM votação " + "WHERE " + "id = ?");
 
-			stt2.setString(1, idVotacao);
+			stt2.setInt(1, idVotacao);
 
 			stt2.executeUpdate();
 			System.out.println("Votação " +idVotacao+ "deletada");
@@ -80,6 +81,31 @@ public class VotacaoDAO {
 			DB.closestatement(stt2);
 			DB.closeConnection();
 		}
+	}
+	
+	public Votacao searchVotacaoById(int idVotacao) {
+		try {
+			conn = DB.getConnection();
+			stt = conn.prepareStatement("SELECT * FROM votação " + "WHERE " + "id_votação = ?");
+
+			stt.setInt(1, idVotacao);
+			
+			rs = stt.executeQuery();
+			if(rs.next()) {
+				
+			Votacao vtc = new Votacao(rs.getInt("id_votação"), rs.getDate("data_inicio"), rs.getDate("data_fim"));
+			
+			return vtc;
+			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closestatement(stt);
+			DB.closeConnection();
+		}
+		return null;
+
 	}
 
 }

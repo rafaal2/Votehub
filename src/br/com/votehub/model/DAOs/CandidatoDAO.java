@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import br.com.votehub.model.criptografia.Encriptador;
 import br.com.votehub.model.vo.Candidato;
 
 public class CandidatoDAO {
@@ -115,5 +116,30 @@ public class CandidatoDAO {
 		return null;
 
 	}	
+	
+	public boolean verificarSeNumeroExiste(String numeroCandidato) throws SQLException {
+		Connection conn = null;
+		ResultSet rs = null;
+		Statement st = null;
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT numero_candidato \r\n" + "FROM candidato \r\n");
+			while (rs.next()) {
+				String numeroBd = rs.getString("numero_candidato");
+				boolean check = numeroBd.equals(numeroCandidato);
+				if (check == true) {
+					return check;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closeResultSet(rs);
+			DB.closestatement(st);
+			DB.closeConnection();
+		}
+		return false;
+	}
 
 }
