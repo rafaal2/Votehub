@@ -7,7 +7,7 @@ public class Voto {
 	private int id_votante;
 	
 	
-	public Voto(int id_voto, String numero_candidato, int id_votante) {
+	public Voto(String numero_candidato, int id_votante) {
 		this.id_voto = id_voto;
 		this.numero_candidato = numero_candidato;
 		this.id_votante = id_votante;

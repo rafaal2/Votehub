@@ -93,7 +93,7 @@ public class VotacaoDAO {
 			rs = stt.executeQuery();
 			if(rs.next()) {
 				
-			Votacao vtc = new Votacao(rs.getInt("id_votação"), rs.getDate("data_inicio"), rs.getDate("data_fim"));
+			Votacao vtc = new Votacao(rs.getDate("data_inicio"), rs.getDate("data_fim"));
 			
 			return vtc;
 			

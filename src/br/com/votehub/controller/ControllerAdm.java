@@ -16,7 +16,7 @@ public class ControllerAdm {
 	public void registrarAdm(int id_adm, String login, String senha) throws BusinessException {
 		this.validarRegistro(id_adm, login, senha);
 
-		Adm a = new Adm(id_adm, login, senha);
+		Adm a = new Adm(login, senha);
 		AdmRepository.addAdm(a);
 	}
 

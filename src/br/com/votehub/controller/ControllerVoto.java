@@ -10,15 +10,15 @@ public class ControllerVoto {
 	private CandidatoDAO candidatoRepository = new CandidatoDAO();
 	private VotanteDAO votanteRepository = new VotanteDAO();
 	
-	public void registrarVoto(int idVoto, String numeroCandidato, int idVotante) throws BusinessException {
-		validarRegistro(idVoto, numeroCandidato, idVotante);
+	public void registrarVoto (String numeroCandidato, int idVotante) throws BusinessException {
+		validarRegistro( numeroCandidato, idVotante);
 		
-		Voto vt = new Voto(idVoto, numeroCandidato, idVotante);
+		Voto vt = new Voto( numeroCandidato, idVotante);
 		votoRepository.addVoto(vt);
 		
 	}
 	
-	public void validarRegistro(int idVoto, String numeroCandidato, int idVotante) throws BusinessException {
+	public void validarRegistro( String numeroCandidato, int idVotante) throws BusinessException {
 		if(votoRepository.searchVotoById(idVotante) != null) {
 			
 			throw new BusinessException("Eleitor já possui voto registrado!");

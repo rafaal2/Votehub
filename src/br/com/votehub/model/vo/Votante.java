@@ -8,7 +8,7 @@ public class Votante {
 	private String senha;
 	private String ocupação;
 
-	public Votante(int id_votante, String matricula, String nome, String senha, String ocupação) {
+	public Votante( String matricula, String nome, String senha, String ocupação) {
 		this.id_votante = id_votante;
 		this.matricula = matricula;
 		this.nome = nome;

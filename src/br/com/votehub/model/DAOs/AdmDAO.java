@@ -20,11 +20,10 @@ public class AdmDAO {
 		try {
 			Encriptador encrip = new Encriptador();
 			conn = DB.getConnection();
-			stt = conn.prepareStatement("INSERT INTO adm" + "(id_adm, login, senha)" + "VALUES" + "(?, ?, ?)");
+			stt = conn.prepareStatement("INSERT INTO adm" + "(login, senha)" + "VALUES" + "(?, ?)");
 
-			stt.setInt(1, a.getId_adm());
-			stt.setString(2, encrip.encriptadorDeValores(a.getLogin(), "C"));
-			stt.setString(3, encrip.encriptadorDeValores(a.getSenha(), "C"));
+			stt.setString(1, encrip.encriptadorDeValores(a.getLogin(), "C"));
+			stt.setString(2, encrip.encriptadorDeValores(a.getSenha(), "C"));
 
 			stt.executeUpdate();
 			System.out.println("Novo admin cadastrado");

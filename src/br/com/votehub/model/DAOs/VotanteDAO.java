@@ -65,15 +65,14 @@ public class VotanteDAO {
 		StrongPasswordEncryptor senhacrip = new StrongPasswordEncryptor();
 		try {
 			conn = DB.getConnection();
-			stt = conn.prepareStatement("INSERT INTO votante" + "(id_votante, matricula, nome, senha, ocupação)"
-					+ "VALUES" + "(?, ?, ?, ?, ?)");
+			stt = conn.prepareStatement("INSERT INTO votante" + "( matricula, nome, senha, ocupação)"
+					+ "VALUES" + "( ?, ?, ?, ?)");
 
-			stt.setInt(1, v.getId_votante());
-			stt.setString(2, encrip.encriptadorDeValores(v.getMatricula(), "C"));
-			stt.setString(3, encrip.encriptadorDeValores(v.getNome(), "C"));
-			stt.setString(4, encrip.encriptadorDeValores(v.getSenha(), "C")); // stt.setString(4,
+			stt.setString(1, encrip.encriptadorDeValores(v.getMatricula(), "C"));
+			stt.setString(2, encrip.encriptadorDeValores(v.getNome(), "C"));
+			stt.setString(3, encrip.encriptadorDeValores(v.getSenha(), "C")); // stt.setString(4,
 																				// Hash.gerarHash(v.getSenha()));
-			stt.setString(5, encrip.encriptadorDeValores(v.getOcupação(), "C"));
+			stt.setString(4, encrip.encriptadorDeValores(v.getOcupação(), "C"));
 
 			stt.executeUpdate();
 			System.out.println("Novo votante cadastrado");
@@ -138,7 +137,7 @@ public Votante searchVotanteById(int id_votante) {
 		rs = stt.executeQuery();
 		if(rs.next()) {
 			
-		Votante vtt = new Votante(rs.getInt("id_votante"), rs.getString("matricula"), rs.getString("nome"), rs.getString("senha"), rs.getString("ocupação"));
+		Votante vtt = new Votante( rs.getString("matricula"), rs.getString("nome"), rs.getString("senha"), rs.getString("ocupação"));
 		
 		return vtt;
 		

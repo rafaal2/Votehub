@@ -15,7 +15,7 @@ public class Votacao {
 	private Date data_fim;
 	private boolean status;
 
-	public Votacao(int id_votacao, Date data_inicio, Date data_fim) {
+	public Votacao(Date data_inicio, Date data_fim) {
 		this.id_votacao = id_votacao;
 		this.data_inicio = data_inicio;
 		this.data_fim = data_fim;

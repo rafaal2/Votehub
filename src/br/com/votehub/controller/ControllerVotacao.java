@@ -11,7 +11,7 @@ public class ControllerVotacao {
 	
 	public void registrarVotacao(int idVotacao, Date dataInicio, Date dataFim) {
 		
-		Votacao vtc = new Votacao(idVotacao, dataInicio, dataFim);
+		Votacao vtc = new Votacao( dataInicio, dataFim);
 		votacaoRepository.addVotacao(vtc);
 	}
 	

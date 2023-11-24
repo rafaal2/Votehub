@@ -6,7 +6,7 @@ public class Adm {
 	private String login;
 	private String senha;
 
-	public Adm(int id_adm, String login, String senha) {
+	public Adm(String login, String senha) {
 
 		this.id_adm = id_adm;
 		this.login = login;

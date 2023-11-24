@@ -14,15 +14,15 @@ public class ControllerVotante {
 
 	private VotanteDAO votanteRepository = new VotanteDAO();
 
-	// resolver questão do id_votante, que é auto increment no banco de dados.
-	public void registrarVotante(int id_votante, String matricula, String nome, String senha, String ocupacao) throws BusinessException, SQLException {
-		this.validarRegistro(id_votante, matricula, nome, senha, ocupacao);
+	// resolver questão do id_votante, que é auto increment no banco de dados.//ja foi resolvido piranha
+	public void registrarVotante(String matricula, String nome, String senha, String ocupacao) throws BusinessException, SQLException {
+		this.validarRegistro( matricula, nome, senha, ocupacao);
 
-		Votante vt = new Votante(0, matricula, nome, senha, ocupacao);
+		Votante vt = new Votante( matricula, nome, senha, ocupacao);
 		votanteRepository.addVotante(vt);
 	}
 
-	public void validarRegistro(int id_votante, String matricula, String nome, String senha, String ocupacao) throws BusinessException, SQLException {
+	public void validarRegistro( String matricula, String nome, String senha, String ocupacao) throws BusinessException, SQLException {
 
 		if (matricula.isBlank()) {
 			throw new BusinessException("A matrícula deve ser preenchida.");

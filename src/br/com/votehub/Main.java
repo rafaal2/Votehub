@@ -4,13 +4,13 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import br.com.votehub.controller.BusinessException;
-import br.com.votehub.controller.ControllerVotante;
 import br.com.votehub.model.DAOs.AdmDAO;
 import br.com.votehub.model.DAOs.CandidatoDAO;
 import br.com.votehub.model.DAOs.VotanteDAO;
 import br.com.votehub.model.DAOs.VotoDAO;
 import br.com.votehub.model.vo.Adm;
 import br.com.votehub.model.vo.Candidato;
+import br.com.votehub.model.vo.Votante;
 import br.com.votehub.model.vo.Voto;
 
 public class Main {
@@ -61,8 +61,6 @@ public class Main {
 
 	private void addVotante() {
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Digite o id do votante: ");
-		int id_votante = sc.nextInt();
 		System.out.print("Digite a matricula do votante: ");
 		String matricula = sc.next();
 		System.out.print("Digite o nome do votante: ");
@@ -72,16 +70,11 @@ public class Main {
 		System.out.print("Digite a ocupação do votante: ");
 		String ocupação = sc.next();
 
-		ControllerVotante cv = new ControllerVotante();
-        try {
-            cv.registrarVotante(id_votante, matricula, nome, senha, ocupação);
-        } catch (BusinessException e) {
-            System.out.println(e.getMessage());
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+		Votante v = new Votante(matricula, nome, senha, ocupação);
+		VotanteDAO vdao = new VotanteDAO();
+		vdao.addVotante(v);
+		sc.close();
         
-        sc.close();
 	}
 
 	private void addCandidato() {
@@ -103,14 +96,12 @@ public class Main {
 
 	private void addVoto() {
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Digite o id do voto: ");
-		int id_voto = sc.nextInt();
 		System.out.print("Digite o id do candidato a ser votado: ");
 		String numero_candidato = sc.next();
 		System.out.print("Digite o id do vontate que vai votar: ");
 		int id_votante = sc.nextInt();
 
-		Voto vt = new Voto(id_voto, numero_candidato, id_votante);
+		Voto vt = new Voto(numero_candidato, id_votante);
 
 		VotoDAO vtdao = new VotoDAO();
 		vtdao.addVoto(vt);
@@ -124,14 +115,12 @@ public class Main {
 	}
 	private void addAdm() {
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Digite o id do adm: ");
-		int id_adm = sc.nextInt();
 		System.out.print("Digite o login do votante: ");
 		String login = sc.next();
 		System.out.print("Digite a senha do votante: ");
 		String senha = sc.next();
 
-		Adm ad = new Adm(id_adm, login, senha);
+		Adm ad = new Adm(login, senha);
 
 		AdmDAO ADdao = new AdmDAO();
 		ADdao.addAdm(ad);
