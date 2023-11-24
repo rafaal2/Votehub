@@ -32,6 +32,7 @@ public class Encriptador {
 		Connection conn = null;
 		ResultSet rs = null;
 		Statement st = null;
+		boolean senhaIncorreta = false;
 		try {
 			conn = DB.getConnection();
 			st = conn.createStatement();
@@ -42,15 +43,17 @@ public class Encriptador {
 				if (check == true) {
 					return check;
 				}else {
-					System.out.println("senha incorreta");
+					senhaIncorreta = true;
 				}
 			}
+			 if (senhaIncorreta) {
+		            System.out.println("Senha incorreta");
+		        }
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DB.closeResultSet(rs);
 			DB.closestatement(st);
-			DB.closeConnection();
 		}
 		return false;
 	}
@@ -58,6 +61,7 @@ public class Encriptador {
 		Connection conn = null;
 		ResultSet rs = null;
 		Statement st = null;
+		boolean loginIncorreto = false;
 		try {
 			conn = DB.getConnection();
 			st = conn.createStatement();
@@ -68,8 +72,12 @@ public class Encriptador {
 				if (check == true) {
 					return check;
 				}else {
-					System.out.println("senha incorreta");
+					loginIncorreto = true;
 				}
+			}
+			 if (loginIncorreto) {
+		            System.out.println("login incorreto");
+		        
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -85,6 +93,7 @@ public class Encriptador {
 		Connection conn = null;
 		ResultSet rs = null;
 		Statement st = null;
+		boolean senhaIncorreta = false;
 		try {
 			conn = DB.getConnection();
 			st = conn.createStatement();
@@ -95,9 +104,13 @@ public class Encriptador {
 				if (check == true) {
 					return check;
 				}else {
-					System.out.println("senha incorreta");
+					senhaIncorreta = true;
 				}
 			}
+			 if (senhaIncorreta) {
+		            System.out.println("Senha incorreta");
+		        }
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -111,6 +124,7 @@ public class Encriptador {
 		Connection conn = null;
 		ResultSet rs = null;
 		Statement st = null;
+		boolean loginIncorreto = false;
 		try {
 			conn = DB.getConnection();
 			st = conn.createStatement();
@@ -121,8 +135,12 @@ public class Encriptador {
 				if (check == true) {
 					return check;
 				}else {
-					System.out.println("login incorreta");
+					loginIncorreto = true;
 				}
+			}
+			 if (loginIncorreto) {
+		            System.out.println("login incorreto");
+		        
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

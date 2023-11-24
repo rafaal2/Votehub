@@ -8,6 +8,7 @@ import br.com.votehub.model.DAOs.AdmDAO;
 import br.com.votehub.model.DAOs.CandidatoDAO;
 import br.com.votehub.model.DAOs.VotanteDAO;
 import br.com.votehub.model.DAOs.VotoDAO;
+import br.com.votehub.model.criptografia.Encriptador;
 import br.com.votehub.model.vo.Adm;
 import br.com.votehub.model.vo.Candidato;
 import br.com.votehub.model.vo.Votante;
@@ -18,17 +19,17 @@ public class Main {
 	public static void main(String[] args) throws SQLException, BusinessException {
 //		SwingUtilities.invokeLater(TelaVotacao::new);
 //		SwingUtilities.invokeLater(LoginUsuario::new);
-//		Scanner sc = new Scanner(System.in);
-//		System.out.println("digite sua senha");
-//		String senhadigit = sc.next();
-//		boolean check = Encriptador.verificarsenhavot(senhadigit);
-//		if (check) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("digite sua senha");
+		String senhadigit = sc.next();
+		boolean check = Encriptador.verificarsenhavot(senhadigit);
+		if (check) {
 			Main programa = new Main();
 			programa.operação();
-//		}
-//	}
-		
+		}
 	}
+		
+	
   // ____TELAS____
 	// SwingUtilities.invokeLater(ConfirmacaoVoto::new);
 	// SwingUtilities.invokeLater(ConfirmacaoVoto::new);   
