@@ -1,4 +1,4 @@
-ccreate database votehub;
+create database votehub;
 use votehub;
 
 --
