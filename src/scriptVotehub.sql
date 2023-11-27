@@ -1,4 +1,4 @@
-create database votehub;
+ccreate database votehub;
 use votehub;
 
 --
@@ -15,18 +15,8 @@ CREATE TABLE adm (
 --
 -- inserindo dados na tabela adm
 --
+
 insert into adm values(1,'adm01','12345678adm');
-
---
--- criando estrutura da tabela `candidato`
---
-
-CREATE TABLE candidato (
-  numero_candidato varchar(100) NOT NULL,
-  nome char(200) DEFAULT NULL,
-  cargo char(100) DEFAULT NULL,
-  PRIMARY KEY (numero_candidato)
-) ;
 
 --
 -- criando estrutura da tabela `votante`
@@ -52,6 +42,19 @@ CREATE TABLE votacao (
 );
 
 --
+-- criando estrutura da tabela `candidato`
+--
+
+CREATE TABLE candidato (
+  numero_candidato varchar(100) NOT NULL,
+  nome char(200) DEFAULT NULL,
+  cargo char(100) DEFAULT NULL,
+  id_votacao int not null,
+  PRIMARY KEY (numero_candidato),
+  FOREIGN KEY (id_votacao) REFERENCES votacao(id_votacao)
+) ;
+
+--
 -- criando estrutura da tabela `voto`
 --
 
@@ -62,6 +65,10 @@ CREATE TABLE voto (
   KEY numero_candidato (numero_candidato),
   CONSTRAINT voto_ibfk_1 FOREIGN KEY (numero_candidato) REFERENCES candidato (numero_candidato)
 );
+
+--
+-- criando estrutura da tabela `votacaoVotante`
+--
 
 create table votacaoVotante(
 id_votacaoVotante int not null auto_increment,
