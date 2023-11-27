@@ -19,7 +19,7 @@ public class VotoDAO {
 	public void addVoto(Voto vt) {
 		try {
 			conn = DB.getConnection();
-			stt = conn.prepareStatement("INSERT INTO voto" + "(numero_candidato, id_votante)" + "VALUES" + "(?, ?)");
+			stt = conn.prepareStatement("INSERT INTO voto" + "(numero_candidato)" + "VALUES" + "(?)");
 
 			stt.setString(1, vt.getNumero_candidato());
 

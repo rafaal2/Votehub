@@ -3,40 +3,44 @@ package br.com.votehub;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import org.jasypt.util.password.StrongPasswordEncryptor;
+
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.model.DAOs.AdmDAO;
 import br.com.votehub.model.DAOs.CandidatoDAO;
 import br.com.votehub.model.DAOs.VotanteDAO;
 import br.com.votehub.model.DAOs.VotoDAO;
-import br.com.votehub.model.criptografia.Encriptador;
+import br.com.votehub.model.criptografia.Hash;
 import br.com.votehub.model.vo.Adm;
 import br.com.votehub.model.vo.Candidato;
 import br.com.votehub.model.vo.Votante;
 import br.com.votehub.model.vo.Voto;
-import br.com.votehub.view.*;
 
 public class Main {
+	
 
 	public static void main(String[] args) throws SQLException, BusinessException {
-////		SwingUtilities.invokeLater(TelaVotacao::new);
-////		SwingUtilities.invokeLater(LoginUsuario::new);
-//		Scanner sc = new Scanner(System.in);
-//		System.out.println("digite sua senha");
-//		String senhadigit = sc.next();
-//		boolean check = Encriptador.verificarsenhavot(senhadigit);
-//		if (check) {
-//			Main programa = new Main();
-//			programa.operação();
-//		}
-//	}
-//		
-		TelaInicial telaInicial = new TelaInicial();
-		telaInicial.setVisible(true);
+		StrongPasswordEncryptor passHash = new StrongPasswordEncryptor();
+
+//		SwingUtilities.invokeLater(TelaVotacao::new);
+//		SwingUtilities.invokeLater(LoginUsuario::new);
+		Scanner sc = new Scanner(System.in);
+		System.out.println("digite sua senha");
+	    String senhaDigitada = sc.next();
+		boolean check = Hash.verificarHashvot(senhaDigitada);
+		if (check) {
+			Main programa = new Main();
+			programa.operação();
+		}
 	}
+//		
+//		TelaInicial telaInicial = new TelaInicial();
+//		telaInicial.setVisible(true);
+//}
 	
-  // ____TELAS____
-	// SwingUtilities.invokeLater(ConfirmacaoVoto::new);
-	// SwingUtilities.invokeLater(ConfirmacaoVoto::new);   
+ // ____TELAS____
+// SwingUtilities.invokeLater(ConfirmacaoVoto::new);
+// SwingUtilities.invokeLater(ConfirmacaoVoto::new);   
 	
 	public void operação() {
 		Scanner sc = new Scanner(System.in);

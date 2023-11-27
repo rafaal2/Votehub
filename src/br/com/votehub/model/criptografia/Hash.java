@@ -1,9 +1,9 @@
 package br.com.votehub.model.criptografia;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.jasypt.util.password.StrongPasswordEncryptor;
 
@@ -21,19 +21,14 @@ public class Hash {
 		return senhaHash;
 	}
 	
-	public static boolean verificarHash(int id, String senhaDigitada) throws SQLException {
-		Connection conn = null;             //   Selecionando Votante pelo ID
+	public static boolean verificarHashvot( String senhaDigitada) throws SQLException {
+		Connection conn = null;             
 		ResultSet rs = null;
-		PreparedStatement ps = null;
-		//Encriptador encriptador = new Encriptador();
-		//nome = encriptador.encriptadorDeValores(nome, "C");
-		//System.out.println(nome);
+		Statement st= null;
 		try {
 			conn = DB.getConnection();
-			String query = "SELECT * FROM votante WHERE id_votante = ?";
-			ps = conn.prepareStatement(query);
-	        ps.setInt(1, id);
-			rs = 	ps.executeQuery();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT senha \r\n" + "FROM votante \r\n");
 			while(rs.next()) {
 				String senhabd = rs.getString("senha");
 				boolean check = passHash.checkPassword(senhaDigitada, senhabd);
@@ -46,7 +41,32 @@ public class Hash {
 		}
 		finally {
 			DB.closeResultSet(rs);
-			DB.closestatement(ps);
+			DB.closestatement(st);
+			DB.closeConnection();
+		}
+		return false;
+	}
+	public static boolean verificarHashadm( String senhaDigitada) throws SQLException {
+		Connection conn = null;             
+		ResultSet rs = null;
+		Statement st= null;
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT senha \r\n" + "FROM adm \r\n");
+			while(rs.next()) {
+				String senhabd = rs.getString("senha");
+				boolean check = passHash.checkPassword(senhaDigitada, senhabd);
+				if (check) {
+		            return true;
+		        }	
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			DB.closeResultSet(rs);
+			DB.closestatement(st);
 			DB.closeConnection();
 		}
 		return false;

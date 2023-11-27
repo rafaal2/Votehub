@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.jasypt.util.password.StrongPasswordEncryptor;
+
 import br.com.votehub.model.criptografia.Encriptador;
 import br.com.votehub.model.vo.Adm;
 
@@ -18,12 +20,12 @@ public class AdmDAO {
 	PreparedStatement stt2 = null;
 	public void addAdm(Adm a ) {
 		try {
-			Encriptador encrip = new Encriptador();
+			StrongPasswordEncryptor senhacrip = new StrongPasswordEncryptor();
 			conn = DB.getConnection();
 			stt = conn.prepareStatement("INSERT INTO adm" + "(login, senha)" + "VALUES" + "(?, ?)");
 
 			stt.setString(1, a.getLogin());
-			stt.setString(2, a.getSenha());
+			stt.setString(2, senhacrip.encryptPassword(a.getSenha()));
 
 			stt.executeUpdate();
 			System.out.println("Novo admin cadastrado");
@@ -70,6 +72,37 @@ public class AdmDAO {
 			DB.closestatement(stt2);
 			DB.closeConnection();
 		}
+	}
+	public static boolean verificarloginadm(String logindigit) throws SQLException {
+		Connection conn = null;
+		ResultSet rs = null;
+		Statement st = null;
+		boolean loginIncorreto = false;
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT login \r\n" + "FROM adm \r\n");
+			while (rs.next()){
+				String matriculabd = rs.getString("login");
+				boolean check = logindigit.equals(matriculabd);
+				if (check == true) {
+					return check;
+				}else {
+					loginIncorreto = true;
+				}
+			}
+			 if (loginIncorreto) {
+		            System.out.println("login incorreto");
+		        
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closeResultSet(rs);
+			DB.closestatement(st);
+			
+		}
+		return false;
 	}
 
 }

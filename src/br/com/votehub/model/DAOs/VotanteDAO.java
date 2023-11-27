@@ -40,38 +40,17 @@ public class VotanteDAO {
 
 	}
 
-	public void mostrarsenha() {
-		Encriptador encrip = new Encriptador();
-		try {
-			conn = DB.getConnection();
-			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * \r\n" + "FROM votante \r\n");
-			while (rs.next()) {
-				String encryptedNome = encrip.encriptadorDeValores(rs.getString("senha"), "d");
-				System.out.println("Votante: " + encryptedNome + " / " + rs.getString("ocupação"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DB.closeResultSet(rs);
-			DB.closestatement(st);
-			DB.closeConnection();
-		}
-
-	}
-
 	public void addVotante(Votante v) {
-		Encriptador encrip = new Encriptador();
+
 		StrongPasswordEncryptor senhacrip = new StrongPasswordEncryptor();
 		try {
 			conn = DB.getConnection();
-			stt = conn.prepareStatement("INSERT INTO votante" + "( matricula, nome, senha, ocupação)"
-					+ "VALUES" + "( ?, ?, ?, ?)");
+			stt = conn.prepareStatement("INSERT INTO votante" + "( matricula, nome, senha)" + "VALUES" + "( ?, ?, ?)");
 
-			stt.setString(1, encrip.encriptadorDeValores(v.getMatricula(), "C"));
-			stt.setString(2, encrip.encriptadorDeValores(v.getNome(), "C"));
-			stt.setString(3, encrip.encriptadorDeValores(v.getSenha(), "C")); // stt.setString(4,
-																				// Hash.gerarHash(v.getSenha()));
+			stt.setString(1, v.getMatricula());
+			stt.setString(2, v.getNome());
+			stt.setString(3, senhacrip.encryptPassword(v.getSenha())); // stt.setString(4,
+																		// Hash.gerarHash(v.getSenha()));
 
 			stt.executeUpdate();
 			System.out.println("Novo votante cadastrado");
@@ -124,29 +103,61 @@ public class VotanteDAO {
 		}
 	}
 
-public Votante searchVotanteById(int id_votante) {
-	try {
-		conn = DB.getConnection();
-		stt = conn.prepareStatement("SELECT * FROM votante " + "WHERE " + "id_votante = ?");
+	public Votante searchVotanteById(int id_votante) {
+		try {
+			conn = DB.getConnection();
+			stt = conn.prepareStatement("SELECT * FROM votante " + "WHERE " + "id_votante = ?");
 
-		stt.setInt(1, id_votante);
-		
-		rs = stt.executeQuery();
-		if(rs.next()) {
-			
-		Votante vtt = new Votante( rs.getString("matricula"), rs.getString("nome"), rs.getString("senha"));
-		
-		return vtt;
-		
+			stt.setInt(1, id_votante);
+
+			rs = stt.executeQuery();
+			if (rs.next()) {
+
+				Votante vtt = new Votante(rs.getString("matricula"), rs.getString("nome"), rs.getString("senha"));
+
+				return vtt;
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closestatement(stt);
+			DB.closeConnection();
 		}
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		DB.closestatement(stt);
-		DB.closeConnection();
-	}
-	return null;
+		return null;
 
+	}
+
+	public static boolean verificarloginvot(String logindigit) throws SQLException {
+		Connection conn = null;
+		ResultSet rs = null;
+		Statement st = null;
+		boolean loginIncorreto = false;
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT matricula \r\n" + "FROM votante \r\n");
+			while (rs.next()) {
+				String matriculabd = rs.getString("matricula");
+				boolean check = logindigit.equals(matriculabd);
+				if (check == true) {
+					return check;
+				} else {
+					loginIncorreto = true;
+				}
+			}
+			if (loginIncorreto) {
+				System.out.println("login incorreto");
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closeResultSet(rs);
+			DB.closestatement(st);
+
+		}
+		return false;
 	}
 
 }
