@@ -11,57 +11,64 @@ public class ControllerVoto {
 	private VotanteDAO votanteRepository = new VotanteDAO();
 	
 	public void registrarVoto (String numeroCandidato) throws BusinessException {
-		//validarRegistro( numeroCandidato);
+		validarRegistro(numeroCandidato);
 		
 		Voto vt = new Voto(numeroCandidato);
 		votoRepository.addVoto(vt);
 		
 	}
 	
-//	public void validarRegistro( String numeroCandidato) throws BusinessException {
-//		if(votoRepository.searchVotoById(idVotante) != null) {
-//			
-//			throw new BusinessException("Eleitor já possui voto registrado!");
-//			
-//	} 
-//		if (candidatoRepository.searchCandidatoById(numeroCandidato) == null) {
-//			throw new BusinessException("Candidato inexistente, informe um numero valido!");
-//		}
-//		
-//		if(votanteRepository.searchVotanteById(idVotante) == null) {
-//			throw new BusinessException("Eleitor não identificado, insira as credenciais corretas!");
-//		}
-//		
-//	}
-	
-	public void deletarVoto(int id_Voto) throws BusinessException {
-		validarExclusao(id_Voto);
+	public void validarRegistro(String numeroCandidato) throws BusinessException { 
 		
-		votoRepository.deleteVoto(id_Voto);
+		if (candidatoRepository.searchCandidatoById(numeroCandidato) == null) {
+			
+			throw new BusinessException("Candidato inexistente, informe um numero valido!");
+		}
+		
+		if (numeroCandidato.isBlank()) {
+			
+			throw new BusinessException("O campo numero de candidato não pode estar vazio!");
+		}
+		
+		if (numeroCandidato.length() > 100) {
+			
+			throw new BusinessException("O numero de candidato não pode possuir mais do que 100 caracteres");
+		}					
 		
 	}
 	
+	public void deletarVoto(int idVoto) throws BusinessException {
+		
+		validarExclusao(idVoto);
+		
+		votoRepository.deleteVoto(idVoto);
 	
-	public void validarExclusao(int id_Voto) throws BusinessException {
-		if(votoRepository.searchVotoById(id_Voto) == null) {
+	}
+	
+	
+	public void validarExclusao(int idVoto) throws BusinessException {
+		
+		if(votoRepository.searchVotoById(idVoto) == null) {
 			
 			throw new BusinessException("Voto não encontrado!");
 			
 		}
 	}
 	
-	public void consultarVoto(int id_Voto) {
-		
-		votoRepository.searchVotoById(id_Voto);
+	public void consultarVoto(int idVoto) {
+	
+		votoRepository.searchVotoById(idVoto);
 		
 	}
 	
-	public void validarConsulta(int id_Voto) throws BusinessException {
-		if(votoRepository.searchVotoById(id_Voto) == null) {
+	public void validarConsulta(int idVoto) throws BusinessException {
+		
+		if(votoRepository.searchVotoById(idVoto) == null) {
 			
 			throw new BusinessException("Voto não encontrado, indorme um identificador valido!");
 			
 		}
 	}
 }
+
 

@@ -43,7 +43,7 @@ public class VotacaoDAO {
 
 	}
 	
-	public void updateVotacao(int idVotacao, Date dataInicio, Date dataFim) {
+	public void updateVotacao(int idVotacao, java.util.Date dataInicio, java.util.Date dataFim) {
 		try {
 			conn = DB.getConnection();
 			stt1 = conn.prepareStatement("Update votação " + "SET data_inicio = ?, data_fim = ?" + "WHERE" + "id_votação = ?");
@@ -109,3 +109,4 @@ public class VotacaoDAO {
 	}
 
 }
+
