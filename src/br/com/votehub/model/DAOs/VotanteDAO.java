@@ -72,7 +72,6 @@ public class VotanteDAO {
 			stt.setString(2, encrip.encriptadorDeValores(v.getNome(), "C"));
 			stt.setString(3, encrip.encriptadorDeValores(v.getSenha(), "C")); // stt.setString(4,
 																				// Hash.gerarHash(v.getSenha()));
-			stt.setString(4, encrip.encriptadorDeValores(v.getOcupação(), "C"));
 
 			stt.executeUpdate();
 			System.out.println("Novo votante cadastrado");
@@ -85,8 +84,7 @@ public class VotanteDAO {
 
 	}
 
-	public void updateVotante(int idVotante, String novaMatricula, String novoNome, String novaSenha,
-			String novaOcupacao) {
+	public void updateVotante(int idVotante, String novaMatricula, String novoNome, String novaSenha) {
 		Encriptador encrip = new Encriptador();
 		try {
 			conn = DB.getConnection();
@@ -97,7 +95,6 @@ public class VotanteDAO {
 			stt1.setString(2, encrip.encriptadorDeValores(novoNome, "C"));
 			stt1.setString(3, encrip.encriptadorDeValores(novaSenha, "C")); // stt1.setString(4,
 																			// Hash.gerarHash(novaSenha));
-			stt1.setString(4, encrip.encriptadorDeValores(novaOcupacao, "C"));
 			stt1.setInt(5, idVotante);
 
 			stt1.executeUpdate();
@@ -137,7 +134,7 @@ public Votante searchVotanteById(int id_votante) {
 		rs = stt.executeQuery();
 		if(rs.next()) {
 			
-		Votante vtt = new Votante( rs.getString("matricula"), rs.getString("nome"), rs.getString("senha"), rs.getString("ocupação"));
+		Votante vtt = new Votante( rs.getString("matricula"), rs.getString("nome"), rs.getString("senha"));
 		
 		return vtt;
 		

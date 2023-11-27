@@ -15,14 +15,14 @@ public class ControllerVotante {
 	private VotanteDAO votanteRepository = new VotanteDAO();
 
 	// resolver questão do id_votante, que é auto increment no banco de dados.//ja foi resolvido piranha
-	public void registrarVotante(String matricula, String nome, String senha, String ocupacao) throws BusinessException, SQLException {
-		this.validarRegistro( matricula, nome, senha, ocupacao);
+	public void registrarVotante(String matricula, String nome, String senha) throws BusinessException, SQLException {
+		this.validarRegistro( matricula, nome, senha);
 
-		Votante vt = new Votante( matricula, nome, senha, ocupacao);
+		Votante vt = new Votante( matricula, nome, senha);
 		votanteRepository.addVotante(vt);
 	}
 
-	public void validarRegistro( String matricula, String nome, String senha, String ocupacao) throws BusinessException, SQLException {
+	public void validarRegistro( String matricula, String nome, String senha) throws BusinessException, SQLException {
 
 		if (matricula.isBlank()) {
 			throw new BusinessException("A matrícula deve ser preenchida.");
@@ -40,9 +40,6 @@ public class ControllerVotante {
 			throw new BusinessException("A senha deve ser preenchida.");
 		}
 
-		if (ocupacao.isBlank()) {
-			throw new BusinessException("A ocupação deve ser preenchida.");
-		}
 	}
 
 	public void deletarVotante(int id_votante) throws BusinessException {
@@ -57,14 +54,14 @@ public class ControllerVotante {
 		}
 	}
 
-	public void atualizarVotante(int id_votante, String matricula, String nome, String senha, String ocupacao)
+	public void atualizarVotante(int id_votante, String matricula, String nome, String senha)
 			throws BusinessException {
-		validarAtualizacao(id_votante, matricula, nome, senha, ocupacao);
+		validarAtualizacao(id_votante, matricula, nome, senha);
 
-		votanteRepository.updateVotante(id_votante, matricula, nome, senha, ocupacao);
+		votanteRepository.updateVotante(id_votante, matricula, nome, senha);
 	}
 
-	public void validarAtualizacao(int id_votante, String matricula, String nome, String senha, String ocupacao)
+	public void validarAtualizacao(int id_votante, String matricula, String nome, String senha)
 			throws BusinessException {
 		if (votanteRepository.searchVotanteById(id_votante) == null) {
 			throw new BusinessException("Votante referido não encontrado");
@@ -82,9 +79,6 @@ public class ControllerVotante {
 			throw new BusinessException("A senha deve ser preenchida.");
 		}
 
-		if (ocupacao.isBlank()) {
-			throw new BusinessException("A ocupação deve ser preenchida.");
-		}
 	}
 
 	public boolean verificarSeMatriculaExiste(String matricula) throws SQLException {

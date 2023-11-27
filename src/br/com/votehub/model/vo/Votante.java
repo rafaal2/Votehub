@@ -8,12 +8,11 @@ public class Votante {
 	private String senha;
 	private String ocupação;
 
-	public Votante( String matricula, String nome, String senha, String ocupação) {
+	public Votante( String matricula, String nome, String senha) {
 		this.id_votante = id_votante;
 		this.matricula = matricula;
 		this.nome = nome;
 		this.senha = senha;
-		this.ocupação = ocupação;
 	}
 
 	public int getId_votante() {
@@ -48,15 +47,8 @@ public class Votante {
 		this.senha = senha;
 	}
 
-	public String getOcupação() {
-		return ocupação;
-	}
-
-	public void setOcupação(String ocupação) {
-		this.ocupação = ocupação;
-	}
 
 	public String toString() {
-		return "[" + this.id_votante + ", " + this.matricula + ", " + this.nome + ", " + this.senha + ", " + this.ocupação + "]";
+		return "[" + this.id_votante + ", " + this.matricula + ", " + this.nome + ", " + this.senha + "]";
 	}
 }

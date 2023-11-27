@@ -22,7 +22,6 @@ public class VotoDAO {
 			stt = conn.prepareStatement("INSERT INTO voto" + "(numero_candidato, id_votante)" + "VALUES" + "(?, ?)");
 
 			stt.setString(1, vt.getNumero_candidato());
-			stt.setInt(2, vt.getId_votante());
 
 			stt.executeUpdate();
 			System.out.println("novo voto cadastrado");
@@ -87,7 +86,7 @@ public class VotoDAO {
 			rs = stt.executeQuery();
 			if(rs.next()) {
 				
-			Voto vt = new Voto(rs.getString("numero_candidato"), rs.getInt("id_votante"));
+			Voto vt = new Voto(rs.getString("numero_candidato"));
 			
 			return vt;
 			

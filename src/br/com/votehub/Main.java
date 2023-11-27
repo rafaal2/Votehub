@@ -68,10 +68,8 @@ public class Main {
 		String nome = sc.next();
 		System.out.print("Digite a senha do votante: ");
 		String senha = sc.next();
-		System.out.print("Digite a ocupação do votante: ");
-		String ocupação = sc.next();
 
-		Votante v = new Votante(matricula, nome, senha, ocupação);
+		Votante v = new Votante(matricula, nome, senha);
 		VotanteDAO vdao = new VotanteDAO();
 		vdao.addVotante(v);
 		sc.close();
@@ -99,10 +97,7 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Digite o id do candidato a ser votado: ");
 		String numero_candidato = sc.next();
-		System.out.print("Digite o id do vontate que vai votar: ");
-		int id_votante = sc.nextInt();
-
-		Voto vt = new Voto(numero_candidato, id_votante);
+		Voto vt = new Voto(numero_candidato);
 
 		VotoDAO vtdao = new VotoDAO();
 		vtdao.addVoto(vt);
