@@ -22,8 +22,8 @@ public class AdmDAO {
 			conn = DB.getConnection();
 			stt = conn.prepareStatement("INSERT INTO adm" + "(login, senha)" + "VALUES" + "(?, ?)");
 
-			stt.setString(1, encrip.encriptadorDeValores(a.getLogin(), "C"));
-			stt.setString(2, encrip.encriptadorDeValores(a.getSenha(), "C"));
+			stt.setString(1, a.getLogin());
+			stt.setString(2, a.getSenha());
 
 			stt.executeUpdate();
 			System.out.println("Novo admin cadastrado");

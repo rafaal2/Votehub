@@ -69,7 +69,7 @@ public class ControllerAdm {
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT login \r\n" + "FROM adm \r\n");
 			while (rs.next()) {
-				String matriculabd = encrip.encriptadorDeValores(rs.getString("login"), "d");
+				String matriculabd = rs.getString("login");
 				boolean check = logindigit.equals(matriculabd);
 				if (check) {
 					return true;
@@ -99,7 +99,7 @@ public class ControllerAdm {
 			st =  conn.createStatement();
 			rs =  st.executeQuery("SELECT senha \r\n" + "FROM adm \r\n");
 			while (rs.next()) {
-				String senhabd = encrip.encriptadorDeValores(rs.getString("senha"), "d");
+				String senhabd = rs.getString("senha");
 				boolean check = senhadigit.equals(senhabd);
 				if (check) {
 					return true;

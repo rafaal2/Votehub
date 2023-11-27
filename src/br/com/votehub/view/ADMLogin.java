@@ -91,14 +91,18 @@ public class ADMLogin extends JFrame {
 					ControllerAdm contAdm = new ControllerAdm();
 					contAdm.verificarloginadm(logindigit);
 					contAdm.verificarsenhaadm(senhadigit);
+					ADMPrincipal admprincipal = new ADMPrincipal();
+	                admprincipal.setVisible(true);
+	                dispose();
 				} catch (BusinessException error) {
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
-				}
+				} 
 
 			}
 		});
+	
 
 		JButton btnVoltar = new JButton("Voltar");
 		panel.add(btnVoltar, "cell 0 8");
