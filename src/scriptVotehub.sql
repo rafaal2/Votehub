@@ -1,4 +1,3 @@
-
 create database votehub;
 use votehub;
 
@@ -12,6 +11,11 @@ CREATE TABLE adm (
   senha varchar(100) DEFAULT NULL,
   PRIMARY KEY (id_adm)
 ) ;
+
+--
+-- inserindo dados na tabela adm
+--
+insert into adm values(1,'adm01','12345678adm');
 
 --
 -- criando estrutura da tabela `candidato`
@@ -33,7 +37,6 @@ CREATE TABLE votante (
   matricula char(200) DEFAULT NULL,
   nome varchar(200) DEFAULT NULL,
   senha varchar(100) DEFAULT NULL,
-  ocupação char(100) DEFAULT NULL,
   PRIMARY KEY (id_votante)
 );
 
@@ -41,11 +44,11 @@ CREATE TABLE votante (
 -- criando estrutura da tabela `votação`
 --
 
-CREATE TABLE votação (
-  id_votação int NOT NULL AUTO_INCREMENT,
+CREATE TABLE votacao (
+  id_votacao int NOT NULL AUTO_INCREMENT,
   data_inicio datetime DEFAULT NULL,
   data_fim datetime DEFAULT NULL,
-  PRIMARY KEY (id_votação)
+  PRIMARY KEY (id_votacao)
 );
 
 --
@@ -55,13 +58,16 @@ CREATE TABLE votação (
 CREATE TABLE voto (
   id_voto int NOT NULL AUTO_INCREMENT,
   numero_candidato varchar(100) DEFAULT NULL,
-  id_votante int DEFAULT NULL,
   PRIMARY KEY (id_voto),
   KEY numero_candidato (numero_candidato),
-  KEY id_votante (id_votante),
-  CONSTRAINT voto_ibfk_1 FOREIGN KEY (numero_candidato) REFERENCES candidato (numero_candidato),
-  CONSTRAINT voto_ibfk_2 FOREIGN KEY (id_votante) REFERENCES votante (id_votante)
+  CONSTRAINT voto_ibfk_1 FOREIGN KEY (numero_candidato) REFERENCES candidato (numero_candidato)
+);
+
+create table votacaoVotante(
+id_votacaoVotante int not null auto_increment,
+id_votacao int NOT NULL,
+id_votante int not null,
+primary key (id_votacaoVotante),
+FOREIGN KEY (id_votacao) REFERENCES votacao(id_votacao),
+FOREIGN KEY (id_votante) REFERENCES votante(id_votante)
 )
-
-
-
