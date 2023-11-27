@@ -32,34 +32,34 @@ public class TelaInicial extends JFrame {
     }
 
     public TelaInicial() {
-    	
+    	setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 800, 600);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         setContentPane(contentPane);
-        contentPane.setLayout(new MigLayout("", "[][][][][][][][][][][][][][][][][]", "[][][][][][][][][][][][]"));
-
-        JLabel lblNewLabelVotehub = new JLabel("Votehub");
-        lblNewLabelVotehub.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabelVotehub.setFont(new Font("Tahoma", Font.BOLD, 34));
-        contentPane.add(lblNewLabelVotehub, "cell 10 0");
-
-        JButton btnNewButtonAcessoUsuario = new JButton("USUÁRIO");
-        btnNewButtonAcessoUsuario.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                LoginUsuario loginUsuario = new LoginUsuario();
-                loginUsuario.setVisible(true);
-                dispose();
-            }
-        });
-        btnNewButtonAcessoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        contentPane.add(btnNewButtonAcessoUsuario, "cell 10 4");
-
-        JButton btnNewButtonAcessoAdm = new JButton("ADMINISTRADOR");
-        btnNewButtonAcessoAdm.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        contentPane.add(btnNewButtonAcessoAdm, "cell 10 7");
+        contentPane.setLayout(new MigLayout("fill", "[][][][grow][][][]", "[][][][][][][][][][][][]"));
+                
+                        JLabel lblNewLabelVotehub = new JLabel("VoteHub");
+                        lblNewLabelVotehub.setHorizontalAlignment(SwingConstants.CENTER);
+                        lblNewLabelVotehub.setFont(new Font("Tahoma", Font.BOLD, 34));
+                        contentPane.add(lblNewLabelVotehub, "cell 3 0,alignx center,aligny bottom");
+                
+                        JButton btnNewButtonAcessoUsuario = new JButton("USUÁRIO");
+                        btnNewButtonAcessoUsuario.addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+                                LoginUsuario loginUsuario = new LoginUsuario();
+                                loginUsuario.setVisible(true);
+                                dispose();
+                            }
+                        });
+                        btnNewButtonAcessoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 30));
+                        contentPane.add(btnNewButtonAcessoUsuario, "cell 3 4,alignx center");
+                
+                        JButton btnNewButtonAcessoAdm = new JButton("ADMINISTRADOR");
+                        btnNewButtonAcessoAdm.setFont(new Font("Tahoma", Font.PLAIN, 30));
+                        contentPane.add(btnNewButtonAcessoAdm, "cell 3 7,alignx center");
         btnNewButtonAcessoAdm.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ADMLogin admLogin = new ADMLogin();

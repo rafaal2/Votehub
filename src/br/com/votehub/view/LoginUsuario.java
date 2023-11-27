@@ -2,11 +2,15 @@ package br.com.votehub.view;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.text.MaskFormatter;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
+import javax.swing.WindowConstants;
 
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -24,15 +28,26 @@ public class LoginUsuario extends JFrame {
 	String ano = Integer.toString(LocalDate.now().getYear());
 	private JFormattedTextField campoMatricula;
 	private JFormattedTextField campoCpf;
-	private JButton btnNewButtonVoltar;
 	
 	// CHAMANDO A TELA -> SwingUtilities.invokeLater(LoginUsuario::new);
+	// PARA VOLTAR A TELA INICIAL -> CTRL + I
+	// NAO E POSSIVEL FECHAR A JANELA, PARA FECHAR VOLTE PARA TELA INICIAL
 	
 	public LoginUsuario() {
 		try {
 			initialize();
 			setExtendedState(JFrame.MAXIMIZED_BOTH);
 	        setVisible(true);
+	        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+            KeyStroke keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_I, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask());
+            getRootPane().registerKeyboardAction(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                	TelaInicial telaInicial = new TelaInicial();
+            		telaInicial.setVisible(true);
+                    System.out.println("Volta a Tela Inicial");
+                }
+            }, keyStroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
 	        
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -92,6 +107,7 @@ public class LoginUsuario extends JFrame {
 		});
 		getContentPane().add(botaoEntrar, "cell 2 5,alignx center");
 		
+		
 		// Formatacao Campo CPF	
 		try {
 			MaskFormatter maskara = new MaskFormatter("###########");
@@ -124,17 +140,6 @@ public class LoginUsuario extends JFrame {
             e.printStackTrace();
         }
 		getContentPane().add(campoCpf, "cell 2 4,growx");
-		
-		btnNewButtonVoltar = new JButton("Voltar");
-		btnNewButtonVoltar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		getContentPane().add(btnNewButtonVoltar, "cell 0 7");
-		btnNewButtonVoltar.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        TelaInicial telaInicio = new TelaInicial();
-		        telaInicio.setVisible(true);
-		        dispose();
-		    }
-		});
 		
 
 		
