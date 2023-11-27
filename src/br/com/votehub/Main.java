@@ -13,22 +13,26 @@ import br.com.votehub.model.vo.Adm;
 import br.com.votehub.model.vo.Candidato;
 import br.com.votehub.model.vo.Votante;
 import br.com.votehub.model.vo.Voto;
+import br.com.votehub.view.*;
 
 public class Main {
 
 	public static void main(String[] args) throws SQLException, BusinessException {
-//		SwingUtilities.invokeLater(TelaVotacao::new);
-//		SwingUtilities.invokeLater(LoginUsuario::new);
-		Scanner sc = new Scanner(System.in);
-		System.out.println("digite sua senha");
-		String senhadigit = sc.next();
-		boolean check = Encriptador.verificarsenhavot(senhadigit);
-		if (check) {
-			Main programa = new Main();
-			programa.operação();
-		}
+////		SwingUtilities.invokeLater(TelaVotacao::new);
+////		SwingUtilities.invokeLater(LoginUsuario::new);
+//		Scanner sc = new Scanner(System.in);
+//		System.out.println("digite sua senha");
+//		String senhadigit = sc.next();
+//		boolean check = Encriptador.verificarsenhavot(senhadigit);
+//		if (check) {
+//			Main programa = new Main();
+//			programa.operação();
+//		}
+//	}
+//		
+		TelaInicial telaInicial = new TelaInicial();
+		telaInicial.setVisible(true);
 	}
-		
 	
   // ____TELAS____
 	// SwingUtilities.invokeLater(ConfirmacaoVoto::new);

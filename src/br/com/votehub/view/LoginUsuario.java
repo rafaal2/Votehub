@@ -16,23 +16,23 @@ import java.awt.event.ActionEvent;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JFormattedTextField;
 
-public class LoginUsuario {
+public class LoginUsuario extends JFrame {
 
-	private JFrame frame;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	String ano = Integer.toString(LocalDate.now().getYear());
 	private JFormattedTextField campoMatricula;
 	private JFormattedTextField campoCpf;
+	private JButton btnNewButtonVoltar;
 	
 	// CHAMANDO A TELA -> SwingUtilities.invokeLater(LoginUsuario::new);
 	
 	public LoginUsuario() {
 		try {
 			initialize();
-			frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-	        frame.setVisible(true);
+			setExtendedState(JFrame.MAXIMIZED_BOTH);
+	        setVisible(true);
 	        
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -44,22 +44,21 @@ public class LoginUsuario {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setTitle("Login Usuário");
+		setTitle("Login Usuário");
 		//frame.setSize(1366, 768);//eixo x e eixo y
 		//frame.resizable(false);
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new MigLayout("fill", "[grow][][grow][][grow]", "[][][][][][][][]"));
+		setBounds(100, 100, 450, 300);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setLayout(new MigLayout("fill", "[grow][][grow][][grow]", "[][][][][][][][]"));
 		
 		lblNewLabel_2 = new JLabel("Eleição " + ano);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 17));
-		frame.getContentPane().add(lblNewLabel_2, "cell 2 2,alignx center");
+		getContentPane().add(lblNewLabel_2, "cell 2 2,alignx center");
 		
 		lblNewLabel = new JLabel("Matrícula:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
-		frame.getContentPane().add(lblNewLabel, "cell 1 3,alignx trailing");
+		getContentPane().add(lblNewLabel, "cell 1 3,alignx trailing");
 		
 		// Formatacao Campo Matricula
 		try {
@@ -71,11 +70,11 @@ public class LoginUsuario {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-		frame.getContentPane().add(campoMatricula, "cell 2 3,growx");
+		getContentPane().add(campoMatricula, "cell 2 3,growx");
 		
 		lblNewLabel_1 = new JLabel("CPF:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		frame.getContentPane().add(lblNewLabel_1, "cell 1 4,alignx trailing");
+		getContentPane().add(lblNewLabel_1, "cell 1 4,alignx trailing");
 		
 		// AÇÃO BOTÃO ENTRAR
 		JButton botaoEntrar = new JButton("Entrar");
@@ -91,7 +90,7 @@ public class LoginUsuario {
 				}
 			}
 		});
-		frame.getContentPane().add(botaoEntrar, "cell 2 5,alignx center");
+		getContentPane().add(botaoEntrar, "cell 2 5,alignx center");
 		
 		// Formatacao Campo CPF	
 		try {
@@ -124,7 +123,18 @@ public class LoginUsuario {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-		frame.getContentPane().add(campoCpf, "cell 2 4,growx");
+		getContentPane().add(campoCpf, "cell 2 4,growx");
+		
+		btnNewButtonVoltar = new JButton("Voltar");
+		btnNewButtonVoltar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		getContentPane().add(btnNewButtonVoltar, "cell 0 7");
+		btnNewButtonVoltar.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        TelaInicial telaInicio = new TelaInicial();
+		        telaInicio.setVisible(true);
+		        dispose();
+		    }
+		});
 		
 
 		

@@ -95,8 +95,19 @@ public class ADMLogin extends JFrame {
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
-				} 
+				}
 
+			}
+		});
+
+		JButton btnVoltar = new JButton("Voltar");
+		panel.add(btnVoltar, "cell 0 8");
+		btnVoltar.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				TelaInicial telaInicio = new TelaInicial();
+				telaInicio.setVisible(true);
+				dispose();
 			}
 		});
 	}
