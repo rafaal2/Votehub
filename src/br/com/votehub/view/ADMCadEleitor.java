@@ -21,7 +21,7 @@ import br.com.votehub.controller.BusinessException;
 import br.com.votehub.controller.ControllerCandidato;
 import net.miginfocom.swing.MigLayout;
 
-public class ADMCadCandidato extends JFrame {
+public class ADMCadEleitor extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField fieldNomeCad;
@@ -35,7 +35,7 @@ public class ADMCadCandidato extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ADMCadCandidato frame = new ADMCadCandidato();
+					ADMCadEleitor frame = new ADMCadEleitor();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,8 +47,8 @@ public class ADMCadCandidato extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ADMCadCandidato() {
-		setTitle("Cadastro de Candidato");
+	public ADMCadEleitor() {
+		setTitle("Cadastro de Eleitor");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 501, 381);
 		contentPane = new JPanel();
@@ -63,9 +63,9 @@ public class ADMCadCandidato extends JFrame {
 		panel.setPreferredSize(new Dimension(800, 600)); 
 		panel.setLayout(new MigLayout("fill", "[grow][][grow][grow][][][grow][][grow]", "[][][][][][][][][][][]"));
 		
-		JLabel lblCadCandidato = new JLabel("Cadastro de Candidato");
-		lblCadCandidato.setFont(new Font("Tahoma", Font.BOLD, 17));
-		panel.add(lblCadCandidato, "cell 0 0 9 1,alignx center,aligny center");
+		JLabel lblCadEleitor = new JLabel("Cadastro de Eleitor");
+		lblCadEleitor.setFont(new Font("Tahoma", Font.BOLD, 17));
+		panel.add(lblCadEleitor, "cell 0 0 9 1,alignx center,aligny center");
 		
 		JButton btnVoltarCad = new JButton("VOLTAR");
 		btnVoltarCad.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -82,17 +82,17 @@ public class ADMCadCandidato extends JFrame {
 		panel.add(fieldNomeCad, "cell 2 3 6 1,growx");
 		fieldNomeCad.setColumns(10);
 		
-		JLabel lblCadNumCand = new JLabel("Nº Candidato :");
-		lblCadNumCand.setFont(new Font("Tahoma", Font.BOLD, 11));
-		panel.add(lblCadNumCand, "cell 1 4,alignx trailing");
+		JLabel lblCadMatricula = new JLabel("Matrícula :");
+		lblCadMatricula.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panel.add(lblCadMatricula, "cell 1 4,alignx trailing,aligny baseline");
 		
 		fieldNumCad = new JTextField();
 		panel.add(fieldNumCad, "cell 2 4 6 1,growx");
 		fieldNumCad.setColumns(10);
 		
-		JLabel lblCadCargo = new JLabel("Cargo :");
-		lblCadCargo.setFont(new Font("Tahoma", Font.BOLD, 11));
-		panel.add(lblCadCargo, "cell 1 5,alignx trailing");
+		JLabel lblCadSenha = new JLabel("Senha :");
+		lblCadSenha.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panel.add(lblCadSenha, "cell 1 5,alignx trailing");
 		
 		filedCargoCad = new JTextField();
 		panel.add(filedCargoCad, "cell 2 5 6 1,growx");
@@ -103,22 +103,7 @@ public class ADMCadCandidato extends JFrame {
 		btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panel.add(btnCadastrar, "cell 8 10,alignx right,aligny bottom");
 		
-		btnCadastrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String numero_candidato = fieldNumCad.getText();
-				String nomeCandidato = fieldNomeCad.getText();
-				String cargoCandidato = filedCargoCad.getText();
-				
-				try {
-					ControllerCandidato contCandidato = new ControllerCandidato();
-					contCandidato.registrarCandidato(numero_candidato, nomeCandidato, cargoCandidato);
-				} catch(BusinessException error) {
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-				}
-				
-			}
-			
-		});
+		
 	}
 
 }

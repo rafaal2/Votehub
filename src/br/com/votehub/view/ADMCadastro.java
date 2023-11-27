@@ -58,14 +58,14 @@ public class ADMCadastro extends JFrame {
 		lblCadastro.setFont(new Font("Tahoma", Font.BOLD, 17));
 		panel.add(lblCadastro, "cell 3 0,alignx center,aligny center");
 		
-		JButton btnCadEleitor = new JButton("CAD. ELEITOR");
+		JButton btnCadEleitor = new JButton("CADASTRAR ELEITOR");
 		btnCadEleitor.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnCadEleitor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		
-		JButton btnCadCandidato = new JButton("CAD. CANDIDATO");
+		JButton btnCadCandidato = new JButton("CADASTRAR CANDIDATO");
 		btnCadCandidato.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panel.add(btnCadCandidato, "cell 3 2,growx,aligny center");
 		panel.add(btnCadEleitor, "cell 3 3,growx,aligny center");
