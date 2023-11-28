@@ -16,7 +16,8 @@ CREATE TABLE adm (
 -- inserindo dados na tabela adm
 --
 
-insert into adm values(1,'adm01','12345678adm');
+insert into adm values(1,'adm01','MEOhagF2o+J/IOKCgePLCLJGa601Pe12qYpncc68OIdErQOn06cmAsvPNB4/TcLq');
+-- a senha criptografada é '12345678adm'
 
 --
 -- criando estrutura da tabela `votante`
