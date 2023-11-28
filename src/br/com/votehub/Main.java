@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import org.jasypt.util.password.StrongPasswordEncryptor;
-
+import javax.swing.SwingUtilities;
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.model.DAOs.AdmDAO;
 import br.com.votehub.model.DAOs.CandidatoDAO;
@@ -15,7 +15,7 @@ import br.com.votehub.model.vo.Adm;
 import br.com.votehub.model.vo.Candidato;
 import br.com.votehub.model.vo.Votante;
 import br.com.votehub.model.vo.Voto;
-
+import br.com.votehub.view.*;
 public class Main {
 	
 
@@ -39,8 +39,7 @@ public class Main {
 //	}
 	
  // ____TELAS____
-// SwingUtilities.invokeLater(ConfirmacaoVoto::new);
-// SwingUtilities.invokeLater(ConfirmacaoVoto::new);   
+ //	SwingUtilities.invokeLater(() -> new Generica("Diretor"));
 	
 	public void operação() {
 		Scanner sc = new Scanner(System.in);
