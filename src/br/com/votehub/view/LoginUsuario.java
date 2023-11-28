@@ -45,7 +45,8 @@ public class LoginUsuario extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                 	TelaInicial telaInicial = new TelaInicial();
             		telaInicial.setVisible(true);
-                    System.out.println("Volta a Tela Inicial");
+            		dispose();
+            		System.out.println("Volta a Tela Inicial");
                 }
             }, keyStroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
 	        
