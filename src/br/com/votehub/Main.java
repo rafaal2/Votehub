@@ -29,12 +29,12 @@ public class Main {
 //	    String senhaDigitada = sc.next();
 //		boolean check = VotanteDAO.verificarsenhavot(senhaDigitada);
 //		if (check) {
-		TelaInicial telaInicial = new TelaInicial();
-		telaInicial.setVisible(true);
+//	TelaInicial telaInicial = new TelaInicial();
+//		telaInicial.setVisible(true);
 			Main programa = new Main();
 			programa.operação();
+	//}
 	}
-//	}
 		
 //		TelaInicial telaInicial = new TelaInicial();
 //		telaInicial.setVisible(true);

@@ -16,10 +16,10 @@ public class ControllerVotacao {
 	private VotacaoDAO votacaoRepository = new VotacaoDAO();
 	private Date now = new Date();
 	
-	public void registrarVotacao( Date dataInicio, Date dataFim) throws BusinessException {
+	public void registrarVotacao(String nome_votacao, Date dataInicio, Date dataFim) throws BusinessException {
 		validarRegistro(dataInicio, dataFim);
 		
-		Votacao vtc = new Votacao(dataInicio, dataFim);
+		Votacao vtc = new Votacao(nome_votacao, dataInicio, dataFim);
 		votacaoRepository.addVotacao(vtc);
 	}
 	
@@ -82,15 +82,15 @@ public class ControllerVotacao {
 		
 	}
 	
-	public void atualizarVotacao(int idVotacao, Date dataInicio, Date dataFim) throws BusinessException {
+	public void atualizarVotacao(int idVotacao, String nome_votacao, Date dataInicio, Date dataFim) throws BusinessException {
 		
-		validarAtualizacao(idVotacao, dataInicio, dataFim);
+		validarAtualizacao(idVotacao, nome_votacao, dataInicio, dataFim);
 		//inserir condições para preenchimento de campos em branco
 		
-		votacaoRepository.updateVotacao(idVotacao, dataInicio, dataFim);
+		votacaoRepository.updateVotacao(idVotacao, nome_votacao, dataInicio, dataFim);
 	}
 	
-	public void validarAtualizacao(int idVotacao, Date dataInicio, Date dataFim) throws BusinessException {
+	public void validarAtualizacao(int idVotacao, String nome_votacao, Date dataInicio, Date dataFim) throws BusinessException {
 		
 		//alterar levando em considerações as condições do metodo a ser validado
 		if(votacaoRepository.searchVotacaoById(idVotacao) == null) {

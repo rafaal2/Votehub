@@ -67,7 +67,7 @@ public class AdmDAO {
 			stt2.setInt(1, Id_adm);
 
 			stt2.executeUpdate();
-			System.out.println("adm" + Id_adm+ "deletado");
+			System.out.println("adm" + Id_adm + "deletado");
 		} catch (SQLException e) {
 			throw new DbIntegrityException(e.getMessage());
 		} finally {
@@ -129,7 +129,7 @@ public class AdmDAO {
 					throw new BusinessException("a senha deve conter no minimo 11 caracteres");
 				}else {
 					senhaIncorreta = true;}
-			throw new BusinessException("Senha incorreta");
+			        throw new BusinessException("Senha incorreta");
 		}}
 		 catch (SQLException e) {
 			e.printStackTrace();

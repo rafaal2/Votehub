@@ -1,24 +1,28 @@
 package br.com.votehub.view;
 
-import javax.swing.JFrame;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.time.LocalDate;
+
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.text.MaskFormatter;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
+import javax.swing.text.MaskFormatter;
 
-import java.awt.Font;
-import java.awt.Toolkit;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.text.ParseException;
-import java.time.LocalDate;
-import java.awt.event.ActionEvent;
+import br.com.votehub.controller.BusinessException;
+import br.com.votehub.controller.ControllerVotante;
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JFormattedTextField;
 
 public class LoginUsuario extends JFrame {
 
@@ -96,14 +100,21 @@ public class LoginUsuario extends JFrame {
 		JButton botaoEntrar = new JButton("Entrar");
 		botaoEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent entrar) {
-				String cpf, matricula;
-				try {
-					cpf = campoCpf.getText();
-					matricula = campoMatricula.getText();
-					
-				}catch(Exception e){
-					JOptionPane.showMessageDialog(null, "Usuário Inválido");
-				}
+					String loginDigitada = campoMatricula.getText();
+					String senhaDigitada = campoCpf.getText();
+					try {
+						ControllerVotante contvot = new ControllerVotante();
+						contvot.verificarloginvot(loginDigitada);
+						contvot.verificarsenhavot(senhaDigitada);
+						TelaVotacao admprincipal = new TelaVotacao();
+						TelaVotacao.setVisible(true);
+                		dispose();
+					} catch (BusinessException error) {
+						JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					} 
+
 			}
 		});
 		getContentPane().add(botaoEntrar, "cell 2 5,alignx center");

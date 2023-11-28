@@ -23,15 +23,16 @@ public class VotacaoDAO {
 	public void addVotacao(Votacao votacao) {
 		try {
 			conn = DB.getConnection();
-			stt = conn.prepareStatement("INSERT INTO votacao" + "(data_inicio, data_fim)" + "VALUES" + "(?, ?)");
+			stt = conn.prepareStatement("INSERT INTO votacao" + "(nome_votacao, data_inicio, data_fim)" + "VALUES" + "(?, ?)");
 
 			
 			// timestamp é utilizado p colunas "datatime" no sql;
 			Timestamp dataInicioTimestamp = new Timestamp(votacao.getData_inicio().getTime());
 	        Timestamp dataFimTimestamp = new Timestamp(votacao.getData_fim().getTime());
 	        
-			stt.setTimestamp(1, dataInicioTimestamp);
-			stt.setTimestamp(2, dataFimTimestamp);
+	        stt.setString(1, votacao.getNome_votacao());
+			stt.setTimestamp(2, dataInicioTimestamp);
+			stt.setTimestamp(3, dataFimTimestamp);
 			stt.executeUpdate();
 			System.out.println("Nova votação cadastrada");
 		} catch (SQLException e) {
@@ -43,18 +44,18 @@ public class VotacaoDAO {
 
 	}
 	
-	public void updateVotacao(int idVotacao, java.util.Date dataInicio, java.util.Date dataFim) {
+	public void updateVotacao(int idVotacao, String nome_votacao, java.util.Date dataInicio, java.util.Date dataFim) {
 		try {
 			conn = DB.getConnection();
-			stt1 = conn.prepareStatement("Update votação " + "SET data_inicio = ?, data_fim = ?" + "WHERE" + "id_votação = ?");
+			stt1 = conn.prepareStatement("Update votação " + "SET nome_votacao = ?, data_inicio = ?, data_fim = ?" + "WHERE" + "id_votação = ?");
 
 			Timestamp dataInicioTimestamp = new Timestamp(dataInicio.getTime());
 	        Timestamp dataFimTimestamp = new Timestamp(dataFim.getTime());
 			
-
-	        stt1.setTimestamp(1, dataInicioTimestamp);
-	        stt1.setTimestamp(2, dataFimTimestamp);
-	        stt1.setInt(3, idVotacao);
+	        stt1.setString(1, nome_votacao);
+	        stt1.setTimestamp(2, dataInicioTimestamp);
+	        stt1.setTimestamp(3, dataFimTimestamp);
+	        stt1.setInt(4, idVotacao);
 
 			stt1.executeUpdate();
 			System.out.println("Informações da votação " +idVotacao+ "atualizadas!");
@@ -93,7 +94,7 @@ public class VotacaoDAO {
 			rs = stt.executeQuery();
 			if(rs.next()) {
 				
-			Votacao vtc = new Votacao(rs.getDate("data_inicio"), rs.getDate("data_fim"));
+			Votacao vtc = new Votacao(rs.getString("nome_votacao"), rs.getDate("data_inicio"), rs.getDate("data_fim"));
 			
 			return vtc;
 			

@@ -102,4 +102,9 @@ public class TelaVotacao {
 		frame.getContentPane().add(botaoAvancar, "cell 6 7,alignx center,aligny baseline");
 	}
 
+	public static void setVisible(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
