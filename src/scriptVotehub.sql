@@ -36,6 +36,7 @@ CREATE TABLE votante (
 
 CREATE TABLE votacao (
   id_votacao int NOT NULL AUTO_INCREMENT,
+  nome_votacao char(200) DEFAULT NULL,
   data_inicio datetime DEFAULT NULL,
   data_fim datetime DEFAULT NULL,
   PRIMARY KEY (id_votacao)
