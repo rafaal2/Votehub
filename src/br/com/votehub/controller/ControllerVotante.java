@@ -6,12 +6,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Set;
+import java.util.HashSet;
 
 import br.com.votehub.model.DAOs.*;
 import br.com.votehub.model.criptografia.Encriptador;
 
 public class ControllerVotante {
-
+	private Set<String> matriculasTemporarias = new HashSet<>();
 	private VotanteDAO votanteRepository = new VotanteDAO();
 
 	// resolver questão do id_votante, que é auto increment no banco de dados.//ja foi resolvido piranha
@@ -20,9 +22,11 @@ public class ControllerVotante {
 
 		Votante vt = new Votante( matricula, nome, senha);
 		votanteRepository.addVotante(vt);
+		
 	}
 
 	public void validarRegistro( String matricula, String nome, String senha) throws BusinessException, SQLException {
+		
 
 		if (matricula.isBlank()) {
 			throw new BusinessException("A matrícula deve ser preenchida.");
@@ -39,6 +43,8 @@ public class ControllerVotante {
 		if (senha.isBlank()) {
 			throw new BusinessException("A senha deve ser preenchida.");
 		}
+		
+		matriculasTemporarias.add(matricula);
 
 	}
 
@@ -82,16 +88,21 @@ public class ControllerVotante {
 	}
 
 	public boolean verificarSeMatriculaExiste(String matricula) throws SQLException {
-		Encriptador encrip = new Encriptador();
+		
+		if (matriculasTemporarias.contains(matricula)) {
+            return true;
+        }
+		
 		Connection conn = null;
 		ResultSet rs = null;
 		Statement st = null;
+		
 		try {
 			conn = DB.getConnection();
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT matricula \r\n" + "FROM votante \r\n");
 			while (rs.next()) {
-				String matriculaBd = encrip.encriptadorDeValores(rs.getString("matricula"));
+				String matriculaBd = rs.getString("matricula");
 				boolean check = matriculaBd.equals(matricula);
 				if (check == true) {
 					return check;
@@ -99,9 +110,6 @@ public class ControllerVotante {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			DB.closeResultSet(rs);
-			DB.closestatement(st);
 		}
 		return false;
 	}

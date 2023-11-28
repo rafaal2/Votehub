@@ -60,6 +60,13 @@ public class ADMPrincipal extends JFrame {
 		JButton btnMenuCadastrar = new JButton("CADASTRAR");
 		btnMenuCadastrar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panel.add(btnMenuCadastrar, "cell 3 1,growx,aligny center");
+		btnMenuCadastrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ADMCadastro admCadastro = new ADMCadastro();
+                admCadastro.setVisible(true);
+                dispose();
+            }
+        });
 		
 		JButton btnMenuConsultar = new JButton("CONSULTAR");
 		btnMenuConsultar.setFont(new Font("Tahoma", Font.BOLD, 12));

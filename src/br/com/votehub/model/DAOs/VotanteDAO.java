@@ -53,12 +53,10 @@ public class VotanteDAO {
 																		// Hash.gerarHash(v.getSenha()));
 
 			stt.executeUpdate();
-			System.out.println("Novo votante cadastrado");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DB.closestatement(stt);
-			DB.closeConnection();
 		}
 
 	}

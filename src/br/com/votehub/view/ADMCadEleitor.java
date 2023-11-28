@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,15 +19,15 @@ import javax.swing.border.EmptyBorder;
 //import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;	
 
 import br.com.votehub.controller.BusinessException;
-import br.com.votehub.controller.ControllerCandidato;
+import br.com.votehub.controller.ControllerVotante;
 import net.miginfocom.swing.MigLayout;
 
 public class ADMCadEleitor extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField fieldMatriculaCad;
 	private JTextField fieldNomeCad;
-	private JTextField fieldNumCad;
-	private JTextField filedCargoCad;
+	private JTextField filedSenhaCad;
 
 	/**
 	 * Launch the application.
@@ -70,9 +71,12 @@ public class ADMCadEleitor extends JFrame {
 		JButton btnVoltarCad = new JButton("VOLTAR");
 		btnVoltarCad.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnVoltarCad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+	            public void actionPerformed(ActionEvent e) {
+	                ADMCadastro admCadastro = new ADMCadastro();
+	                admCadastro.setVisible(true);
+	                dispose();
+	            }
+	        });
 		
 		JLabel lblCadNome = new JLabel("Nome :");
 		lblCadNome.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -86,24 +90,39 @@ public class ADMCadEleitor extends JFrame {
 		lblCadMatricula.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel.add(lblCadMatricula, "cell 1 4,alignx trailing,aligny baseline");
 		
-		fieldNumCad = new JTextField();
-		panel.add(fieldNumCad, "cell 2 4 6 1,growx");
-		fieldNumCad.setColumns(10);
+		fieldMatriculaCad = new JTextField();
+		panel.add(fieldMatriculaCad, "cell 2 4 6 1,growx");
+		fieldMatriculaCad.setColumns(10);
 		
 		JLabel lblCadSenha = new JLabel("Senha :");
 		lblCadSenha.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel.add(lblCadSenha, "cell 1 5,alignx trailing");
 		
-		filedCargoCad = new JTextField();
-		panel.add(filedCargoCad, "cell 2 5 6 1,growx");
-		filedCargoCad.setColumns(10);
+		filedSenhaCad = new JTextField();
+		panel.add(filedSenhaCad, "cell 2 5 6 1,growx");
+		filedSenhaCad.setColumns(10);
 		panel.add(btnVoltarCad, "cell 0 10,alignx center,aligny bottom");
 		
 		JButton btnCadastrar = new JButton("CADASTRAR");
 		btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panel.add(btnCadastrar, "cell 8 10,alignx right,aligny bottom");
-		
-		
-	}
+		btnCadastrar.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        String matricula = fieldMatriculaCad.getText();
+		        String nome = fieldNomeCad.getText();
+		        String senha = filedSenhaCad.getText();
 
+		        ControllerVotante contVotante = new ControllerVotante();
+		        try {
+		            contVotante.registrarVotante(matricula, nome, senha);
+		            JOptionPane.showMessageDialog(null, "Votante cadastrado com sucesso!");
+		        } catch (BusinessException error) {
+		            JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+		        } catch (SQLException error2) {
+		            JOptionPane.showMessageDialog(null, error2.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+		        }
+		    }
+		});
+	}
 }
+
