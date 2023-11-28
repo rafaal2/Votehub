@@ -102,7 +102,6 @@ public class ControllerVotante {
 		} finally {
 			DB.closeResultSet(rs);
 			DB.closestatement(st);
-			DB.closeConnection();
 		}
 		return false;
 	}

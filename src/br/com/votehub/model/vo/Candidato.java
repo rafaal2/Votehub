@@ -5,12 +5,22 @@ public class Candidato {
 	private String numero_candidato;
 	private String nome;
 	private String cargo;
+	private int id_votacao;
 
-	public Candidato(String numero_candidato, String nome, String cargo) {
+	public Candidato(String numero_candidato, String nome, String cargo, int id_votacao) {
 		super();
 		this.numero_candidato = numero_candidato;
 		this.nome = nome;
 		this.cargo = cargo;
+		this.id_votacao = id_votacao;
+	}
+
+	public int getId_votacao() {
+		return id_votacao;
+	}
+
+	public void setId_votacao(int id_votacao) {
+		this.id_votacao = id_votacao;
 	}
 
 	public String getNumero_candidato() {

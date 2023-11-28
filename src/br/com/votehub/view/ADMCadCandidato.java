@@ -108,10 +108,11 @@ public class ADMCadCandidato extends JFrame {
 				String numero_candidato = fieldNumCad.getText();
 				String nomeCandidato = fieldNomeCad.getText();
 				String cargoCandidato = filedCargoCad.getText();
+				int id_votacao = 1;
 				
 				try {
 					ControllerCandidato contCandidato = new ControllerCandidato();
-					contCandidato.registrarCandidato(numero_candidato, nomeCandidato, cargoCandidato);
+					contCandidato.registrarCandidato(numero_candidato, nomeCandidato, cargoCandidato, id_votacao);
 				} catch(BusinessException error) {
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}

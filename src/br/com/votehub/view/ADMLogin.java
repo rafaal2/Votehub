@@ -98,8 +98,8 @@ public class ADMLogin extends JFrame {
 							contAdm.verificarloginadm(loginDigitada);
 							contAdm.verificarsenhaadm(senhaDigitada);
 							ADMPrincipal admprincipal = new ADMPrincipal();
-	                admprincipal.setVisible(true);
-	                dispose();
+							admprincipal.setVisible(true);
+	                		dispose();
 						} catch (BusinessException error) {
 							JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 						} catch (SQLException e1) {

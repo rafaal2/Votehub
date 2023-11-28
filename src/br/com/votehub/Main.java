@@ -3,41 +3,40 @@ package br.com.votehub;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import javax.swing.SwingUtilities;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.model.DAOs.AdmDAO;
 import br.com.votehub.model.DAOs.CandidatoDAO;
 import br.com.votehub.model.DAOs.VotanteDAO;
 import br.com.votehub.model.DAOs.VotoDAO;
+import br.com.votehub.model.criptografia.Hash;
 import br.com.votehub.model.vo.Adm;
 import br.com.votehub.model.vo.Candidato;
 import br.com.votehub.model.vo.Votante;
 import br.com.votehub.model.vo.Voto;
-import br.com.votehub.view.TelaInicial;
-import br.com.votehub.view.TelaVotacao;
 
 public class Main {
 	
 
 	public static void main(String[] args) throws SQLException, BusinessException {
-//		StrongPasswordEncryptor passHash = new StrongPasswordEncryptor();
+		StrongPasswordEncryptor passHash = new StrongPasswordEncryptor();
 
 //		SwingUtilities.invokeLater(TelaVotacao::new);
 //		SwingUtilities.invokeLater(LoginUsuario::new);
 //		Scanner sc = new Scanner(System.in);
 //		System.out.println("digite sua senha");
 //	    String senhaDigitada = sc.next();
-//		boolean check = Hash.verificarHashvot(senhaDigitada);
+//		boolean check = VotanteDAO.verificarsenhavot(senhaDigitada);
 //		if (check) {
-//			Main programa = new Main();
-//			programa.operação();
-//		}
+			Main programa = new Main();
+			programa.operação();
+	}
 //	}
 		
-		TelaInicial telaInicial = new TelaInicial();
-		telaInicial.setVisible(true);
-	}
+//		TelaInicial telaInicial = new TelaInicial();
+//		telaInicial.setVisible(true);
+//	}
 	
  // ____TELAS____
 // SwingUtilities.invokeLater(ConfirmacaoVoto::new);
@@ -94,8 +93,10 @@ public class Main {
 		String nome = sc.next();
 		System.out.println("digite o Cargo do candidato:");
 		String cargo = sc.next();
+		System.out.println("digite o Cargo do candidato:");
+		int id_votacao = sc.nextInt();
 
-		Candidato c = new Candidato(numero_candidato, nome, cargo);
+		Candidato c = new Candidato(numero_candidato, nome, cargo, id_votacao);
 		CandidatoDAO cdao = new CandidatoDAO();
 		cdao.addCandidato(c);
 		sc.close();

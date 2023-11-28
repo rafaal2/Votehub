@@ -113,6 +113,7 @@ public class AdmDAO {
 		Connection conn = null;
 		ResultSet rs = null;
 		java.sql.Statement st = null;
+		boolean senhaIncorreta = false;
 		try {
 			conn = DB.getConnection();
 			st =  conn.createStatement();
@@ -126,9 +127,10 @@ public class AdmDAO {
 					throw new BusinessException("o campo da senha deve estar preenchido");
 				}if(senhaDigitada.length() < 10) {
 					throw new BusinessException("a senha deve conter no minimo 11 caracteres");
-				}}
+				}else {
+					senhaIncorreta = true;}
 			throw new BusinessException("Senha incorreta");
-		}
+		}}
 		 catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

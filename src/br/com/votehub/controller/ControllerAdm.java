@@ -1,8 +1,10 @@
 package br.com.votehub.controller;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import br.com.votehub.model.DAOs.AdmDAO;
+import br.com.votehub.model.DAOs.DB;
 import br.com.votehub.model.vo.Adm;
 
 public class ControllerAdm {
@@ -43,7 +45,7 @@ public class ControllerAdm {
 	}
 
 	public void validarAtualizacao(int id_adm, String login, String senha) throws BusinessException {
-		
+
 		if (id_adm != 0 || login.isBlank() || senha.isBlank()) {
 			throw new BusinessException("Todos os campos devem estar preenchidos!");
 		}
@@ -51,11 +53,11 @@ public class ControllerAdm {
 	}
 
 	public void verificarloginadm(String loginDigitada) throws BusinessException, SQLException {
-		AdmDAO.verificarloginadm(loginDigitada);
+		AdmRepository.verificarloginadm(loginDigitada);
 	}
 
 	public void verificarsenhaadm(String senhaDigitada) throws BusinessException, SQLException {
-		AdmDAO.verificarsenhaadm(senhaDigitada);
+		AdmRepository.verificarsenhaadm(senhaDigitada);
 	}
 
 	public void validarVerificarloginadm(String logindigit, String senhadigit) throws BusinessException {

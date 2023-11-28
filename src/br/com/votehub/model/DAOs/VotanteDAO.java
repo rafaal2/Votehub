@@ -166,7 +166,7 @@ public class VotanteDAO {
 		try {
 			conn = DB.getConnection();
 			st = conn.createStatement();
-			rs = st.executeQuery("SELECT senha \r\n" + "FROM adm \r\n");
+			rs = st.executeQuery("SELECT senha \r\n" + "FROM votante \r\n");
 			while(rs.next()) {
 				String senhabd = rs.getString("senha");
 				boolean check = passHash.checkPassword(senhaDigitada, senhabd);
@@ -180,7 +180,6 @@ public class VotanteDAO {
 		finally {
 			DB.closeResultSet(rs);
 			DB.closestatement(st);
-			DB.closeConnection();
 		}
 		return false;
 	}
