@@ -9,10 +9,10 @@ import java.sql.Statement;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import br.com.votehub.model.criptografia.Encriptador;
-import br.com.votehub.model.criptografia.Hash;
 import br.com.votehub.model.vo.Votante;
 
 public class VotanteDAO {
+	private final static StrongPasswordEncryptor passHash = new StrongPasswordEncryptor();
 	Connection conn = null;
 	Statement st = null;
 	ResultSet rs = null;
@@ -27,7 +27,7 @@ public class VotanteDAO {
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT * \r\n" + "FROM votante \r\n");
 			while (rs.next()) {
-				String encryptedNome = encrip.encriptadorDeValores(rs.getString("nome"), "d");
+				String encryptedNome = encrip.desencriptadorDeValores(rs.getString("nome"));
 				System.out.println("Votante: " + encryptedNome + " / " + rs.getString("ocupação"));
 			}
 		} catch (SQLException e) {
@@ -64,15 +64,15 @@ public class VotanteDAO {
 	}
 
 	public void updateVotante(int idVotante, String novaMatricula, String novoNome, String novaSenha) {
-		Encriptador encrip = new Encriptador();
+		StrongPasswordEncryptor senhacrip = new StrongPasswordEncryptor();
 		try {
 			conn = DB.getConnection();
-			stt1 = conn.prepareStatement("Update votante " + "SET matricula = ?, nome = ?, senha = ?, ocupação = ?"
+			stt1 = conn.prepareStatement("Update votante " + "SET matricula = ?, nome = ?, senha = ?"
 					+ "WHERE" + "id_votante = ?");
 
-			stt1.setString(1, encrip.encriptadorDeValores(novaMatricula, "C"));
-			stt1.setString(2, encrip.encriptadorDeValores(novoNome, "C"));
-			stt1.setString(3, encrip.encriptadorDeValores(novaSenha, "C")); // stt1.setString(4,
+			stt1.setString(1, novaMatricula);
+			stt1.setString(2, novoNome);
+			stt1.setString(3, senhacrip.encryptPassword(novaSenha)); // stt1.setString(4,
 																			// Hash.gerarHash(novaSenha));
 			stt1.setInt(5, idVotante);
 
@@ -128,7 +128,7 @@ public class VotanteDAO {
 
 	}
 
-	public static boolean verificarloginvot(String logindigit) throws SQLException {
+	public static boolean verificarloginvot(String loginDigitada) throws SQLException {
 		Connection conn = null;
 		ResultSet rs = null;
 		Statement st = null;
@@ -139,7 +139,7 @@ public class VotanteDAO {
 			rs = st.executeQuery("SELECT matricula \r\n" + "FROM votante \r\n");
 			while (rs.next()) {
 				String matriculabd = rs.getString("matricula");
-				boolean check = logindigit.equals(matriculabd);
+				boolean check = loginDigitada.equals(matriculabd);
 				if (check == true) {
 					return check;
 				} else {
@@ -156,6 +156,31 @@ public class VotanteDAO {
 			DB.closeResultSet(rs);
 			DB.closestatement(st);
 
+		}
+		return false;
+	}
+	public static boolean verificarsenhavot( String senhaDigitada) throws SQLException {
+		Connection conn = null;             
+		ResultSet rs = null;
+		Statement st= null;
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT senha \r\n" + "FROM adm \r\n");
+			while(rs.next()) {
+				String senhabd = rs.getString("senha");
+				boolean check = passHash.checkPassword(senhaDigitada, senhabd);
+				if (check) {
+		            return true;
+		        }	
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			DB.closeResultSet(rs);
+			DB.closestatement(st);
+			DB.closeConnection();
 		}
 		return false;
 	}

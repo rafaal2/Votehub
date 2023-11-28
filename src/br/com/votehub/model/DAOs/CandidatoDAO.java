@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import br.com.votehub.model.criptografia.Encriptador;
 import br.com.votehub.model.vo.Candidato;
 
 public class CandidatoDAO {

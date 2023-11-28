@@ -8,10 +8,11 @@ import java.sql.Statement;
 
 import org.jasypt.util.password.StrongPasswordEncryptor;
 
-import br.com.votehub.model.criptografia.Encriptador;
+import br.com.votehub.controller.BusinessException;
 import br.com.votehub.model.vo.Adm;
 
 public class AdmDAO {
+	private final static StrongPasswordEncryptor passHash = new StrongPasswordEncryptor();
 	Connection conn = null;
 	Statement st = null;
 	ResultSet rs = null;
@@ -40,11 +41,12 @@ public class AdmDAO {
 
 	public void updateAdm(int Id_adm, String login, String senha) {
 		try {
+			StrongPasswordEncryptor senhacrip = new StrongPasswordEncryptor();
 			conn = DB.getConnection();
 			stt1 = conn.prepareStatement("Update adm " + "SET login = ?, senha = ?" + "WHERE" + "id_adm = ?");
 
 			stt1.setString(1, login);
-			stt1.setString(2, senha);
+			stt1.setString(2, senhacrip.encryptPassword(senha));
 			stt1.setInt(3, Id_adm);
 
 			stt1.executeUpdate();
@@ -73,7 +75,7 @@ public class AdmDAO {
 			DB.closeConnection();
 		}
 	}
-	public static boolean verificarloginadm(String logindigit) throws SQLException {
+	public static boolean verificarloginadm(String logindigit) throws SQLException, BusinessException {
 		Connection conn = null;
 		ResultSet rs = null;
 		Statement st = null;
@@ -90,9 +92,12 @@ public class AdmDAO {
 				}else {
 					loginIncorreto = true;
 				}
+				if (logindigit.isBlank()) {
+					throw new BusinessException("o campo de login deve estar preenchido");
+				}
 			}
 			 if (loginIncorreto) {
-		            System.out.println("login incorreto");
+				 throw new BusinessException("login incorreta");
 		        
 			}
 		} catch (SQLException e) {
@@ -101,6 +106,35 @@ public class AdmDAO {
 			DB.closeResultSet(rs);
 			DB.closestatement(st);
 			
+		}
+		return false;
+	}
+	public static boolean verificarsenhaadm(String senhaDigitada) throws BusinessException, SQLException {
+		Connection conn = null;
+		ResultSet rs = null;
+		java.sql.Statement st = null;
+		try {
+			conn = DB.getConnection();
+			st =  conn.createStatement();
+			rs =  st.executeQuery("SELECT senha \r\n" + "FROM adm \r\n");
+			while (rs.next()) {
+				String senhabd = rs.getString("senha");
+				boolean check = passHash.checkPassword(senhaDigitada, senhabd);
+				if (check) {
+					return true;
+				}if(senhaDigitada.isBlank()) {
+					throw new BusinessException("o campo da senha deve estar preenchido");
+				}if(senhaDigitada.length() < 10) {
+					throw new BusinessException("a senha deve conter no minimo 11 caracteres");
+				}}
+			throw new BusinessException("Senha incorreta");
+		}
+		 catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closeResultSet(rs);
+			DB.closestatement((java.sql.Statement) st);
+
 		}
 		return false;
 	}

@@ -91,7 +91,7 @@ public class ControllerVotante {
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT matricula \r\n" + "FROM votante \r\n");
 			while (rs.next()) {
-				String matriculaBd = encrip.encriptadorDeValores(rs.getString("matricula"), "d");
+				String matriculaBd = encrip.encriptadorDeValores(rs.getString("matricula"));
 				boolean check = matriculaBd.equals(matricula);
 				if (check == true) {
 					return check;
@@ -105,5 +105,12 @@ public class ControllerVotante {
 			DB.closeConnection();
 		}
 		return false;
+	}
+	public void verificarloginvot(String loginDigitada) throws BusinessException, SQLException {
+		VotanteDAO.verificarloginvot(loginDigitada);
+	}
+
+	public void verificarsenhavot(String senhaDigitada) throws BusinessException, SQLException {
+		VotanteDAO.verificarsenhavot(senhaDigitada);
 	}
 }

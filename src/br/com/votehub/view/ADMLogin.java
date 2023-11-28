@@ -91,12 +91,12 @@ public class ADMLogin extends JFrame {
 				panel.add(btnEntrarLogin, "cell 6 8,alignx center,aligny center");
 				btnEntrarLogin.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						String logindigit = fieldUserLogin.getText();
-						String senhadigit = fieldSenhaLogin.getText();
+						String loginDigitada = fieldUserLogin.getText();
+						String senhaDigitada = fieldSenhaLogin.getText();
 						try {
 							ControllerAdm contAdm = new ControllerAdm();
-							contAdm.verificarloginadm(logindigit);
-							contAdm.verificarsenhaadm(senhadigit);
+							contAdm.verificarloginadm(loginDigitada);
+							contAdm.verificarsenhaadm(senhaDigitada);
 							ADMPrincipal admprincipal = new ADMPrincipal();
 	                admprincipal.setVisible(true);
 	                dispose();
