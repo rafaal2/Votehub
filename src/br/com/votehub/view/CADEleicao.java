@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,6 +22,7 @@ import javax.swing.border.EmptyBorder;
 
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.controller.ControllerCandidato;
+import br.com.votehub.controller.ControllerVotacao;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JList;
@@ -121,6 +125,36 @@ public class CADEleicao extends JFrame {
 		JButton btnNext = new JButton("PRÓXIMO");
 		btnNext.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panel.add(btnNext, "cell 11 11,alignx right,aligny bottom");
+		btnNext.addActionListener(new ActionListener() {
+
+			
+			public void actionPerformed(ActionEvent e) {
+				String nomeVotacao = fieldNomeCad.getText();
+				String dataInicioString = fieldNumCad.getText();
+				String dataFimString = filedCargoCad.getText();
+				
+				SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+				
+				try {
+					Date dataInicio = formato.parse(dataInicioString);
+					Date dataFim = formato.parse(dataFimString);
+					
+					ControllerVotacao controllerVotacao = new ControllerVotacao();
+					controllerVotacao.registrarVotacao(nomeVotacao, dataInicio, dataFim);
+					
+				} catch (BusinessException err) {
+			
+					err.printStackTrace();
+				} catch (ParseException err) {
+					// TODO Auto-generated catch block
+					err.printStackTrace();
+				}
+				
+				
+				
+			}
+			
+		});
 		
 		
 	}

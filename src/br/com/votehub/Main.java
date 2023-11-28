@@ -22,7 +22,7 @@ public class Main {
 	public static void main(String[] args) throws SQLException, BusinessException {
 		StrongPasswordEncryptor passHash = new StrongPasswordEncryptor();
 
-//		SwingUtilities.invokeLater(TelaVotacao::new);
+		SwingUtilities.invokeLater(TelaVotacao::new);
 //		SwingUtilities.invokeLater(LoginUsuario::new);
 //		Scanner sc = new Scanner(System.in);
 //		System.out.println("digite sua senha");
@@ -31,8 +31,8 @@ public class Main {
 //		if (check) {
 //	TelaInicial telaInicial = new TelaInicial();
 //		telaInicial.setVisible(true);
-			Main programa = new Main();
-			programa.operação();
+//			Main programa = new Main();
+//			programa.operação();
 	//}
 	}
 		

@@ -23,7 +23,7 @@ public class VotacaoDAO {
 	public void addVotacao(Votacao votacao) {
 		try {
 			conn = DB.getConnection();
-			stt = conn.prepareStatement("INSERT INTO votacao" + "(nome_votacao, data_inicio, data_fim)" + "VALUES" + "(?, ?)");
+			stt = conn.prepareStatement("INSERT INTO votacao" + "(nome_votacao, data_inicio, data_fim)" + "VALUES" + "(?, ?, ?)");
 
 			
 			// timestamp é utilizado p colunas "datatime" no sql;

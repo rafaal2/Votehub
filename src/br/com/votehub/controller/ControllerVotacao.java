@@ -16,22 +16,22 @@ public class ControllerVotacao {
 	private VotacaoDAO votacaoRepository = new VotacaoDAO();
 	private Date now = new Date();
 	
-	public void registrarVotacao(String nome_votacao, Date dataInicio, Date dataFim) throws BusinessException {
+	public void registrarVotacao(String nomeVotacao, Date dataInicio, Date dataFim) throws BusinessException {
 		validarRegistro(dataInicio, dataFim);
 		
-		Votacao vtc = new Votacao(nome_votacao, dataInicio, dataFim);
+		Votacao vtc = new Votacao(nomeVotacao, dataInicio, dataFim);
 		votacaoRepository.addVotacao(vtc);
 	}
 	
 	public void validarRegistro(Date dataInicio, Date dataFim) throws BusinessException {
 		
-		if(!validadorDataInicio(dataInicio)) {
-			throw new BusinessException("Insira uma data inicial existente");
-		}
-		
-		if(!validadorDataFim(dataFim)) {
-			throw new BusinessException("Insira uma data final existente");
-		}
+//		if(!validadorDataInicio(dataInicio)) {
+//			throw new BusinessException("Insira uma data inicial existente");
+//		}
+//		
+//		if(!validadorDataFim(dataFim)) {
+//			throw new BusinessException("Insira uma data final existente");
+//		}
 		
 		if(dataInicio.before(now)) {
 			

@@ -11,9 +11,14 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import net.miginfocom.swing.MigLayout;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+
+import br.com.votehub.controller.ControllerCandidato;
+
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 
@@ -39,6 +44,8 @@ public class TelaVotacao {
 			initialize();
 			frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 			frame.setVisible(true);
+			restaurarReitorCombobox();
+			restaurarDiretorCombobox();
       } catch (Exception e) {
           e.printStackTrace();
           JOptionPane.showMessageDialog(null, "Erro ao inicializar a Tela de Votação: " + e.getMessage());
@@ -104,6 +111,36 @@ public class TelaVotacao {
 
 	public static void setVisible(boolean b) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	public void restaurarReitorCombobox() {
+		try {
+			ControllerCandidato objCandidato = new ControllerCandidato();
+			ResultSet rs = objCandidato.exibirReitor();
+			
+			while(rs.next()) {
+				comboBox.addItem(rs.getString("numero_candidato"));
+			}
+		} catch (SQLException error) {
+			
+			JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+		}
+		
+	}
+	
+	public void restaurarDiretorCombobox() {
+		try {
+			ControllerCandidato objCandidato = new ControllerCandidato();
+			ResultSet rs = objCandidato.exibirDiretor();
+			
+			while(rs.next()) {
+				comboBox_1.addItem(rs.getString("numero_candidato"));
+			}
+		} catch (SQLException error) {
+			
+			JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+		}
 		
 	}
 

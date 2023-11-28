@@ -99,5 +99,17 @@ public class ControllerCandidato {
 		candidatoRepository.mostrarCandidatos();
 
 	}
+	
+	public ResultSet exibirReitor() {
+
+		return candidatoRepository.addCandidatosReitorCombobox();
+
+	}
+	
+	public ResultSet exibirDiretor() {
+
+		return candidatoRepository.addCandidatosDiretorCombobox();
+
+	}
 
 }

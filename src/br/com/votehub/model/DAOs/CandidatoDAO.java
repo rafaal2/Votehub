@@ -142,5 +142,39 @@ public class CandidatoDAO {
 		}
 		return false;
 	}
+	
+	public ResultSet addCandidatosReitorCombobox() {
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM candidato where cargo = \"Reitor\"");
+			return rs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+//			DB.closeResultSet(rs);
+//			DB.closestatement(st);
+//			DB.closeConnection();
+		}
+
+	}
+	
+	public ResultSet addCandidatosDiretorCombobox() {
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM candidato where cargo = \"Diretor\"");
+			return rs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+//			DB.closeResultSet(rs);
+//			DB.closestatement(st);
+//			DB.closeConnection();
+		}
+
+	}
 
 }
