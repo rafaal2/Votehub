@@ -8,6 +8,7 @@ import java.sql.Statement;
 
 import org.jasypt.util.password.StrongPasswordEncryptor;
 
+import br.com.votehub.controller.BusinessException;
 import br.com.votehub.model.criptografia.Encriptador;
 import br.com.votehub.model.vo.Votante;
 
@@ -126,7 +127,7 @@ public class VotanteDAO {
 
 	}
 
-	public static boolean verificarloginvot(String loginDigitada) throws SQLException {
+	public static boolean verificarloginvot(String loginDigitada) throws SQLException, BusinessException {
 		Connection conn = null;
 		ResultSet rs = null;
 		Statement st = null;
@@ -142,10 +143,11 @@ public class VotanteDAO {
 					return check;
 				} else {
 					loginIncorreto = true;
-				}
-			}
+				}if (loginDigitada.isBlank()) {
+					throw new BusinessException("o campo de login deve estar preenchido");
+			}}
 			if (loginIncorreto) {
-				System.out.println("login incorreto");
+				throw new BusinessException("login incorreto");
 
 			}
 		} catch (SQLException e) {
@@ -157,10 +159,12 @@ public class VotanteDAO {
 		}
 		return false;
 	}
-	public static boolean verificarsenhavot( String senhaDigitada) throws SQLException {
+	
+	public static boolean verificarsenhavot( String senhaDigitada) throws SQLException, BusinessException {
 		Connection conn = null;             
 		ResultSet rs = null;
 		Statement st= null;
+		boolean senhaIncorreta = false;
 		try {
 			conn = DB.getConnection();
 			st = conn.createStatement();
@@ -170,7 +174,13 @@ public class VotanteDAO {
 				boolean check = passHash.checkPassword(senhaDigitada, senhabd);
 				if (check) {
 		            return true;
-		        }	
+		        }if(senhaDigitada.isBlank()) {
+					throw new BusinessException("o campo da senha deve estar preenchido");
+				}if(senhaDigitada.length() < 7) {
+					throw new BusinessException("a senha deve conter no minimo 8 caracteres");
+				}else {
+					senhaIncorreta = true;}
+			        throw new BusinessException("Senha incorreta");	
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -183,3 +193,5 @@ public class VotanteDAO {
 	}
 
 }
+
+

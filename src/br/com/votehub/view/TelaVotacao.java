@@ -69,7 +69,7 @@ public class TelaVotacao {
 			}
 		});
 		
-		botaoCancelar = new JButton("  Cancelar");
+		botaoCancelar = new JButton("Cancelar");
 		botaoCancelar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		botaoCancelar.setHorizontalAlignment(SwingConstants.LEFT);
 		botaoCancelar.addActionListener(new ActionListener() {

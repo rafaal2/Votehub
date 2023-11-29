@@ -21,8 +21,9 @@ public class Main {
 
 	public static void main(String[] args) throws SQLException, BusinessException {
 		StrongPasswordEncryptor passHash = new StrongPasswordEncryptor();
-
-		SwingUtilities.invokeLater(TelaVotacao::new);
+		TelaInicial telaInicial = new TelaInicial();
+		telaInicial.setVisible(true);
+//		SwingUtilities.invokeLater(TelaVotacao::new);
 //		SwingUtilities.invokeLater(LoginUsuario::new);
 //		Scanner sc = new Scanner(System.in);
 //		System.out.println("digite sua senha");
