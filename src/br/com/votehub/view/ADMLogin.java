@@ -48,6 +48,7 @@ public class ADMLogin extends JFrame {
 	 */
 	public ADMLogin() {
 		setTitle("Login");
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

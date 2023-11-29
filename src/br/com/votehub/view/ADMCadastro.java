@@ -40,6 +40,7 @@ public class ADMCadastro extends JFrame {
 	 */
 	public ADMCadastro() {
 		setTitle("Menu Cadastro");
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 501, 381);
 		contentPane = new JPanel();

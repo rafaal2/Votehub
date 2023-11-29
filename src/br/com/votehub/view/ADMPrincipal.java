@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -39,6 +40,7 @@ public class ADMPrincipal extends JFrame {
 	 */
 	public ADMPrincipal() {
 		setTitle("Menu Principal");
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 501, 381);
 		contentPane = new JPanel();
@@ -87,6 +89,18 @@ public class ADMPrincipal extends JFrame {
 		JButton btnIniciarVotacao = new JButton("INICIAR VOTAÇÃO");
 		btnIniciarVotacao.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panel.add(btnIniciarVotacao, "cell 3 4,growx,aligny center");
+		
+		JButton btnNewButton = new JButton("VOLTAR");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaInicial telaInicial = new TelaInicial();
+				telaInicial.setVisible(true);
+        		dispose();
+        		System.out.println("Volta a Tela Inicial");
+			}
+		});
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
+		panel.add(btnNewButton, "cell 3 5,growx,aligny baseline");
 	}
 
 }

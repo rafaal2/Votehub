@@ -50,6 +50,7 @@ public class ADMCadEleitor extends JFrame {
 	 */
 	public ADMCadEleitor() {
 		setTitle("Cadastro de Eleitor");
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 501, 381);
 		contentPane = new JPanel();

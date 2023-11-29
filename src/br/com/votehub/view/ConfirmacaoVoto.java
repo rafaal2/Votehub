@@ -42,6 +42,7 @@ public class ConfirmacaoVoto {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setTitle("Confirmar Voto");
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
