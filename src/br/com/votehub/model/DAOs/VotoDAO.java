@@ -29,10 +29,7 @@ public class VotoDAO {
 			e.printStackTrace();
 		} finally {
 			DB.closestatement(stt);
-			DB.closeConnection();
 		}
-
-		
 	}
 	
 	public void deleteVoto(int id_voto) { //pode ser substituido por um metodo "anularVoto()" futuramente
@@ -95,9 +92,7 @@ public class VotoDAO {
 			e.printStackTrace();
 		} finally {
 			DB.closestatement(stt);
-			DB.closeConnection();
 		}
 		return null;
-
 	}	
 }

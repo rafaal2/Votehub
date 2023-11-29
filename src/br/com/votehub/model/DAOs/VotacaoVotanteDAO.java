@@ -30,7 +30,6 @@ public class VotacaoVotanteDAO {
 			DB.closestatement(st);
 			DB.closeConnection();
 		}
-
 	}
 	
 	public void addVotacaoVotante(VotacaoVotante vtvt) {
@@ -49,6 +48,5 @@ public class VotacaoVotanteDAO {
 			DB.closestatement(stt);
 			DB.closeConnection();
 		}
-
 	}
 }

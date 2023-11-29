@@ -21,8 +21,8 @@ public class Main {
 
 	public static void main(String[] args) throws SQLException, BusinessException {
 		StrongPasswordEncryptor passHash = new StrongPasswordEncryptor();
-		TelaInicial telaInicial = new TelaInicial();
-		telaInicial.setVisible(true);
+//		TelaInicial telaInicial = new TelaInicial();
+//		telaInicial.setVisible(true);
 //		SwingUtilities.invokeLater(TelaVotacao::new);
 //		SwingUtilities.invokeLater(LoginUsuario::new);
 //		Scanner sc = new Scanner(System.in);
@@ -35,11 +35,11 @@ public class Main {
 //			Main programa = new Main();
 //			programa.operação();
 	//}
-	}
+	
 		
-//		TelaInicial telaInicial = new TelaInicial();
-//		telaInicial.setVisible(true);
-//	}
+		TelaInicial telaInicial = new TelaInicial();
+		telaInicial.setVisible(true);
+	}
 	
  // ____TELAS____
  //	SwingUtilities.invokeLater(() -> new Generica("Diretor"));
