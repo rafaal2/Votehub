@@ -81,15 +81,8 @@ public class LoginUsuario extends JFrame {
 		getContentPane().add(lblNewLabel, "cell 1 3,alignx trailing");
 		
 		// Formatacao Campo Matricula
-		try {
-			MaskFormatter maskara = new MaskFormatter("**************");
-			campoMatricula = new JFormattedTextField(maskara);
-			campoMatricula.setToolTipText("Utilize Apenas Números e Letras.  ex: 20001r31rc0234");
-			campoMatricula = new JFormattedTextField(maskara);   
-            campoMatricula.setColumns(11);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+			campoMatricula = new JFormattedTextField();
+			campoMatricula.setToolTipText("Utilize Apenas Números e Letras.  ex: 20001r31rc0234"); 
 		getContentPane().add(campoMatricula, "cell 2 3,growx");
 		
 		lblNewLabel_1 = new JLabel("CPF:");
@@ -121,36 +114,10 @@ public class LoginUsuario extends JFrame {
 		
 		
 		// Formatacao Campo CPF	
-		try {
-			MaskFormatter maskara = new MaskFormatter("###########");
-			campoCpf = new JFormattedTextField(maskara);   
+		
+			campoCpf = new JFormattedTextField();   
 			campoCpf.setToolTipText("Utilize Apenas Números.    ex:12378912301");
-            campoCpf.setColumns(11);
-            campoCpf.addKeyListener(new KeyListener() {
-                @Override
-                public void keyTyped(KeyEvent e) {
-                    char c = e.getKeyChar();
-                    if (!Character.isDigit(c)) {
-                        e.consume(); 
-                    }
-                }
-
-				@Override
-				public void keyPressed(KeyEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void keyReleased(KeyEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-            });
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+         
 		getContentPane().add(campoCpf, "cell 2 4,growx");
 		
 
