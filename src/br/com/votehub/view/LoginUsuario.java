@@ -85,7 +85,7 @@ public class LoginUsuario extends JFrame {
 			campoMatricula.setToolTipText("Utilize Apenas Números e Letras.  ex: 20001r31rc0234"); 
 		getContentPane().add(campoMatricula, "cell 2 3,growx");
 		
-		lblNewLabel_1 = new JLabel("CPF:");
+		lblNewLabel_1 = new JLabel("Senha:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		getContentPane().add(lblNewLabel_1, "cell 1 4,alignx trailing");
 		

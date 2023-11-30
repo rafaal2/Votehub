@@ -96,7 +96,6 @@ public class ADMPrincipal extends JFrame {
 				TelaInicial telaInicial = new TelaInicial();
 				telaInicial.setVisible(true);
         		dispose();
-        		System.out.println("Volta a Tela Inicial");
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));

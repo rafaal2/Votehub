@@ -79,6 +79,9 @@ public class CADEleicao extends JFrame {
 		btnVoltarCad.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnVoltarCad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ADMCadastro admCadastro = new ADMCadastro();
+				admCadastro.setVisible(true);
+				dispose();
 			}
 		});
 		
