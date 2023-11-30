@@ -21,6 +21,21 @@ public class Main {
 
 	public static void main(String[] args) throws SQLException, BusinessException {
 	
+        SwingUtilities.invokeLater(TelaVotacao::new);
+		
+//		TelaInicial telaInicial = new TelaInicial();
+//		telaInicial.setVisible(true);
+        
+//		TelaInicial telaInicial = new TelaInicial();
+//		telaInicial.setVisible(true);
+//		SwingUtilities.invokeLater(LoginUsuario::new);
+//		boolean check = VotanteDAO.verificarsenhavot(senhaDigitada);
+//	TelaInicial telaInicial = new TelaInicial();
+//		telaInicial.setVisible(true);
+//			Main programa = new Main();
+//			programa.operação();
+	}
+	
 //		VotacaoDAO vtcd = new VotacaoDAO();
 //
 //        CandidatoDAO cddtd = new CandidatoDAO();
@@ -31,19 +46,7 @@ public class Main {
 //
 //        System.out.println(vtc.toString());
 //        System.out.println(cddt.toString());
-        SwingUtilities.invokeLater(TelaVotacao::new);
-		
-//		TelaInicial telaInicial = new TelaInicial();
-//		telaInicial.setVisible(true);
-	}
-//		TelaInicial telaInicial = new TelaInicial();
-//		telaInicial.setVisible(true);
-//		SwingUtilities.invokeLater(LoginUsuario::new);
-//		boolean check = VotanteDAO.verificarsenhavot(senhaDigitada);
-//	TelaInicial telaInicial = new TelaInicial();
-//		telaInicial.setVisible(true);
-//			Main programa = new Main();
-//			programa.operação();
+	
 	
 	// ____TELAS____
 	//	SwingUtilities.invokeLater(() -> new Generica("Diretor"));

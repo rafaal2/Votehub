@@ -97,6 +97,7 @@ public class TelaVotacao {
 //				try {
 //					
 //					contVotacao.checarInicio(numeroBusca);
+//					contVotacao.checarTermino(numeroBusca);
 //					
 //				} catch (BusinessException error) {
 //					

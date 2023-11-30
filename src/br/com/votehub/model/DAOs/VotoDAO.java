@@ -47,7 +47,7 @@ public class VotoDAO {
 		}
 		finally {
 			DB.closestatement(stt2);
-			DB.closeConnection();
+	//		DB.closeConnection();
 		}
 	}
 	
@@ -65,7 +65,7 @@ public class VotoDAO {
 			finally {
 				DB.closeResultSet(rs);
 				DB.closestatement(st);
-				DB.closeConnection();
+		//		DB.closeConnection();
 			}
 			
 		}

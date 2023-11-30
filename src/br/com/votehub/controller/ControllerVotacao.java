@@ -87,44 +87,43 @@ public class ControllerVotacao {
 	
 	public void atualizarVotacao(int idVotacao, String nome_votacao, Date dataInicio, Date dataFim) throws BusinessException {
 		
-	//	validarAtualizacao(idVotacao, nome_votacao, dataInicio, dataFim);
-		//inserir condições para preenchimento de campos em branco
+		validarAtualizacao(idVotacao, nome_votacao, dataInicio, dataFim);
 		
 		votacaoRepository.updateVotacao(idVotacao, nome_votacao, dataInicio, dataFim);
 	}
 	
 	public void validarAtualizacao(int idVotacao, String nome_votacao, Date dataInicio, Date dataFim) throws BusinessException {
 		
-		//alterar levando em considerações as condições do metodo a ser validado
-//		if(votacaoRepository.searchVotacaoById(idVotacao) == null) {
-//			
-//			throw new BusinessException("Votacao informada não encontrada!");
-//		}
-//		
-//		if(!validadorDataInicio(dataInicio)) {
-//			
-//			throw new BusinessException("Informe uma data inicial válida!");
-//		}
-//		
-//		if(!validadorDataFim(dataFim)) {
-//			
-//			throw new BusinessException("Informe uma data final válida");
-//		}
-//		
-//		if(dataInicio.before(now)) {
-//			
-//			throw new BusinessException("A nova data inicial deve ser atual ou futura");
-//		}
-//		
-//		if(dataFim.before(now)) {
-//			
-//			throw new BusinessException("A nova data de termino deve ser atual ou futura");
-//		}
-//		
-//		if(!dataFim.after(dataInicio)) {
-//			
-//			throw new BusinessException("A nova data de termino deve ser após a data de inicio");
-//		}
+	//	alterar levando em considerações as condições do metodo a ser validado
+		if(votacaoRepository.searchVotacaoById(idVotacao) == null) {
+			
+			throw new BusinessException("Votacao informada não encontrada!");
+		}
+		
+		if(!validadorDataInicio(dataInicio)) {
+			
+			throw new BusinessException("Informe uma data inicial válida!");
+		}
+		
+		if(!validadorDataFim(dataFim)) {
+			
+			throw new BusinessException("Informe uma data final válida");
+		}
+		
+		if(dataInicio.before(now)) {
+			
+			throw new BusinessException("A nova data inicial deve ser atual ou futura");
+		}
+		
+		if(dataFim.before(now)) {
+			
+			throw new BusinessException("A nova data de termino deve ser atual ou futura");
+		}
+		
+		if(!dataFim.after(dataInicio)) {
+			
+			throw new BusinessException("A nova data de termino deve ser após a data de inicio");
+		}
 		
 		
 	}
@@ -140,7 +139,7 @@ public class ControllerVotacao {
 		}
 	}
 	
-public void checarInicio(String numero) throws BusinessException {
+	public void checarInicio(String numero) throws BusinessException {
 		
 		Candidato cdt = candidatoRepository.searchCandidatoById(numero);
 		
@@ -154,6 +153,22 @@ public void checarInicio(String numero) throws BusinessException {
 			
 		}
 	}
+
+	public void checarTermino(String numero) throws BusinessException {
+	
+	Candidato cdt = candidatoRepository.searchCandidatoById(numero);
+	
+	int idVotacao = cdt.getId_votacao();
+	
+	Votacao vtc = votacaoRepository.searchVotacaoById(idVotacao);
+	
+	if(now.after(vtc.getData_fim())) {
+		
+		throw new BusinessException("Votação não recebe mais votos pois está finalizada!");
+		
+	}
+	
+}
 
 
 }
