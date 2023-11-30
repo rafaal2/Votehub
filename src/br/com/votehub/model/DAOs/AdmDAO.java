@@ -33,7 +33,7 @@ public class AdmDAO {
 			e.printStackTrace();
 		} finally {
 			DB.closestatement(stt);
-			DB.closeConnection();
+		//	DB.closeConnection();
 		}
 
 	}
@@ -53,7 +53,7 @@ public class AdmDAO {
 			e.printStackTrace();
 		} finally {
 			DB.closestatement(stt1);
-			DB.closeConnection();
+		//	DB.closeConnection();
 		}
 	}
 
@@ -69,7 +69,7 @@ public class AdmDAO {
 			throw new DbIntegrityException(e.getMessage());
 		} finally {
 			DB.closestatement(stt2);
-			DB.closeConnection();
+		//	DB.closeConnection();
 		}
 	}
 	public static boolean verificarloginadm(String logindigit) throws SQLException, BusinessException {

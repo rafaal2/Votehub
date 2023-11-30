@@ -28,7 +28,7 @@ public class VotacaoVotanteDAO {
 		} finally {
 			DB.closeResultSet(rs);
 			DB.closestatement(st);
-			DB.closeConnection();
+	//		DB.closeConnection();
 		}
 	}
 	
@@ -45,7 +45,7 @@ public class VotacaoVotanteDAO {
 			e.printStackTrace();
 		} finally {
 			DB.closestatement(stt);
-			DB.closeConnection();
+	//		DB.closeConnection();
 		}
 	}
 }

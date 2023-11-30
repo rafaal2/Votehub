@@ -38,7 +38,7 @@ public class VotacaoDAO {
 			e.printStackTrace();
 		} finally {
 			DB.closestatement(stt);
-			DB.closeConnection();
+		//	DB.closeConnection();
 		}
 
 	}
@@ -61,7 +61,7 @@ public class VotacaoDAO {
 			e.printStackTrace();
 		} finally {
 			DB.closestatement(stt1);
-			DB.closeConnection();
+		//	DB.closeConnection();
 		}
 	}
 	
@@ -77,7 +77,7 @@ public class VotacaoDAO {
 			throw new DbIntegrityException(e.getMessage());
 		} finally {
 			DB.closestatement(stt2);
-			DB.closeConnection();
+		//	DB.closeConnection();
 		}
 	}
 	
