@@ -54,5 +54,11 @@ public class Votacao {
 	public void setData_fim(Date data_fim) {
 		this.data_fim = data_fim;
 	}
+	
+	public String toString() {
+		
+		return "ID: " +id_votacao+ "| Nome: " +nome_votacao+ "| Com inicio dia: " +data_inicio+ " e termino dia: " +data_fim+"|";
+		
+	}
 
 }

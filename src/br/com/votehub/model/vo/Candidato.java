@@ -48,7 +48,9 @@ public class Candidato {
 	}
 
 	public String toString() {
-		return "Candidato [numero_candidato=" + numero_candidato + ", nome=" + nome + ", cargo=" + cargo + "]";
-	}
+		
+		return  "Número: " +numero_candidato+ "| Nome: " +nome+ "| Cargo: " +cargo+ "| Votação: " +id_votacao+ "|";
+	
+}
 
 }

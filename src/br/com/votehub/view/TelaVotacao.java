@@ -17,6 +17,7 @@ import javax.swing.SwingUtilities;
 
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.controller.ControllerCandidato;
+import br.com.votehub.controller.ControllerVotacao;
 import br.com.votehub.controller.ControllerVotacaoVotante;
 import br.com.votehub.controller.ControllerVoto;
 import net.miginfocom.swing.MigLayout;
@@ -90,6 +91,19 @@ public class TelaVotacao {
 		botaoAvancar.setHorizontalAlignment(SwingConstants.RIGHT);
 		botaoAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+//				String numeroBusca = (String) comboBox.getSelectedItem();
+//				ControllerVotacao contVotacao = new ControllerVotacao();
+//				
+//				try {
+//					
+//					contVotacao.checarInicio(numeroBusca);
+//					
+//				} catch (BusinessException error) {
+//					
+//					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+//					return;
+//				}
+				
 				int n_votos = contarComboBoxes();
 				for (int i = 0; i < n_votos; i++) {
 					String numerocandidato = (String) comboBoxes_[i].getSelectedItem();

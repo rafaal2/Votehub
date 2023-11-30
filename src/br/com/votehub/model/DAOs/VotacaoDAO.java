@@ -84,7 +84,7 @@ public class VotacaoDAO {
 	public Votacao searchVotacaoById(int idVotacao) {
 		try {
 			conn = DB.getConnection();
-			stt = conn.prepareStatement("SELECT * FROM votação " + "WHERE " + "id_votação = ?");
+			stt = conn.prepareStatement("SELECT * FROM votacao " + "WHERE " + "id_votacao = ?");
 
 			stt.setInt(1, idVotacao);
 			
@@ -92,6 +92,7 @@ public class VotacaoDAO {
 			if(rs.next()) {
 				
 			Votacao vtc = new Votacao(rs.getString("nome_votacao"), rs.getDate("data_inicio"), rs.getDate("data_fim"));
+			vtc.setId_votacao(rs.getInt("id_votacao"));
 			
 			return vtc;
 			
@@ -100,7 +101,7 @@ public class VotacaoDAO {
 			e.printStackTrace();
 		} finally {
 			DB.closestatement(stt);
-			DB.closeConnection();
+		//	DB.closeConnection();
 		}
 		return null;
 
