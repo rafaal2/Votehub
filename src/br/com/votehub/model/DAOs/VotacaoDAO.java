@@ -34,7 +34,6 @@ public class VotacaoDAO {
 			stt.setTimestamp(2, dataInicioTimestamp);
 			stt.setTimestamp(3, dataFimTimestamp);
 			stt.executeUpdate();
-			System.out.println("Nova votação cadastrada");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -58,7 +57,6 @@ public class VotacaoDAO {
 	        stt1.setInt(4, idVotacao);
 
 			stt1.executeUpdate();
-			System.out.println("Informações da votação " +idVotacao+ "atualizadas!");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -75,7 +73,6 @@ public class VotacaoDAO {
 			stt2.setInt(1, idVotacao);
 
 			stt2.executeUpdate();
-			System.out.println("Votação " +idVotacao+ "deletada");
 		} catch (SQLException e) {
 			throw new DbIntegrityException(e.getMessage());
 		} finally {

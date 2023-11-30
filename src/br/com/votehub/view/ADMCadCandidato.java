@@ -27,6 +27,7 @@ public class ADMCadCandidato extends JFrame {
 	private JTextField fieldNomeCad;
 	private JTextField fieldNumCad;
 	private JTextField filedCargoCad;
+	private JTextField filedIdEleicao;
 
 	/**
 	 * Launch the application.
@@ -103,6 +104,14 @@ public class ADMCadCandidato extends JFrame {
 		filedCargoCad.setColumns(10);
 		panel.add(btnVoltarCad, "cell 0 10,alignx center,aligny bottom");
 		
+		JLabel lblCadIdEleicao = new JLabel("Nº da Eleição :");
+		lblCadIdEleicao.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panel.add(lblCadIdEleicao, "cell 1 6,alignx trailing");
+		
+		filedIdEleicao = new JTextField();
+		panel.add(filedIdEleicao, "cell 2 6 6 1,growx");
+		filedIdEleicao.setColumns(10);
+		
 		JButton btnCadastrar = new JButton("CADASTRAR");
 		btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panel.add(btnCadastrar, "cell 8 10,alignx right,aligny bottom");
@@ -112,11 +121,12 @@ public class ADMCadCandidato extends JFrame {
 				String numero_candidato = fieldNumCad.getText();
 				String nomeCandidato = fieldNomeCad.getText();
 				String cargoCandidato = filedCargoCad.getText();
-				int id_votacao = 1;
+				int id_votacao = Integer.parseInt(filedIdEleicao.getText());
 				
 				try {
 					ControllerCandidato contCandidato = new ControllerCandidato();
 					contCandidato.registrarCandidato(numero_candidato, nomeCandidato, cargoCandidato, id_votacao);
+					JOptionPane.showMessageDialog(null, "Candidato cadastrado com sucesso!");
 				} catch(BusinessException error) {
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}

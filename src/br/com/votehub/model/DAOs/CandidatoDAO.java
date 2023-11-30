@@ -30,7 +30,7 @@ public class CandidatoDAO {
 		} finally {
 			DB.closeResultSet(rs);
 			DB.closestatement(st);
-			DB.closeConnection();
+			//DB.closeConnection();
 		}
 
 	}
@@ -51,7 +51,7 @@ public class CandidatoDAO {
 			e.printStackTrace();
 		} finally {
 			DB.closestatement(stt);
-			DB.closeConnection();
+			//DB.closeConnection();
 		}
 
 	}
@@ -72,7 +72,7 @@ public class CandidatoDAO {
 			e.printStackTrace();
 		} finally {
 			DB.closestatement(stt1);
-			DB.closeConnection();
+			//DB.closeConnection();
 		}
 	}
 
@@ -89,7 +89,7 @@ public class CandidatoDAO {
 			throw new DbIntegrityException(e.getMessage());
 		} finally {
 			DB.closestatement(stt2);
-			DB.closeConnection();
+			//DB.closeConnection();
 		}
 	}
 	
@@ -112,7 +112,7 @@ public class CandidatoDAO {
 			e.printStackTrace();
 		} finally {
 			DB.closestatement(stt);
-			DB.closeConnection();
+			//,DB.closeConnection();
 		}
 		return null;
 

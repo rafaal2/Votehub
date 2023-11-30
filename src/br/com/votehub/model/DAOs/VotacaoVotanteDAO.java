@@ -41,7 +41,6 @@ public class VotacaoVotanteDAO {
 			stt.setInt(2, vtvt.getId_votante());
 
 			stt.executeUpdate();
-			System.out.println("Novo candidato cadastrado");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

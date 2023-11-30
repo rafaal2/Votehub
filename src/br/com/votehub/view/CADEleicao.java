@@ -145,6 +145,7 @@ public class CADEleicao extends JFrame {
 					
 					ControllerVotacao controllerVotacao = new ControllerVotacao();
 					controllerVotacao.registrarVotacao(nomeVotacao, dataInicio, dataFim);
+					JOptionPane.showMessageDialog(null, "votação cadastrada com sucesso!");
 					
 				} catch (BusinessException err) {
 			

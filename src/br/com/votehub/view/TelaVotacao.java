@@ -100,6 +100,7 @@ public class TelaVotacao {
 						JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 					}
 				}
+				JOptionPane.showMessageDialog(null, "Voto cadastrado com sucesso!");
 
 			}
 

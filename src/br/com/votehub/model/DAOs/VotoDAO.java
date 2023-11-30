@@ -24,7 +24,6 @@ public class VotoDAO {
 			stt.setString(1, vt.getNumero_candidato());
 
 			stt.executeUpdate();
-			System.out.println("novo voto cadastrado");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -42,7 +41,6 @@ public class VotoDAO {
 			stt2.setInt(1, id_voto);
 			
 			stt2.executeUpdate();
-			System.out.println("Voto " + id_voto + "deletado!");
 		}
 		catch(SQLException e) {
 			throw new DbIntegrityException(e.getMessage());
@@ -60,7 +58,6 @@ public class VotoDAO {
 			rs = st.executeQuery("SELECT * \r\n"
 					+ "FROM voto \r\n");
 			while(rs.next()) {
-				System.out.println("Voto: " + rs.getInt("id_voto") + " | Candidato " + rs.getInt("numero_candidato"));
 			}}
 			catch(SQLException e) {
 				e.printStackTrace();

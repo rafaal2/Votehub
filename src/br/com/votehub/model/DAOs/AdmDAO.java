@@ -29,7 +29,6 @@ public class AdmDAO {
 			stt.setString(2, senhacrip.encryptPassword(a.getSenha()));
 
 			stt.executeUpdate();
-			System.out.println("Novo admin cadastrado");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -50,7 +49,6 @@ public class AdmDAO {
 			stt1.setInt(3, Id_adm);
 
 			stt1.executeUpdate();
-			System.out.println("Informações do admin " + Id_adm + "atualizadas!");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -67,7 +65,6 @@ public class AdmDAO {
 			stt2.setInt(1, Id_adm);
 
 			stt2.executeUpdate();
-			System.out.println("adm" + Id_adm + "deletado");
 		} catch (SQLException e) {
 			throw new DbIntegrityException(e.getMessage());
 		} finally {
