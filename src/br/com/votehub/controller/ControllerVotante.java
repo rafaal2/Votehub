@@ -120,4 +120,10 @@ public class ControllerVotante {
 	public void verificarsenhavot(String senhaDigitada) throws BusinessException, SQLException {
 		VotanteDAO.verificarsenhavot(senhaDigitada);
 	}
+	
+	public Votante buscarVotante(String matricula) {
+		
+		return votanteRepository.searchVotanteByMatricula(matricula);
+		
+	}
 }

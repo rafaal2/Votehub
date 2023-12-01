@@ -22,6 +22,7 @@ import javax.swing.text.MaskFormatter;
 
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.controller.ControllerVotante;
+import br.com.votehub.model.vo.Votante;
 import net.miginfocom.swing.MigLayout;
 
 public class LoginUsuario extends JFrame {
@@ -99,7 +100,8 @@ public class LoginUsuario extends JFrame {
 						ControllerVotante contvot = new ControllerVotante();
 						contvot.verificarloginvot(loginDigitada);
 						contvot.verificarsenhavot(senhaDigitada);
-						TelaVotacao loginVoto = new TelaVotacao();
+						Votante vtt = contvot.buscarVotante(loginDigitada);
+						TelaVotacao loginVoto = new TelaVotacao(vtt);
 						loginVoto.setVisible(true);
                 		dispose();
 					} catch (BusinessException error) {

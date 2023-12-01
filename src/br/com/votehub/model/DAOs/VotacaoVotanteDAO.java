@@ -35,7 +35,7 @@ public class VotacaoVotanteDAO {
 	public void addVotacaoVotante(VotacaoVotante vtvt) {
 		try {
 			conn = DB.getConnection();
-			stt = conn.prepareStatement("INSERT INTO candidato" + "(id_votacao, id_votante )" + "VALUES" + "(?, ?)");
+			stt = conn.prepareStatement("INSERT INTO votacaovotante" + "(id_votacao, id_votante )" + "VALUES" + "(?, ?)");
 
 			stt.setInt(1, vtvt.getId_votacao());
 			stt.setInt(2, vtvt.getId_votante());

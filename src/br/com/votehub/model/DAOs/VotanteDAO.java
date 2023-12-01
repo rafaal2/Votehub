@@ -124,6 +124,32 @@ public class VotanteDAO {
 		return null;
 
 	}
+	
+	public Votante searchVotanteByMatricula(String matricula) {
+		try {
+			conn = DB.getConnection();
+			stt = conn.prepareStatement("SELECT * FROM votante " + "WHERE " + "matricula = ?");
+
+			stt.setString(1, matricula);
+
+			rs = stt.executeQuery();
+			if (rs.next()) {
+
+				Votante vtt = new Votante(rs.getString("matricula"), rs.getString("nome"), rs.getString("senha"));
+				vtt.setId_votante(rs.getInt("id_votante"));;
+
+				return vtt;
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closestatement(stt);
+		//	DB.closeConnection();
+		}
+		return null;
+
+	}
 
 	public static boolean verificarloginvot(String loginDigitada) throws SQLException, BusinessException {
 		Connection conn = null;

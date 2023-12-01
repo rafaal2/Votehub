@@ -21,10 +21,10 @@ public class Main {
 
 	public static void main(String[] args) throws SQLException, BusinessException {
 	
-        SwingUtilities.invokeLater(TelaVotacao::new);
+//        SwingUtilities.invokeLater(TelaVotacao::new);
 		
-//		TelaInicial telaInicial = new TelaInicial();
-//		telaInicial.setVisible(true);
+		TelaInicial telaInicial = new TelaInicial();
+		telaInicial.setVisible(true);
         
 //		TelaInicial telaInicial = new TelaInicial();
 //		telaInicial.setVisible(true);

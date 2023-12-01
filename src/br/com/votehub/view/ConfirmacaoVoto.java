@@ -59,7 +59,7 @@ public class ConfirmacaoVoto {
 		botaoCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				SwingUtilities.invokeLater(TelaVotacao::new);
+				SwingUtilities.invokeLater((Runnable) new TelaVotacao(null));
 			}
 		});
 		frame.getContentPane().add(botaoCancelar, "flowx,cell 5 4,alignx center,aligny center");

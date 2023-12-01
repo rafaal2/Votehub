@@ -20,6 +20,7 @@ import br.com.votehub.controller.ControllerCandidato;
 import br.com.votehub.controller.ControllerVotacao;
 import br.com.votehub.controller.ControllerVotacaoVotante;
 import br.com.votehub.controller.ControllerVoto;
+import br.com.votehub.model.vo.Votante;
 import net.miginfocom.swing.MigLayout;
 
 public class TelaVotacao {
@@ -38,8 +39,10 @@ public class TelaVotacao {
 	//private JLabel lblNewLabel_3;
 	private JComboBox[] comboBoxes_ = new JComboBox[3];
 	 //CHAMANDO A TELA -> SwingUtilities.invokeLater(TelaVotacao::new);
+	private Votante vtt;
 
-	public TelaVotacao() {
+	public TelaVotacao(Votante vtt) {
+		this.vtt = vtt;
 		try {
 			initialize();
 			frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -104,6 +107,14 @@ public class TelaVotacao {
 //					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 //					return;
 //				}
+				
+				ControllerVotacaoVotante cvv = new ControllerVotacaoVotante();
+				try {
+					cvv.registrarVotacaoVotante(1, vtt.getId_votante());
+				} catch (BusinessException error) {
+					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 				
 				int n_votos = contarComboBoxes();
 				for (int i = 0; i < n_votos; i++) {
