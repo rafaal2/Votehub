@@ -27,18 +27,22 @@ public class ControllerVotante {
 
 	public void validarRegistro( String matricula, String nome, String senha) throws BusinessException, SQLException {
 		
-
-		if (matricula.isBlank()) {
-			throw new BusinessException("A matrícula deve ser preenchida.");
-		}
-
-		if (verificarSeMatriculaExiste(matricula)) {
-			throw new SQLException("A matrícula já é existente");
-		}
-
 		if (nome.isBlank()) {
 			throw new BusinessException("O nome deve ser preenchido.");
 		}
+		
+		if (matricula.isBlank()) {
+			throw new BusinessException("A matrícula deve ser preenchida.");
+		}
+		
+		if(matricula.length() > 200) {
+			throw new BusinessException("A matrícula não pode exceder 200 caracteres.");
+		}
+
+		if (verificarSeMatriculaExiste(matricula)) {
+			throw new SQLException("A matrícula existente.");
+		}
+
 
 		if (senha.isBlank()) {
 			throw new BusinessException("A senha deve ser preenchida.");

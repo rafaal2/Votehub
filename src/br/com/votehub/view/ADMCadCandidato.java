@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -123,13 +124,15 @@ public class ADMCadCandidato extends JFrame {
 				String cargoCandidato = filedCargoCad.getText();
 				int id_votacao = Integer.parseInt(filedIdEleicao.getText());
 				
+				ControllerCandidato contCandidato = new ControllerCandidato();
 				try {
-					ControllerCandidato contCandidato = new ControllerCandidato();
 					contCandidato.registrarCandidato(numero_candidato, nomeCandidato, cargoCandidato, id_votacao);
 					JOptionPane.showMessageDialog(null, "Candidato cadastrado com sucesso!");
-				} catch(BusinessException error) {
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-				}
+				} catch (BusinessException error) {
+		            JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+		        } catch (SQLException error2) {
+		            JOptionPane.showMessageDialog(null, error2.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+		        }
 				
 			}
 			

@@ -6,7 +6,6 @@ public class Votante {
 	private String matricula;
 	private String nome;
 	private String senha;
-	private String ocupação;
 
 	public Votante( String matricula, String nome, String senha) {
 		this.id_votante = id_votante;

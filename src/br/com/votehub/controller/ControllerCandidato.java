@@ -10,14 +10,14 @@ public class ControllerCandidato {
 	private CandidatoDAO candidatoRepository = new CandidatoDAO();
 
 	public void registrarCandidato(String numeroCandidato, String nome, String cargo, int id_votacao)
-			throws BusinessException {
+			throws BusinessException, SQLException {
 		validarRegistro(numeroCandidato, nome, cargo);
 
 		Candidato cd = new Candidato(numeroCandidato, nome, cargo, id_votacao);
 		candidatoRepository.addCandidato(cd);
 	}
 
-	public void validarRegistro(String numeroCandidato, String nome, String cargo) throws BusinessException {
+	public void validarRegistro(String numeroCandidato, String nome, String cargo) throws BusinessException, SQLException {
 		try {
 			candidatoRepository.verificarSeNumeroExiste(numeroCandidato);
 		} catch (SQLException e) {
@@ -26,6 +26,10 @@ public class ControllerCandidato {
 
 		if (numeroCandidato.isBlank() || nome.isBlank() || cargo.isBlank()) {
 			throw new BusinessException("Todos os campos devem estar preenchindos!");
+		}
+
+		if (verificarSeNumeroDeCandidatoExiste(numeroCandidato)) {
+			throw new SQLException("Número de candidato existente.");
 		}
 
 		if (numeroCandidato.length() > 100 || cargo.length() > 100) {
@@ -92,6 +96,29 @@ public class ControllerCandidato {
 
 	}
 
+	public boolean verificarSeNumeroDeCandidatoExiste(String numeroCandidato) throws SQLException {
+
+		Connection conn = null;
+		ResultSet rs = null;
+		Statement st = null;
+
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT numero_candidato \r\n" + "FROM candidato \r\n");
+			while (rs.next()) {
+				String numeroCandidatoBd = rs.getString("numero_candidato");
+				boolean check = numeroCandidatoBd.equals(numeroCandidato);
+				if (check == true) {
+					return check;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 	// deve ser alterado o quanto antes retornando uma lista de candidatos que possa
 	// ser exibida na interface grafica
 	public void exibirCandidato() {
@@ -99,13 +126,13 @@ public class ControllerCandidato {
 		candidatoRepository.mostrarCandidatos();
 
 	}
-	
+
 	public ResultSet exibirReitor() {
 
 		return candidatoRepository.addCandidatosReitorCombobox();
 
 	}
-	
+
 	public ResultSet exibirDiretor() {
 
 		return candidatoRepository.addCandidatosDiretorCombobox();
