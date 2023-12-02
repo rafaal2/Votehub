@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
@@ -27,7 +28,7 @@ public class ADMCadEleitor extends JFrame {
 	private JPanel contentPane;
 	private JTextField fieldMatriculaCad;
 	private JTextField fieldNomeCad;
-	private JTextField filedSenhaCad;
+	private JPasswordField fieldSenhaCad;
 
 	/**
 	 * Launch the application.
@@ -99,9 +100,9 @@ public class ADMCadEleitor extends JFrame {
 		lblCadSenha.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel.add(lblCadSenha, "cell 1 5,alignx trailing");
 		
-		filedSenhaCad = new JTextField();
-		panel.add(filedSenhaCad, "cell 2 5 6 1,growx");
-		filedSenhaCad.setColumns(10);
+		fieldSenhaCad = new JPasswordField();
+		panel.add(fieldSenhaCad, "cell 2 5 6 1,growx");
+		fieldSenhaCad.setColumns(10);
 		panel.add(btnVoltarCad, "cell 0 10,alignx center,aligny bottom");
 		
 		JButton btnCadastrar = new JButton("CADASTRAR");
@@ -111,7 +112,7 @@ public class ADMCadEleitor extends JFrame {
 		    public void actionPerformed(ActionEvent e) {
 		        String matricula = fieldMatriculaCad.getText();
 		        String nome = fieldNomeCad.getText();
-		        String senha = filedSenhaCad.getText();
+		        String senha = fieldSenhaCad.getText();
 
 		        ControllerVotante contVotante = new ControllerVotante();
 		        try {

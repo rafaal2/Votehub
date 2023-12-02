@@ -25,7 +25,7 @@ public class ADMLogin extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField fieldUserLogin;
-	private JTextField fieldSenhaLogin;
+	private JPasswordField fieldSenhaLogin;
 
 	/**
 	 * Launch the application.
@@ -79,7 +79,7 @@ public class ADMLogin extends JFrame {
 		lblSenhaLogin.setFont(new Font("Tahoma", Font.BOLD, 13));
 		panel.add(lblSenhaLogin, "cell 0 4 2 1,alignx trailing,aligny center");
 
-		fieldSenhaLogin = new JTextField();
+		fieldSenhaLogin = new JPasswordField();
 		panel.add(fieldSenhaLogin, "cell 2 4 4 1,growx");
 	
 

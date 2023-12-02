@@ -16,6 +16,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 import javax.swing.text.MaskFormatter;
@@ -32,7 +33,7 @@ public class LoginUsuario extends JFrame {
 	private JLabel lblNewLabel_2;
 	String ano = Integer.toString(LocalDate.now().getYear());
 	private JFormattedTextField campoMatricula;
-	private JFormattedTextField campoCpf;
+	private JPasswordField campoSenha;
 	
 	// CHAMANDO A TELA -> SwingUtilities.invokeLater(LoginUsuario::new);
 	// PARA VOLTAR A TELA INICIAL -> CTRL + I
@@ -95,7 +96,7 @@ public class LoginUsuario extends JFrame {
 		botaoEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent entrar) {
 					String loginDigitada = campoMatricula.getText();
-					String senhaDigitada = campoCpf.getText();
+					String senhaDigitada = campoSenha.getText();
 					try {
 						ControllerVotante contvot = new ControllerVotante();
 						contvot.verificarloginvot(loginDigitada);
@@ -117,10 +118,10 @@ public class LoginUsuario extends JFrame {
 		
 		// Formatacao Campo CPF	
 		
-			campoCpf = new JFormattedTextField();   
-			campoCpf.setToolTipText("Utilize Apenas Números.    ex:12378912301");
+			campoSenha = new JPasswordField();   
+			campoSenha.setToolTipText("Utilize Apenas Números.    ex:12378912301");
          
-		getContentPane().add(campoCpf, "cell 2 4,growx");
+		getContentPane().add(campoSenha, "cell 2 4,growx");
 		
 
 		
