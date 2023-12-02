@@ -99,7 +99,7 @@ public class LoginUsuario extends JFrame {
 					try {
 						ControllerVotante contvot = new ControllerVotante();
 						contvot.verificarloginvot(loginDigitada);
-						contvot.verificarsenhavot(senhaDigitada);
+						contvot.verificarsenhavot(loginDigitada, senhaDigitada);
 						Votante vtt = contvot.buscarVotante(loginDigitada);
 						TelaVotacao loginVoto = new TelaVotacao(vtt);
 						loginVoto.setVisible(true);

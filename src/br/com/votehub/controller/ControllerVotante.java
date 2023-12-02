@@ -44,6 +44,10 @@ public class ControllerVotante {
 			throw new BusinessException("A senha deve ser preenchida.");
 		}
 		
+		if(senha.length() < 8) {
+			throw new BusinessException("A senha deve ter no mínimo 8 caracteres");
+		}
+		
 		matriculasTemporarias.add(matricula);
 
 	}
@@ -117,8 +121,8 @@ public class ControllerVotante {
 		VotanteDAO.verificarloginvot(loginDigitada);
 	}
 
-	public void verificarsenhavot(String senhaDigitada) throws BusinessException, SQLException {
-		VotanteDAO.verificarsenhavot(senhaDigitada);
+	public void verificarsenhavot(String loginDigitada, String senhaDigitada) throws BusinessException, SQLException {
+		VotanteDAO.verificarsenhavot(loginDigitada, senhaDigitada);
 	}
 	
 	public Votante buscarVotante(String matricula) {

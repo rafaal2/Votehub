@@ -184,15 +184,17 @@ public class VotanteDAO {
 		return false;
 	}
 	
-	public static boolean verificarsenhavot( String senhaDigitada) throws SQLException, BusinessException {
+	public static boolean verificarsenhavot(String loginDigitada, String senhaDigitada) throws SQLException, BusinessException {
 		Connection conn = null;             
 		ResultSet rs = null;
-		Statement st= null;
+		PreparedStatement ps= null;
 		boolean senhaIncorreta = false;
 		try {
-			conn = DB.getConnection();
-			st = conn.createStatement();
-			rs = st.executeQuery("SELECT senha \r\n" + "FROM votante \r\n");
+			conn = DB.getConnection();		
+			String query = "SELECT senha \r\n FROM votante \r\n WHERE matricula = ?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, loginDigitada);
+			rs = ps.executeQuery();
 			while(rs.next()) {
 				String senhabd = rs.getString("senha");
 				boolean check = passHash.checkPassword(senhaDigitada, senhabd);
@@ -211,7 +213,7 @@ public class VotanteDAO {
 		}
 		finally {
 			DB.closeResultSet(rs);
-			DB.closestatement(st);
+			DB.closestatement(ps);
 		}
 		return false;
 	}
