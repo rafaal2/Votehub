@@ -74,6 +74,10 @@ public class ADMPrincipal extends JFrame {
 		btnMenuConsultar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnMenuConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				TelaConsulta consulta = new TelaConsulta();
+				consulta.setVisible(true);
+				dispose();
 			}
 		});
 		panel.add(btnMenuConsultar, "cell 3 2,growx,aligny center");

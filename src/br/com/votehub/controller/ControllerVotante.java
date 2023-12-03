@@ -16,7 +16,7 @@ public class ControllerVotante {
 	private Set<String> matriculasTemporarias = new HashSet<>();
 	private VotanteDAO votanteRepository = new VotanteDAO();
 
-	// resolver questão do id_votante, que é auto increment no banco de dados.//ja foi resolvido piranha
+
 	public void registrarVotante(String matricula, String nome, String senha) throws BusinessException, SQLException {
 		this.validarRegistro( matricula, nome, senha);
 
@@ -27,10 +27,7 @@ public class ControllerVotante {
 
 	public void validarRegistro( String matricula, String nome, String senha) throws BusinessException, SQLException {
 		
-		if (nome.isBlank()) {
-			throw new BusinessException("O nome deve ser preenchido.");
-		}
-		
+
 		if (matricula.isBlank()) {
 			throw new BusinessException("A matrícula deve ser preenchida.");
 		}
@@ -43,6 +40,9 @@ public class ControllerVotante {
 			throw new SQLException("A matrícula existente.");
 		}
 
+		if (nome.isBlank()) {
+			throw new BusinessException("O nome deve ser preenchido.");
+		}
 
 		if (senha.isBlank()) {
 			throw new BusinessException("A senha deve ser preenchida.");
@@ -68,14 +68,14 @@ public class ControllerVotante {
 		}
 	}
 
-	public void atualizarVotante(int id_votante, String matricula, String nome, String senha)
+	public void atualizarVotante(int id_votante, String matricula, String nome)
 			throws BusinessException {
-		validarAtualizacao(id_votante, matricula, nome, senha);
+		validarAtualizacao(id_votante, matricula, nome);
 
-		votanteRepository.updateVotante(id_votante, matricula, nome, senha);
+		votanteRepository.updateVotante(id_votante, matricula, nome);
 	}
 
-	public void validarAtualizacao(int id_votante, String matricula, String nome, String senha)
+	public void validarAtualizacao(int id_votante, String matricula, String nome)
 			throws BusinessException {
 		if (votanteRepository.searchVotanteById(id_votante) == null) {
 			throw new BusinessException("Votante referido não encontrado");
@@ -87,10 +87,6 @@ public class ControllerVotante {
 
 		if (nome.isBlank()) {
 			throw new BusinessException("O nome deve ser preenchido.");
-		}
-
-		if (senha.isBlank()) {
-			throw new BusinessException("A senha deve ser preenchida.");
 		}
 
 	}
@@ -118,6 +114,8 @@ public class ControllerVotante {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DB.closestatement(st);
 		}
 		return false;
 	}

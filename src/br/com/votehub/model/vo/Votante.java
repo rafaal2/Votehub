@@ -13,6 +13,12 @@ public class Votante {
 		this.nome = nome;
 		this.senha = senha;
 	}
+	
+	public Votante(String matricula, String nome) {
+		this.id_votante = id_votante;
+		this.matricula = matricula;
+		this.nome = nome;
+	}
 
 	public int getId_votante() {
 		return id_votante;

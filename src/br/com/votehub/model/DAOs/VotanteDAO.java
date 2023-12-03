@@ -21,25 +21,25 @@ public class VotanteDAO {
 	PreparedStatement stt1 = null;
 	PreparedStatement stt2 = null;
 
-	public void mostrarVotantes() {
-		Encriptador encrip = new Encriptador();
-		try {
-			conn = DB.getConnection();
-			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * \r\n" + "FROM votante \r\n");
-			while (rs.next()) {
-				String encryptedNome = encrip.desencriptadorDeValores(rs.getString("nome"));
-				System.out.println("Votante: " + encryptedNome + " / " + rs.getString("ocupação"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DB.closeResultSet(rs);
-			DB.closestatement(st);
-	//		DB.closeConnection();
-		}
-
-	}
+//	public void mostrarVotantes() {
+//		Encriptador encrip = new Encriptador();
+//		try {
+//			conn = DB.getConnection();
+//			st = conn.createStatement();
+//			rs = st.executeQuery("SELECT * \r\n" + "FROM votante \r\n");
+//			while (rs.next()) {
+//				String encryptedNome = encrip.desencriptadorDeValores(rs.getString("nome"));
+//				System.out.println("Votante: " + encryptedNome + " / " + rs.getString("ocupação"));
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			DB.closeResultSet(rs);
+//			DB.closestatement(st);
+//			// DB.closeConnection();
+//		}
+//
+//	}
 
 	public void addVotante(Votante v) {
 
@@ -62,25 +62,24 @@ public class VotanteDAO {
 
 	}
 
-	public void updateVotante(int idVotante, String novaMatricula, String novoNome, String novaSenha) {
-		StrongPasswordEncryptor senhacrip = new StrongPasswordEncryptor();
+	public void updateVotante(int idVotante, String novaMatricula, String novoNome) {
+//		StrongPasswordEncryptor senhacrip = new StrongPasswordEncryptor();
 		try {
 			conn = DB.getConnection();
-			stt1 = conn.prepareStatement("Update votante " + "SET matricula = ?, nome = ?, senha = ?"
-					+ "WHERE" + "id_votante = ?");
+			stt1 = conn.prepareStatement("UPDATE votante SET matricula = ?, nome = ? WHERE id_votante = ?");
 
 			stt1.setString(1, novaMatricula);
 			stt1.setString(2, novoNome);
-			stt1.setString(3, senhacrip.encryptPassword(novaSenha)); // stt1.setString(4,
-																			// Hash.gerarHash(novaSenha));
-			stt1.setInt(5, idVotante);
+//			stt1.setString(3, senhacrip.encryptPassword(novaSenha)); // stt1.setString(4,
+//																		// Hash.gerarHash(novaSenha));
+			stt1.setInt(3, idVotante);
 
 			stt1.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DB.closestatement(stt1);
-	//		DB.closeConnection();
+			// DB.closeConnection();
 		}
 	}
 
@@ -93,10 +92,11 @@ public class VotanteDAO {
 
 			stt2.executeUpdate();
 		} catch (SQLException e) {
-			throw new DbIntegrityException(e.getMessage());
+			throw new DbIntegrityException("Não é possível excluir o votante. Ele já realizou votos.");
 		} finally {
 			DB.closestatement(stt2);
-	//		DB.closeConnection();
+			// DB.closeConnection();
+
 		}
 	}
 
@@ -119,36 +119,58 @@ public class VotanteDAO {
 			e.printStackTrace();
 		} finally {
 			DB.closestatement(stt);
-		//	DB.closeConnection();
+			// DB.closeConnection();
 		}
 		return null;
 
 	}
-	
+
+//	public Votante searchVotanteByMatricula(String matricula) {
+//		try {
+//			conn = DB.getConnection();
+//			stt = conn.prepareStatement("SELECT * FROM votante " + "WHERE " + "matricula = ?");
+//
+//			stt.setString(1, matricula);
+//
+//			rs = stt.executeQuery();
+//			if (rs.next()) {
+//
+//				Votante vtt = new Votante(rs.getString("matricula"), rs.getString("nome"), rs.getString("senha"));
+//				vtt.setId_votante(rs.getInt("id_votante"));;
+//
+//				return vtt;
+//
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			DB.closestatement(stt);
+//		//	DB.closeConnection();
+//		}
+//		return null;
+//
+//	}
+
 	public Votante searchVotanteByMatricula(String matricula) {
 		try {
+
 			conn = DB.getConnection();
-			stt = conn.prepareStatement("SELECT * FROM votante " + "WHERE " + "matricula = ?");
+			PreparedStatement stt = conn
+					.prepareStatement("SELECT id_votante, matricula, nome FROM votante WHERE matricula = ?");
 
 			stt.setString(1, matricula);
 
-			rs = stt.executeQuery();
+			ResultSet rs = stt.executeQuery();
 			if (rs.next()) {
-
-				Votante vtt = new Votante(rs.getString("matricula"), rs.getString("nome"), rs.getString("senha"));
-				vtt.setId_votante(rs.getInt("id_votante"));;
-
+				Votante vtt = new Votante(rs.getString("matricula"), rs.getString("nome"));
+				vtt.setId_votante(rs.getInt("id_votante"));
 				return vtt;
-
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			DB.closestatement(stt);
-		//	DB.closeConnection();
 		}
-		return null;
 
+		return null;
 	}
 
 	public static boolean verificarloginvot(String loginDigitada) throws SQLException, BusinessException {
@@ -167,9 +189,11 @@ public class VotanteDAO {
 					return check;
 				} else {
 					loginIncorreto = true;
-				}if (loginDigitada.isBlank()) {
+				}
+				if (loginDigitada.isBlank()) {
 					throw new BusinessException("o campo de login deve estar preenchido");
-			}}
+				}
+			}
 			if (loginIncorreto) {
 				throw new BusinessException("login incorreto");
 
@@ -183,35 +207,38 @@ public class VotanteDAO {
 		}
 		return false;
 	}
-	
-	public static boolean verificarsenhavot(String loginDigitada, String senhaDigitada) throws SQLException, BusinessException {
-		Connection conn = null;             
+
+	public static boolean verificarsenhavot(String loginDigitada, String senhaDigitada)
+			throws SQLException, BusinessException {
+		Connection conn = null;
 		ResultSet rs = null;
-		PreparedStatement ps= null;
+		PreparedStatement ps = null;
 		boolean senhaIncorreta = false;
 		try {
-			conn = DB.getConnection();		
+			conn = DB.getConnection();
 			String query = "SELECT senha \r\n FROM votante \r\n WHERE matricula = ?";
 			ps = conn.prepareStatement(query);
 			ps.setString(1, loginDigitada);
 			rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				String senhabd = rs.getString("senha");
 				boolean check = passHash.checkPassword(senhaDigitada, senhabd);
 				if (check) {
-		            return true;
-		        }if(senhaDigitada.isBlank()) {
+					return true;
+				}
+				if (senhaDigitada.isBlank()) {
 					throw new BusinessException("o campo da senha deve estar preenchido");
-				}if(senhaDigitada.length() < 7) {
+				}
+				if (senhaDigitada.length() < 7) {
 					throw new BusinessException("a senha deve conter no minimo 8 caracteres");
-				}else {
-					senhaIncorreta = true;}
-			        throw new BusinessException("Senha incorreta");	
+				} else {
+					senhaIncorreta = true;
+				}
+				throw new BusinessException("Senha incorreta");
 			}
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			DB.closeResultSet(rs);
 			DB.closestatement(ps);
 		}
@@ -219,5 +246,3 @@ public class VotanteDAO {
 	}
 
 }
-
-
