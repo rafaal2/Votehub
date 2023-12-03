@@ -4,17 +4,23 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
 import java.sql.SQLException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 //import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;	
 
@@ -29,6 +35,9 @@ public class ADMCadCandidato extends JFrame {
 	private JTextField fieldNumCad;
 	private JTextField filedCargoCad;
 	private JTextField filedIdEleicao;
+	private int tamanho;
+	private FileInputStream fis;
+	private JLabel lblImg;
 
 	/**
 	 * Launch the application.
@@ -60,83 +69,126 @@ public class ADMCadCandidato extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("fill", "[grow][][][][][][][][][][grow][][grow]", "[][][][][][][][]"));
-		
+
 		JPanel panel = new JPanel();
 		contentPane.add(panel, "cell 5 0 1 3,alignx center,aligny center");
-		panel.setPreferredSize(new Dimension(800, 600)); 
-		panel.setLayout(new MigLayout("fill", "[grow][][grow][grow][][][grow][][grow]", "[][][][][][][][][][][]"));
-		
+		panel.setPreferredSize(new Dimension(800, 600));
+		panel.setLayout(null);
+
 		JLabel lblCadCandidato = new JLabel("Cadastro de Candidato");
+		lblCadCandidato.setBounds(303, 26, 194, 21);
 		lblCadCandidato.setFont(new Font("Tahoma", Font.BOLD, 17));
-		panel.add(lblCadCandidato, "cell 0 0 9 1,alignx center,aligny center");
-		
+		panel.add(lblCadCandidato);
+
 		JButton btnVoltarCad = new JButton("VOLTAR");
+		btnVoltarCad.setBounds(44, 570, 81, 23);
 		btnVoltarCad.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnVoltarCad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ADMCadastro admCadastro = new ADMCadastro();
-                admCadastro.setVisible(true);
-                dispose();
+				admCadastro.setVisible(true);
+				dispose();
 			}
 		});
-		
+
 		JLabel lblCadNome = new JLabel("Nome :");
+		lblCadNome.setBounds(206, 150, 38, 14);
 		lblCadNome.setFont(new Font("Tahoma", Font.BOLD, 11));
-		panel.add(lblCadNome, "cell 1 3,alignx trailing");
-		
+		panel.add(lblCadNome);
+
 		fieldNomeCad = new JTextField();
-		panel.add(fieldNomeCad, "cell 2 3 6 1,growx");
+		fieldNomeCad.setBounds(248, 150, 359, 20);
+		panel.add(fieldNomeCad);
 		fieldNomeCad.setColumns(10);
-		
+
 		JLabel lblCadNumCand = new JLabel("Nº Candidato :");
+		lblCadNumCand.setBounds(165, 200, 79, 14);
 		lblCadNumCand.setFont(new Font("Tahoma", Font.BOLD, 11));
-		panel.add(lblCadNumCand, "cell 1 4,alignx trailing");
-		
+		panel.add(lblCadNumCand);
+
 		fieldNumCad = new JTextField();
-		panel.add(fieldNumCad, "cell 2 4 6 1,growx");
+		fieldNumCad.setBounds(248, 200, 359, 20);
+		panel.add(fieldNumCad);
 		fieldNumCad.setColumns(10);
-		
+
 		JLabel lblCadCargo = new JLabel("Cargo :");
+		lblCadCargo.setBounds(205, 250, 39, 14);
 		lblCadCargo.setFont(new Font("Tahoma", Font.BOLD, 11));
-		panel.add(lblCadCargo, "cell 1 5,alignx trailing");
-		
+		panel.add(lblCadCargo);
+
 		filedCargoCad = new JTextField();
-		panel.add(filedCargoCad, "cell 2 5 6 1,growx");
+		filedCargoCad.setBounds(248, 250, 359, 20);
+		panel.add(filedCargoCad);
 		filedCargoCad.setColumns(10);
-		panel.add(btnVoltarCad, "cell 0 10,alignx center,aligny bottom");
-		
+
+		lblImg = new JLabel("");
+		lblImg.setIcon(new ImageIcon("C:\\Users\\rafae\\git\\votehub\\icons\\icons8-câmera-100.png"));
+		lblImg.setBounds(350, 350, 100, 100);
+		panel.add(lblImg);
+		panel.add(btnVoltarCad);
+
 		JLabel lblCadIdEleicao = new JLabel("Nº da Eleição :");
+		lblCadIdEleicao.setBounds(166, 300, 78, 14);
 		lblCadIdEleicao.setFont(new Font("Tahoma", Font.BOLD, 11));
-		panel.add(lblCadIdEleicao, "cell 1 6,alignx trailing");
-		
+		panel.add(lblCadIdEleicao);
+
 		filedIdEleicao = new JTextField();
-		panel.add(filedIdEleicao, "cell 2 6 6 1,growx");
+		filedIdEleicao.setBounds(248, 300, 359, 20);
+		panel.add(filedIdEleicao);
 		filedIdEleicao.setColumns(10);
-		
+
 		JButton btnCadastrar = new JButton("CADASTRAR");
+		btnCadastrar.setBounds(684, 570, 109, 23);
 		btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		panel.add(btnCadastrar, "cell 8 10,alignx right,aligny bottom");
-		
+		panel.add(btnCadastrar);
+
+		JButton btnAddImg = new JButton("adicionar foto");
+		btnAddImg.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addImg();
+
+			}
+		});
+		btnAddImg.setBounds(350, 484, 100, 23);
+		panel.add(btnAddImg);
+
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String numero_candidato = fieldNumCad.getText();
 				String nomeCandidato = fieldNomeCad.getText();
 				String cargoCandidato = filedCargoCad.getText();
 				int id_votacao = Integer.parseInt(filedIdEleicao.getText());
-				
+
 				ControllerCandidato contCandidato = new ControllerCandidato();
 				try {
 					contCandidato.registrarCandidato(numero_candidato, nomeCandidato, cargoCandidato, id_votacao);
 					JOptionPane.showMessageDialog(null, "Candidato cadastrado com sucesso!");
 				} catch (BusinessException error) {
-		            JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-		        } catch (SQLException error2) {
-		            JOptionPane.showMessageDialog(null, error2.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-		        }
-				
-			}
-			
-		});
-	}
+					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				} catch (SQLException error2) {
+					JOptionPane.showMessageDialog(null, error2.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				}
 
+			}
+
+		});}
+		
+		public void addImg() {
+		    JFileChooser jfc = new JFileChooser();
+		    jfc.setDialogTitle("selecionar arquivo");
+		    jfc.setFileFilter(new FileNameExtensionFilter("arquivo de imagens (*.PNG, *.JPG, *.JPEG) ", "png", "jpg", "jpeg"));
+		    int resultado = jfc.showOpenDialog(this);
+		    if(resultado == JFileChooser.APPROVE_OPTION) {
+		        try {
+		            fis = new FileInputStream(jfc.getSelectedFile());
+		            tamanho = (int) jfc.getSelectedFile().length();
+		            Image img = ImageIO.read(jfc.getSelectedFile()).getScaledInstance(this.lblImg.getWidth(), this.lblImg.getHeight(), Image.SCALE_SMOOTH);
+		            lblImg.setIcon(new ImageIcon(img));
+		            lblImg.updateUI();
+		        } catch(Exception e) {
+		            System.out.println(e);
+		        }
+		    }
+		
+	}
 }

@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.*;
+
 import br.com.votehub.model.vo.Candidato;
 
 public class CandidatoDAO {
@@ -176,5 +178,7 @@ public class CandidatoDAO {
 		}
 
 	}
+	
+	
 
 }
