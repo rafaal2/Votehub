@@ -11,7 +11,7 @@
       <resource>
         <directory>src</directory>
         <excludes>
-          <exclude>**/*.java</exclude>
+          <exclude>*/.java</exclude>
         </excludes>
       </resource>
     </resources>
@@ -44,6 +44,5 @@
         <artifactId>miglayout-swing</artifactId>
         <version>5.0</version>
     </dependency>
-
   </dependencies>
 </project>

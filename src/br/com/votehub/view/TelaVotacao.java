@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -20,7 +21,6 @@ import javax.swing.SwingUtilities;
 
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.controller.ControllerCandidato;
-import br.com.votehub.controller.ControllerVotacao;
 import br.com.votehub.controller.ControllerVotacaoVotante;
 import br.com.votehub.controller.ControllerVoto;
 import br.com.votehub.model.DAOs.CandidatoDAO;
@@ -36,13 +36,13 @@ public class TelaVotacao {
 	private JComboBox comboBox;
 	private JComboBox comboBox_1;
 	private JComboBox comboBox_2;
-	//private JComboBox comboBox_3;
+	// private JComboBox comboBox_3;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
-	//private JLabel lblNewLabel_3;
+	// private JLabel lblNewLabel_3;
 	private JComboBox[] comboBoxes_ = new JComboBox[3];
-	 //CHAMANDO A TELA -> SwingUtilities.invokeLater(TelaVotacao::new);
+	// CHAMANDO A TELA -> SwingUtilities.invokeLater(TelaVotacao::new);
 	private Votante vtt;
 	private JLabel lblimgReitor;
 	private JLabel lblimgDiretor;
@@ -80,20 +80,21 @@ public class TelaVotacao {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane()
 				.setLayout(new MigLayout("fill", "[][][grow][][][20%,grow][grow][][grow][][]", "[][][][][][][][]"));
-		
+
 		lblimgReitor = new JLabel("");
-		lblimgReitor.setIcon(new ImageIcon("C:\\Users\\rafae\\Downloads\\icons8-câmera-100.png"));
+		configurarImagemJLabel(lblimgReitor, "icons8-câmera-100.png");
 		frame.getContentPane().add(lblimgReitor, "cell 5 2,alignx trailing");
+
 		comboBox = new JComboBox();
 		comboBoxes_[0] = comboBox;
 		frame.getContentPane().add(comboBox, "cell 6 2,growx");
-		
+
 		lblimgDiretor = new JLabel("");
-		lblimgDiretor.setIcon(new ImageIcon("C:\\Users\\rafae\\Downloads\\icons8-câmera-100.png"));
+		configurarImagemJLabel(lblimgDiretor, "icons8-câmera-100.png");
 		frame.getContentPane().add(lblimgDiretor, "cell 5 3,alignx trailing");
-		
-		lblimgReitor.setMaximumSize(new Dimension(128, 128));  // Ajuste conforme necessário
-		lblimgDiretor.setMaximumSize(new Dimension(128, 128));  // Ajuste conforme necessário
+
+		lblimgReitor.setMaximumSize(new Dimension(128, 128)); // Ajuste conforme necessário
+		lblimgDiretor.setMaximumSize(new Dimension(128, 128)); // Ajuste conforme necessário
 
 		comboBox_1 = new JComboBox();
 		comboBoxes_[1] = comboBox_1;
@@ -102,7 +103,7 @@ public class TelaVotacao {
 		comboBox_2 = new JComboBox();
 		comboBoxes_[2] = comboBox_2;
 		frame.getContentPane().add(comboBox_2, "cell 6 4,growx");
-		
+
 //		comboBox.addActionListener(new ActionListener() {
 //	        public void actionPerformed(ActionEvent e) {
 //	            String numeroCandidato = (String) comboBox.getSelectedItem();
@@ -116,23 +117,23 @@ public class TelaVotacao {
 //	        }
 //	    });
 		comboBox.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        String numeroCandidato = (String) comboBox.getSelectedItem();
-		        Image imagemReitor = exibirImagemCandidatoReitor(numeroCandidato, lblimgReitor);
-		        lblimgReitor.setIcon(new ImageIcon(imagemReitor));
-		    }
+			public void actionPerformed(ActionEvent e) {
+				String numeroCandidato = (String) comboBox.getSelectedItem();
+				Image imagemReitor = exibirImagemCandidatoReitor(numeroCandidato, lblimgReitor);
+				lblimgReitor.setIcon(new ImageIcon(imagemReitor));
+			}
 		});
 
 		comboBox_1.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        String numeroCandidato = (String) comboBox_1.getSelectedItem();
-		        Image imagemDiretor = exibirImagemCandidatoDiretor(numeroCandidato, lblimgDiretor);
-		        lblimgDiretor.setIcon(new ImageIcon(imagemDiretor));
-		    }
+			public void actionPerformed(ActionEvent e) {
+				String numeroCandidato = (String) comboBox_1.getSelectedItem();
+				Image imagemDiretor = exibirImagemCandidatoDiretor(numeroCandidato, lblimgDiretor);
+				lblimgDiretor.setIcon(new ImageIcon(imagemDiretor));
+			}
 		});
 
-		//comboBox_3 = new JComboBox();
-		//comboBoxes_[3] = comboBox_3;
+		// comboBox_3 = new JComboBox();
+		// comboBoxes_[3] = comboBox_3;
 
 		botaoAvancar = new JButton("Avançar");
 		botaoAvancar.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -152,7 +153,7 @@ public class TelaVotacao {
 //					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 //					return;
 //				}
-				
+
 				ControllerVotacaoVotante cvv = new ControllerVotacaoVotante();
 				try {
 					cvv.registrarVotacaoVotante(1, vtt.getId_votante());
@@ -160,7 +161,7 @@ public class TelaVotacao {
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				
+
 				int n_votos = contarComboBoxes();
 				for (int i = 0; i < n_votos; i++) {
 					String numerocandidato = (String) comboBoxes_[i].getSelectedItem();
@@ -208,12 +209,12 @@ public class TelaVotacao {
 //		comboBox_2 = new JComboBox();
 //		frame.getContentPane().add(comboBox_2, "cell 6 4,growx");
 
-		//lblNewLabel_3 = new JLabel("New label");
-		//frame.getContentPane().add(lblNewLabel_3, "cell 4 5");
+		// lblNewLabel_3 = new JLabel("New label");
+		// frame.getContentPane().add(lblNewLabel_3, "cell 4 5");
 
 //		comboBox_3 = new JComboBox();
-		
-		//frame.getContentPane().add(comboBox_3, "cell 6 5,growx");
+
+		// frame.getContentPane().add(comboBox_3, "cell 6 5,growx");
 		frame.getContentPane().add(botaoCancelar, "flowx,cell 4 7,alignx center,aligny baseline");
 		frame.getContentPane().add(botaoAvancar, "cell 6 7,alignx center,aligny baseline");
 	}
@@ -252,26 +253,35 @@ public class TelaVotacao {
 		}
 
 	}
+
 	private Image exibirImagemCandidatoReitor(String numeroCandidato, JLabel lblimgReitor) {
-	    String caminhoImagem = obterCaminhoImagemCandidato(numeroCandidato);
-	    Image rawImage = new ImageIcon(caminhoImagem).getImage();
-	    Image renderedImage = rawImage.getScaledInstance(lblimgReitor.getWidth(), lblimgReitor.getHeight(), Image.SCALE_SMOOTH);
-	    return renderedImage;
+		String caminhoImagem = obterCaminhoImagemCandidato(numeroCandidato);
+		Image rawImage = new ImageIcon(caminhoImagem).getImage();
+		Image renderedImage = rawImage.getScaledInstance(lblimgReitor.getWidth(), lblimgReitor.getHeight(),
+				Image.SCALE_SMOOTH);
+		return renderedImage;
 	}
+
 	private Image exibirImagemCandidatoDiretor(String numeroCandidato, JLabel lblimgDiretor) {
-	    String caminhoImagem = obterCaminhoImagemCandidato(numeroCandidato);
-	    Image rawImage = new ImageIcon(caminhoImagem).getImage();
-	    Image renderedImage = rawImage.getScaledInstance(lblimgDiretor.getWidth(), lblimgDiretor.getHeight(), Image.SCALE_SMOOTH);
-	    return renderedImage;
+		String caminhoImagem = obterCaminhoImagemCandidato(numeroCandidato);
+		Image rawImage = new ImageIcon(caminhoImagem).getImage();
+		Image renderedImage = rawImage.getScaledInstance(lblimgDiretor.getWidth(), lblimgDiretor.getHeight(),
+				Image.SCALE_SMOOTH);
+		return renderedImage;
 	}
-	
-	
-	
-	
+
 	private String obterCaminhoImagemCandidato(String numeroCandidato) {
 		CandidatoDAO candidatoRepository = new CandidatoDAO();
 		return candidatoRepository.searchCandidatoImg(numeroCandidato);
 	}
-	
+
+	private void configurarImagemJLabel(JLabel label, String caminhoImagem) {
+		URL resource = getClass().getClassLoader().getResource(caminhoImagem);
+		if (resource != null) {
+			label.setIcon(new ImageIcon(resource));
+		} else {
+			System.err.println("Imagem não encontrada: " + caminhoImagem);
+		}
+	}
 
 }

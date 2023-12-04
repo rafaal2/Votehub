@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
@@ -124,7 +125,8 @@ public class ADMCadCandidato extends JFrame {
 		filedCargoCad.setColumns(10);
 
 		lblImg = new JLabel("");
-		lblImg.setIcon(new ImageIcon("C:\\Users\\rafae\\git\\votehub\\icons\\icons8-câmera-100.png"));
+		URL resource = ADMCadCandidato.class.getClassLoader().getResource("icons8-câmera-100.png");
+		lblImg.setIcon(new ImageIcon(resource));
 		lblImg.setBounds(350, 350, 128, 128);
 		panel.add(lblImg);
 		panel.add(btnVoltarCad);
