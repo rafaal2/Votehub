@@ -21,25 +21,6 @@ public class VotanteDAO {
 	PreparedStatement stt1 = null;
 	PreparedStatement stt2 = null;
 
-//	public void mostrarVotantes() {
-//		Encriptador encrip = new Encriptador();
-//		try {
-//			conn = DB.getConnection();
-//			st = conn.createStatement();
-//			rs = st.executeQuery("SELECT * \r\n" + "FROM votante \r\n");
-//			while (rs.next()) {
-//				String encryptedNome = encrip.desencriptadorDeValores(rs.getString("nome"));
-//				System.out.println("Votante: " + encryptedNome + " / " + rs.getString("ocupação"));
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			DB.closeResultSet(rs);
-//			DB.closestatement(st);
-//			// DB.closeConnection();
-//		}
-//
-//	}
 
 	public void addVotante(Votante v) {
 

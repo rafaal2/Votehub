@@ -11,20 +11,20 @@ public class ControllerCandidato {
 
 	public void registrarCandidato(String numeroCandidato, String nome, String cargo, int id_votacao, String img_candidato)
 			throws BusinessException, SQLException {
-		validarRegistro(numeroCandidato, nome, cargo);
+		validarRegistro(numeroCandidato, nome, cargo, id_votacao, img_candidato);
 
 		Candidato cd = new Candidato(numeroCandidato, nome, cargo, id_votacao, img_candidato);
 		candidatoRepository.addCandidato(cd);
 	}
 
-	public void validarRegistro(String numeroCandidato, String nome, String cargo) throws BusinessException, SQLException {
+	public void validarRegistro(String numeroCandidato, String nome, String cargo, Integer id_votacao, String img_candidato) throws BusinessException, SQLException {
 		try {
 			candidatoRepository.verificarSeNumeroExiste(numeroCandidato);
 		} catch (SQLException e) {
 			throw new BusinessException("Número do candidato já está em uso!");
 		}
 
-		if (numeroCandidato.isBlank() || nome.isBlank() || cargo.isBlank()) {
+		if (numeroCandidato.isBlank() || nome.isBlank() || cargo.isBlank() || img_candidato == null|| id_votacao == null) {
 			throw new BusinessException("Todos os campos devem estar preenchindos!");
 		}
 
@@ -143,6 +143,11 @@ public class ControllerCandidato {
 
 		return candidatoRepository.addCandidatosDiretorCombobox();
 
+	}
+	
+	public String recuperarImg() {
+		String numeroCandidato = "1";
+		return candidatoRepository.searchCandidatoImg(numeroCandidato);
 	}
 
 }

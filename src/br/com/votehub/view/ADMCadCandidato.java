@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
@@ -146,7 +147,15 @@ public class ADMCadCandidato extends JFrame {
 		JButton btnAddImg = new JButton("adicionar foto");
 		btnAddImg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addImg();
+				try {
+					addImg();
+				} catch (BusinessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
 			}
 		});
@@ -162,35 +171,34 @@ public class ADMCadCandidato extends JFrame {
 
 				ControllerCandidato contCandidato = new ControllerCandidato();
 				try {
-					contCandidato.registrarCandidato(numero_candidato, nomeCandidato, cargoCandidato, id_votacao, img_candidato);
+					contCandidato.registrarCandidato(numero_candidato, nomeCandidato, cargoCandidato, id_votacao,
+							img_candidato);
 					JOptionPane.showMessageDialog(null, "Candidato cadastrado com sucesso!");
 				} catch (BusinessException error) {
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				} catch (SQLException error2) {
 					JOptionPane.showMessageDialog(null, error2.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}
-
 			}
 
-		});}
-		
-		public void addImg() {
-		    JFileChooser jfc = new JFileChooser();
-		    jfc.setDialogTitle("selecionar arquivo");
-		    jfc.setFileFilter(new FileNameExtensionFilter("arquivo de imagens (*.PNG, *.JPG, *.JPEG) ", "png", "jpg", "jpeg"));
-		    int resultado = jfc.showOpenDialog(this);
-		    if(resultado == JFileChooser.APPROVE_OPTION) {
-		        try {
-		            fis = new FileInputStream(jfc.getSelectedFile());
-		            tamanho = (int) jfc.getSelectedFile().length();
-		            Image img = ImageIO.read(jfc.getSelectedFile()).getScaledInstance(this.lblImg.getWidth(), this.lblImg.getHeight(), Image.SCALE_SMOOTH);
-		            lblImg.setIcon(new ImageIcon(img));
-		            lblImg.updateUI();
-		            img_candidato = jfc.getSelectedFile().getAbsolutePath();
-		        } catch(Exception e) {
-		            System.out.println(e);
-		        }
-		    }
-		
+		});
+	}
+
+	public void addImg() throws BusinessException, IOException {
+		JFileChooser jfc = new JFileChooser();
+		jfc.setDialogTitle("selecionar arquivo");
+		jfc.setFileFilter(
+				new FileNameExtensionFilter("arquivo de imagens (*.PNG, *.JPG, *.JPEG) ", "png", "jpg", "jpeg"));
+		int resultado = jfc.showOpenDialog(this);
+		if (resultado == JFileChooser.APPROVE_OPTION) {
+			fis = new FileInputStream(jfc.getSelectedFile());
+			tamanho = (int) jfc.getSelectedFile().length();
+			Image img = ImageIO.read(jfc.getSelectedFile()).getScaledInstance(this.lblImg.getWidth(),
+					this.lblImg.getHeight(), Image.SCALE_SMOOTH);
+			lblImg.setIcon(new ImageIcon(img));
+			lblImg.updateUI();
+			img_candidato = jfc.getSelectedFile().getAbsolutePath();
+		}
+
 	}
 }

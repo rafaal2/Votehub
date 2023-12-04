@@ -180,6 +180,31 @@ public class CandidatoDAO {
 		}
 
 	}
+	public String searchCandidatoImg(String numeroCandidato) {
+		try {
+			conn = DB.getConnection();
+			stt = conn.prepareStatement("SELECT * FROM candidato " + "WHERE " + "numero_candidato = ?");
+
+			stt.setString(1, numeroCandidato);
+			
+			rs = stt.executeQuery();
+			if(rs.next()) {
+				
+			Candidato c = new Candidato(rs.getString("numero_candidato"), rs.getString("nome"), rs.getString("cargo"), rs.getInt("id_votacao"),rs.getString("img_candidato"));
+			
+			return c.getImg_candidato();
+			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closestatement(stt);
+			//,DB.closeConnection();
+		}
+		return null;
+
+	}	
+	
 	
 	
 
