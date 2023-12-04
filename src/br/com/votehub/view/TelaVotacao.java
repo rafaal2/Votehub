@@ -139,19 +139,19 @@ public class TelaVotacao {
 		botaoAvancar.setHorizontalAlignment(SwingConstants.RIGHT);
 		botaoAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String numeroBusca = (String) comboBox.getSelectedItem();
-				ControllerVotacao contVotacao = new ControllerVotacao();
-				
-				try {
-					
-					contVotacao.checarInicio(numeroBusca);
-					contVotacao.checarTermino(numeroBusca);
-					
-				} catch (BusinessException error) {
-					
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
+//				String numeroBusca = (String) comboBox.getSelectedItem();
+//				ControllerVotacao contVotacao = new ControllerVotacao();
+//				
+//				try {
+//					
+//					contVotacao.checarInicio(numeroBusca);
+//					contVotacao.checarTermino(numeroBusca);
+//					
+//				} catch (BusinessException error) {
+//					
+//					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+//					return;
+//				}
 				
 				ControllerVotacaoVotante cvv = new ControllerVotacaoVotante();
 				try {

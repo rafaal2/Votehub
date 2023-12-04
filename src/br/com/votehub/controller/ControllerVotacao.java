@@ -38,38 +38,39 @@ public class ControllerVotacao {
 		
 		if(dataInicio.before(now)) {
 			
-			throw new BusinessException("A eleição deve iniciar em uma data atual");
+			throw new BusinessException("A eleição deve iniciar em uma data atual!");
 		}
 		
 		if(dataFim.before(now)) {
 			
-			throw new BusinessException("A eleição deve ser finalizada em uma data atual ou futura");
+			throw new BusinessException("A eleição deve ser finalizada em uma data atual ou futura!");
 		}
 		
 		if(!dataFim.after(dataInicio)) {
 			
-			throw new BusinessException("A data de termino deve ser após a data de inicio");
+			throw new BusinessException("A data de termino deve ser após a data de inicio!");
+			
 		}
 		
 	}
 		
 		
 		public Boolean validadorDataInicio(Date dataInicio) {
-			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 			
 			String dataParaString = dateFormat.format(dataInicio);
 			return dataIsValid(dataParaString);
 		}
 		
 		public Boolean validadorDataFim(Date dataFim) {
-			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 			
 			String dataParaString = dateFormat.format(dataFim);
 			return dataIsValid(dataParaString);
 		}
 		
 		public Boolean dataIsValid(String data) {
-		String formatacao = "dd/MM/yyyy"; 
+		String formatacao = "dd/MM/yyyy HH:mm:ss"; 
 		//se falhar tentar uuuu
 		
 		DateTimeFormatter dateFormatter = DateTimeFormatter
@@ -107,22 +108,22 @@ public class ControllerVotacao {
 		
 		if(!validadorDataFim(dataFim)) {
 			
-			throw new BusinessException("Informe uma data final válida");
+			throw new BusinessException("Informe uma data final válida!");
 		}
 		
 		if(dataInicio.before(now)) {
 			
-			throw new BusinessException("A nova data inicial deve ser atual ou futura");
+			throw new BusinessException("A nova data inicial deve ser atual ou futura!");
 		}
 		
 		if(dataFim.before(now)) {
 			
-			throw new BusinessException("A nova data de termino deve ser atual ou futura");
+			throw new BusinessException("A nova data de termino deve ser atual ou futura!");
 		}
 		
 		if(!dataFim.after(dataInicio)) {
 			
-			throw new BusinessException("A nova data de termino deve ser após a data de inicio");
+			throw new BusinessException("A nova data de termino deve ser após a data de inicio!");
 		}
 		
 		

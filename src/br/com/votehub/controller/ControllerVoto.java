@@ -1,14 +1,17 @@
 package br.com.votehub.controller;
 
 import br.com.votehub.model.DAOs.CandidatoDAO;
+import br.com.votehub.model.DAOs.VotacaoVotanteDAO;
 import br.com.votehub.model.DAOs.VotanteDAO;
 import br.com.votehub.model.DAOs.VotoDAO;
+import br.com.votehub.model.vo.VotacaoVotante;
 import br.com.votehub.model.vo.Voto;
 
 public class ControllerVoto {
 	private VotoDAO votoRepository = new VotoDAO();
 	private CandidatoDAO candidatoRepository = new CandidatoDAO();
 	private VotanteDAO votanteRepository = new VotanteDAO();
+	private VotacaoVotanteDAO votacaoVotanteRepository = new VotacaoVotanteDAO();
 
 	public void registrarVoto(String numeroCandidato) throws BusinessException {
 		//consertar esse metodo dps
@@ -68,4 +71,8 @@ public class ControllerVoto {
 
 		}
 	}
+	
+//	public void checarAptidao(int idVotacao, int idVotante) {
+//		
+//	}
 }

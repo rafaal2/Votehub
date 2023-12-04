@@ -137,7 +137,7 @@ public class CADEleicao extends JFrame {
 				String dataInicioString = fieldNumCad.getText();
 				String dataFimString = filedCargoCad.getText();
 				
-				SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+				SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 				
 				try {
 					Date dataInicio = formato.parse(dataInicioString);

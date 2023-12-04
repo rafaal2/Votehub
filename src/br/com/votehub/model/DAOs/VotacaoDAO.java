@@ -104,8 +104,61 @@ public class VotacaoDAO {
 		//	DB.closeConnection();
 		}
 		return null;
+		
+		
 
 	}
+	
+	public java.util.Date buscaDataInicio(int idVotacao) {
+		try {
+			conn = DB.getConnection();
+			stt = conn.prepareStatement("SELECT * FROM votacao " + "WHERE " + "id_votacao = ?");
 
+			stt.setInt(1, idVotacao);
+			
+			rs = stt.executeQuery();
+			if(rs.next()) {
+				
+			Votacao vtc = new Votacao(rs.getString("nome_votacao"), rs.getDate("data_inicio"), rs.getDate("data_fim"));
+			vtc.setId_votacao(rs.getInt("id_votacao"));
+			
+			return vtc.getData_inicio();
+			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closestatement(stt);
+		//	DB.closeConnection();
+		}
+		return null;
+
+	}
+	
+	public java.util.Date buscaDataFim(int idVotacao) {
+		try {
+			conn = DB.getConnection();
+			stt = conn.prepareStatement("SELECT * FROM votacao " + "WHERE " + "id_votacao = ?");
+
+			stt.setInt(1, idVotacao);
+			
+			rs = stt.executeQuery();
+			if(rs.next()) {
+				
+			Votacao vtc = new Votacao(rs.getString("nome_votacao"), rs.getDate("data_inicio"), rs.getDate("data_fim"));
+			vtc.setId_votacao(rs.getInt("id_votacao"));
+			
+			return vtc.getData_fim();
+			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closestatement(stt);
+		//	DB.closeConnection();
+		}
+		return null;
+
+	}
 }
 

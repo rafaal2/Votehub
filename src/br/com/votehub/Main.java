@@ -21,31 +21,18 @@ public class Main {
 
 	public static void main(String[] args) throws SQLException, BusinessException {
 	
-//        SwingUtilities.invokeLater(TelaVotacao::new);
-		
 		TelaInicial telaInicial = new TelaInicial();
 		telaInicial.setVisible(true);
+		
+	}
         
-//		TelaInicial telaInicial = new TelaInicial();
-//		telaInicial.setVisible(true);
+//        SwingUtilities.invokeLater(TelaVotacao::new);
+	
 //		SwingUtilities.invokeLater(LoginUsuario::new);
 //		boolean check = VotanteDAO.verificarsenhavot(senhaDigitada);
-//	TelaInicial telaInicial = new TelaInicial();
-//		telaInicial.setVisible(true);
+	
 //			Main programa = new Main();
 //			programa.operação();
-	}
-	
-//		VotacaoDAO vtcd = new VotacaoDAO();
-//
-//        CandidatoDAO cddtd = new CandidatoDAO();
-//
-//        Votacao vtc = vtcd.searchVotacaoById(1);
-//
-//        Candidato cddt = cddtd.searchCandidatoById("113");
-//
-//        System.out.println(vtc.toString());
-//        System.out.println(cddt.toString());
 	
 	
 	// ____TELAS____
