@@ -40,12 +40,13 @@ public class CandidatoDAO {
 	public void addCandidato(Candidato c) {
 		try {
 			conn = DB.getConnection();
-			stt = conn.prepareStatement("INSERT INTO candidato" + "(numero_candidato, nome, cargo, id_votacao)" + "VALUES" + "(?, ?, ?, ?)");
+			stt = conn.prepareStatement("INSERT INTO candidato" + "(numero_candidato, nome, cargo, id_votacao, img_candidato)" + "VALUES" + "(?, ?, ?, ?, ?)");
 
 			stt.setString(1, c.getNumero_candidato());
 			stt.setString(2, c.getNome());
 			stt.setString(3, c.getCargo());
 			stt.setInt(4, c.getId_votacao());
+			stt.setString(5, c.getImg_candidato());
 
 			stt.executeUpdate();
 			System.out.println("Novo candidato cadastrado");
@@ -58,15 +59,16 @@ public class CandidatoDAO {
 
 	}
 
-	public void updateCandidato(String numeroCandidato, String nome, String cargo, int id_votacao) {
+	public void updateCandidato(String numeroCandidato, String nome, String cargo, int id_votacao, String img_candidato) {
 		try {
 			conn = DB.getConnection();
-			stt1 = conn.prepareStatement("Update candidato " + "SET nome = ?, cargo = ?, id_votacao = ? " + "WHERE" + "numero_candidato = ?");
+			stt1 = conn.prepareStatement("Update candidato " + "SET nome = ?, cargo = ?, id_votacao = ?, img_candidato = ? " + "WHERE" + "numero_candidato = ?");
 
 			stt1.setString(1, nome);
 			stt1.setString(2, cargo);
 			stt1.setString(3, numeroCandidato);
-			stt.setInt(4, id_votacao);
+			stt1.setInt(4, id_votacao);
+			stt1.setString(5, img_candidato);
 
 			stt1.executeUpdate();
 			System.out.println("Informações do candidato " + numeroCandidato + "atualizadas!");
@@ -105,7 +107,7 @@ public class CandidatoDAO {
 			rs = stt.executeQuery();
 			if(rs.next()) {
 				
-			Candidato c = new Candidato(rs.getString("numero_candidato"), rs.getString("nome"), rs.getString("cargo"), rs.getInt("id_votacao"));
+			Candidato c = new Candidato(rs.getString("numero_candidato"), rs.getString("nome"), rs.getString("cargo"), rs.getInt("id_votacao"),rs.getString("img_candidato"));
 			
 			return c;
 			

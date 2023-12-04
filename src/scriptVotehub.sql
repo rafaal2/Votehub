@@ -52,6 +52,7 @@ CREATE TABLE candidato (
   nome char(200) DEFAULT NULL,
   cargo char(100) DEFAULT NULL,
   id_votacao int not null,
+  img_candidato varchar(200) not null,
   PRIMARY KEY (numero_candidato),
   FOREIGN KEY (id_votacao) REFERENCES votacao(id_votacao)
 ) ;

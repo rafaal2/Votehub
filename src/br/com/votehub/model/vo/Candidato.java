@@ -6,13 +6,23 @@ public class Candidato {
 	private String nome;
 	private String cargo;
 	private int id_votacao;
+	private String img_candidato;
 
-	public Candidato(String numero_candidato, String nome, String cargo, int id_votacao) {
+	public Candidato(String numero_candidato, String nome, String cargo, int id_votacao, String img_candidato) {
 		super();
 		this.numero_candidato = numero_candidato;
 		this.nome = nome;
 		this.cargo = cargo;
 		this.id_votacao = id_votacao;
+		this.img_candidato = img_candidato;
+	}
+
+	public String getImg_candidato() {
+		return img_candidato;
+	}
+
+	public void setImg_candidato(String img_candidato) {
+		this.img_candidato = img_candidato;
 	}
 
 	public int getId_votacao() {

@@ -9,11 +9,11 @@ import java.sql.*;
 public class ControllerCandidato {
 	private CandidatoDAO candidatoRepository = new CandidatoDAO();
 
-	public void registrarCandidato(String numeroCandidato, String nome, String cargo, int id_votacao)
+	public void registrarCandidato(String numeroCandidato, String nome, String cargo, int id_votacao, String img_candidato)
 			throws BusinessException, SQLException {
 		validarRegistro(numeroCandidato, nome, cargo);
 
-		Candidato cd = new Candidato(numeroCandidato, nome, cargo, id_votacao);
+		Candidato cd = new Candidato(numeroCandidato, nome, cargo, id_votacao, img_candidato);
 		candidatoRepository.addCandidato(cd);
 	}
 
@@ -54,13 +54,14 @@ public class ControllerCandidato {
 		}
 	}
 
-	public void atualizarCandidato(String numeroCandidato, String nome, String cargo, int id_votacao)
+	public void atualizarCandidato(String numeroCandidato, String nome, String cargo, int id_votacao, String img_candidato)
 			throws BusinessException {
 		validarAtualizacao(numeroCandidato, nome, cargo);
 
 		String nomeC;
 		String cargoC;
 		int id_votacaoC = 0;
+		String img_candidatoC;
 
 		Candidato cddt = candidatoRepository.searchCandidatoById(numeroCandidato);
 
@@ -75,8 +76,13 @@ public class ControllerCandidato {
 		} else {
 			cargoC = cargo;
 		}
+		if (img_candidato.isBlank()) {
+			img_candidatoC = cddt.getImg_candidato();
+		} else {
+			img_candidatoC = img_candidato;
+		}
 
-		candidatoRepository.updateCandidato(numeroCandidato, nomeC, cargoC, id_votacaoC);
+		candidatoRepository.updateCandidato(numeroCandidato, nomeC, cargoC, id_votacaoC, img_candidatoC);
 
 	}
 

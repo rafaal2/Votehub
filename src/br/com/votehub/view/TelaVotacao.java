@@ -47,8 +47,8 @@ public class TelaVotacao {
 			initialize();
 			frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 			frame.setVisible(true);
-			restaurarReitorCombobox();
-			restaurarDiretorCombobox();
+			//restaurarReitorCombobox();
+			//restaurarDiretorCombobox();
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Erro ao inicializar a Tela de Votação: " + e.getMessage());
@@ -178,35 +178,35 @@ public class TelaVotacao {
 
 	}
 
-	public void restaurarReitorCombobox() {
-		try {
-			ControllerCandidato objCandidato = new ControllerCandidato();
-			ResultSet rs = objCandidato.exibirReitor();
-
-			while (rs.next()) {
-				comboBoxes_[0].addItem(rs.getString("numero_candidato"));
-			}
-		} catch (SQLException error) {
-
-			JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-		}
-
-	}
-
-	public void restaurarDiretorCombobox() {
-		try {
-			ControllerCandidato objCandidato = new ControllerCandidato();
-			ResultSet rs = objCandidato.exibirDiretor();
-
-			while (rs.next()) {
-				comboBoxes_[1].addItem(rs.getString("numero_candidato"));
-			}
-		} catch (SQLException error) {
-
-			JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-		}
-
-	}
-	
+//	public void restaurarReitorCombobox() {
+//		try {
+//			ControllerCandidato objCandidato = new ControllerCandidato();
+//			ResultSet rs = objCandidato.exibirReitor();
+//
+//			while (rs.next()) {
+//				comboBoxes_[0].addItem(rs.getString("numero_candidato"));
+//			}
+//		} catch (SQLException error) {
+//
+//			JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+//		}
+//
+//	}
+//
+//	public void restaurarDiretorCombobox() {
+//		try {
+//			ControllerCandidato objCandidato = new ControllerCandidato();
+//			ResultSet rs = objCandidato.exibirDiretor();
+//
+//			while (rs.next()) {
+//				comboBoxes_[1].addItem(rs.getString("numero_candidato"));
+//			}
+//		} catch (SQLException error) {
+//
+//			JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+//		}
+//
+//	}
+//	
 
 }

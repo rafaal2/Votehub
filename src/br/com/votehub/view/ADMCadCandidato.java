@@ -38,6 +38,7 @@ public class ADMCadCandidato extends JFrame {
 	private int tamanho;
 	private FileInputStream fis;
 	private JLabel lblImg;
+	private String img_candidato;
 
 	/**
 	 * Launch the application.
@@ -123,7 +124,7 @@ public class ADMCadCandidato extends JFrame {
 
 		lblImg = new JLabel("");
 		lblImg.setIcon(new ImageIcon("C:\\Users\\rafae\\git\\votehub\\icons\\icons8-câmera-100.png"));
-		lblImg.setBounds(350, 350, 100, 100);
+		lblImg.setBounds(350, 350, 128, 128);
 		panel.add(lblImg);
 		panel.add(btnVoltarCad);
 
@@ -161,7 +162,7 @@ public class ADMCadCandidato extends JFrame {
 
 				ControllerCandidato contCandidato = new ControllerCandidato();
 				try {
-					contCandidato.registrarCandidato(numero_candidato, nomeCandidato, cargoCandidato, id_votacao);
+					contCandidato.registrarCandidato(numero_candidato, nomeCandidato, cargoCandidato, id_votacao, img_candidato);
 					JOptionPane.showMessageDialog(null, "Candidato cadastrado com sucesso!");
 				} catch (BusinessException error) {
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
@@ -185,6 +186,7 @@ public class ADMCadCandidato extends JFrame {
 		            Image img = ImageIO.read(jfc.getSelectedFile()).getScaledInstance(this.lblImg.getWidth(), this.lblImg.getHeight(), Image.SCALE_SMOOTH);
 		            lblImg.setIcon(new ImageIcon(img));
 		            lblImg.updateUI();
+		            img_candidato = jfc.getSelectedFile().getAbsolutePath();
 		        } catch(Exception e) {
 		            System.out.println(e);
 		        }
