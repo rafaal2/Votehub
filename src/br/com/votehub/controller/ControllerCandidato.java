@@ -4,6 +4,8 @@ import br.com.votehub.model.DAOs.AdmDAO;
 import br.com.votehub.model.DAOs.CandidatoDAO;
 import br.com.votehub.model.DAOs.DB;
 import br.com.votehub.model.vo.Candidato;
+import br.com.votehub.model.vo.Votante;
+
 import java.sql.*;
 
 public class ControllerCandidato {
@@ -148,6 +150,12 @@ public class ControllerCandidato {
 	public String recuperarImg() {
 		String numeroCandidato = "1";
 		return candidatoRepository.searchCandidatoImg(numeroCandidato);
+	}
+	
+	public Candidato buscarCandidato(String numeroCandidato) {
+		
+		return candidatoRepository.searchCandidatoById(numeroCandidato);
+		
 	}
 
 }

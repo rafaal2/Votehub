@@ -49,7 +49,6 @@ public class CandidatoDAO {
 			stt.setString(5, c.getImg_candidato());
 
 			stt.executeUpdate();
-			System.out.println("Novo candidato cadastrado");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -62,7 +61,7 @@ public class CandidatoDAO {
 	public void updateCandidato(String numeroCandidato, String nome, String cargo, int id_votacao, String img_candidato) {
 		try {
 			conn = DB.getConnection();
-			stt1 = conn.prepareStatement("Update candidato " + "SET nome = ?, cargo = ?, id_votacao = ?, img_candidato = ? " + "WHERE" + "numero_candidato = ?");
+			stt1 = conn.prepareStatement("Update candidato " + "SET nome = ?, cargo = ?, id_votacao = ?, img_candidato = ? " + "WHERE" + " numero_candidato = ?");
 
 			stt1.setString(1, nome);
 			stt1.setString(2, cargo);
@@ -71,7 +70,6 @@ public class CandidatoDAO {
 			stt1.setString(5, img_candidato);
 
 			stt1.executeUpdate();
-			System.out.println("Informações do candidato " + numeroCandidato + "atualizadas!");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -83,12 +81,11 @@ public class CandidatoDAO {
 	public void deleteCandidato(String numeroCandidato) {
 		try {
 			conn = DB.getConnection();
-			stt2 = conn.prepareStatement("DELETE FROM candidato " + "WHERE " + "nomero_candidato = ?");
+			stt2 = conn.prepareStatement("DELETE FROM candidato " + "WHERE " + "numero_candidato = ?");
 
 			stt2.setString(1, numeroCandidato);
 
 			stt2.executeUpdate();
-			System.out.println("Candidato" +numeroCandidato+ "deletado");
 		} catch (SQLException e) {
 			throw new DbIntegrityException(e.getMessage());
 		} finally {

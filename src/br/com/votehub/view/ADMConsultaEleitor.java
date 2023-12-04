@@ -137,14 +137,10 @@ public class ADMConsultaEleitor extends JFrame {
 		btnEditar.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        try {
-		            // Recupera os dados do votante a partir dos campos de texto
 		            int idVotante = Integer.parseInt(textFieldId.getText());
 		            String novaMatricula = textFieldMatricula.getText();
 		            String novoNome = textFieldNome.getText();
-		            // Se estiver usando um campo de senha, adicione também:
-		            // String novaSenha = textFieldSenha.getText();
 
-		            // Chama o método para atualizar o votante
 		            ControllerVotante controller = new ControllerVotante();
 		            controller.atualizarVotante(idVotante, novaMatricula, novoNome);
 
