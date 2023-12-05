@@ -20,7 +20,6 @@ public class Main {
 	
 
 	public static void main(String[] args) throws SQLException, BusinessException {
-	
 	    TelaInicial telaInicial = new TelaInicial();
 		telaInicial.setVisible(true);
 		//VotoDAO teste = new VotoDAO();

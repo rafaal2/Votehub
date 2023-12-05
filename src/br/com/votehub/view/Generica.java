@@ -1,5 +1,6 @@
 package br.com.votehub.view;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -7,6 +8,8 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import javax.swing.ImageIcon;
+
+import br.com.votehub.model.DAOs.CandidatoDAO;
 import br.com.votehub.model.DAOs.DB;
 
 import javax.swing.JComboBox;
@@ -14,6 +17,7 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -51,7 +55,10 @@ public class Generica {
 		frame.getContentPane().add(lblNewLabel, "cell 3 0,alignx center,aligny bottom");
 		
 		foto = new JLabel("");
-		frame.getContentPane().add(foto, "cell 3 1 1 2");
+		configurarImagemJLabel(foto, "icons8-câmera-100.png");
+		frame.getContentPane().add(foto, "cell 3 1 1 2,alignx center,aligny bottom");
+		foto.setMaximumSize(new Dimension(128, 128)); 
+
 		
 		// BOTAO CANCELAR
 		JButton botaoCancelar = new JButton("Cancelar");
@@ -63,7 +70,7 @@ public class Generica {
 		});
 		
 		JLabel candidatoLabel = new JLabel("");
-		candidatoLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
+		candidatoLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		frame.getContentPane().add(candidatoLabel, "cell 3 3,alignx center,aligny bottom");
 		
 		JComboBox<String> comboBox = new JComboBox<String>();
@@ -74,8 +81,8 @@ public class Generica {
 				String candidatoNumero = (String) comboBox.getSelectedItem();
 				nomeCandidato(candidatoNumero);
 				candidatoLabel.setText(nomeCand);
-				ImageIcon imagem = fotoCandidato(candidatoNumero);
-				foto.setIcon(imagem);	
+				Image imagem = exibirFoto(candidatoNumero, foto);
+				foto.setIcon(new ImageIcon(imagem));				
 			}
 		});
 		frame.getContentPane().add(comboBox, "cell 3 4,growx");
@@ -132,30 +139,29 @@ public class Generica {
 	        }
 		return null; 
 	 };
-	 private ImageIcon fotoCandidato(String numero) { 	
-	        try {
-	            conn = DB.getConnection();
-	            String query = "SELECT imagem \r\n FROM candidato \r\n WHERE numero_candidato = ?";
-	            ps = conn.prepareStatement(query);
-	            ps.setString(1, numero);
-	            rs = ps.executeQuery();  
-	            if (rs.next()) {
-	                byte[] imageData = rs.getBytes("imagem");
-	                ImageIcon imagem = new ImageIcon(imageData);
-	                // Redimensiona a imagem para se ajustar ao JLabel
-	                imagem.setImage(imagem.getImage().getScaledInstance(foto.getWidth(), foto.getHeight(), Image.SCALE_SMOOTH));
-	                // Limpa o JLabel antes de definir a nova imagem
-	                foto.setIcon(null);
-	                foto.setIcon(imagem);
-	                return imagem;
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	            System.err.println("Erro ao carregar imagem do candidato: " + e.getMessage());
-	        } 
-			return null;
-		 
-	 }
+	 
+	 private Image exibirFoto(String numeroCandidato, JLabel imagem) {
+			String caminhoImagem = obterCaminhoImagem(numeroCandidato);
+			Image rawImage = new ImageIcon(caminhoImagem).getImage();
+			Image renderedImage = rawImage.getScaledInstance(imagem.getWidth(), imagem.getHeight(),
+					Image.SCALE_SMOOTH);
+			return renderedImage;
+		}
+
+		private String obterCaminhoImagem(String numeroCandidato) {
+			CandidatoDAO candidatoRepository = new CandidatoDAO();
+			return candidatoRepository.searchCandidatoImg(numeroCandidato);
+		}
+
+		private void configurarImagemJLabel(JLabel label, String caminhoImagem) {
+			URL resource = getClass().getClassLoader().getResource(caminhoImagem);
+			if (resource != null) {
+				label.setIcon(new ImageIcon(resource));
+			} else {
+				System.err.println("Imagem não encontrada: " + caminhoImagem);
+			}
+		}
+	 
 	 
 	 
 
