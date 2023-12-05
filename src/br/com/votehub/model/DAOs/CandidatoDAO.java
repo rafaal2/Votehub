@@ -65,9 +65,9 @@ public class CandidatoDAO {
 
 			stt1.setString(1, nome);
 			stt1.setString(2, cargo);
-			stt1.setString(3, numeroCandidato);
-			stt1.setInt(4, id_votacao);
-			stt1.setString(5, img_candidato);
+			stt1.setInt(3, id_votacao);
+			stt1.setString(4, img_candidato);
+			stt1.setString(5, numeroCandidato);
 
 			stt1.executeUpdate();
 		} catch (SQLException e) {
@@ -77,6 +77,8 @@ public class CandidatoDAO {
 			//DB.closeConnection();
 		}
 	}
+	
+	
 
 	public void deleteCandidato(String numeroCandidato) {
 		try {

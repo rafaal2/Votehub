@@ -58,37 +58,37 @@ public class ControllerCandidato {
 
 	public void atualizarCandidato(String numeroCandidato, String nome, String cargo, int id_votacao, String img_candidato)
 			throws BusinessException {
-		validarAtualizacao(numeroCandidato, nome, cargo);
+		validarAtualizacao(numeroCandidato, nome, cargo, id_votacao, img_candidato);
 
-		String nomeC;
-		String cargoC;
-		int id_votacaoC = 0;
-		String img_candidatoC;
+//		String nomeC;
+//		String cargoC;
+//		int id_votacaoC = 0;
+//		String img_candidatoC;
+//
+//		Candidato cddt = candidatoRepository.searchCandidatoById(numeroCandidato);
+//
+//		if (nome.isBlank()) {
+//			nomeC = cddt.getNome();
+//		} else {
+//			nomeC = nome;
+//		}
+//
+//		if (cargo.isBlank()) {
+//			cargoC = cddt.getCargo();
+//		} else {
+//			cargoC = cargo;
+//		}
+//		if (img_candidato.isBlank()) {
+//			img_candidatoC = cddt.getImg_candidato();
+//		} else {
+//			img_candidatoC = img_candidato;
+//		}
 
-		Candidato cddt = candidatoRepository.searchCandidatoById(numeroCandidato);
-
-		if (nome.isBlank()) {
-			nomeC = cddt.getNome();
-		} else {
-			nomeC = nome;
-		}
-
-		if (cargo.isBlank()) {
-			cargoC = cddt.getCargo();
-		} else {
-			cargoC = cargo;
-		}
-		if (img_candidato.isBlank()) {
-			img_candidatoC = cddt.getImg_candidato();
-		} else {
-			img_candidatoC = img_candidato;
-		}
-
-		candidatoRepository.updateCandidato(numeroCandidato, nomeC, cargoC, id_votacaoC, img_candidatoC);
+		candidatoRepository.updateCandidato(numeroCandidato, nome, cargo, id_votacao, img_candidato);
 
 	}
 
-	public void validarAtualizacao(String numeroCandidato, String nome, String cargo) throws BusinessException {
+	public void validarAtualizacao(String numeroCandidato, String nome, String cargo, int id_votacao, String img_candidato) throws BusinessException {
 		if (candidatoRepository.searchCandidatoById(numeroCandidato) == null) {
 			throw new BusinessException("Candidato referido não encontrado");
 
