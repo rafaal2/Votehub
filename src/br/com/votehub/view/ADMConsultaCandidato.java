@@ -105,9 +105,9 @@ public class ADMConsultaCandidato extends JFrame {
 		contentPane.add(textFieldCargo, "cell 3 6 30 1,growx");
 		textFieldCargo.setColumns(10);
 
-		JLabel Eleição = new JLabel("ID Eleição");
-		Eleição.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		contentPane.add(Eleição, "cell 1 8");
+		JLabel lblEleicao = new JLabel("ID Eleição");
+		lblEleicao.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		contentPane.add(lblEleicao, "cell 1 8");
 
 		textFieldEleicao = new JTextField();
 		contentPane.add(textFieldEleicao, "cell 3 8 30 1,growx");
@@ -129,9 +129,9 @@ public class ADMConsultaCandidato extends JFrame {
 
 			}
 		});
-		
-
 		contentPane.add(btnAddImg, "cell 16 10");
+		
+		
 
 
 		lblImg = new JLabel("");
@@ -155,8 +155,10 @@ public class ADMConsultaCandidato extends JFrame {
 					textFieldNome.setText(candidato.getNome());
 					textFieldCargo.setText(candidato.getCargo());
 					textFieldEleicao.setText(Integer.toString(candidato.getId_votacao()));
-					lblImg.setIcon(
-							new ImageIcon(controllerCandidato.buscarCandidato(numeroCandidato).getImg_candidato()));
+//					lblImg.setIcon(
+//							new ImageIcon(controllerCandidato.buscarCandidato(numeroCandidato).getImg_candidato()));
+					
+					exibirImagemNoLabel(lblImg, candidato.getImg_candidato());
 				}
 			}
 		});
@@ -218,6 +220,13 @@ public class ADMConsultaCandidato extends JFrame {
 			}
 		});
 	}
+	
+	private void exibirImagemNoLabel(JLabel label, String caminhoImagem) {
+        ImageIcon icon = new ImageIcon(caminhoImagem);
+        Image imagem = icon.getImage();
+        Image novaImagem = imagem.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
+        label.setIcon(new ImageIcon(novaImagem));
+    }
 
 	public void addImg() throws BusinessException, IOException {
 	    JFileChooser jfc = new JFileChooser();

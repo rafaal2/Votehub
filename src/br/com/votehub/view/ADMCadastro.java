@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -87,9 +88,18 @@ public class ADMCadastro extends JFrame {
 		btnCadEleicao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				CADEleicao cadEleicao = new CADEleicao();
-				cadEleicao.setVisible(true);
-				dispose();
+				CADEleicao cadEleicao;
+				try {
+					cadEleicao = new CADEleicao();
+					cadEleicao.setVisible(true);
+					dispose();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+//				cadEleicao.setVisible(true);
+//				dispose();
+
 			}
 		});
 
