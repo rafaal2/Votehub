@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
 //import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;	
 
@@ -27,6 +28,7 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
+import javax.swing.JFormattedTextField;
 
 public class CADEleicao extends JFrame {
 
@@ -53,8 +55,9 @@ public class CADEleicao extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws ParseException 
 	 */
-	public CADEleicao() {
+	public CADEleicao() throws ParseException {
 		setTitle("Cadastro de Eleição");
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -124,6 +127,9 @@ public class CADEleicao extends JFrame {
 			}
 		});
 		panel.add(list, "cell 3 7,growx,aligny baseline");
+		
+		JFormattedTextField formatedDataInicio = new JFormattedTextField(new MaskFormatter("##/##/#### ##:##:##"));
+		panel.add(formatedDataInicio, "cell 1 9,growx");
 		panel.add(btnVoltarCad, "cell 0 11,alignx center,aligny bottom");
 		
 		JButton btnNext = new JButton("PRÓXIMO");

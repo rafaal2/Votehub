@@ -22,6 +22,7 @@ import javax.swing.WindowConstants;
 import javax.swing.text.MaskFormatter;
 
 import br.com.votehub.controller.BusinessException;
+import br.com.votehub.controller.ControllerVotacaoVotante;
 import br.com.votehub.controller.ControllerVotante;
 import br.com.votehub.model.vo.Votante;
 import net.miginfocom.swing.MigLayout;
@@ -34,6 +35,7 @@ public class LoginUsuario extends JFrame {
 	String ano = Integer.toString(LocalDate.now().getYear());
 	private JFormattedTextField campoMatricula;
 	private JPasswordField campoSenha;
+	private JButton btnVoltar;
 	
 	// CHAMANDO A TELA -> SwingUtilities.invokeLater(LoginUsuario::new);
 	// PARA VOLTAR A TELA INICIAL -> CTRL + I
@@ -91,6 +93,14 @@ public class LoginUsuario extends JFrame {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		getContentPane().add(lblNewLabel_1, "cell 1 4,alignx trailing");
 		
+		
+		// Formatacao Campo CPF	
+		
+			campoSenha = new JPasswordField();   
+			campoSenha.setToolTipText("Utilize Apenas Números.    ex:12378912301");
+         
+		getContentPane().add(campoSenha, "cell 2 4,growx");
+		
 		// AÇÃO BOTÃO ENTRAR
 		JButton botaoEntrar = new JButton("Entrar");
 		botaoEntrar.addActionListener(new ActionListener() {
@@ -98,10 +108,15 @@ public class LoginUsuario extends JFrame {
 					String loginDigitada = campoMatricula.getText();
 					String senhaDigitada = campoSenha.getText();
 					try {
+						ControllerVotacaoVotante contVotacaoVotante = new ControllerVotacaoVotante();
 						ControllerVotante contvot = new ControllerVotante();
+						Votante vtt = contvot.buscarVotante(loginDigitada);
+						
+						//Proibe eleitores que ja votaram de acessar a tela de votação
+						//contVotacaoVotante.checarVotabilidade(vtt.getId_votante());
+													
 						contvot.verificarloginvot(loginDigitada);
 						contvot.verificarsenhavot(loginDigitada, senhaDigitada);
-						Votante vtt = contvot.buscarVotante(loginDigitada);
 						TelaVotacao loginVoto = new TelaVotacao(vtt);
 						loginVoto.setVisible(true);
                 		dispose();
@@ -113,15 +128,18 @@ public class LoginUsuario extends JFrame {
 
 			}
 		});
-		getContentPane().add(botaoEntrar, "cell 2 5,alignx center");
 		
-		
-		// Formatacao Campo CPF	
-		
-			campoSenha = new JPasswordField();   
-			campoSenha.setToolTipText("Utilize Apenas Números.    ex:12378912301");
-         
-		getContentPane().add(campoSenha, "cell 2 4,growx");
+		btnVoltar = new JButton("Voltar");
+		getContentPane().add(btnVoltar, "cell 0 7");
+		getContentPane().add(botaoEntrar, "cell 4 7,alignx center");
+		btnVoltar.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				TelaInicial telaInicio = new TelaInicial();
+				telaInicio.setVisible(true);
+				dispose();
+			}
+		});
 		
 
 		

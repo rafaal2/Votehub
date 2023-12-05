@@ -1,5 +1,7 @@
 package br.com.votehub.controller;
 
+import java.sql.SQLException;
+
 import br.com.votehub.model.DAOs.VotacaoVotanteDAO;
 import br.com.votehub.model.vo.VotacaoVotante;
 
@@ -13,6 +15,14 @@ public class ControllerVotacaoVotante {
 			
 		}
 		
+		public void checarVotabilidade(int idVotante) throws SQLException, BusinessException {
+			
+			if(VotacaoVotanteRepository.verificarVotoUnico(idVotante)) {
+				throw new BusinessException("Votante já possui voto registrado!");
+			}
+			
+		}
+			
 		
 }
 
