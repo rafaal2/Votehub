@@ -21,7 +21,6 @@ public class VotanteDAO {
 	PreparedStatement stt1 = null;
 	PreparedStatement stt2 = null;
 
-
 	public void addVotante(Votante v) {
 
 		StrongPasswordEncryptor senhacrip = new StrongPasswordEncryptor();
@@ -43,25 +42,54 @@ public class VotanteDAO {
 
 	}
 
-	public void updateVotante(int idVotante, String novaMatricula, String novoNome) {
-//		StrongPasswordEncryptor senhacrip = new StrongPasswordEncryptor();
-		try {
-			conn = DB.getConnection();
-			stt1 = conn.prepareStatement("UPDATE votante SET matricula = ?, nome = ? WHERE id_votante = ?");
+//	public void updateVotante(int idVotante, String novaMatricula, String novoNome) {
+////		StrongPasswordEncryptor senhacrip = new StrongPasswordEncryptor();
+//		try {
+//			conn = DB.getConnection();
+//			stt1 = conn.prepareStatement("UPDATE votante SET matricula = ?, nome = ? WHERE id_votante = ?");
+//
+//			stt1.setString(1, novaMatricula);
+//			stt1.setString(2, novoNome);
+////			stt1.setString(3, senhacrip.encryptPassword(novaSenha)); // stt1.setString(4,
+////																		// Hash.gerarHash(novaSenha));
+//			stt1.setInt(3, idVotante);
+//
+//			stt1.executeUpdate();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			DB.closestatement(stt1);
+//			// DB.closeConnection();
+//		}
+//	}
+	
+	public void updateVotante(int idVotante, String novaMatricula, String novoNome) throws BusinessException {
+	    try {
+	        conn = DB.getConnection();
 
-			stt1.setString(1, novaMatricula);
-			stt1.setString(2, novoNome);
-//			stt1.setString(3, senhacrip.encryptPassword(novaSenha)); // stt1.setString(4,
-//																		// Hash.gerarHash(novaSenha));
-			stt1.setInt(3, idVotante);
 
-			stt1.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DB.closestatement(stt1);
-			// DB.closeConnection();
-		}
+	        Votante votanteExistente = this.searchVotanteByMatricula(novaMatricula);
+	        if (votanteExistente != null && votanteExistente.getId_votante() != idVotante) {
+	            throw new BusinessException("A matrícula já existe para outro eleitor.");
+	        }
+
+	        stt1 = conn.prepareStatement("UPDATE votante SET matricula = ?, nome = ? WHERE id_votante = ?");
+	        stt1.setString(1, novaMatricula);
+	        stt1.setString(2, novoNome);
+	        stt1.setInt(3, idVotante);
+
+	        stt1.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        DB.closestatement(stt1);
+	    }
+	}
+
+// teste
+	public boolean existeOutroVotanteComMatricula(String matricula, int idVotanteExcluido) {
+	    Votante votanteExistente = searchVotanteByMatricula(matricula);
+	    return votanteExistente != null;
 	}
 
 	public void deleteVotante(int id_Votante) {
@@ -132,12 +160,35 @@ public class VotanteDAO {
 //
 //	}
 
+	// Para caso seja adicionado o método de editar senha do eleitor.
+//	public Votante searchVotanteByMatricula(String matricula) {
+//		try {
+//
+//			conn = DB.getConnection();
+//			PreparedStatement stt = conn
+//					.prepareStatement("SELECT id_votante, matricula, nome, senha FROM votante WHERE matricula = ?");
+//
+//			stt.setString(1, matricula);
+//
+//			ResultSet rs = stt.executeQuery();
+//			if (rs.next()) {
+//				Votante vtt = new Votante(rs.getString("matricula"), rs.getString("nome"), rs.getString("senha"));
+//				vtt.setId_votante(rs.getInt("id_votante"));
+//				return vtt;
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return null;
+//	}
+
 	public Votante searchVotanteByMatricula(String matricula) {
 		try {
 
 			conn = DB.getConnection();
 			PreparedStatement stt = conn
-					.prepareStatement("SELECT id_votante, matricula, nome FROM votante WHERE matricula = ?");
+					.prepareStatement("SELECT id_votante, matricula, nome, senha FROM votante WHERE matricula = ?");
 
 			stt.setString(1, matricula);
 

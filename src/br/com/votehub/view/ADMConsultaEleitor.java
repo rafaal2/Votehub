@@ -80,6 +80,7 @@ public class ADMConsultaEleitor extends JFrame {
 		textFieldId = new JTextField();
 		contentPane.add(textFieldId, "cell 3 4,growx");
 		textFieldId.setColumns(10);
+		textFieldId.setEditable(false);
 		
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -94,6 +95,7 @@ public class ADMConsultaEleitor extends JFrame {
 		contentPane.add(btnConsultar, "cell 3 13");
 		btnConsultar.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
+		    	
 		        String matricula = textFieldMatricula.getText();
 		        ControllerVotante controllerVotante = new ControllerVotante();
 		        Votante votante = controllerVotante.buscarVotante(matricula);
@@ -103,6 +105,7 @@ public class ADMConsultaEleitor extends JFrame {
 		        } else {
 		            textFieldId.setText(Integer.toString(votante.getId_votante()));
 		            textFieldNome.setText(votante.getNome());
+//		            textFieldSenha.setText(votante.getSenha());
 		        }
 		    }
 		});
@@ -113,6 +116,13 @@ public class ADMConsultaEleitor extends JFrame {
 		btnDeletar.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        try {
+		        	
+		        	if (textFieldId.getText().isEmpty() || textFieldMatricula.getText().isEmpty() || textFieldNome.getText().isEmpty()) {
+		                JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de deletar.");
+		                return;
+		            }
+		        	
+		        	
 		            int idVotante = Integer.parseInt(textFieldId.getText());
 
 		            ControllerVotante controller = new ControllerVotante();
@@ -121,6 +131,7 @@ public class ADMConsultaEleitor extends JFrame {
 		            textFieldMatricula.setText("");
 		            textFieldNome.setText("");
 		            textFieldId.setText("");
+//		            textFieldSenha.setText("");
 
 		            JOptionPane.showMessageDialog(null, "Votante deletado com sucesso.");
 		        } catch (BusinessException error) {
@@ -137,6 +148,12 @@ public class ADMConsultaEleitor extends JFrame {
 		btnEditar.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        try {
+		        	
+		        	if (textFieldId.getText().isEmpty() || textFieldMatricula.getText().isEmpty() || textFieldNome.getText().isEmpty()) {
+		                JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de editar.");
+		                return;
+		            }
+		        	
 		            int idVotante = Integer.parseInt(textFieldId.getText());
 		            String novaMatricula = textFieldMatricula.getText();
 		            String novoNome = textFieldNome.getText();
@@ -147,7 +164,9 @@ public class ADMConsultaEleitor extends JFrame {
 		            JOptionPane.showMessageDialog(null, "Votante atualizado com sucesso.");
 		        } catch (BusinessException ex) {
 		            JOptionPane.showMessageDialog(null, ex.getMessage());
-		        }
+		        } catch (SQLException e1) {
+					JOptionPane.showConfirmDialog(null, e1.getMessage());
+				}
 		    }
 		});
 		
