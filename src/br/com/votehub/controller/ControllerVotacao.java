@@ -55,36 +55,36 @@ public class ControllerVotacao {
 	}
 		
 		
-		public Boolean validadorDataInicio(Date dataInicio) {
-			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-			
-			String dataParaString = dateFormat.format(dataInicio);
-			return dataIsValid(dataParaString);
-		}
-		
-		public Boolean validadorDataFim(Date dataFim) {
-			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-			
-			String dataParaString = dateFormat.format(dataFim);
-			return dataIsValid(dataParaString);
-		}
-		
-		public Boolean dataIsValid(String data) {
-		String formatacao = "dd/MM/yyyy HH:mm:ss"; 
-		//se falhar tentar uuuu
-		
-		DateTimeFormatter dateFormatter = DateTimeFormatter
-				.ofPattern(formatacao)
-				.withResolverStyle(ResolverStyle.STRICT);
-		
-		try {
-			LocalDate d = LocalDate.parse(data, dateFormatter);
-			return true;
-		} catch(DateTimeParseException e) {
-			return false;
-		}
-		
-	}
+//		public Boolean validadorDataInicio(Date dataInicio) {
+//			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//			
+//			String dataParaString = dateFormat.format(dataInicio);
+//			return dataIsValid(dataParaString);
+//		}
+//		
+//		public Boolean validadorDataFim(Date dataFim) {
+//			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//			
+//			String dataParaString = dateFormat.format(dataFim);
+//			return dataIsValid(dataParaString);
+//		}
+//		
+//		public Boolean dataIsValid(String data) {
+//		String formatacao = "dd/MM/yyyy HH:mm:ss"; 
+//		//se falhar tentar uuuu
+//		
+//		DateTimeFormatter dateFormatter = DateTimeFormatter
+//				.ofPattern(formatacao)
+//				.withResolverStyle(ResolverStyle.STRICT);
+//		
+//		try {
+//			LocalDate d = LocalDate.parse(data, dateFormatter);
+//			return true;
+//		} catch(DateTimeParseException e) {
+//			return false;
+//		}
+//		
+//	}
 	
 	public void atualizarVotacao(int idVotacao, String nome_votacao, Date dataInicio, Date dataFim) throws BusinessException {
 		
@@ -101,15 +101,15 @@ public class ControllerVotacao {
 			throw new BusinessException("Votacao informada não encontrada!");
 		}
 		
-		if(!validadorDataInicio(dataInicio)) {
-			
-			throw new BusinessException("Informe uma data inicial válida!");
-		}
-		
-		if(!validadorDataFim(dataFim)) {
-			
-			throw new BusinessException("Informe uma data final válida!");
-		}
+//		if(!validadorDataInicio(dataInicio)) {
+//			
+//			throw new BusinessException("Informe uma data inicial válida!");
+//		}
+//		
+//		if(!validadorDataFim(dataFim)) {
+//			
+//			throw new BusinessException("Informe uma data final válida!");
+//		}
 		
 		if(dataInicio.before(now)) {
 			

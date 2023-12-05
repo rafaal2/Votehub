@@ -34,8 +34,6 @@ public class CADEleicao extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField fieldNomeCad;
-	private JTextField fieldNumCad;
-	private JTextField filedCargoCad;
 
 	/**
 	 * Launch the application.
@@ -72,7 +70,7 @@ public class CADEleicao extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, "cell 5 0 1 3,alignx center,aligny center");
 		panel.setPreferredSize(new Dimension(800, 600)); 
-		panel.setLayout(new MigLayout("fill", "[grow][][grow][grow][grow][grow][grow][][][grow][][grow]", "[][][][][][][grow][grow][][][][]"));
+		panel.setLayout(new MigLayout("fill", "[grow][grow][grow][grow][grow][grow][grow][][][grow][][grow]", "[][][][][][][grow][grow][][][][]"));
 		
 		JLabel lblCadEleicao = new JLabel("Cadastro de Eleição");
 		lblCadEleicao.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -93,24 +91,24 @@ public class CADEleicao extends JFrame {
 		panel.add(lblCadNome, "cell 1 3,alignx trailing");
 		
 		fieldNomeCad = new JTextField();
-		panel.add(fieldNomeCad, "cell 3 3 7 1,growx");
+		panel.add(fieldNomeCad, "cell 3 3,growx");
 		fieldNomeCad.setColumns(10);
 		
-		JLabel lblCadDataInicio = new JLabel("Data de Início :");
+		JLabel lblCadDataInicio = new JLabel("Data e Hora de Início :");
 		lblCadDataInicio.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel.add(lblCadDataInicio, "cell 1 4,alignx trailing,aligny baseline");
 		
-		fieldNumCad = new JTextField();
-		panel.add(fieldNumCad, "cell 3 4 7 1,growx");
-		fieldNumCad.setColumns(10);
+		JFormattedTextField formattedDataInicio = new JFormattedTextField(new MaskFormatter("##/##/#### ##:##:##"));
+		panel.add(formattedDataInicio, "cell 3 4,growx");
+		formattedDataInicio.setToolTipText("Informe a data e horario de inicio no formato dia/mês/ano hora/minuto/segundo");
 		
-		JLabel lblCadDataFinal = new JLabel("Data de Término :");
+		JLabel lblCadDataFinal = new JLabel("Data e Hora de termino :");
 		lblCadDataFinal.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel.add(lblCadDataFinal, "cell 1 5,alignx trailing");
 		
-		filedCargoCad = new JTextField();
-		panel.add(filedCargoCad, "cell 3 5 7 1,growx");
-		filedCargoCad.setColumns(10);
+		JFormattedTextField formattedDataFim = new JFormattedTextField(new MaskFormatter("##/##/#### ##:##:##"));
+		panel.add(formattedDataFim, "cell 3 5,growx");
+		formattedDataFim.setToolTipText("Informe a data e horario de termino no formato dia/mês/ano hora/minuto/segundo");
 		
 		JLabel lblNewLabel = new JLabel("Tipo de Votação :");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -118,7 +116,7 @@ public class CADEleicao extends JFrame {
 		
 		JList list = new JList();
 		list.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Diretor ", "Reitor", "Ambos"};
+			String[] values = new String[] {"Candidato", "Propostas"};
 			public int getSize() {
 				return values.length;
 			}
@@ -127,9 +125,6 @@ public class CADEleicao extends JFrame {
 			}
 		});
 		panel.add(list, "cell 3 7,growx,aligny baseline");
-		
-		JFormattedTextField formatedDataInicio = new JFormattedTextField(new MaskFormatter("##/##/#### ##:##:##"));
-		panel.add(formatedDataInicio, "cell 1 9,growx");
 		panel.add(btnVoltarCad, "cell 0 11,alignx center,aligny bottom");
 		
 		JButton btnNext = new JButton("PRÓXIMO");
@@ -140,8 +135,8 @@ public class CADEleicao extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 				String nomeVotacao = fieldNomeCad.getText();
-				String dataInicioString = fieldNumCad.getText();
-				String dataFimString = filedCargoCad.getText();
+				String dataInicioString = formattedDataInicio.getText();
+				String dataFimString = formattedDataFim.getText();
 				
 				SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 				
@@ -151,14 +146,14 @@ public class CADEleicao extends JFrame {
 					
 					ControllerVotacao controllerVotacao = new ControllerVotacao();
 					controllerVotacao.registrarVotacao(nomeVotacao, dataInicio, dataFim);
-					JOptionPane.showMessageDialog(null, "votação cadastrada com sucesso!");
+					JOptionPane.showMessageDialog(null, "Votação cadastrada com sucesso!");
 					
 				} catch (BusinessException err) {
 			
-					err.printStackTrace();
+					JOptionPane.showMessageDialog(null, err.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				} catch (ParseException err) {
-					// TODO Auto-generated catch block
-					err.printStackTrace();
+					
+					JOptionPane.showMessageDialog(null, err.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 				
 				

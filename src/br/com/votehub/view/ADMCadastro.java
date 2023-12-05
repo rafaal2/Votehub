@@ -93,8 +93,7 @@ public class ADMCadastro extends JFrame {
 					cadEleicao = new CADEleicao();
 					cadEleicao.setVisible(true);
 					dispose();
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
+				} catch (ParseException e1) {					
 					e1.printStackTrace();
 				}
 //				cadEleicao.setVisible(true);

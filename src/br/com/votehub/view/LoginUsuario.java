@@ -123,7 +123,7 @@ public class LoginUsuario extends JFrame {
 					} catch (BusinessException error) {
 						JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 					} catch (SQLException e1) {
-						e1.printStackTrace();
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 					} 
 
 			}
