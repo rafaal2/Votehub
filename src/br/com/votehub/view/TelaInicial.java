@@ -13,6 +13,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 
 public class TelaInicial extends JFrame {
@@ -37,6 +38,7 @@ public class TelaInicial extends JFrame {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
+		criarDiretorio();
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -75,5 +77,13 @@ public class TelaInicial extends JFrame {
 				dispose();
 			}
 		});
+	}
+	
+	public void criarDiretorio() {
+		File diretorio = new File(System.getenv("APPDATA") + File.separator + "votehub");
+		if(!diretorio.exists()){
+			diretorio.mkdirs();
+		}
+
 	}
 }

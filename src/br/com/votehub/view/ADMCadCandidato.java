@@ -7,9 +7,11 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.*;
 import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
@@ -41,6 +43,8 @@ public class ADMCadCandidato extends JFrame {
 	private FileInputStream fis;
 	private JLabel lblImg;
 	private String img_candidato;
+	private File diretorioCandidato;
+	private String nomeImagem;
 
 	/**
 	 * Launch the application.
@@ -62,6 +66,7 @@ public class ADMCadCandidato extends JFrame {
 	 * Create the frame.
 	 */
 	public ADMCadCandidato() {
+		criarDiretorioCandidato();
 		setTitle("Cadastro de Candidato");
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -170,7 +175,7 @@ public class ADMCadCandidato extends JFrame {
 				String nomeCandidato = fieldNomeCad.getText();
 				String cargoCandidato = filedCargoCad.getText();
 				int id_votacao = Integer.parseInt(filedIdEleicao.getText());
-
+				copiarImagem(nomeCandidato);
 				ControllerCandidato contCandidato = new ControllerCandidato();
 				try {
 					contCandidato.registrarCandidato(numero_candidato, nomeCandidato, cargoCandidato, id_votacao,
@@ -187,9 +192,9 @@ public class ADMCadCandidato extends JFrame {
 
 	public void addImg() throws BusinessException, IOException {
 		JFileChooser jfc = new JFileChooser();
-		jfc.setDialogTitle("selecionar arquivo");
+		jfc.setDialogTitle("Selecionar Arquivo");
 		jfc.setFileFilter(
-				new FileNameExtensionFilter("arquivo de imagens (*.PNG, *.JPG, *.JPEG) ", "png", "jpg", "jpeg"));
+				new FileNameExtensionFilter("Arquivo de Imagens (*.PNG, *.JPG, *.JPEG) ", "png", "jpg", "jpeg"));
 		int resultado = jfc.showOpenDialog(this);
 		if (resultado == JFileChooser.APPROVE_OPTION) {
 			fis = new FileInputStream(jfc.getSelectedFile());
@@ -199,7 +204,33 @@ public class ADMCadCandidato extends JFrame {
 			lblImg.setIcon(new ImageIcon(img));
 			lblImg.updateUI();
 			img_candidato = jfc.getSelectedFile().getAbsolutePath();
+			nomeImagem = jfc.getSelectedFile().getName();
 		}
 
+	}
+	
+	public void criarDiretorioCandidato() {
+		diretorioCandidato = new File(System.getenv("APPDATA") + File.separator + "votehub" + File.separator + "candidatos");
+		if(!diretorioCandidato.exists()){
+			diretorioCandidato.mkdirs();
+			System.out.println("Diretorio candidatos criado");
+		}
+	}
+	
+	public void copiarImagem(String nomeCandidato) {
+		File diretorioImagem = new File(diretorioCandidato + File.separator + nomeCandidato);
+		if(!diretorioImagem.exists()){
+			diretorioImagem.mkdirs();
+			System.out.println("Diretorio " + nomeCandidato + " criado");
+		}
+		Path fonte = Paths.get(img_candidato);
+		Path destino = Paths.get(diretorioImagem + File.separator + nomeImagem);
+		try {
+		  Files.copy(fonte, destino, StandardCopyOption.REPLACE_EXISTING);
+		  img_candidato = destino.toString();
+		} catch (IOException e) {
+		  e.printStackTrace();
+			System.out.println("foi aqui");
+		}
 	}
 }
