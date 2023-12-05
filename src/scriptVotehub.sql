@@ -70,6 +70,19 @@ CREATE TABLE voto (
 );
 
 --
+--criando estrutura da tabela `proposta`
+--
+
+Create table proposta(
+id_proposta int auto_increment not null,
+titulo varchar(300) not null,
+resposta varchar (200) not null,
+id_votacao int not null,
+primary key(id_proposta),
+foreign key (id_votacao) references votacao(id_votacao)
+)
+
+--
 -- criando estrutura da tabela `votacaoVotante`
 --
 
