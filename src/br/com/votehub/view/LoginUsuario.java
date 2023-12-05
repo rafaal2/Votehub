@@ -117,8 +117,8 @@ public class LoginUsuario extends JFrame {
 													
 						contvot.verificarloginvot(loginDigitada);
 						contvot.verificarsenhavot(loginDigitada, senhaDigitada);
-						TelaVotacao loginVoto = new TelaVotacao(vtt);
-						loginVoto.setVisible(true);
+						TelaSelectVotacao selectVotacao = new TelaSelectVotacao(vtt);
+						selectVotacao.setVisible(true);
                 		dispose();
 					} catch (BusinessException error) {
 						JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

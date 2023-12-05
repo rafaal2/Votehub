@@ -84,10 +84,11 @@ public class ADMCadastro extends JFrame {
 		});
 
 		JButton btnCadEleicao = new JButton("CADASTRAR ELEIÇÃO");
-		btnCadEleicao.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnCadEleicao.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+        btnCadEleicao.setFont(new Font("Tahoma", Font.BOLD, 12));
+        btnCadEleicao.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
 
+<<<<<<< Updated upstream
 				CADEleicao cadEleicao;
 				try {
 					cadEleicao = new CADEleicao();
@@ -101,6 +102,20 @@ public class ADMCadastro extends JFrame {
 
 			}
 		});
+=======
+                CADEleicao cadEleicao;
+                try {
+                    cadEleicao = new CADEleicao();
+                    cadEleicao.setVisible(true);
+                    dispose();
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                }
+//                cadEleicao.setVisible(true);
+//                dispose();
+            }
+        });
+>>>>>>> Stashed changes
 
 		panel.add(btnCadCandidato, "cell 3 2,growx,aligny center");
 		panel.add(btnCadEleicao, "cell 3 3,growx,aligny center");

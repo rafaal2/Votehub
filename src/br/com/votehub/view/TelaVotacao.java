@@ -182,11 +182,24 @@ public class TelaVotacao {
 		botaoCancelar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		botaoCancelar.setHorizontalAlignment(SwingConstants.LEFT);
 		botaoCancelar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					TelaSelectVotacao admPrincipal = new TelaSelectVotacao(vtt);
+					admPrincipal.setVisible(true);
+					dispose();
+				}
+			});
+		
+		JButton btnCadVoltar = new JButton("VOLTAR");
+		btnCadVoltar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCadVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SwingUtilities.invokeLater(LoginUsuario::new);
-				frame.dispose();
+
+				ADMPrincipal admPrincipal = new ADMPrincipal();
+				admPrincipal.setVisible(true);
+				dispose();
 			}
 		});
+		
 
 		lblNewLabel = new JLabel("REITOR:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -217,6 +230,11 @@ public class TelaVotacao {
 		// frame.getContentPane().add(comboBox_3, "cell 6 5,growx");
 		frame.getContentPane().add(botaoCancelar, "flowx,cell 4 7,alignx center,aligny baseline");
 		frame.getContentPane().add(botaoAvancar, "cell 6 7,alignx center,aligny baseline");
+	}
+
+	protected void dispose() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public static void setVisible(boolean b) {
