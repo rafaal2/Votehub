@@ -182,7 +182,6 @@ public class ADMCadCandidato extends JFrame {
 					JOptionPane.showMessageDialog(null, error2.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 			}
-
 		});
 	}
 

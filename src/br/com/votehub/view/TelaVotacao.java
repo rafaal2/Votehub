@@ -93,16 +93,16 @@ public class TelaVotacao {
 		configurarImagemJLabel(lblimgDiretor, "icons8-câmera-100.png");
 		frame.getContentPane().add(lblimgDiretor, "cell 5 3,alignx trailing");
 
-		lblimgReitor.setMaximumSize(new Dimension(128, 128)); // Ajuste conforme necessário
-		lblimgDiretor.setMaximumSize(new Dimension(128, 128)); // Ajuste conforme necessário
+		lblimgReitor.setMaximumSize(new Dimension(128, 128)); 
+		lblimgDiretor.setMaximumSize(new Dimension(128, 128)); 
 
 		comboBox_1 = new JComboBox();
 		comboBoxes_[1] = comboBox_1;
 		frame.getContentPane().add(comboBox_1, "cell 6 3,growx");
 
-		comboBox_2 = new JComboBox();
-		comboBoxes_[2] = comboBox_2;
-		frame.getContentPane().add(comboBox_2, "cell 6 4,growx");
+		//comboBox_2 = new JComboBox();
+		//comboBoxes_[2] = comboBox_2;
+		//frame.getContentPane().add(comboBox_2, "cell 6 4,growx");
 
 //		comboBox.addActionListener(new ActionListener() {
 //	        public void actionPerformed(ActionEvent e) {

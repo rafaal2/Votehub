@@ -51,7 +51,53 @@ public class VotoDAO {
 		}
 	}
 	
-	public void apurarVotos() {
+	public void apurarVotosDiretor() {
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT\r\n"
+					+ "	  candidato.numero_candidato,\r\n"
+					+ "	  candidato.nome AS nome_candidato,\r\n"
+					+ "	  COUNT(voto.id_voto) AS numero_de_votos\r\n"
+					+ "	  FROM\r\n"
+					+ "		    candidato\r\n"
+					+ "	  LEFT JOIN\r\n"
+					+ "		    voto ON candidato.numero_candidato = voto.numero_candidato\r\n"
+					+ "	  WHERE\r\n"
+					+ "		    candidato.cargo = 'Reitor'\r\n"
+					+ "	  GROUP BY\r\n"
+					+ "		    candidato.numero_candidato, candidato.nome\r\n"
+					+ "	  ORDER BY\r\n"
+					+ "		    numero_de_votos DESC;");
+			while(rs.next()) {
+				System.out.println("numero: " + rs.getString("numero_candidato") + "  nome: " + rs.getString("nome_candidato") + "  = " + rs.getInt("numero_de_votos"));
+			}}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			finally {
+				DB.closeResultSet(rs);
+				DB.closestatement(st);
+			}
+			try {
+				conn = DB.getConnection();
+				st = conn.createStatement();
+				rs = st.executeQuery("SELECT * \r\n"
+						+ "FROM candidato \r\n"
+						+ "WHERE cargo = 'Diretor'");
+				while(rs.next()) {
+					//System.out.println("numero_candidato: " + rs.getString("numero_candidato") + " / " + rs.getString("nome"));
+				}}
+				catch(SQLException e) {
+					e.printStackTrace();
+				}
+				finally {
+					DB.closeResultSet(rs);
+					DB.closestatement(st);
+			//		DB.closeConnection();
+				}
+		}
+	public void apurarVotosReitor() {
 		try {
 			conn = DB.getConnection();
 			st = conn.createStatement();
@@ -66,8 +112,35 @@ public class VotoDAO {
 				DB.closeResultSet(rs);
 				DB.closestatement(st);
 		//		DB.closeConnection();
-			}
-			
+			}try {
+				conn = DB.getConnection();
+				st = conn.createStatement();
+				rs = st.executeQuery("	SELECT\r\n"
+						+ "		    candidato.numero_candidato,\r\n"
+						+ "		    candidato.nome AS nome_candidato,\r\n"
+						+ "		    COUNT(voto.id_voto) AS numero_de_votos\r\n"
+						+ "		FROM\r\n"
+						+ "		    candidato\r\n"
+						+ "		LEFT JOIN\r\n"
+						+ "		    voto ON candidato.numero_candidato = voto.numero_candidato\r\n"
+						+ "		WHERE\r\n"
+						+ "		    candidato.cargo = 'Diretor'\r\n"
+						+ "		GROUP BY\r\n"
+						+ "		    candidato.numero_candidato, candidato.nome\r\n"
+						+ "		ORDER BY\r\n"
+						+ "		    numero_de_votos DESC;\r\n"
+						+ "");
+				while(rs.next()) {
+					//System.out.println("numero_candidato: " + rs.getString("numero_candidato") + " / " + rs.getString("nome"));
+				}}
+				catch(SQLException e) {
+					e.printStackTrace();
+				}
+				finally {
+					DB.closeResultSet(rs);
+					DB.closestatement(st);
+			//		DB.closeConnection();
+				}
 		}
 	
 	public Voto searchVotoById(int idVoto) {
@@ -82,8 +155,7 @@ public class VotoDAO {
 				
 			Voto vt = new Voto(rs.getString("numero_candidato"));
 			
-			return vt;
-			
+			return vt;			
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

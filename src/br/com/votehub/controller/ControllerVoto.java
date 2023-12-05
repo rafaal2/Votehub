@@ -75,4 +75,15 @@ public class ControllerVoto {
 //	public void checarAptidao(int idVotacao, int idVotante) {
 //		
 //	}
-}
+	public void ApurarDiretor(int idVoto) throws BusinessException {
+		votoRepository.apurarVotosDiretor();
+		
+		}
+	
+	public void ApurarReitor(int idVoto) throws BusinessException {
+		votoRepository.apurarVotosReitor();
+
+		}
+	}
+	
+

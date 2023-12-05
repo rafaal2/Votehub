@@ -1,18 +1,18 @@
 package br.com.votehub.view;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Font;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
 import net.miginfocom.swing.MigLayout;
 
 public class ADMPrincipal extends JFrame {
@@ -86,6 +86,9 @@ public class ADMPrincipal extends JFrame {
 		btnMenuApurar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnMenuApurar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ApurarVoto apurar = new ApurarVoto();
+				apurar.setVisible(true);
+				dispose();
 			}
 		});
 		panel.add(btnMenuApurar, "cell 3 3,growx,aligny center");
