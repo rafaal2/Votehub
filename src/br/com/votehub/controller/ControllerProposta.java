@@ -9,32 +9,33 @@ public class ControllerProposta {
 
 	private PropostaDAO propostaRepository = new PropostaDAO();
 
-	public void registrarVotante(String titulo, String resposta, int id_votacao)
+	public void registrarVotante(String titulo, String descricao, int id_votacao)
 			throws BusinessException, SQLException {
-		this.validarRegistro(titulo, resposta, id_votacao);
+		this.validarRegistro(titulo, descricao, id_votacao);
 
-		Proposta p = new Proposta(titulo, resposta, id_votacao);
+		Proposta p = new Proposta(titulo, descricao, id_votacao);
 		propostaRepository.addPropostas(p);
 
 	}
 
-	public void validarRegistro(String titulo, String resposta, int id_votacao) throws BusinessException, SQLException {
+	public void validarRegistro(String titulo, String descricao, int id_votacao) throws BusinessException, SQLException {
 
 		if (titulo.isBlank()) {
 			throw new BusinessException("o titulo deve ser preenchido.");
 		}
 
 		if (titulo.length() > 200) {
-			throw new BusinessException("A proposta não pode exceder 300 caracteres.");
+			throw new BusinessException("o titulo não pode exceder 300 caracteres.");
+		}
+		
+		if (descricao.isBlank()) {
+			throw new BusinessException("A Descrição deve ser preenchida.");
 		}
 
-		if (resposta.length() > 200) {
-			throw new BusinessException("A senha deve ter no maximo 200 caracteres");
+		if (descricao.length() > 2000) {
+			throw new BusinessException("A Descrição deve ter no maximo 2000 caracteres.");
 		}
 
-		if (resposta.isBlank()) {
-			throw new BusinessException("O nome deve ser preenchido.");
-		}
 
 //		if (id_votacao.isBlank()) {
 //			throw new BusinessException("A senha deve ser preenchida.");
@@ -58,13 +59,13 @@ public class ControllerProposta {
 		}
 	}
 
-	public void atualizarProposta(int id_Proposta, String titulo, String resposta, int id_votacao) throws BusinessException {
-		validarAtualizacao(id_Proposta, titulo, resposta, id_votacao);
+	public void atualizarProposta(int id_Proposta, String titulo, String descricao, int id_votacao) throws BusinessException {
+		validarAtualizacao(id_Proposta, titulo, descricao, id_votacao);
 
-		propostaRepository.updatePropostas(id_Proposta, titulo, resposta, id_votacao);
+		propostaRepository.updatePropostas(id_Proposta, titulo, descricao, id_votacao);
 	}
 
-	public void validarAtualizacao(int id_Proposta, String titulo, String resposta, int id_votacao) throws BusinessException {
+	public void validarAtualizacao(int id_Proposta, String titulo, String descricao, int id_votacao) throws BusinessException {
 		if (propostaRepository.searchPropostaById(id_Proposta) == null) {
 			throw new BusinessException("Proposta referida não encontrada");
 		}
@@ -73,8 +74,8 @@ public class ControllerProposta {
 			throw new BusinessException("O titulo deve ser preenchido.");
 		}
 
-		if (resposta.isBlank()) {
-			throw new BusinessException("A resposta deve ser preenchida.");
+		if (descricao.isBlank()) {
+			throw new BusinessException("A Descrição deve ser preenchida.");
 		}
 
 	}

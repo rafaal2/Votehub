@@ -36,10 +36,6 @@ public class ADMCadastro extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
-
 	public ADMCadastro() {
 		setTitle("Menu Cadastro");
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -88,7 +84,6 @@ public class ADMCadastro extends JFrame {
         btnCadEleicao.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-<<<<<<< Updated upstream
 				CADEleicao cadEleicao;
 				try {
 					cadEleicao = new CADEleicao();
@@ -102,20 +97,6 @@ public class ADMCadastro extends JFrame {
 
 			}
 		});
-=======
-                CADEleicao cadEleicao;
-                try {
-                    cadEleicao = new CADEleicao();
-                    cadEleicao.setVisible(true);
-                    dispose();
-                } catch (ParseException e1) {
-                    e1.printStackTrace();
-                }
-//                cadEleicao.setVisible(true);
-//                dispose();
-            }
-        });
->>>>>>> Stashed changes
 
 		panel.add(btnCadCandidato, "cell 3 2,growx,aligny center");
 		panel.add(btnCadEleicao, "cell 3 3,growx,aligny center");
@@ -124,7 +105,8 @@ public class ADMCadastro extends JFrame {
 		JButton btnCadVoltar = new JButton("VOLTAR");
 		btnCadVoltar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnCadVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+
+	public void actionPerformed(ActionEvent e) {
 
 				ADMPrincipal admPrincipal = new ADMPrincipal();
 				admPrincipal.setVisible(true);

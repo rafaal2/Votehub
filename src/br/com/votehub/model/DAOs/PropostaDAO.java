@@ -22,7 +22,6 @@ public class PropostaDAO {
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT * \r\n" + "FROM proposta \r\n");
 			while (rs.next()) {
-				System.out.println("Candidato: " + rs.getString("titulo") + " / " + rs.getInt("id_votacao"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -37,10 +36,10 @@ public class PropostaDAO {
 	public void addPropostas(Proposta p) {
 		try {
 			conn = DB.getConnection();
-			stt = conn.prepareStatement("INSERT INTO proposta" + "(titulo , resposta, id_votacao)" + "VALUES" + "(?, ?, ?)");
+			stt = conn.prepareStatement("INSERT INTO proposta" + "(titulo , descricao, id_votacao)" + "VALUES" + "(?, ?, ?)");
 
 			stt.setString(1, p.getTitulo());
-			stt.setString(2, p.getResposta());
+			stt.setString(2, p.getDescricao());
 			stt.setInt(3, p.getId_votacao());
 
 			stt.executeUpdate();
@@ -53,13 +52,13 @@ public class PropostaDAO {
 
 	}
 
-	public void updatePropostas(int id_Proposta, String titulo, String resposta, int id_votacao) {
+	public void updatePropostas(int id_Proposta, String titulo, String descricao, int id_votacao) {
 		try {
 			conn = DB.getConnection();
-			stt1 = conn.prepareStatement("Update proposta " + "SET titulo = ?, resposta = ?, id_votacao = ? " + "WHERE" + " id_proposta = ?");
+			stt1 = conn.prepareStatement("Update proposta " + "SET titulo = ?, descricao = ?, id_votacao = ? " + "WHERE" + " id_proposta = ?");
 
 			stt1.setString(1, titulo);
-			stt1.setString(2, resposta);
+			stt1.setString(2, descricao);
 			stt1.setInt(3, id_votacao);
 			stt1.setInt(4, id_Proposta);
 
@@ -99,7 +98,7 @@ public class PropostaDAO {
 			rs = stt.executeQuery();
 			if (rs.next()) {
 
-				Proposta p = new Proposta(rs.getString("titulo"), rs.getString("resposta"), rs.getInt("id_votacao"));
+				Proposta p = new Proposta(rs.getString("titulo"), rs.getString("descricao"), rs.getInt("id_votacao"));
 
 				return p;
 

@@ -4,13 +4,21 @@ public class Proposta {
 
 	private int id_Proposta;
 	private String titulo;
-	private String resposta;
+	private String descricao;
 	private int id_votacao;
 
-	public Proposta(String titulo, String resposta, int id_votacao) {
+	public Proposta(String titulo, String descricao, int id_votacao) {
 		this.titulo = titulo;
-		this.resposta = resposta;
+		this.descricao = descricao;
 		this.id_votacao = id_votacao;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public int getId_Proposta() {
@@ -27,14 +35,6 @@ public class Proposta {
 
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
-	}
-
-	public String getResposta() {
-		return resposta;
-	}
-
-	public void setResposta(String resposta) {
-		this.resposta = resposta;
 	}
 
 	public int getId_votacao() {

@@ -76,10 +76,22 @@ CREATE TABLE voto (
 Create table proposta(
 id_proposta int auto_increment not null,
 titulo varchar(300) not null,
-resposta varchar (200) not null,
+descricao longtext not null,
 id_votacao int not null,
 primary key(id_proposta),
 foreign key (id_votacao) references votacao(id_votacao)
+)
+
+--
+-- criando estrutura da tabela `respostaproposta`
+--
+
+Create table respostaproposta(
+id_respostaproposta int auto_increment not null,
+resposta varchar (200) not null,
+id_proposta int not null,
+primary key(id_respostaproposta),
+foreign key (id_proposta) references proposta(id_proposta)
 )
 
 --

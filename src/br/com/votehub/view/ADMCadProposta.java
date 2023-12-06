@@ -24,8 +24,9 @@ public class ADMCadProposta extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField fieldTituloCad;
-	private JTextField fieldRespostaCad;
+	private JTextField fieldDescricaoCad;
 	private JTextField filedIdEleicao;
+	//private JComboBox<String> comboBoxRespostaCad;
 
 	public ADMCadProposta() {
 		setTitle("Cadastro de Proposta");
@@ -69,15 +70,19 @@ public class ADMCadProposta extends JFrame {
 		panel.add(fieldTituloCad, "cell 2 3 6 1,growx");
 		fieldTituloCad.setColumns(10);
 
-		JLabel lblCadResposta = new JLabel("Resposta :");
-		lblCadResposta.setBounds(165, 200, 79, 14);
-		lblCadResposta.setFont(new Font("Tahoma", Font.BOLD, 11));
-		panel.add(lblCadResposta, "cell 1 4,alignx trailing,aligny baseline");
+		JLabel lblCadDescricao = new JLabel("Descrição :");
+		lblCadDescricao.setBounds(165, 200, 79, 14);
+		lblCadDescricao.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panel.add(lblCadDescricao, "cell 1 4,alignx trailing,aligny baseline");
+		
+		//comboBoxRespostaCad = new JComboBox<>(new String[]{"Sim", "Provavelmente sim", "Talvez", "Provavelmente não", "não"});
+		//comboBoxRespostaCad.setBounds(248, 200, 359, 20);
+		//panel.add(comboBoxRespostaCad, "cell 2 4 6 1,growx");
 
-		fieldRespostaCad = new JTextField();
-		fieldRespostaCad.setBounds(248, 200, 359, 20);
-		panel.add(fieldRespostaCad, "cell 2 4 6 1,growx");
-		fieldRespostaCad.setColumns(10);
+		fieldDescricaoCad = new JTextField();
+		fieldDescricaoCad.setBounds(248, 200, 359, 20);
+		panel.add(fieldDescricaoCad, "cell 2 4 6 1,growx");
+		fieldDescricaoCad.setColumns(10);
 
 		JLabel lblCadIdEleicao = new JLabel("Nº da Eleição :");
 		lblCadIdEleicao.setBounds(166, 250, 78, 14);
@@ -110,13 +115,13 @@ public class ADMCadProposta extends JFrame {
 		btnCadastrar.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        String titulo = fieldTituloCad.getText();
-		        String resposta = fieldRespostaCad.getText();
+		        String descricao = fieldDescricaoCad.getText();
 		        int id_votacao = Integer.parseInt(filedIdEleicao.getText());
 
 		        ControllerProposta contVotante = new  ControllerProposta();
 		        try {
-		            contVotante.registrarVotante(titulo, resposta, id_votacao);
-		            JOptionPane.showMessageDialog(null, "Proposta cadastrado com sucesso!");
+		            contVotante.registrarVotante(titulo, descricao, id_votacao);
+		            JOptionPane.showMessageDialog(null, "Proposta cadastrada com sucesso!");
 		        } catch (BusinessException error) {
 		            JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		        } catch (SQLException error2) {
