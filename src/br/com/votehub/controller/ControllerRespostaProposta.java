@@ -6,7 +6,7 @@ import br.com.votehub.model.vo.RespostaProposta;
 public class ControllerRespostaProposta {
 	private RespostaPropostaDAO respostapropostaRepository = new RespostaPropostaDAO();
 
-	public void registrarVoto(String resposta, int id_proposta) throws BusinessException {
+	public void registrarRespostaProposta(String resposta, int id_proposta) throws BusinessException {
 		//consertar esse metodo dps
 		// validarRegistro(numeroCandidato);
 
