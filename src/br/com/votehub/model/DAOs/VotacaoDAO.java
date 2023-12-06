@@ -46,7 +46,7 @@ public class VotacaoDAO {
 	public void updateVotacao(int idVotacao, String nome_votacao, java.util.Date dataInicio, java.util.Date dataFim) {
 		try {
 			conn = DB.getConnection();
-			stt1 = conn.prepareStatement("Update votação " + "SET nome_votacao = ?, data_inicio = ?, data_fim = ?" + "WHERE" + "id_votação = ?");
+			stt1 = conn.prepareStatement("Update votacao " + "SET nome_votacao = ?, data_inicio = ?, data_fim = ?" + "WHERE " + "id_votacao = ?");
 
 			Timestamp dataInicioTimestamp = new Timestamp(dataInicio.getTime());
 	        Timestamp dataFimTimestamp = new Timestamp(dataFim.getTime());
@@ -68,7 +68,7 @@ public class VotacaoDAO {
 	public void deleteVotacao(int idVotacao) {
 		try {
 			conn = DB.getConnection();
-			stt2 = conn.prepareStatement("DELETE FROM votação " + "WHERE " + "id = ?");
+			stt2 = conn.prepareStatement("DELETE FROM votacao " + "WHERE " + "id_votacao = ?");
 
 			stt2.setInt(1, idVotacao);
 
@@ -103,9 +103,33 @@ public class VotacaoDAO {
 			DB.closestatement(stt);
 		//	DB.closeConnection();
 		}
-		return null;
-		
-		
+		return null;				
+
+	}
+	
+	public Votacao searchVotacaoByNome(String nomeVotacao) {
+		try {
+			conn = DB.getConnection();
+			stt = conn.prepareStatement("SELECT * FROM votacao " + "WHERE " + "nome_votacao = ?");
+
+			stt.setString(1, nomeVotacao);
+			
+			rs = stt.executeQuery();
+			if(rs.next()) {
+				
+			Votacao vtc = new Votacao(rs.getString("nome_votacao"), rs.getDate("data_inicio"), rs.getDate("data_fim"));
+			vtc.setId_votacao(rs.getInt("id_votacao"));
+			
+			return vtc;
+			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closestatement(stt);
+		//	DB.closeConnection();
+		}
+		return null;	
 
 	}
 	

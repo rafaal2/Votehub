@@ -68,23 +68,23 @@ public class ControllerVotacao {
 //			String dataParaString = dateFormat.format(dataFim);
 //			return dataIsValid(dataParaString);
 //		}
-//		
-//		public Boolean dataIsValid(String data) {
-//		String formatacao = "dd/MM/yyyy HH:mm:ss"; 
-//		//se falhar tentar uuuu
-//		
-//		DateTimeFormatter dateFormatter = DateTimeFormatter
-//				.ofPattern(formatacao)
-//				.withResolverStyle(ResolverStyle.STRICT);
-//		
-//		try {
-//			LocalDate d = LocalDate.parse(data, dateFormatter);
-//			return true;
-//		} catch(DateTimeParseException e) {
-//			return false;
-//		}
-//		
-//	}
+		
+		public Boolean dataIsValid(String data) {
+		String formatacao = "dd/MM/yyyy HH:mm:ss"; 
+		//se falhar tentar uuuu
+		
+		DateTimeFormatter dateFormatter = DateTimeFormatter
+				.ofPattern(formatacao)
+				.withResolverStyle(ResolverStyle.STRICT);
+		
+		try {
+			LocalDate d = LocalDate.parse(data, dateFormatter);
+			return true;
+		} catch(DateTimeParseException e) {
+			return false;
+		}
+		
+	}
 	
 	public void atualizarVotacao(int idVotacao, String nome_votacao, Date dataInicio, Date dataFim) throws BusinessException {
 		
@@ -154,6 +154,8 @@ public class ControllerVotacao {
 			
 		}
 	}
+	
+	//criar excessões para metodos de checagem
 
 	public void checarTermino(String numero) throws BusinessException {
 	
@@ -169,8 +171,15 @@ public class ControllerVotacao {
 		
 	}
 	
+	//criar excessões para metodos de checagem
+	
 }
-
+	
+	public Votacao buscarVotacaoNome(String nome) {
+		
+		return votacaoRepository.searchVotacaoByNome(nome);
+		
+	}
 
 }
  			
