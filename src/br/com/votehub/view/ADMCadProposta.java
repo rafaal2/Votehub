@@ -120,7 +120,7 @@ public class ADMCadProposta extends JFrame {
 
 		        ControllerProposta contVotante = new  ControllerProposta();
 		        try {
-		            contVotante.registrarVotante(titulo, descricao, id_votacao);
+		            contVotante.registrarProposta(titulo, descricao, id_votacao);
 		            JOptionPane.showMessageDialog(null, "Proposta cadastrada com sucesso!");
 		        } catch (BusinessException error) {
 		            JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

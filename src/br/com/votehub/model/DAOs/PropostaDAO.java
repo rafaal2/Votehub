@@ -16,6 +16,7 @@ public class PropostaDAO {
 	PreparedStatement stt = null;
 	PreparedStatement stt1 = null;
 	PreparedStatement stt2 = null;
+
 	public void mostrarPropostas() {
 		try {
 			conn = DB.getConnection();
@@ -28,7 +29,7 @@ public class PropostaDAO {
 		} finally {
 			DB.closeResultSet(rs);
 			DB.closestatement(st);
-			//DB.closeConnection();
+			// DB.closeConnection();
 		}
 
 	}
@@ -36,7 +37,8 @@ public class PropostaDAO {
 	public void addPropostas(Proposta p) {
 		try {
 			conn = DB.getConnection();
-			stt = conn.prepareStatement("INSERT INTO proposta" + "(titulo , descricao, id_votacao)" + "VALUES" + "(?, ?, ?)");
+			stt = conn.prepareStatement(
+					"INSERT INTO proposta" + "(titulo , descricao, id_votacao)" + "VALUES" + "(?, ?, ?)");
 
 			stt.setString(1, p.getTitulo());
 			stt.setString(2, p.getDescricao());
@@ -47,7 +49,7 @@ public class PropostaDAO {
 			e.printStackTrace();
 		} finally {
 			DB.closestatement(stt);
-			//DB.closeConnection();
+			// DB.closeConnection();
 		}
 
 	}
@@ -55,7 +57,8 @@ public class PropostaDAO {
 	public void updatePropostas(int id_Proposta, String titulo, String descricao, int id_votacao) {
 		try {
 			conn = DB.getConnection();
-			stt1 = conn.prepareStatement("Update proposta " + "SET titulo = ?, descricao = ?, id_votacao = ? " + "WHERE" + " id_proposta = ?");
+			stt1 = conn.prepareStatement("Update proposta " + "SET titulo = ?, descricao = ?, id_votacao = ? " + "WHERE"
+					+ " id_proposta = ?");
 
 			stt1.setString(1, titulo);
 			stt1.setString(2, descricao);
@@ -67,11 +70,9 @@ public class PropostaDAO {
 			e.printStackTrace();
 		} finally {
 			DB.closestatement(stt1);
-			//DB.closeConnection();
+			// DB.closeConnection();
 		}
 	}
-	
-	
 
 	public void deletePropostas(int id_Proposta) {
 		try {
@@ -85,9 +86,10 @@ public class PropostaDAO {
 			throw new DbIntegrityException(e.getMessage());
 		} finally {
 			DB.closestatement(stt2);
-			//DB.closeConnection();
+			// DB.closeConnection();
 		}
 	}
+
 	public Proposta searchPropostaById(int id_Proposta) {
 		try {
 			conn = DB.getConnection();
@@ -112,6 +114,63 @@ public class PropostaDAO {
 		return null;
 
 	}
-	
 
+	public ResultSet addTituloCombobox() {
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * \r\n" + "FROM proposta \r\n");
+			return rs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+//			DB.closeResultSet(rs);
+//			DB.closestatement(st);
+//			DB.closeConnection();
+		}
+
+	}
+
+	public String obterDescricaoPorTitulo(String titulo) {
+		try {
+			conn = DB.getConnection();
+			stt = conn.prepareStatement("SELECT descricao FROM proposta WHERE titulo = ?");
+			stt.setString(1, titulo);
+			rs = stt.executeQuery();
+
+			if (rs.next()) {
+				return rs.getString("descricao");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closeResultSet(rs);
+			DB.closestatement(stt);
+			// DB.closeConnection();
+		}
+		return null;
+	}
+	public int obterIdPorTitulo(String titulo) {
+		try {
+			conn = DB.getConnection();
+			stt = conn.prepareStatement("SELECT id_proposta FROM proposta WHERE titulo = ?");
+			stt.setString(1, titulo);
+			rs = stt.executeQuery();
+
+			if (rs.next()) {
+				return rs.getInt("id_proposta");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closeResultSet(rs);
+			DB.closestatement(stt);
+			// DB.closeConnection();
+		}
+		return -1;
+
+	}
 }
+
+

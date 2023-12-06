@@ -1,5 +1,6 @@
 package br.com.votehub.controller;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import br.com.votehub.model.DAOs.PropostaDAO;
@@ -9,7 +10,7 @@ public class ControllerProposta {
 
 	private PropostaDAO propostaRepository = new PropostaDAO();
 
-	public void registrarVotante(String titulo, String descricao, int id_votacao)
+	public void registrarProposta(String titulo, String descricao, int id_votacao)
 			throws BusinessException, SQLException {
 		this.validarRegistro(titulo, descricao, id_votacao);
 
@@ -79,5 +80,16 @@ public class ControllerProposta {
 		}
 
 	}
+	public ResultSet exibirTitulo() {
 
+		return propostaRepository.addTituloCombobox();
+
+	}
+	public String obterDescricaoPorTitulo(String titulo) {
+        return propostaRepository.obterDescricaoPorTitulo(titulo);
+	}
+	
+	 public int obterIdPorTitulo(String titulo) throws SQLException {
+		 return propostaRepository.obterIdPorTitulo(titulo);
+	    }
 }

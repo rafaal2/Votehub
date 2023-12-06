@@ -188,18 +188,6 @@ public class TelaVotacao {
 					dispose();
 				}
 			});
-		
-		JButton btnCadVoltar = new JButton("VOLTAR");
-		btnCadVoltar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnCadVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				ADMPrincipal admPrincipal = new ADMPrincipal();
-				admPrincipal.setVisible(true);
-				dispose();
-			}
-		});
-		
 
 		lblNewLabel = new JLabel("REITOR:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));

@@ -39,7 +39,7 @@ public class RespostaPropostaDAO {
 					"INSERT INTO respostaproposta" + "(resposta, id_proposta)" + "VALUES" + "(?, ?)");
 
 			stt.setString(1, pp.getResposta());
-			stt.setInt(2, pp.getId_RespostaProposta());
+			stt.setInt(2, pp.getId_Proposta());
 
 			stt.executeUpdate();
 		} catch (SQLException e) {

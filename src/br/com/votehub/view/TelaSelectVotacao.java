@@ -63,7 +63,7 @@ public class TelaSelectVotacao extends JFrame {
 		btnVotacaoProposta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				TelaProposta telaProp = new TelaProposta();
+				TelaProposta telaProp = new TelaProposta(vtt);
 				telaProp.setVisible(true);
 				dispose();
 			}
