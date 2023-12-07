@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
@@ -37,26 +38,8 @@ public class ApurarProposta extends JFrame {
 	private JPanel contentPane;
 	private JTable tableResposta;
 	private JComboBox<String> comboBoxPropostas;
+	private JLabel lblNrRespostas;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ApurarProposta frame = new ApurarProposta();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public ApurarProposta() {
 
 		setBackground(Color.LIGHT_GRAY);
@@ -69,15 +52,27 @@ public class ApurarProposta extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Resultado da votação de propostas");
+		JLabel lblNewLabel = new JLabel("Resultado Das propostas");
 		lblNewLabel.setBounds(5, 5, 820, 26);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		contentPane.add(lblNewLabel);
 
+		lblNrRespostas = new JLabel("numero de respostas cadastradas :");
+		lblNrRespostas.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNrRespostas.setBounds(430, 251, 250, 14);
+		contentPane.add(lblNrRespostas);
+
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.setBounds(68, 484, 89, 23);
 		contentPane.add(btnVoltar);
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Apuracao apvoto = new Apuracao();
+				apvoto.setVisible(true);
+				dispose();
+			}
+		});
 
 		JLabel lblProposta = new JLabel("Selecione a proprosta :");
 		lblProposta.setBounds(137, 108, 170, 30);
@@ -89,35 +84,38 @@ public class ApurarProposta extends JFrame {
 		contentPane.add(comboBoxPropostas);
 		restaurarTituloCombobox();
 		comboBoxPropostas.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                apurarVotosProposta();
-            }
-        });
-		
-		DefaultTableModel tableModel = new DefaultTableModel();
-		
-		tableResposta = new JTable(tableModel);
-        tableModel.setColumnIdentifiers(new Object[]{"Número do Candidato", "Nome", "Votos", "Foto"});
-        tableResposta.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-        tableResposta.setDoubleBuffered(true);
-        tableResposta.getColumnModel().getColumn(0).setPreferredWidth(114);
-        tableResposta.setBackground(Color.LIGHT_GRAY);
-        tableResposta.setBounds(137, 270, 548, 80);
-        contentPane.add(tableResposta);
-        apurarVotosProposta();
-        
-        
-		JLabel lblNewLabel_1 = new JLabel("Resultados");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1.setBounds(387, 235, 100, 14);
-		contentPane.add(lblNewLabel_1);
-		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Apuracao apvoto = new Apuracao();
-				apvoto.setVisible(true);
-				dispose();
+				apurarVotosProposta();
+				atualizarNumeroRespostas();
 			}
 		});
+
+		DefaultTableModel tableModel = new DefaultTableModel();
+
+		tableResposta = new JTable(tableModel) {
+		public boolean isCellEditable(int row, int column) {
+	        return false;
+	    }
+	};
+		tableModel.setColumnIdentifiers(new Object[] { "id da proposta", "titulo", "resposta", "numero_respostas_totais" });
+		tableResposta.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		tableResposta.setDoubleBuffered(true);
+		tableResposta.getColumnModel().getColumn(0).setPreferredWidth(114);
+		tableResposta.setBackground(Color.LIGHT_GRAY);
+		tableResposta.setBounds(137, 300, 548, 80);
+		contentPane.add(tableResposta);
+		apurarVotosProposta();
+		atualizarNumeroRespostas();
+
+		JScrollPane scrollPane = new JScrollPane(tableResposta);
+		scrollPane.setBounds(137, 300, 548, 80);
+		contentPane.add(scrollPane);
+
+		JLabel lblTxtResultado = new JLabel("Resultados");
+		lblTxtResultado.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblTxtResultado.setBounds(300, 250, 100, 14);
+		contentPane.add(lblTxtResultado);
+
 	}
 
 	public void restaurarTituloCombobox() {
@@ -159,6 +157,32 @@ public class ApurarProposta extends JFrame {
 		} finally {
 			DB.closeResultSet(rs);
 			DB.closestatement(st);
+		}
+	}
+
+	public void atualizarNumeroRespostas() {
+		String propostaSelecionada = (String) comboBoxPropostas.getSelectedItem();
+		if (propostaSelecionada != null) {
+			try {
+				conn = DB.getConnection();
+				st = conn.createStatement();
+				rs = st.executeQuery("SELECT\r\n" + "    p.id_proposta,\r\n" + "    p.titulo AS pergunta,\r\n"
+						+ "    COUNT(rp.id_respostaproposta) AS numero_respostas\r\n" + "FROM\r\n"
+						+ "    proposta p\r\n" + "LEFT JOIN\r\n"
+						+ "    respostaproposta rp ON p.id_proposta = rp.id_proposta\r\n" + "WHERE\r\n"
+						+ "    p.titulo = '" + propostaSelecionada + "'\r\n" + "GROUP BY\r\n"
+						+ "    p.id_proposta, p.titulo;");
+
+				if (rs.next()) {
+					int numeroRespostas = rs.getInt("numero_respostas");
+					lblNrRespostas.setText("Número de respostas cadastradas: " + numeroRespostas);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DB.closeResultSet(rs);
+				DB.closestatement(st);
+			}
 		}
 	}
 }

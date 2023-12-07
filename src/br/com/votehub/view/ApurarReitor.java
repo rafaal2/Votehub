@@ -37,19 +37,7 @@ public class ApurarReitor extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JTable table;
-
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    ApurarReitor frame = new ApurarReitor();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+    private JLabel lblNrVotos;
 
     public ApurarReitor() {
     	setBackground(Color.LIGHT_GRAY);
@@ -68,11 +56,20 @@ public class ApurarReitor extends JFrame {
         lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
         lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 21));
         contentPane.add(lblNewLabel);
+        
+        lblNrVotos = new JLabel("numero total de votos :");
+		lblNrVotos.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNrVotos.setBounds(137, 57, 300, 14);
+		contentPane.add(lblNrVotos);
 
         DefaultTableModel tableModel = new DefaultTableModel();
 
-        table = new JTable(tableModel);
-        tableModel.setColumnIdentifiers(new Object[]{"Número do Candidato", "Nome", "Votos", "Foto"});
+        table = new JTable(tableModel) {
+        	public boolean isCellEditable(int row, int column) {
+    	        return false;
+    	    }
+    	};
+        tableModel.setColumnIdentifiers(new Object[]{"Número do Candidato", "Nome", "Votos"});
         table.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         table.setDoubleBuffered(true);
         table.getColumnModel().getColumn(0).setPreferredWidth(114);
@@ -81,6 +78,7 @@ public class ApurarReitor extends JFrame {
         contentPane.add(table);
 
         apurarVotosReitor();
+        atualizarNumeroVotos();
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(137, 106, 548, 80);
         contentPane.add(scrollPane);
@@ -123,7 +121,6 @@ public class ApurarReitor extends JFrame {
                 row.add(rs.getString("numero_candidato"));
                 row.add(rs.getString("nome_candidato"));
                 row.add(rs.getInt("numero_de_votos"));
-                row.add("");
                 tableModel.addRow(row);
             }
         } catch (SQLException e) {
@@ -133,4 +130,24 @@ public class ApurarReitor extends JFrame {
             DB.closestatement(st);
         }
     }
+    public void atualizarNumeroVotos() {
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT\r\n" + "    COUNT(voto.id_voto) AS numero_total_votos\r\n" + "FROM\r\n"
+					+ "    voto\r\n" + "LEFT JOIN\r\n"
+					+ "    candidato ON voto.numero_candidato = candidato.numero_candidato\r\n" + "WHERE\r\n"
+					+ "    candidato.cargo = 'Reitor';");
+
+			if (rs.next()) {
+				int numeroTotalVotos = rs.getInt("numero_total_votos");
+				lblNrVotos.setText("Número total de votos na eleição de Reitor: " + numeroTotalVotos);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closeResultSet(rs);
+			DB.closestatement(st);
+		}
+	}
 }
