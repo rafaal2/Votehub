@@ -85,7 +85,7 @@ public class ApurarDiretor extends JFrame {
         contentPane.add(btnVoltar);
         btnVoltar.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-			ApurarVoto apvoto = new ApurarVoto();
+			Apuracao apvoto = new Apuracao();
 			apvoto.setVisible(true);
 			dispose();
 		}

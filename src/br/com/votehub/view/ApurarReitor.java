@@ -52,7 +52,10 @@ public class ApurarReitor extends JFrame {
     }
 
     public ApurarReitor() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	setBackground(Color.LIGHT_GRAY);
+		setForeground(Color.LIGHT_GRAY);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 846, 413);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -87,7 +90,7 @@ public class ApurarReitor extends JFrame {
         contentPane.add(btnVoltar);
         btnVoltar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-    			ApurarVoto apvoto = new ApurarVoto();
+    			Apuracao apvoto = new Apuracao();
     			apvoto.setVisible(true);
     			dispose();
     		}

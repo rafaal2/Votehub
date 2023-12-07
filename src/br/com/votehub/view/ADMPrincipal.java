@@ -86,7 +86,7 @@ public class ADMPrincipal extends JFrame {
 		btnMenuApurar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnMenuApurar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ApurarVoto apurar = new ApurarVoto();
+				Apuracao apurar = new Apuracao();
 				apurar.setVisible(true);
 				dispose();
 			}
