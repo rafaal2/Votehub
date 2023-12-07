@@ -203,9 +203,9 @@ public class TelaVotacao {
 //		comboBox_1 = new JComboBox();
 //		frame.getContentPane().add(comboBox_1, "cell 6 3,growx");
 
-		lblNewLabel_2 = new JLabel("DA:");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 13));
-		frame.getContentPane().add(lblNewLabel_2, "cell 4 4,alignx center");
+		//lblNewLabel_2 = new JLabel("DA:");
+		//lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 13));
+		//frame.getContentPane().add(lblNewLabel_2, "cell 4 4,alignx center");
 
 //		comboBox_2 = new JComboBox();
 //		frame.getContentPane().add(comboBox_2, "cell 6 4,growx");

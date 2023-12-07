@@ -43,7 +43,7 @@ public class Apuracao extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JButton btnApurarDiretor = new JButton("Resultado Diretor");
-		btnApurarDiretor.setBounds(340, 108, 117, 23);
+		btnApurarDiretor.setBounds(340, 108, 135, 33);
 		contentPane.add(btnApurarDiretor);
 		btnApurarDiretor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -55,7 +55,7 @@ public class Apuracao extends JFrame {
 		});
 		
 		JButton btnApurarReitor = new JButton("Resultado Reitor");
-		btnApurarReitor.setBounds(342, 187, 113, 23);
+		btnApurarReitor.setBounds(342, 177, 133, 33);
 		contentPane.add(btnApurarReitor);
 		btnApurarReitor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -78,7 +78,7 @@ public class Apuracao extends JFrame {
     	});
 		
 		JButton btnApurarProposta = new JButton("Resultado Propostas");
-		btnApurarProposta.setBounds(333, 267, 131, 23);
+		btnApurarProposta.setBounds(340, 257, 135, 33);
 		contentPane.add(btnApurarProposta);
 		btnApurarProposta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

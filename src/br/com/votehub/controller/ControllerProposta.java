@@ -25,8 +25,8 @@ public class ControllerProposta {
 			throw new BusinessException("o titulo deve ser preenchido.");
 		}
 
-		if (titulo.length() > 200) {
-			throw new BusinessException("o titulo não pode exceder 300 caracteres.");
+		if (titulo.length() > 150) {
+			throw new BusinessException("o titulo não pode exceder 150 caracteres.");
 		}
 		
 		if (descricao.isBlank()) {

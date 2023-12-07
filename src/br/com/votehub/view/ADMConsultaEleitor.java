@@ -53,6 +53,7 @@ public class ADMConsultaEleitor extends JFrame {
 	 * Create the frame.
 	 */
 	public ADMConsultaEleitor() {
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 600);
 		contentPane = new JPanel();

@@ -80,7 +80,7 @@ public class ApurarReitor extends JFrame {
         table.setBounds(137, 106, 548, 80);
         contentPane.add(table);
 
-        apurarVotosDiretor();
+        apurarVotosReitor();
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(137, 106, 548, 80);
         contentPane.add(scrollPane);
@@ -97,7 +97,7 @@ public class ApurarReitor extends JFrame {
     	});
     }
 
-    public void apurarVotosDiretor() {
+    public void apurarVotosReitor() {
         DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         tableModel.setRowCount(0);
         try {

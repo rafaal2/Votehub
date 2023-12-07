@@ -66,6 +66,7 @@ public class ADMConsultaCandidato extends JFrame {
 	 * Create the frame.
 	 */
 	public ADMConsultaCandidato() {
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 682, 611);
 		contentPane = new JPanel();
@@ -130,10 +131,6 @@ public class ADMConsultaCandidato extends JFrame {
 			}
 		});
 		contentPane.add(btnAddImg, "cell 16 10");
-		
-		
-
-
 		lblImg = new JLabel("");
 		lblImg.setIcon(new ImageIcon(resource));
 		lblImg.setBounds(350, 350, 128, 128);

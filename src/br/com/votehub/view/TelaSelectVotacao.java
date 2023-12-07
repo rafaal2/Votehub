@@ -46,7 +46,7 @@ public class TelaSelectVotacao extends JFrame {
 		contentPane.add(lblDescricao);
 		
 		JButton btnVotacaoCandidato = new JButton("candidatos");
-		btnVotacaoCandidato.setBounds(283, 88, 89, 23);
+		btnVotacaoCandidato.setBounds(283, 75, 131, 36);
 		contentPane.add(btnVotacaoCandidato);
 		btnVotacaoCandidato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -58,7 +58,7 @@ public class TelaSelectVotacao extends JFrame {
 		});
 		
 		JButton btnVotacaoProposta = new JButton("propostas");
-		btnVotacaoProposta.setBounds(283, 137, 89, 23);
+		btnVotacaoProposta.setBounds(283, 137, 131, 36);
 		contentPane.add(btnVotacaoProposta);
 		btnVotacaoProposta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -70,7 +70,7 @@ public class TelaSelectVotacao extends JFrame {
 		});
 		
 		JButton btnVoltar = new JButton("VOLTAR");
-		btnVoltar.setBounds(283, 253, 89, 23);
+		btnVoltar.setBounds(309, 252, 89, 23);
 		contentPane.add(btnVoltar);
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

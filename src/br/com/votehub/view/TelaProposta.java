@@ -131,8 +131,8 @@ public class TelaProposta extends JFrame {
 				} catch (BusinessException error) {
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}
+				JOptionPane.showMessageDialog(null, "Resposta cadastrada com sucesso!");
 			}
-			//JOptionPane.showMessageDialog(null, "Voto cadastrado com sucesso!");
 		});
 		
 	}
