@@ -73,6 +73,25 @@ public class PropostaDAO {
 			// DB.closeConnection();
 		}
 	}
+	
+	public void updatePropostas(int id_Proposta, String titulo, String descricao) {
+		try {
+			conn = DB.getConnection();
+			stt1 = conn.prepareStatement("Update proposta " + "SET titulo = ?, descricao = ?  " + "WHERE"
+					+ " id_proposta = ?");
+
+			stt1.setString(1, titulo);
+			stt1.setString(2, descricao);
+			stt1.setInt(3, id_Proposta);
+
+			stt1.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closestatement(stt1);
+			// DB.closeConnection();
+		}
+	}
 
 	public void deletePropostas(int id_Proposta) {
 		try {
@@ -171,6 +190,7 @@ public class PropostaDAO {
 		return -1;
 
 	}
+	
 }
 
 
