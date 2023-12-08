@@ -31,13 +31,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.controller.ControllerCandidato;
 import net.miginfocom.swing.MigLayout;
+import javax.swing.JComboBox;
 
 public class ADMCadCandidato extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField fieldNomeCad;
 	private JTextField fieldNumCad;
-	private JTextField filedCargoCad;
 	private JTextField filedIdEleicao;
 	private int tamanho;
 	private FileInputStream fis;
@@ -46,25 +46,6 @@ public class ADMCadCandidato extends JFrame {
 	private File diretorioCandidato;
 	private String nomeImagem;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ADMCadCandidato frame = new ADMCadCandidato();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public ADMCadCandidato() {
 		criarDiretorioCandidato();
 		setTitle("Cadastro de Candidato");
@@ -124,11 +105,6 @@ public class ADMCadCandidato extends JFrame {
 		lblCadCargo.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel.add(lblCadCargo);
 
-		filedCargoCad = new JTextField();
-		filedCargoCad.setBounds(248, 250, 359, 20);
-		panel.add(filedCargoCad);
-		filedCargoCad.setColumns(10);
-
 		lblImg = new JLabel("");
 		URL resource = ADMCadCandidato.class.getClassLoader().getResource("icons8-câmera-100.png");
 		lblImg.setIcon(new ImageIcon(resource));
@@ -169,12 +145,21 @@ public class ADMCadCandidato extends JFrame {
 		btnAddImg.setBounds(350, 484, 100, 23);
 		panel.add(btnAddImg);
 
+		JComboBox comboBoxCargo = new JComboBox<>(new String[] { "Reitor", "Diretor" });
+		comboBoxCargo.setBounds(248, 246, 130, 20);
+		panel.add(comboBoxCargo);
+
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String numero_candidato = fieldNumCad.getText();
 				String nomeCandidato = fieldNomeCad.getText();
-				String cargoCandidato = filedCargoCad.getText();
-				int id_votacao = Integer.parseInt(filedIdEleicao.getText());
+				String cargoCandidato = (String) comboBoxCargo.getSelectedItem();
+				String idVotacaoText = filedIdEleicao.getText();
+		        if (idVotacaoText.isBlank()) {
+		            JOptionPane.showMessageDialog(null, "todos os campos devem estar preenchidos", "Erro", JOptionPane.ERROR_MESSAGE);
+		            return;  
+		        }
+		        int id_votacao = Integer.parseInt(idVotacaoText);
 				copiarImagem(nomeCandidato);
 				ControllerCandidato contCandidato = new ControllerCandidato();
 				try {
@@ -208,29 +193,30 @@ public class ADMCadCandidato extends JFrame {
 		}
 
 	}
-	
+
 	public void criarDiretorioCandidato() {
-		diretorioCandidato = new File(System.getenv("APPDATA") + File.separator + "votehub" + File.separator + "candidatos");
-		if(!diretorioCandidato.exists()){
+		diretorioCandidato = new File(
+				System.getenv("APPDATA") + File.separator + "votehub" + File.separator + "candidatos");
+		if (!diretorioCandidato.exists()) {
 			diretorioCandidato.mkdirs();
-			System.out.println("Diretorio candidatos criado");
+			//System.out.println("Diretorio candidatos criado");
 		}
 	}
-	
+
 	public void copiarImagem(String nomeCandidato) {
 		File diretorioImagem = new File(diretorioCandidato + File.separator + nomeCandidato);
-		if(!diretorioImagem.exists()){
+		if (!diretorioImagem.exists()) {
 			diretorioImagem.mkdirs();
-			System.out.println("Diretorio " + nomeCandidato + " criado");
+			//System.out.println("Diretorio " + nomeCandidato + " criado");
 		}
 		Path fonte = Paths.get(img_candidato);
 		Path destino = Paths.get(diretorioImagem + File.separator + nomeImagem);
 		try {
-		  Files.copy(fonte, destino, StandardCopyOption.REPLACE_EXISTING);
-		  img_candidato = destino.toString();
+			Files.copy(fonte, destino, StandardCopyOption.REPLACE_EXISTING);
+			img_candidato = destino.toString();
 		} catch (IOException e) {
-		  e.printStackTrace();
-			System.out.println("foi aqui");
+			e.printStackTrace();
+			//System.out.println("foi aqui");
 		}
 	}
 }

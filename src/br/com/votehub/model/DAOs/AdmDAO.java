@@ -10,6 +10,7 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.model.vo.Adm;
+import br.com.votehub.model.vo.Votante;
 
 public class AdmDAO {
 	private final static StrongPasswordEncryptor passHash = new StrongPasswordEncryptor();
@@ -136,6 +137,28 @@ public class AdmDAO {
 
 		}
 		return false;
+	}
+	
+	public Adm searchAdmByLogin(String login) {
+		try {
+
+			conn = DB.getConnection();
+			PreparedStatement stt = conn
+					.prepareStatement("SELECT id_adm, login, senha FROM adm WHERE login = ?");
+
+			stt.setString(1, login);
+
+			ResultSet rs = stt.executeQuery();
+			if (rs.next()) {
+				Adm adm = new Adm(rs.getString("login"), rs.getString("senha"));
+				adm.setId_adm(rs.getInt("id_adm"));
+				return adm;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 }

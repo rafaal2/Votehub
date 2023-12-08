@@ -225,6 +225,7 @@ public class VotanteDAO {
 				if (loginDigitada.isBlank()) {
 					throw new BusinessException("o campo de login deve estar preenchido");
 				}
+				
 			}
 			if (loginIncorreto) {
 				throw new BusinessException("login incorreto");

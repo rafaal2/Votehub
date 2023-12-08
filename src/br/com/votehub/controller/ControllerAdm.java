@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import br.com.votehub.model.DAOs.AdmDAO;
 import br.com.votehub.model.DAOs.DB;
 import br.com.votehub.model.vo.Adm;
+import br.com.votehub.model.vo.Votante;
 
 public class ControllerAdm {
 	private AdmDAO AdmRepository = new AdmDAO();
@@ -54,6 +55,10 @@ public class ControllerAdm {
 
 	public void verificarloginadm(String loginDigitada) throws BusinessException, SQLException {
 		AdmRepository.verificarloginadm(loginDigitada);
+		Adm admin = AdmRepository.searchAdmByLogin(loginDigitada);
+		if (admin == null) {
+	        throw new BusinessException("login não encontrada");
+	    }
 	}
 
 	public void verificarsenhaadm(String senhaDigitada) throws BusinessException, SQLException {

@@ -26,7 +26,7 @@ public class ControllerCandidato {
 			throw new BusinessException("Número do candidato já está em uso!");
 		}
 
-		if (numeroCandidato.isBlank() || nome.isBlank() || cargo.isBlank() || img_candidato == null|| id_votacao == null) {
+		if (numeroCandidato.isBlank() || nome.isBlank() || cargo.isBlank() || img_candidato == null) {
 			throw new BusinessException("Todos os campos devem estar preenchindos!");
 		}
 
