@@ -25,7 +25,7 @@ public class CandidatoDAO {
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT * \r\n" + "FROM candidato \r\n");
 			while (rs.next()) {
-				System.out.println("Candidato: " + rs.getString("nome") + " / " + rs.getString("id"));
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -176,10 +176,14 @@ public class ControllerVotante {
 	
 	public void verificarloginvot(String loginDigitada) throws BusinessException, SQLException {
 		VotanteDAO.verificarloginvot(loginDigitada);
+		Votante votante = votanteRepository.searchVotanteByMatricula(loginDigitada);
+		if (votante == null) {
+	        throw new BusinessException("login não encontrada");
+	    }
 	}
 
 	public void verificarsenhavot(String loginDigitada, String senhaDigitada) throws BusinessException, SQLException {
-		VotanteDAO.verificarsenhavot(loginDigitada, senhaDigitada);
+		VotanteDAO.verificarsenhavot(loginDigitada, senhaDigitada);   
 	}
 	
 	public Votante buscarVotante(String matricula) {

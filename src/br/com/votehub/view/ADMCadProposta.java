@@ -116,6 +116,11 @@ public class ADMCadProposta extends JFrame {
 		    public void actionPerformed(ActionEvent e) {
 		        String titulo = fieldTituloCad.getText();
 		        String descricao = fieldDescricaoCad.getText();
+		        String idVotacaoText = filedIdEleicao.getText();
+		        if (idVotacaoText.isBlank()) {
+		            JOptionPane.showMessageDialog(null, "todos os campos devem estar preenchidos", "Erro", JOptionPane.ERROR_MESSAGE);
+		            return;  
+		        }
 		        int id_votacao = Integer.parseInt(filedIdEleicao.getText());
 
 		        ControllerProposta contVotante = new  ControllerProposta();
