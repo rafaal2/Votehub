@@ -104,21 +104,21 @@ public class TelaConsulta extends JFrame {
 		btnConsultarEleicao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-//				ADMConsultaVotacao votacao;
-//				try {
-//					votacao = new ADMConsultaVotacao();
-//				} catch (ParseException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//				votacao.setVisible(true);
-//				dispose();
+				ADMConsultaVotacao consulta;
+				try {
+					consulta = new ADMConsultaVotacao();
+					consulta.setVisible(true);
+					dispose();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		panel.add(btnConsultarEleicao, "cell 3 10,growx,aligny center");
 
-		JButton btnNewButton = new JButton("CONSULTAR PROPOSTA");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnProposta = new JButton("CONSULTAR PROPOSTA");
+		btnProposta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				ADMConsultaProposta proposta = new ADMConsultaProposta();
@@ -127,8 +127,8 @@ public class TelaConsulta extends JFrame {
 			}
 		});
 
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		panel.add(btnNewButton, "cell 3 14,growx,aligny center");
+		btnProposta.setFont(new Font("Tahoma", Font.BOLD, 12));
+		panel.add(btnProposta, "cell 3 14,growx,aligny center");
 		panel.add(btnCadVoltar, "cell 3 21,alignx center,aligny center");
 
 	}

@@ -44,5 +44,11 @@
         <artifactId>miglayout-swing</artifactId>
         <version>5.0</version>
     </dependency>
+
+    <dependency>
+    	<groupId>br.com.teste</groupId>
+    	<artifactId>teste</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
   </dependencies>
 </project>

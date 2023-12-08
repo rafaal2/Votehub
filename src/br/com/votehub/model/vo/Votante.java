@@ -7,7 +7,7 @@ public class Votante {
 	private String nome;
 	private String senha;
 
-	public Votante( String matricula, String nome, String senha) {
+	public Votante(String matricula, String nome, String senha) {
 		this.id_votante = id_votante;
 		this.matricula = matricula;
 		this.nome = nome;

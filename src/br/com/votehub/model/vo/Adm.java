@@ -12,6 +12,7 @@ public class Adm {
 		this.login = login;
 		this.senha = senha;
 	}
+	
 
 	public int getId_adm() {
 		return id_adm;
