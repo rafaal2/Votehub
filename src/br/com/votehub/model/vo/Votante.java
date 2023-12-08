@@ -53,7 +53,7 @@ public class Votante {
 	}
 
 
-	public String toString() {
-		return "[" + this.id_votante + ", " + this.matricula + ", " + this.nome + ", " + this.senha + "]";
-	}
+//	public String toString() {
+//		return "[" + this.id_votante + ", " + this.matricula + ", " + this.nome + ", " + this.senha + "]";
+//	}
 }

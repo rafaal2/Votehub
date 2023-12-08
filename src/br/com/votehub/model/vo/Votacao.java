@@ -24,6 +24,14 @@ public class Votacao {
 		this.data_fim = data_fim;
 		this.tipoVotacao = tipoVotacao;
 	}
+	
+	public Votacao(int id, String nome_votacao, Date data_inicio, Date data_fim, String tipoVotacao) {
+		this.id_votacao = id;
+		this.nome_votacao = nome_votacao;
+		this.data_inicio = data_inicio;
+		this.data_fim = data_fim;
+		this.tipoVotacao = tipoVotacao;
+	}
 
 	public int getId_votacao() {
 		return id_votacao;
@@ -65,10 +73,10 @@ public class Votacao {
 		this.tipoVotacao = tipoVotacao;
 	}
 	
-	public String toString() {
-		
-		return "ID: " +id_votacao+ "| Nome: " +nome_votacao+ "| Com inicio dia: " +data_inicio+ " e termino dia: " +data_fim+"|";
-		
-	}
+//	public String toString() {
+//		
+//		return "ID: " +id_votacao+ "| Nome: " +nome_votacao+ "| Com inicio dia: " +data_inicio+ " e termino dia: " +data_fim+"|";
+//		
+//	}
 
 }
