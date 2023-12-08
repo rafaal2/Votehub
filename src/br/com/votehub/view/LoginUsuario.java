@@ -152,7 +152,7 @@ public class LoginUsuario extends JFrame {
 	    PreparedStatement ps = null;
 		try {
             conn = DB.getConnection();
-            String query = "SELECT votacao \r\n FROM candidato \r\n WHERE cargo = ?";
+            String query = "SELECT tipo_votacao \r\n FROM votacao \r\n WHERE  = ?";
             ps = conn.prepareStatement(query);
          //   String cargoQuery = cargo.toLowerCase();
        //     ps.setString(1, cargoQuery);

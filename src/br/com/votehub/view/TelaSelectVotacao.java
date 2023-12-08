@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import br.com.votehub.model.vo.Votante;
+import net.miginfocom.swing.MigLayout;
 
 public class TelaSelectVotacao extends JFrame {
 	private Votante vtt;
@@ -34,20 +35,19 @@ public class TelaSelectVotacao extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(new MigLayout("fill", "[][grow][][grow][][grow][]", "[][][][][][][][]"));
 		
 		JLabel lblTitulo = new JLabel("VOTACÃO");
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblTitulo.setBounds(267, 11, 131, 14);
-		contentPane.add(lblTitulo);
+		contentPane.add(lblTitulo, "cell 3 0,alignx center,growy");
 		
-		JLabel lblDescricao = new JLabel("escolha qual votaçao votar :");
-		lblDescricao.setBounds(76, 104, 184, 43);
-		contentPane.add(lblDescricao);
+		JLabel lblDescricao = new JLabel("Escolha o tipo de votação:");
+		lblDescricao.setFont(new Font("Tahoma", Font.BOLD, 14));
+		contentPane.add(lblDescricao, "cell 3 1,alignx center,aligny center");
 		
-		JButton btnVotacaoCandidato = new JButton("candidatos");
-		btnVotacaoCandidato.setBounds(283, 75, 131, 36);
-		contentPane.add(btnVotacaoCandidato);
+		JButton btnVotacaoCandidato = new JButton("Candidatos");
+		btnVotacaoCandidato.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		contentPane.add(btnVotacaoCandidato, "cell 3 2,grow");
 		btnVotacaoCandidato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -57,9 +57,9 @@ public class TelaSelectVotacao extends JFrame {
 			}
 		});
 		
-		JButton btnVotacaoProposta = new JButton("propostas");
-		btnVotacaoProposta.setBounds(283, 137, 131, 36);
-		contentPane.add(btnVotacaoProposta);
+		JButton btnVotacaoProposta = new JButton("Propostas");
+		btnVotacaoProposta.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		contentPane.add(btnVotacaoProposta, "cell 3 4,grow");
 		btnVotacaoProposta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -70,8 +70,7 @@ public class TelaSelectVotacao extends JFrame {
 		});
 		
 		JButton btnVoltar = new JButton("VOLTAR");
-		btnVoltar.setBounds(309, 252, 89, 23);
-		contentPane.add(btnVoltar);
+		contentPane.add(btnVoltar, "cell 3 6,alignx center,aligny center");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
