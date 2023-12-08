@@ -40,6 +40,7 @@ CREATE TABLE votacao (
   nome_votacao char(200) DEFAULT NULL,
   data_inicio datetime DEFAULT NULL,
   data_fim datetime DEFAULT NULL,
+  tipo_votacao varchar(12),
   PRIMARY KEY (id_votacao)
 );
 

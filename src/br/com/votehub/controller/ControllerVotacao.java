@@ -19,10 +19,11 @@ public class ControllerVotacao {
 	private CandidatoDAO candidatoRepository = new CandidatoDAO();
 	private Date now = new Date();
 	
-	public void registrarVotacao(String nomeVotacao, Date dataInicio, Date dataFim) throws BusinessException {
+	public void registrarVotacao(String nomeVotacao, Date dataInicio, Date dataFim, String tipoVotacao) throws BusinessException {
 		validarRegistro(dataInicio, dataFim);
+		checarTipoVotacao(tipoVotacao);
 		
-		Votacao vtc = new Votacao(nomeVotacao, dataInicio, dataFim);
+		Votacao vtc = new Votacao(nomeVotacao, dataInicio, dataFim, tipoVotacao);
 		votacaoRepository.addVotacao(vtc);
 	}
 	
@@ -179,6 +180,12 @@ public class ControllerVotacao {
 		
 		return votacaoRepository.searchVotacaoByNome(nome);
 		
+	}
+	
+	public void checarTipoVotacao(String tipoVotacao) throws BusinessException {
+		if (tipoVotacao.isEmpty()) {
+			throw new BusinessException("Selecione um tipo de votação!");
+		}
 	}
 
 }

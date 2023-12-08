@@ -23,7 +23,7 @@ public class VotacaoDAO {
 	public void addVotacao(Votacao votacao) {
 		try {
 			conn = DB.getConnection();
-			stt = conn.prepareStatement("INSERT INTO votacao" + "(nome_votacao, data_inicio, data_fim)" + "VALUES" + "(?, ?, ?)");
+			stt = conn.prepareStatement("INSERT INTO votacao" + "(nome_votacao, data_inicio, data_fim, tipo_votacao)" + "VALUES" + "(?, ?, ?, ?)");
 
 			
 			// timestamp é utilizado p colunas "datatime" no sql;
@@ -33,6 +33,7 @@ public class VotacaoDAO {
 	        stt.setString(1, votacao.getNome_votacao());
 			stt.setTimestamp(2, dataInicioTimestamp);
 			stt.setTimestamp(3, dataFimTimestamp);
+			stt.setString(4, votacao.getTipo_Votacao());
 			stt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -91,7 +92,7 @@ public class VotacaoDAO {
 			rs = stt.executeQuery();
 			if(rs.next()) {
 				
-			Votacao vtc = new Votacao(rs.getString("nome_votacao"), rs.getDate("data_inicio"), rs.getDate("data_fim"));
+			Votacao vtc = new Votacao(rs.getString("nome_votacao"), rs.getDate("data_inicio"), rs.getDate("data_fim"), rs.getString("tipo_votacao"));
 			vtc.setId_votacao(rs.getInt("id_votacao"));
 			
 			return vtc;
@@ -117,7 +118,7 @@ public class VotacaoDAO {
 			rs = stt.executeQuery();
 			if(rs.next()) {
 				
-			Votacao vtc = new Votacao(rs.getString("nome_votacao"), rs.getDate("data_inicio"), rs.getDate("data_fim"));
+			Votacao vtc = new Votacao(rs.getString("nome_votacao"), rs.getDate("data_inicio"), rs.getDate("data_fim"), rs.getString("tipo_votacao"));
 			vtc.setId_votacao(rs.getInt("id_votacao"));
 			
 			return vtc;
@@ -143,7 +144,7 @@ public class VotacaoDAO {
 			rs = stt.executeQuery();
 			if(rs.next()) {
 				
-			Votacao vtc = new Votacao(rs.getString("nome_votacao"), rs.getDate("data_inicio"), rs.getDate("data_fim"));
+			Votacao vtc = new Votacao(rs.getString("nome_votacao"), rs.getDate("data_inicio"), rs.getDate("data_fim"), rs.getString("tipo_votacao"));
 			vtc.setId_votacao(rs.getInt("id_votacao"));
 			
 			return vtc.getData_inicio();
@@ -169,7 +170,7 @@ public class VotacaoDAO {
 			rs = stt.executeQuery();
 			if(rs.next()) {
 				
-			Votacao vtc = new Votacao(rs.getString("nome_votacao"), rs.getDate("data_inicio"), rs.getDate("data_fim"));
+			Votacao vtc = new Votacao(rs.getString("nome_votacao"), rs.getDate("data_inicio"), rs.getDate("data_fim"), rs.getString("tipo_votacao"));
 			vtc.setId_votacao(rs.getInt("id_votacao"));
 			
 			return vtc.getData_fim();

@@ -14,13 +14,15 @@ public class Votacao {
 	private String nome_votacao;
 	private Date data_inicio;
 	private Date data_fim;
+	private String tipoVotacao;
 	private boolean status;
 
-	public Votacao(String nome_votacao, Date data_inicio, Date data_fim) {
+	public Votacao(String nome_votacao, Date data_inicio, Date data_fim, String tipoVotacao) {
 		this.id_votacao = id_votacao;
 		this.nome_votacao = nome_votacao;
 		this.data_inicio = data_inicio;
 		this.data_fim = data_fim;
+		this.tipoVotacao = tipoVotacao;
 	}
 
 	public int getId_votacao() {
@@ -53,6 +55,14 @@ public class Votacao {
 
 	public void setData_fim(Date data_fim) {
 		this.data_fim = data_fim;
+	}
+	
+	public String getTipo_Votacao() {
+		return tipoVotacao;
+	}
+
+	public void setTipoVotacao(String tipo_Votacao) {
+		this.tipoVotacao = tipoVotacao;
 	}
 	
 	public String toString() {

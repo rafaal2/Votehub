@@ -6,6 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -24,6 +27,7 @@ import javax.swing.text.MaskFormatter;
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.controller.ControllerVotacaoVotante;
 import br.com.votehub.controller.ControllerVotante;
+import br.com.votehub.model.DAOs.DB;
 import br.com.votehub.model.vo.Votante;
 import net.miginfocom.swing.MigLayout;
 
@@ -140,9 +144,25 @@ public class LoginUsuario extends JFrame {
 				dispose();
 			}
 		});
-		
-
-		
 	}
-
+	
+	public void sequenciaTelas() {
+		Connection conn = null;
+	    ResultSet rs = null;
+	    PreparedStatement ps = null;
+		try {
+            conn = DB.getConnection();
+            String query = "SELECT votacao \r\n FROM candidato \r\n WHERE cargo = ?";
+            ps = conn.prepareStatement(query);
+         //   String cargoQuery = cargo.toLowerCase();
+       //     ps.setString(1, cargoQuery);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String numero = rs.getString("numero_candidato");
+      //          comboBox.addItem(numero);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+	}
 }

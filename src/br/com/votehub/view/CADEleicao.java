@@ -116,7 +116,7 @@ public class CADEleicao extends JFrame {
 		
 		JList list = new JList();
 		list.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Candidato", "Propostas"};
+			String[] values = new String[] {"Candidatos", "Propostas"};
 			public int getSize() {
 				return values.length;
 			}
@@ -137,15 +137,14 @@ public class CADEleicao extends JFrame {
 				String nomeVotacao = fieldNomeCad.getText();
 				String dataInicioString = formattedDataInicio.getText();
 				String dataFimString = formattedDataFim.getText();
-				
-				SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-				
+				String tipoVotacao = ((String) list.getSelectedValue()).toLowerCase();
+				SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");				
 				try {
 					Date dataInicio = formato.parse(dataInicioString);
 					Date dataFim = formato.parse(dataFimString);
 					
 					ControllerVotacao controllerVotacao = new ControllerVotacao();
-					controllerVotacao.registrarVotacao(nomeVotacao, dataInicio, dataFim);
+					controllerVotacao.registrarVotacao(nomeVotacao, dataInicio, dataFim, tipoVotacao);
 					JOptionPane.showMessageDialog(null, "Votação cadastrada com sucesso!");
 					
 				} catch (BusinessException err) {
