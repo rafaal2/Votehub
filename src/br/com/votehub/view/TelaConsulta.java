@@ -73,19 +73,19 @@ public class TelaConsulta extends JFrame {
 			}
 		});
 
-		JButton btnConsultaEleitor = new JButton("CONSULTAR ELEITOR");
-		btnConsultaEleitor.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnConsultaEleitor.addActionListener(new ActionListener() {
+		JButton btnConsultaVotante = new JButton("CONSULTAR Votante");
+		btnConsultaVotante.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnConsultaVotante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				ADMConsultaEleitor consulta = new ADMConsultaEleitor();
+				ADMConsultaVotante consulta = new ADMConsultaVotante();
 				consulta.setVisible(true);
 				dispose();
 
 			}
 		});
 
-		panel.add(btnConsultaEleitor, "cell 3 3,growx,aligny center");
+		panel.add(btnConsultaVotante, "cell 3 3,growx,aligny center");
 
 		JButton btnConsultarCandidato = new JButton("CONSULTAR CANDIDATO");
 		btnConsultarCandidato.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -99,9 +99,9 @@ public class TelaConsulta extends JFrame {
 		});
 		panel.add(btnConsultarCandidato, "cell 3 6,growx,aligny center");
 
-		JButton btnConsultarEleicao = new JButton("CONSULTAR ELEIÇÃO");
-		btnConsultarEleicao.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnConsultarEleicao.addActionListener(new ActionListener() {
+		JButton btnConsultarVotacao = new JButton("CONSULTAR Votação");
+		btnConsultarVotacao.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnConsultarVotacao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				ADMConsultaVotacao consulta;
@@ -115,7 +115,7 @@ public class TelaConsulta extends JFrame {
 				}
 			}
 		});
-		panel.add(btnConsultarEleicao, "cell 3 10,growx,aligny center");
+		panel.add(btnConsultarVotacao, "cell 3 10,growx,aligny center");
 
 		JButton btnProposta = new JButton("CONSULTAR PROPOSTA");
 		btnProposta.addActionListener(new ActionListener() {

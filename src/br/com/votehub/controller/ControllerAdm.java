@@ -19,16 +19,20 @@ public class ControllerAdm {
 	}
 
 	public void validarRegistro(int id_adm, String login, String senha) throws BusinessException {
+//		if (AdmRepository.verificarSeIdExiste(id_adm)) {
+//			throw new BusinessException ("ID informado já existe!");
+//		}
+		
 		if (login.isBlank() || senha.isBlank()) {
-			throw new BusinessException("Todos os campos devem estar preenchindos!");
+			throw new BusinessException("Todos os campos devem estar preenchidos.");
 		}
 
-		if (login.length() > 100 || senha.length() > 100) {
-			throw new BusinessException("Os valores login e senha informados devem possuir limite de 100 caracteres");
+		if (senha.length() > 10) {
+			throw new BusinessException("A senha informada deve possuir limite de 10 caracteres!");
 		}
 
-		if (login.length() > 200) {
-			throw new BusinessException("O login deve possuir limite de 200 caracteres!");
+		if (login.length() > 10) {
+			throw new BusinessException("O login deve possuir limite de 10 caracteres!");
 		}
 	}
 

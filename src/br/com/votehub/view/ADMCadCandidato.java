@@ -38,7 +38,7 @@ public class ADMCadCandidato extends JFrame {
 	private JPanel contentPane;
 	private JTextField fieldNomeCad;
 	private JTextField fieldNumCad;
-	private JTextField filedIdEleicao;
+	private JTextField filedIdVotacao;
 	private int tamanho;
 	private FileInputStream fis;
 	private JLabel lblImg;
@@ -112,15 +112,15 @@ public class ADMCadCandidato extends JFrame {
 		panel.add(lblImg);
 		panel.add(btnVoltarCad);
 
-		JLabel lblCadIdEleicao = new JLabel("Nº da Eleição :");
-		lblCadIdEleicao.setBounds(166, 300, 78, 14);
-		lblCadIdEleicao.setFont(new Font("Tahoma", Font.BOLD, 11));
-		panel.add(lblCadIdEleicao);
+		JLabel lblCadIdVotacao = new JLabel("Nº da Votação :");
+		lblCadIdVotacao.setBounds(166, 300, 78, 14);
+		lblCadIdVotacao.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panel.add(lblCadIdVotacao);
 
-		filedIdEleicao = new JTextField();
-		filedIdEleicao.setBounds(248, 300, 359, 20);
-		panel.add(filedIdEleicao);
-		filedIdEleicao.setColumns(10);
+		filedIdVotacao = new JTextField();
+		filedIdVotacao.setBounds(248, 300, 359, 20);
+		panel.add(filedIdVotacao);
+		filedIdVotacao.setColumns(10);
 
 		JButton btnCadastrar = new JButton("CADASTRAR");
 		btnCadastrar.setBounds(684, 570, 109, 23);
@@ -154,7 +154,7 @@ public class ADMCadCandidato extends JFrame {
 				String numero_candidato = fieldNumCad.getText();
 				String nomeCandidato = fieldNomeCad.getText();
 				String cargoCandidato = (String) comboBoxCargo.getSelectedItem();
-				String idVotacaoText = filedIdEleicao.getText();
+				String idVotacaoText = filedIdVotacao.getText();
 		        if (idVotacaoText.isBlank()) {
 		            JOptionPane.showMessageDialog(null, "todos os campos devem estar preenchidos", "Erro", JOptionPane.ERROR_MESSAGE);
 		            return;  

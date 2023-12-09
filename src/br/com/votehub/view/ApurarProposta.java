@@ -63,7 +63,7 @@ public class ApurarProposta extends JFrame {
 		lblNrRespostas.setBounds(430, 251, 250, 14);
 		contentPane.add(lblNrRespostas);
 
-		JButton btnVoltar = new JButton("Voltar");
+		JButton btnVoltar = new JButton("VOLTAR");
 		btnVoltar.setBounds(68, 484, 89, 23);
 		contentPane.add(btnVoltar);
 		btnVoltar.addActionListener(new ActionListener() {

@@ -140,7 +140,7 @@ public class CandidatoDAO {
 			e.printStackTrace();
 		} finally {
 			DB.closeResultSet(rs);
-			DB.closestatement(st);
+			//DB.closestatement(st);
 			
 		}
 		return false;

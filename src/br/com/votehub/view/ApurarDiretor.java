@@ -46,7 +46,7 @@ public class ApurarDiretor extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Resultado Eleição de Diretor");
+		JLabel lblNewLabel = new JLabel("Resultado Votação de Diretor");
 		lblNewLabel.setBounds(5, 5, 820, 26);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 21));
@@ -78,7 +78,7 @@ public class ApurarDiretor extends JFrame {
 		scrollPane.setBounds(137, 106, 548, 80);
 		contentPane.add(scrollPane);
 
-		JButton btnVoltar = new JButton("Voltar");
+		JButton btnVoltar = new JButton("VOLTAR");
 		btnVoltar.setBounds(10, 300, 89, 23);
 		contentPane.add(btnVoltar);
 		btnVoltar.addActionListener(new ActionListener() {
@@ -130,7 +130,7 @@ public class ApurarDiretor extends JFrame {
 
 			if (rs.next()) {
 				int numeroTotalVotos = rs.getInt("numero_total_votos");
-				lblNrVotos.setText("Número total de votos na eleição de Diretor: " + numeroTotalVotos);
+				lblNrVotos.setText("Número total de votos na Votação de Diretor: " + numeroTotalVotos);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -23,7 +23,7 @@ import br.com.votehub.controller.BusinessException;
 import br.com.votehub.controller.ControllerVotante;
 import net.miginfocom.swing.MigLayout;
 
-public class ADMCadEleitor extends JFrame {
+public class ADMCadVotante extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField fieldMatriculaCad;
@@ -37,7 +37,7 @@ public class ADMCadEleitor extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ADMCadEleitor frame = new ADMCadEleitor();
+					ADMCadVotante frame = new ADMCadVotante();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,8 +49,8 @@ public class ADMCadEleitor extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ADMCadEleitor() {
-		setTitle("Cadastro de Eleitor");
+	public ADMCadVotante() {
+		setTitle("Cadastro de Votante");
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 501, 381);
@@ -66,9 +66,9 @@ public class ADMCadEleitor extends JFrame {
 		panel.setPreferredSize(new Dimension(800, 600)); 
 		panel.setLayout(new MigLayout("fill", "[grow][][grow][grow][][][grow][][grow]", "[][][][][][][][][][][]"));
 		
-		JLabel lblCadEleitor = new JLabel("Cadastro de Eleitor");
-		lblCadEleitor.setFont(new Font("Tahoma", Font.BOLD, 17));
-		panel.add(lblCadEleitor, "cell 0 0 9 1,alignx center,aligny center");
+		JLabel lblCadVotante = new JLabel("Cadastro de Votante");
+		lblCadVotante.setFont(new Font("Tahoma", Font.BOLD, 17));
+		panel.add(lblCadVotante, "cell 0 0 9 1,alignx center,aligny center");
 		
 		JButton btnVoltarCad = new JButton("VOLTAR");
 		btnVoltarCad.setFont(new Font("Tahoma", Font.BOLD, 12));

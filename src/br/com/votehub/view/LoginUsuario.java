@@ -79,7 +79,7 @@ public class LoginUsuario extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new MigLayout("fill", "[grow][][grow][][grow]", "[][][][][][][][]"));
 		
-		lblNewLabel_2 = new JLabel("Eleição " + ano);
+		lblNewLabel_2 = new JLabel("Votação " + ano);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 17));
 		getContentPane().add(lblNewLabel_2, "cell 2 2,alignx center");
 		
@@ -116,7 +116,7 @@ public class LoginUsuario extends JFrame {
 						ControllerVotante contvot = new ControllerVotante();
 						Votante vtt = contvot.buscarVotante(loginDigitada);
 						
-						//Proibe eleitores que ja votaram de acessar a tela de votação
+						//Proibe Votantees que ja votaram de acessar a tela de votação
 						//contVotacaoVotante.checarVotabilidade(vtt.getId_votante());
 													
 						contvot.verificarloginvot(loginDigitada);
@@ -133,7 +133,7 @@ public class LoginUsuario extends JFrame {
 			}
 		});
 		
-		btnVoltar = new JButton("Voltar");
+		btnVoltar = new JButton("VOLTAR");
 		getContentPane().add(btnVoltar, "cell 0 7");
 		getContentPane().add(botaoEntrar, "cell 4 7,alignx center");
 		btnVoltar.addActionListener(new ActionListener() {

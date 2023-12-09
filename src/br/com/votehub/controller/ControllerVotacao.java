@@ -39,12 +39,12 @@ public class ControllerVotacao {
 		
 		if(dataInicio.before(now)) {
 			
-			throw new BusinessException("A eleição deve iniciar em uma data atual!");
+			throw new BusinessException("A Votação deve iniciar em uma data atual!");
 		}
 		
 		if(dataFim.before(now)) {
 			
-			throw new BusinessException("A eleição deve ser finalizada em uma data atual ou futura!");
+			throw new BusinessException("A Votação deve ser finalizada em uma data atual ou futura!");
 		}
 		
 		if(!dataFim.after(dataInicio)) {

@@ -161,4 +161,28 @@ public class AdmDAO {
 		return null;
 	}
 
+	public boolean verificarSeIdExiste(int idADM) throws SQLException {
+		Connection conn = null;
+		ResultSet rs = null;
+		Statement st = null;
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT id_adm \r\n" + "FROM adm \r\n");
+			while (rs.next()) {
+				String idAdm = Integer.toString(rs.getInt("id_adm"));
+				boolean check = idAdm.equals(idADM);
+				if (check == true) {
+					return check;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closeResultSet(rs);
+			//DB.closestatement(st);
+			
+		}
+		return false;
+	}
 }

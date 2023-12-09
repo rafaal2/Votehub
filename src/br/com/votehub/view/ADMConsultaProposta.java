@@ -172,7 +172,7 @@ public class ADMConsultaProposta extends JFrame {
 			}
 		});
 
-		JButton btnVoltar = new JButton("Voltar");
+		JButton btnVoltar = new JButton("VOLTAR");
 		contentPane.add(btnVoltar, "cell 0 11");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

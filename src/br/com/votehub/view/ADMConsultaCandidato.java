@@ -40,7 +40,7 @@ public class ADMConsultaCandidato extends JFrame {
 	private JTextField textFieldNumeroCandidato;
 	private JTextField textFieldNome;
 	private JTextField textFieldCargo;
-	private JTextField textFieldEleicao;
+	private JTextField textFieldVotacao;
 	private int tamanho;
 	private FileInputStream fis;
 	private JLabel lblImg;
@@ -106,13 +106,13 @@ public class ADMConsultaCandidato extends JFrame {
 		contentPane.add(textFieldCargo, "cell 3 6 30 1,growx");
 		textFieldCargo.setColumns(10);
 
-		JLabel lblEleicao = new JLabel("ID Eleição");
-		lblEleicao.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		contentPane.add(lblEleicao, "cell 1 8");
+		JLabel lblVotacao = new JLabel("ID Votação");
+		lblVotacao.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		contentPane.add(lblVotacao, "cell 1 8");
 
-		textFieldEleicao = new JTextField();
-		contentPane.add(textFieldEleicao, "cell 3 8 30 1,growx");
-		textFieldEleicao.setColumns(10);
+		textFieldVotacao = new JTextField();
+		contentPane.add(textFieldVotacao, "cell 3 8 30 1,growx");
+		textFieldVotacao.setColumns(10);
 		URL resource = ADMConsultaCandidato.class.getClassLoader().getResource("icons8-câmera-100.png");
 
 		JButton btnAddImg = new JButton("adicionar foto");
@@ -151,7 +151,7 @@ public class ADMConsultaCandidato extends JFrame {
 				} else {
 					textFieldNome.setText(candidato.getNome());
 					textFieldCargo.setText(candidato.getCargo());
-					textFieldEleicao.setText(Integer.toString(candidato.getId_votacao()));
+					textFieldVotacao.setText(Integer.toString(candidato.getId_votacao()));
 //					lblImg.setIcon(
 //							new ImageIcon(controllerCandidato.buscarCandidato(numeroCandidato).getImg_candidato()));
 					
@@ -168,10 +168,10 @@ public class ADMConsultaCandidato extends JFrame {
 		            String numeroCandidato = textFieldNumeroCandidato.getText();
 		            String novoNome = textFieldNome.getText();
 		            String novoCargo = textFieldCargo.getText();
-		            int idEleicao = Integer.parseInt(textFieldEleicao.getText());
+		            int idVotacao = Integer.parseInt(textFieldVotacao.getText());
 
 		            ControllerCandidato controller = new ControllerCandidato();
-		            controller.atualizarCandidato(numeroCandidato, novoNome, novoCargo, idEleicao, img_candidato);
+		            controller.atualizarCandidato(numeroCandidato, novoNome, novoCargo, idVotacao, img_candidato);
 
 		            JOptionPane.showMessageDialog(null, "Candidato atualizado com sucesso.");
 		        } catch (BusinessException ex) {
@@ -194,7 +194,7 @@ public class ADMConsultaCandidato extends JFrame {
 					textFieldNumeroCandidato.setText("");
 					textFieldNome.setText("");
 					textFieldCargo.setText("");
-					textFieldEleicao.setText("");
+					textFieldVotacao.setText("");
 					lblImg.setIcon(new ImageIcon(resource));
 
 					JOptionPane.showMessageDialog(null, "Candidato deletado com sucesso.");
@@ -206,7 +206,7 @@ public class ADMConsultaCandidato extends JFrame {
 			}
 		});
 
-		JButton btnVoltar = new JButton("Voltar");
+		JButton btnVoltar = new JButton("VOLTAR");
 		contentPane.add(btnVoltar, "cell 0 19");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

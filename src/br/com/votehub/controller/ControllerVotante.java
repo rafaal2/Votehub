@@ -89,7 +89,7 @@ public class ControllerVotante {
 		votanteRepository.updateVotante(id_votante, matricula, nome);
 	}
 
-//	Para caso seja adicionado o método de editar a senha do eleitor.
+//	Para caso seja adicionado o método de editar a senha do Votante.
 //	public void validarAtualizacao(int id_votante, String matricula, String nome, String senha)
 //			throws BusinessException {
 //		if (votanteRepository.searchVotanteById(id_votante) == null) {
@@ -115,7 +115,7 @@ public class ControllerVotante {
 		
 		
 		if (matricula == null) {
-			throw new BusinessException("Não é possível editar um eleitor sem sua matrícula");
+			throw new BusinessException("Não é possível editar um Votante sem sua matrícula");
 		}
 		
 		if (votanteRepository.searchVotanteById(id_votante) == null) {
@@ -131,7 +131,7 @@ public class ControllerVotante {
 		}
 		
 	    if (verificarSeMatriculaExisteParaOutroVotante(id_votante, matricula)) {
-	        throw new BusinessException("A matrícula já existe para outro eleitor.");
+	        throw new BusinessException("A matrícula já existe para outro Votante.");
 	    }
 
 	}

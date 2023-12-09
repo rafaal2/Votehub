@@ -204,7 +204,7 @@ contentPane.setLayout(new MigLayout("", "[][][][grow][][][][][][][][][grow][][]"
 			
 		});
 		
-		JButton btnVoltar = new JButton("Voltar");
+		JButton btnVoltar = new JButton("VOLTAR");
 		contentPane.add(btnVoltar, "cell 0 22");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

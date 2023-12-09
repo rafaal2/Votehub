@@ -57,13 +57,13 @@ public class ADMCadastro extends JFrame {
 		lblCadastro.setFont(new Font("Tahoma", Font.BOLD, 17));
 		panel.add(lblCadastro, "cell 3 0,alignx center,aligny center");
 
-		JButton btnCadEleitor = new JButton("CADASTRAR ELEITOR");
-		btnCadEleitor.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnCadEleitor.addActionListener(new ActionListener() {
+		JButton btnCadVotante = new JButton("CADASTRAR Votante");
+		btnCadVotante.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCadVotante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				ADMCadEleitor admCadEleitor = new ADMCadEleitor();
-				admCadEleitor.setVisible(true);
+				ADMCadVotante admCadVotante = new ADMCadVotante();
+				admCadVotante.setVisible(true);
 				dispose();
 			}
 		});
@@ -79,28 +79,28 @@ public class ADMCadastro extends JFrame {
 			}
 		});
 
-		JButton btnCadEleicao = new JButton("CADASTRAR ELEIÇÃO");
-        btnCadEleicao.setFont(new Font("Tahoma", Font.BOLD, 12));
-        btnCadEleicao.addActionListener(new ActionListener() {
+		JButton btnCadVotacao = new JButton("CADASTRAR Votação");
+        btnCadVotacao.setFont(new Font("Tahoma", Font.BOLD, 12));
+        btnCadVotacao.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-				CADEleicao cadEleicao;
+				CADVotacao cadVotacao;
 				try {
-					cadEleicao = new CADEleicao();
-					cadEleicao.setVisible(true);
+					cadVotacao = new CADVotacao();
+					cadVotacao.setVisible(true);
 					dispose();
 				} catch (ParseException e1) {					
 					e1.printStackTrace();
 				}
-//				cadEleicao.setVisible(true);
+//				cadVotacao.setVisible(true);
 //				dispose();
 
 			}
 		});
 
 		panel.add(btnCadCandidato, "cell 3 2,growx,aligny center");
-		panel.add(btnCadEleicao, "cell 3 3,growx,aligny center");
-		panel.add(btnCadEleitor, "cell 3 4,growx,aligny center");
+		panel.add(btnCadVotacao, "cell 3 3,growx,aligny center");
+		panel.add(btnCadVotante, "cell 3 4,growx,aligny center");
 
 		JButton btnCadVoltar = new JButton("VOLTAR");
 		btnCadVoltar.setFont(new Font("Tahoma", Font.BOLD, 12));

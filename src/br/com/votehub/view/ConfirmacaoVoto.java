@@ -48,7 +48,7 @@ public class ConfirmacaoVoto {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new MigLayout("fill", "[][][grow][][][20%,grow][][][grow][][]", "[][][][grow][][][][][]"));
 		
-		JLabel lblNewLabel = new JLabel("Eleição " + ano);
+		JLabel lblNewLabel = new JLabel("Votação " + ano);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		frame.getContentPane().add(lblNewLabel, "cell 5 2,alignx center,aligny center");
 		

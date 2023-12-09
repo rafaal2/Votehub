@@ -1,5 +1,5 @@
 package br.com.votehub.controller;
 
-public class SistemaEleitoral {
+public class SistemaVotanteal {
 
 }
