@@ -70,7 +70,7 @@ public class VotanteDAO {
 
 	        Votante votanteExistente = this.searchVotanteByMatricula(novaMatricula);
 	        if (votanteExistente != null && votanteExistente.getId_votante() != idVotante) {
-	            throw new BusinessException("A matrícula já existe para outro eleitor.");
+	            throw new BusinessException("A matrícula já existe para outro Votante.");
 	        }
 
 	        stt1 = conn.prepareStatement("UPDATE votante SET matricula = ?, nome = ? WHERE id_votante = ?");
@@ -160,7 +160,7 @@ public class VotanteDAO {
 //
 //	}
 
-	// Para caso seja adicionado o método de editar senha do eleitor.
+	// Para caso seja adicionado o método de editar senha do Votante.
 //	public Votante searchVotanteByMatricula(String matricula) {
 //		try {
 //
@@ -225,6 +225,7 @@ public class VotanteDAO {
 				if (loginDigitada.isBlank()) {
 					throw new BusinessException("o campo de login deve estar preenchido");
 				}
+				
 			}
 			if (loginIncorreto) {
 				throw new BusinessException("login incorreto");

@@ -10,6 +10,7 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.model.vo.Adm;
+import br.com.votehub.model.vo.Votante;
 
 public class AdmDAO {
 	private final static StrongPasswordEncryptor passHash = new StrongPasswordEncryptor();
@@ -137,5 +138,51 @@ public class AdmDAO {
 		}
 		return false;
 	}
+	
+	public Adm searchAdmByLogin(String login) {
+		try {
 
+			conn = DB.getConnection();
+			PreparedStatement stt = conn
+					.prepareStatement("SELECT id_adm, login, senha FROM adm WHERE login = ?");
+
+			stt.setString(1, login);
+
+			ResultSet rs = stt.executeQuery();
+			if (rs.next()) {
+				Adm adm = new Adm(rs.getString("login"), rs.getString("senha"));
+				adm.setId_adm(rs.getInt("id_adm"));
+				return adm;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public boolean verificarSeIdExiste(int idADM) throws SQLException {
+		Connection conn = null;
+		ResultSet rs = null;
+		Statement st = null;
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT id_adm \r\n" + "FROM adm \r\n");
+			while (rs.next()) {
+				String idAdm = Integer.toString(rs.getInt("id_adm"));
+				boolean check = idAdm.equals(idADM);
+				if (check == true) {
+					return check;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closeResultSet(rs);
+			//DB.closestatement(st);
+			
+		}
+		return false;
+	}
 }

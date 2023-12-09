@@ -57,10 +57,4 @@ public class Candidato {
 		this.cargo = cargo;
 	}
 
-	public String toString() {
-		
-		return  "Número: " +numero_candidato+ "| Nome: " +nome+ "| Cargo: " +cargo+ "| Votação: " +id_votacao+ "|";
-	
-}
-
 }

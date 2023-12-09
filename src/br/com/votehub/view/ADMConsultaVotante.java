@@ -25,7 +25,7 @@ import br.com.votehub.controller.ControllerVotante;
 import br.com.votehub.model.DAOs.DbIntegrityException;
 import br.com.votehub.model.DAOs.VotanteDAO;
 
-public class ADMConsultaEleitor extends JFrame {
+public class ADMConsultaVotante extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -40,7 +40,7 @@ public class ADMConsultaEleitor extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ADMConsultaEleitor frame = new ADMConsultaEleitor();
+					ADMConsultaVotante frame = new ADMConsultaVotante();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +52,7 @@ public class ADMConsultaEleitor extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ADMConsultaEleitor() {
+	public ADMConsultaVotante() {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 600);
@@ -62,7 +62,7 @@ public class ADMConsultaEleitor extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("", "[][][][grow][][][][][][][][][grow][][]", "[][][][][][][][][][][][][][][][][][][]"));
 		
-		JLabel lblTitulo = new JLabel("Eleitores");
+		JLabel lblTitulo = new JLabel("Votantees");
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 17));
 		contentPane.add(lblTitulo, "cell 3 0");
 		
@@ -102,7 +102,7 @@ public class ADMConsultaEleitor extends JFrame {
 		        Votante votante = controllerVotante.buscarVotante(matricula);
 
 		        if (votante == null) {
-		            JOptionPane.showMessageDialog(null, "Eleitor não encontrado.");
+		            JOptionPane.showMessageDialog(null, "Votante não encontrado.");
 		        } else {
 		            textFieldId.setText(Integer.toString(votante.getId_votante()));
 		            textFieldNome.setText(votante.getNome());
@@ -171,7 +171,7 @@ public class ADMConsultaEleitor extends JFrame {
 		    }
 		});
 		
-		JButton btnVoltar = new JButton("Voltar");
+		JButton btnVoltar = new JButton("VOLTAR");
 		contentPane.add(btnVoltar, "cell 0 18");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

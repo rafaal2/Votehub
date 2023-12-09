@@ -107,3 +107,16 @@ primary key (id_votacaoVotante),
 FOREIGN KEY (id_votacao) REFERENCES votacao(id_votacao),
 FOREIGN KEY (id_votante) REFERENCES votante(id_votante)
 );
+
+--
+-- criando estrutura da tabela `propostaVotante`
+--
+
+create table propostaVotante(
+id_propostaVotante int not null auto_increment,
+id_proposta int NOT NULL,
+id_votante int not null,
+primary key (id_propostaVotante),
+FOREIGN KEY (id_proposta) REFERENCES proposta(id_proposta),
+FOREIGN KEY (id_votante) REFERENCES votante(id_votante)
+);

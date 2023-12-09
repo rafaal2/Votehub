@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.controller.ControllerProposta;
+import br.com.votehub.controller.ControllerPropostaVotante;
 import br.com.votehub.controller.ControllerRespostaProposta;
 import br.com.votehub.model.vo.Votante;
 
@@ -126,12 +127,21 @@ public class TelaProposta extends JFrame {
 					e1.printStackTrace();
 				}
 				try {
+					ControllerPropostaVotante contpv = new ControllerPropostaVotante();
+					contpv.checarRespostaUnica(vtt.getId_votante(), idProposta);
+					contpv.adicionarPropostaVotante(vtt.getId_votante(), idProposta);
+					
 					ControllerRespostaProposta contVoto = new ControllerRespostaProposta();
 					contVoto.registrarRespostaProposta(resposta, idProposta);
+					
+					JOptionPane.showMessageDialog(null, "Resposta cadastrada com sucesso!");
 				} catch (BusinessException error) {
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				} catch (SQLException error) {
+					
+					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+					//e1.printStackTrace();
 				}
-				JOptionPane.showMessageDialog(null, "Resposta cadastrada com sucesso!");
 			}
 		});
 		

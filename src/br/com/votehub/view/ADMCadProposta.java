@@ -25,7 +25,7 @@ public class ADMCadProposta extends JFrame {
 	private JPanel contentPane;
 	private JTextField fieldTituloCad;
 	private JTextField fieldDescricaoCad;
-	private JTextField filedIdEleicao;
+	private JTextField filedIdVotacao;
 	//private JComboBox<String> comboBoxRespostaCad;
 
 	public ADMCadProposta() {
@@ -84,15 +84,15 @@ public class ADMCadProposta extends JFrame {
 		panel.add(fieldDescricaoCad, "cell 2 4 6 1,growx");
 		fieldDescricaoCad.setColumns(10);
 
-		JLabel lblCadIdEleicao = new JLabel("Nº da Eleição :");
-		lblCadIdEleicao.setBounds(166, 250, 78, 14);
-		lblCadIdEleicao.setFont(new Font("Tahoma", Font.BOLD, 11));
-		panel.add(lblCadIdEleicao, "cell 1 5,alignx trailing");
+		JLabel lblCadIdVotacao = new JLabel("Nº da Votação :");
+		lblCadIdVotacao.setBounds(166, 250, 78, 14);
+		lblCadIdVotacao.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panel.add(lblCadIdVotacao, "cell 1 5,alignx trailing");
 
-		filedIdEleicao = new JTextField();
-		filedIdEleicao.setBounds(248, 250, 359, 20);
-		panel.add(filedIdEleicao, "cell 2 5 6 1,growx");
-		filedIdEleicao.setColumns(10);
+		filedIdVotacao = new JTextField();
+		filedIdVotacao.setBounds(248, 250, 359, 20);
+		panel.add(filedIdVotacao, "cell 2 5 6 1,growx");
+		filedIdVotacao.setColumns(10);
 		
 		
 		JButton btnCadVoltar = new JButton("VOLTAR");
@@ -116,7 +116,12 @@ public class ADMCadProposta extends JFrame {
 		    public void actionPerformed(ActionEvent e) {
 		        String titulo = fieldTituloCad.getText();
 		        String descricao = fieldDescricaoCad.getText();
-		        int id_votacao = Integer.parseInt(filedIdEleicao.getText());
+		        String idVotacaoText = filedIdVotacao.getText();
+		        if (idVotacaoText.isBlank()) {
+		            JOptionPane.showMessageDialog(null, "todos os campos devem estar preenchidos", "Erro", JOptionPane.ERROR_MESSAGE);
+		            return;  
+		        }
+		        int id_votacao = Integer.parseInt(filedIdVotacao.getText());
 
 		        ControllerProposta contVotante = new  ControllerProposta();
 		        try {

@@ -30,7 +30,7 @@ import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import javax.swing.JFormattedTextField;
 
-public class CADEleicao extends JFrame {
+public class CADVotacao extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField fieldNomeCad;
@@ -42,7 +42,7 @@ public class CADEleicao extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CADEleicao frame = new CADEleicao();
+					CADVotacao frame = new CADVotacao();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,8 +55,8 @@ public class CADEleicao extends JFrame {
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public CADEleicao() throws ParseException {
-		setTitle("Cadastro de Eleição");
+	public CADVotacao() throws ParseException {
+		setTitle("Cadastro de Votação");
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 501, 381);
@@ -72,9 +72,9 @@ public class CADEleicao extends JFrame {
 		panel.setPreferredSize(new Dimension(800, 600)); 
 		panel.setLayout(new MigLayout("fill", "[grow][grow][grow][grow][grow][grow][grow][][][grow][][grow]", "[][][][][][][grow][grow][][][][]"));
 		
-		JLabel lblCadEleicao = new JLabel("Cadastro de Eleição");
-		lblCadEleicao.setFont(new Font("Tahoma", Font.BOLD, 17));
-		panel.add(lblCadEleicao, "cell 0 0 12 1,alignx center,aligny center");
+		JLabel lblCadVotacao = new JLabel("Cadastro de Votação");
+		lblCadVotacao.setFont(new Font("Tahoma", Font.BOLD, 17));
+		panel.add(lblCadVotacao, "cell 0 0 12 1,alignx center,aligny center");
 		
 		JButton btnVoltarCad = new JButton("VOLTAR");
 		btnVoltarCad.setFont(new Font("Tahoma", Font.BOLD, 12));

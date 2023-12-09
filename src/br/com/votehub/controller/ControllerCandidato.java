@@ -20,13 +20,12 @@ public class ControllerCandidato {
 	}
 
 	public void validarRegistro(String numeroCandidato, String nome, String cargo, Integer id_votacao, String img_candidato) throws BusinessException, SQLException {
-		try {
-			candidatoRepository.verificarSeNumeroExiste(numeroCandidato);
-		} catch (SQLException e) {
+		if (candidatoRepository.verificarSeNumeroExiste(numeroCandidato)) {
 			throw new BusinessException("Número do candidato já está em uso!");
 		}
+		
 
-		if (numeroCandidato.isBlank() || nome.isBlank() || cargo.isBlank() || img_candidato == null|| id_votacao == null) {
+		if (numeroCandidato.isBlank() || nome.isBlank() || cargo.isBlank() || img_candidato == null) {
 			throw new BusinessException("Todos os campos devem estar preenchindos!");
 		}
 

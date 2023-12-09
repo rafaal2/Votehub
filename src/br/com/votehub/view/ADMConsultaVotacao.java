@@ -58,6 +58,7 @@ public class ADMConsultaVotacao extends JFrame {
 	 */
 	public ADMConsultaVotacao() throws ParseException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -107,7 +108,7 @@ contentPane.setLayout(new MigLayout("", "[][][][grow][][][][][][][][][grow][][]"
 		formattedDataFim.setToolTipText("Informe a data e horario de termino no formato dia/mês/ano hora/minuto/segundo");		
 		
 		JButton btnConsultar = new JButton("Consultar");
-		contentPane.add(btnConsultar, "cell 3 17");
+		contentPane.add(btnConsultar, "cell 1 17");
 		btnConsultar.addActionListener(new ActionListener() {
 
 			
@@ -143,28 +144,28 @@ contentPane.setLayout(new MigLayout("", "[][][][grow][][][][][][][][][grow][][]"
 			}
 			
 		});
-
 		
-		JButton btnDeletar = new JButton("Deletar");
-		contentPane.add(btnDeletar, "cell 5 17");
-		btnDeletar.addActionListener(new ActionListener() {
+				
+				JButton btnDeletar = new JButton("Deletar");
+				contentPane.add(btnDeletar, "cell 3 17");
+				btnDeletar.addActionListener(new ActionListener() {
 
-			
-			public void actionPerformed(ActionEvent e) {
-				
-				int idVotacao = Integer.parseInt(textFieldIdVotacao.getText());				
-				ControllerVotacao contVotacao = new ControllerVotacao();	
-				contVotacao.excluirVotacao(idVotacao);
-				
-				textFieldIdVotacao.setText("");
-				textNomeVotacao.setText("");
-				formattedDataInico.setText("");
-				formattedDataFim.setText("");
-				
-				JOptionPane.showMessageDialog(null, "Votação deletada com sucesso.");			
-			}
-			
-		});
+					
+					public void actionPerformed(ActionEvent e) {
+						
+						int idVotacao = Integer.parseInt(textFieldIdVotacao.getText());				
+						ControllerVotacao contVotacao = new ControllerVotacao();	
+						contVotacao.excluirVotacao(idVotacao);
+						
+						textFieldIdVotacao.setText("");
+						textNomeVotacao.setText("");
+						formattedDataInico.setText("");
+						formattedDataFim.setText("");
+						
+						JOptionPane.showMessageDialog(null, "Votação deletada com sucesso.");			
+					}
+					
+				});
 		
 		JButton btnEditar = new JButton("Editar");
 		contentPane.add(btnEditar, "cell 7 17");
@@ -203,7 +204,7 @@ contentPane.setLayout(new MigLayout("", "[][][][grow][][][][][][][][][grow][][]"
 			
 		});
 		
-		JButton btnVoltar = new JButton("Voltar");
+		JButton btnVoltar = new JButton("VOLTAR");
 		contentPane.add(btnVoltar, "cell 0 22");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
