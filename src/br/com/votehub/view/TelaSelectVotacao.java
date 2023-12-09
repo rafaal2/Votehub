@@ -51,9 +51,13 @@ public class TelaSelectVotacao extends JFrame {
 		btnVotacaoCandidato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				TelaVotacao telavot = new TelaVotacao(vtt);
-				TelaVotacao.setVisible(true);
+//				TelaVotacao telavot = new TelaVotacao(vtt);
+//				TelaVotacao.setVisible(true);
+//				dispose();	
+				VerificarEleicoes verificarEleicoes = new VerificarEleicoes();
+				verificarEleicoes.votacaoAbertaCandidatos();
 				dispose();
+
 			}
 		});
 		

@@ -145,24 +145,4 @@ public class LoginUsuario extends JFrame {
 			}
 		});
 	}
-	
-	public void sequenciaTelas() {
-		Connection conn = null;
-	    ResultSet rs = null;
-	    PreparedStatement ps = null;
-		try {
-            conn = DB.getConnection();
-            String query = "SELECT tipo_votacao \r\n FROM votacao \r\n WHERE  = ?";
-            ps = conn.prepareStatement(query);
-         //   String cargoQuery = cargo.toLowerCase();
-       //     ps.setString(1, cargoQuery);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                String numero = rs.getString("numero_candidato");
-      //          comboBox.addItem(numero);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } 
-	}
 }
