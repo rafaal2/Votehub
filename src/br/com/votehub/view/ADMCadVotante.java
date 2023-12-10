@@ -26,9 +26,9 @@ import net.miginfocom.swing.MigLayout;
 public class ADMCadVotante extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField fieldMatriculaCad;
-	private JTextField fieldNomeCad;
-	private JPasswordField fieldSenhaCad;
+	private JTextField fieldMatricula;
+	private JTextField fieldNome;
+	private JPasswordField fieldSenha;
 
 	/**
 	 * Launch the application.
@@ -84,25 +84,25 @@ public class ADMCadVotante extends JFrame {
 		lblCadNome.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel.add(lblCadNome, "cell 1 3,alignx trailing");
 		
-		fieldNomeCad = new JTextField();
-		panel.add(fieldNomeCad, "cell 2 3 6 1,growx");
-		fieldNomeCad.setColumns(10);
+		fieldNome = new JTextField();
+		panel.add(fieldNome, "cell 2 3 6 1,growx");
+		fieldNome.setColumns(10);
 		
 		JLabel lblCadMatricula = new JLabel("Matrícula :");
 		lblCadMatricula.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel.add(lblCadMatricula, "cell 1 4,alignx trailing,aligny baseline");
 		
-		fieldMatriculaCad = new JTextField();
-		panel.add(fieldMatriculaCad, "cell 2 4 6 1,growx");
-		fieldMatriculaCad.setColumns(10);
+		fieldMatricula = new JTextField();
+		panel.add(fieldMatricula, "cell 2 4 6 1,growx");
+		fieldMatricula.setColumns(10);
 		
 		JLabel lblCadSenha = new JLabel("Senha :");
 		lblCadSenha.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel.add(lblCadSenha, "cell 1 5,alignx trailing");
 		
-		fieldSenhaCad = new JPasswordField();
-		panel.add(fieldSenhaCad, "cell 2 5 6 1,growx");
-		fieldSenhaCad.setColumns(10);
+		fieldSenha = new JPasswordField();
+		panel.add(fieldSenha, "cell 2 5 6 1,growx");
+		fieldSenha.setColumns(10);
 		panel.add(btnVoltarCad, "cell 0 10,alignx center,aligny bottom");
 		
 		JButton btnCadastrar = new JButton("CADASTRAR");
@@ -110,14 +110,18 @@ public class ADMCadVotante extends JFrame {
 		panel.add(btnCadastrar, "cell 8 10,alignx right,aligny bottom");
 		btnCadastrar.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        String matricula = fieldMatriculaCad.getText();
-		        String nome = fieldNomeCad.getText();
-		        String senha = fieldSenhaCad.getText();
+		        String matricula = fieldMatricula.getText();
+		        String nome = fieldNome.getText();
+		        String senha = fieldSenha.getText();
 
 		        ControllerVotante contVotante = new ControllerVotante();
 		        try {
 		            contVotante.registrarVotante(matricula, nome, senha);
 		            JOptionPane.showMessageDialog(null, "Votante cadastrado com sucesso!");
+		            
+		            fieldNome.setText("");
+					fieldMatricula.setText("");
+					fieldSenha.setText("");
 		        } catch (BusinessException error) {
 		            JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		        } catch (SQLException error2) {

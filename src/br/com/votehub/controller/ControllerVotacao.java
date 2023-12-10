@@ -21,14 +21,14 @@ public class ControllerVotacao {
 	private Date now = new Date();
 	
 	public void registrarVotacao(String nomeVotacao, Date dataInicio, Date dataFim, String tipoVotacao) throws BusinessException {
-		validarRegistro(dataInicio, dataFim);
+		validarRegistro(nomeVotacao, dataInicio, dataFim);
 		checarTipoVotacao(tipoVotacao);
 		
 		Votacao vtc = new Votacao(nomeVotacao, dataInicio, dataFim, tipoVotacao);
 		votacaoRepository.addVotacao(vtc);
 	}
 	
-	public void validarRegistro(Date dataInicio, Date dataFim) throws BusinessException {
+	public void validarRegistro(String nomeVotacao, Date dataInicio, Date dataFim) throws BusinessException {
 		
 //		if(!validadorDataInicio(dataInicio)) {
 //			throw new BusinessException("Insira uma data inicial existente");
@@ -38,6 +38,15 @@ public class ControllerVotacao {
 //			throw new BusinessException("Insira uma data final existente");
 //		}
 		
+		if(nomeVotacao.isBlank()) {
+			throw new BusinessException("Preencha o nome da votação");
+		}
+		
+		
+		if(nomeVotacao.length() > 200) {
+			throw new BusinessException("Nome da votação não pode exceder 200 caracteres");
+		}
+ 		
 		if(dataInicio.before(now)) {
 			
 			throw new BusinessException("A Votação deve iniciar em uma data atual!");

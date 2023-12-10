@@ -57,7 +57,7 @@ public class ADMCadastro extends JFrame {
 		lblCadastro.setFont(new Font("Tahoma", Font.BOLD, 17));
 		panel.add(lblCadastro, "cell 3 0,alignx center,aligny center");
 
-		JButton btnCadVotante = new JButton("CADASTRAR Votante");
+		JButton btnCadVotante = new JButton("CADASTRAR VOTANTE");
 		btnCadVotante.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnCadVotante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -79,14 +79,14 @@ public class ADMCadastro extends JFrame {
 			}
 		});
 
-		JButton btnCadVotacao = new JButton("CADASTRAR Votação");
+		JButton btnCadVotacao = new JButton("CADASTRAR VOTAÇÃO");
         btnCadVotacao.setFont(new Font("Tahoma", Font.BOLD, 12));
         btnCadVotacao.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-				CADVotacao cadVotacao;
+				ADMCadVotacao cadVotacao;
 				try {
-					cadVotacao = new CADVotacao();
+					cadVotacao = new ADMCadVotacao();
 					cadVotacao.setVisible(true);
 					dispose();
 				} catch (ParseException e1) {					

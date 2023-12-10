@@ -168,6 +168,13 @@ public class ADMCadCandidato extends JFrame {
 					contCandidato.registrarCandidato(numero_candidato, nomeCandidato, cargoCandidato, id_votacao,
 							img_candidato);
 					JOptionPane.showMessageDialog(null, "Candidato cadastrado com sucesso!");
+					
+					restaurarIconeOriginal();
+					fieldNumCad.setText("");
+					fieldNomeCad.setText("");
+					comboBoxCargo.setSelectedItem(null);
+//					filedIdVotacao.setText("");
+					
 				} catch (BusinessException error) {
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				} catch (SQLException error2) {
@@ -175,6 +182,13 @@ public class ADMCadCandidato extends JFrame {
 				}
 			}
 		});
+	}
+	
+	
+	public void restaurarIconeOriginal() {
+		URL resource = ADMCadCandidato.class.getClassLoader().getResource("icons8-câmera-100.png");
+		lblImg.setIcon(new ImageIcon(resource));
+		lblImg.setBounds(350, 350, 128, 128);
 	}
 
 	public void addImg() throws BusinessException, IOException {
