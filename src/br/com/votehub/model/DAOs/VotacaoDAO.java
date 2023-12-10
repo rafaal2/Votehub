@@ -186,5 +186,22 @@ public class VotacaoDAO {
 
 	}
 	
+	public ResultSet addIdVotacaoCandidatosCombobox() {
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM votacao where tipo_votacao = \"candidatos\"");
+			return rs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+//			DB.closeResultSet(rs);
+//			DB.closestatement(st);
+//			DB.closeConnection();
+		}
+
+	}
+	
 }
 

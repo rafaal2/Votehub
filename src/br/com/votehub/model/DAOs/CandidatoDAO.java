@@ -203,8 +203,5 @@ public class CandidatoDAO {
 		return null;
 
 	}	
-	
-	
-	
 
 }

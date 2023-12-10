@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.*;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
@@ -30,6 +31,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.controller.ControllerCandidato;
+import br.com.votehub.controller.ControllerVotacao;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JComboBox;
 
@@ -38,13 +40,13 @@ public class ADMCadCandidato extends JFrame {
 	private JPanel contentPane;
 	private JTextField fieldNomeCad;
 	private JTextField fieldNumCad;
-	private JTextField filedIdVotacao;
 	private int tamanho;
 	private FileInputStream fis;
 	private JLabel lblImg;
 	private String img_candidato;
 	private File diretorioCandidato;
 	private String nomeImagem;
+	private JComboBox<Object> comboBoxNumeroVotacao;
 
 	public ADMCadCandidato() {
 		criarDiretorioCandidato();
@@ -60,7 +62,7 @@ public class ADMCadCandidato extends JFrame {
 		contentPane.setLayout(new MigLayout("fill", "[grow][][][][][][][][][][grow][][grow]", "[][][][][][][][]"));
 
 		JPanel panel = new JPanel();
-		contentPane.add(panel, "cell 5 0 1 3,alignx center,aligny center");
+		contentPane.add(panel, "cell 5 0 8 8,alignx center,aligny center");
 		panel.setPreferredSize(new Dimension(800, 600));
 		panel.setLayout(null);
 
@@ -117,11 +119,6 @@ public class ADMCadCandidato extends JFrame {
 		lblCadIdVotacao.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel.add(lblCadIdVotacao);
 
-		filedIdVotacao = new JTextField();
-		filedIdVotacao.setBounds(248, 300, 359, 20);
-		panel.add(filedIdVotacao);
-		filedIdVotacao.setColumns(10);
-
 		JButton btnCadastrar = new JButton("CADASTRAR");
 		btnCadastrar.setBounds(684, 570, 109, 23);
 		btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -148,13 +145,18 @@ public class ADMCadCandidato extends JFrame {
 		JComboBox comboBoxCargo = new JComboBox<>(new String[] { "Reitor", "Diretor" });
 		comboBoxCargo.setBounds(248, 246, 130, 20);
 		panel.add(comboBoxCargo);
+		
+		comboBoxNumeroVotacao = new JComboBox<>();
+		comboBoxNumeroVotacao.setBounds(248, 296, 50, 22);
+		panel.add(comboBoxNumeroVotacao);
+		restaurarIdEleicaoCombobox();
 
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String numero_candidato = fieldNumCad.getText();
 				String nomeCandidato = fieldNomeCad.getText();
 				String cargoCandidato = (String) comboBoxCargo.getSelectedItem();
-				String idVotacaoText = filedIdVotacao.getText();
+				String idVotacaoText = (String) comboBoxNumeroVotacao.getSelectedItem();
 		        if (idVotacaoText.isBlank()) {
 		            JOptionPane.showMessageDialog(null, "todos os campos devem estar preenchidos", "Erro", JOptionPane.ERROR_MESSAGE);
 		            return;  
@@ -218,5 +220,21 @@ public class ADMCadCandidato extends JFrame {
 			e.printStackTrace();
 			//System.out.println("foi aqui");
 		}
+	}
+	
+	public void restaurarIdEleicaoCombobox() {
+		try {
+			ControllerVotacao contVotacao = new ControllerVotacao();
+			ResultSet rs = contVotacao.exibirIdVotacaoCandidatos();
+
+			while (rs.next()) {
+				String id = Integer.toString(rs.getInt("id_votacao"));
+				comboBoxNumeroVotacao.addItem(id);
+			}
+		} catch (SQLException error) {
+
+			JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+		}
+
 	}
 }

@@ -128,4 +128,10 @@ public class ControllerProposta {
 		return propostaRepository.searchPropostaById(id);
 		
 	}
+	
+	public ResultSet exibirIdVotacaoPropostas() {
+
+		return propostaRepository.addIdVotacaoPropostasCombobox();
+
+	}
 }

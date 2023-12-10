@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.Date;
+import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -186,6 +187,12 @@ public class ControllerVotacao {
 		if (tipoVotacao.isEmpty()) {
 			throw new BusinessException("Selecione um tipo de votação!");
 		}
+	}
+	
+	public ResultSet exibirIdVotacaoCandidatos() {
+
+		return votacaoRepository.addIdVotacaoCandidatosCombobox();
+
 	}
 
 }
