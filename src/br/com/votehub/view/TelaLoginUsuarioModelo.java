@@ -1,6 +1,7 @@
 package br.com.votehub.view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
@@ -8,6 +9,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -15,10 +18,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
+
+import br.com.votehub.controller.BusinessException;
+import br.com.votehub.controller.ControllerVotacaoVotante;
+import br.com.votehub.controller.ControllerVotante;
+import br.com.votehub.model.vo.Votante;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.SwingConstants;
 
@@ -27,7 +36,7 @@ public class TelaLoginUsuarioModelo extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldMatricula;
-	private JTextField textFieldSenha;
+	private JPasswordField textFieldSenha;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -64,55 +73,83 @@ public class TelaLoginUsuarioModelo extends JFrame {
 	}
 
 	public void initialize() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("", "[grow]", "[grow]"));
+		contentPane.setLayout(new MigLayout("fill", "[grow]", "[grow]"));
 
+		ImageIcon user = new ImageIcon("./icons/user.png");
+		Image userImg = user.getImage().getScaledInstance(110, 110, Image.SCALE_SMOOTH);
+		ImageIcon resizedUser = new ImageIcon(userImg);
 		JPanel panelInferior = new JPanel();
 		panelInferior.setBackground(new Color(164, 247, 176));
 		contentPane.add(panelInferior, "cell 0 0, grow");
 
-		panelInferior.setLayout(new MigLayout("", "[][grow][]", "[][][][][][][][][]"));
+		panelInferior.setLayout(new MigLayout("fill", "[][grow][][grow][][grow][]", "[][][][][][][][][][]"));
 
-		JLabel lblTitulo = new JLabel("Área do votante");
+		JLabel lblTitulo = new JLabel("Área do Votante");
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		panelInferior.add(lblTitulo, "cell 1 0, growx, aligny center");
+		panelInferior.add(lblTitulo, "cell 3 0,growx,aligny bottom");
 
 		JLabel lblMatricula = new JLabel("Matrícula:");
 		lblMatricula.setFont(new Font("Tahoma", Font.BOLD, 12));
-		panelInferior.add(lblMatricula, "cell 0 2,alignx trailing");
+		panelInferior.add(lblMatricula, "cell 2 2,alignx trailing");
 
 		textFieldMatricula = new JTextField();
-		panelInferior.add(textFieldMatricula, "cell 1 2,growx,aligny center");
+		panelInferior.add(textFieldMatricula, "cell 3 2,growx,aligny center");
 
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setFont(new Font("Tahoma", Font.BOLD, 12));
-		panelInferior.add(lblSenha, "cell 0 4,alignx trailing");
+		panelInferior.add(lblSenha, "cell 2 4,alignx trailing");
 
-		textFieldSenha = new JTextField();
-		panelInferior.add(textFieldSenha, "cell 1 4,growx,aligny center");
+		textFieldSenha = new JPasswordField();
+		panelInferior.add(textFieldSenha, "cell 3 4,growx,aligny center");
 
 		JButton btnEntrar = new JButton("Entrar");
-		btnEntrar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		panelInferior.add(btnEntrar, "cell 1 6,alignx center");
-		
+		btnEntrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String loginDigitada = textFieldMatricula.getText();
+				String senhaDigitada = textFieldSenha.getText();
+				try {
+					ControllerVotacaoVotante contVotacaoVotante = new ControllerVotacaoVotante();
+					ControllerVotante contvot = new ControllerVotante();
+					Votante vtt = contvot.buscarVotante(loginDigitada);
+					
+					//Proibe Votantees que ja votaram de acessar a tela de votação
+					//contVotacaoVotante.checarVotabilidade(vtt.getId_votante());
+												
+					contvot.verificarloginvot(loginDigitada);
+					contvot.verificarsenhavot(loginDigitada, senhaDigitada);
+					TelaSelectVotacao selectVotacao = new TelaSelectVotacao(vtt);
+					selectVotacao.setVisible(true);
+            		dispose();
+				} catch (BusinessException error) {
+					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				} 
+
+			}
+		});
+		btnEntrar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnEntrar.setPreferredSize(new Dimension(40, 30));
+		panelInferior.add(btnEntrar, "cell 3 6,alignx center");
+
 		JButton btnVoltar = new JButton("Voltar");
-		panelInferior.add(btnVoltar, "cell 0 8");
+		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnVoltar.setPreferredSize(new Dimension(5, 5));
+		// panelInferior.add(btnVoltar, "cell 0 8,alignx center");
 
 		JPanel panelSuperior = new JPanel();
 		panelSuperior.setBackground(new Color(192, 192, 192));
 		contentPane.add(panelSuperior, "cell 0 0, grow");
+		panelSuperior.setLayout(new MigLayout("fill", "[grow][][grow]", "[grow][][grow]"));
 
-		panelSuperior.setLayout(new MigLayout("", "[grow][][grow]", "[grow]"));
+		JLabel lblNewLabel = new JLabel(resizedUser);
+		panelSuperior.add(lblNewLabel, "cell 1 1");
 
-		ImageIcon user = new ImageIcon("./icons/user.png");
-		Image userImg = user.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
-		ImageIcon resizedUser = new ImageIcon(userImg);
-		JLabel lblIcone = new JLabel(resizedUser);
-		panelSuperior.add(lblIcone, "cell 1 0, align center, aligny center");
 	}
 }

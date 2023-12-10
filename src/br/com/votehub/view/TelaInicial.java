@@ -81,8 +81,7 @@ public class TelaInicial extends JFrame {
 		JPanel panelDireita = new JPanel();
 		panelDireita.setBackground(new Color(164, 247, 176));
 		getContentPane().add(panelDireita, "cell 1 0,grow");
-		panelDireita.setLayout(
-				new MigLayout("fill", "[][][][grow][grow][][][grow][][]", "[][][][grow][][grow][grow][][grow][][][grow]"));
+		panelDireita.setLayout(new MigLayout("fill", "[][][][grow][grow][][][grow][][]", "[][][][grow][][grow][grow][][grow][][][grow]"));
 
 		JLabel lblTituloPanel2 = new JLabel("Seja bem-vindo!");
 		lblTituloPanel2.setFont(new Font("Tahoma", Font.BOLD, 20));

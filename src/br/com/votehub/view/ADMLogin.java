@@ -4,10 +4,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,6 +22,7 @@ import javax.swing.border.EmptyBorder;
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.controller.ControllerAdm;
 import net.miginfocom.swing.MigLayout;
+import javax.swing.JLayeredPane;
 
 public class ADMLogin extends JFrame {
 
@@ -52,69 +55,81 @@ public class ADMLogin extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.DARK_GRAY);
+		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("fill", "[grow][][grow][][grow]", "[][][][][][][][]"));
+		contentPane.setLayout(new MigLayout("fill", "[][][grow][][grow][][]", "[][][][][][][][][][][][][]"));
+
+		ImageIcon user = new ImageIcon("./icons/adm.png");
+		Image AdmImg = user.getImage().getScaledInstance(110, 110, Image.SCALE_SMOOTH);
+		ImageIcon resizedAdm = new ImageIcon(AdmImg);
+
+		JLabel admIcon = new JLabel(resizedAdm);
+		contentPane.add(admIcon, "cell 3 1,alignx center");
+
+		JLabel lblVoteHub = new JLabel("Administrador");
+		contentPane.add(lblVoteHub, "cell 3 3,alignx center");
+		lblVoteHub.setFont(new Font("Tahoma", Font.BOLD, 17));
 
 		JPanel panel = new JPanel();
-		contentPane.add(panel, "cell 2 0,alignx center,growy");
-		panel.setPreferredSize(new Dimension(800, 600));
-		panel.setLayout(new MigLayout("fill", "[grow][][grow][][][][grow]", "[][][][][][][][][]"));
-
-		JLabel lblVoteHub = new JLabel("VoteHub");
-		lblVoteHub.setFont(new Font("Tahoma", Font.BOLD, 17));
-		panel.add(lblVoteHub, "cell 0 0 7 1,alignx center,aligny center");
+		contentPane.add(panel, "cell 3 6,alignx trailing,growy");
+		panel.setPreferredSize(new Dimension(400, 250));
+		panel.setBackground(new Color(164, 247, 176));
+		panel.setLayout(new MigLayout("fill", "[][][][][][][]", "[][][][][]"));
 
 		JLabel lblUserLogin = new JLabel("Usuário :");
 		lblUserLogin.setFont(new Font("Tahoma", Font.BOLD, 13));
-		panel.add(lblUserLogin, "cell 0 2 2 1,alignx trailing,aligny center");
+		panel.add(lblUserLogin, "cell 0 1,alignx trailing,aligny center");
 
 		fieldUserLogin = new JTextField();
-		panel.add(fieldUserLogin, "cell 2 2 4 1,growx");
+		panel.add(fieldUserLogin, "cell 1 1 5 1,growx");
 		fieldUserLogin.setColumns(10);
 
 		JLabel lblSenhaLogin = new JLabel("Senha :");
 		lblSenhaLogin.setFont(new Font("Tahoma", Font.BOLD, 13));
-		panel.add(lblSenhaLogin, "cell 0 4 2 1,alignx trailing,aligny center");
+		panel.add(lblSenhaLogin, "cell 0 3,alignx trailing,aligny center");
 
 		fieldSenhaLogin = new JPasswordField();
-		panel.add(fieldSenhaLogin, "cell 2 4 4 1,growx");
-	
+		panel.add(fieldSenhaLogin, "cell 1 3 5 1,growx");
 
 		JButton btnVoltar = new JButton("VOLTAR");
+		contentPane.add(btnVoltar, "flowx,cell 3 8,alignx center");
 		btnVoltar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		panel.add(btnVoltar, "cell 0 8");
-		
-				JButton btnEntrarLogin = new JButton("ENTRAR");
-				btnEntrarLogin.setFont(new Font("Tahoma", Font.BOLD, 12));
-				panel.add(btnEntrarLogin, "cell 6 8,alignx center,aligny center");
-				btnEntrarLogin.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						String loginDigitada = fieldUserLogin.getText();
-						String senhaDigitada = fieldSenhaLogin.getText();
-						try {
-							ControllerAdm contAdm = new ControllerAdm();
-							contAdm.verificarloginadm(loginDigitada);
-							contAdm.verificarsenhaadm(senhaDigitada);
-							ADMPrincipal admprincipal = new ADMPrincipal();
-							admprincipal.setVisible(true);
-	                		dispose();
-						} catch (BusinessException error) {
-							JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-						} catch (SQLException e1) {
-							e1.printStackTrace();
-						} 
-
-					}
-				});
 		btnVoltar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				TelaInicial telaInicio = new TelaInicial();
 				telaInicio.setVisible(true);
 				dispose();
+			}
+		});
+		// Separação entre botoes Entrar e Voltar
+		JPanel panel_1 = new JPanel();
+		panel_1.setPreferredSize(new Dimension(120, 0));
+		panel_1.setBackground(new Color(192, 192, 192));
+		contentPane.add(panel_1, "cell 3 8");
+
+		JButton btnEntrarLogin = new JButton("ENTRAR");
+		contentPane.add(btnEntrarLogin, "cell 3 8,alignx center");
+		btnEntrarLogin.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnEntrarLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String loginDigitada = fieldUserLogin.getText();
+				String senhaDigitada = fieldSenhaLogin.getText();
+				try {
+					ControllerAdm contAdm = new ControllerAdm();
+					contAdm.verificarloginadm(loginDigitada);
+					contAdm.verificarsenhaadm(senhaDigitada);
+					ADMPrincipal admprincipal = new ADMPrincipal();
+					admprincipal.setVisible(true);
+					dispose();
+				} catch (BusinessException error) {
+					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+
 			}
 		});
 	}
