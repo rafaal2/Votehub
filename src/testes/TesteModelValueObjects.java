@@ -10,7 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-class TestesModelValueObjects {
+class TesteModelValueObjects {
 
 	@Test
 	void criarObjetoAdm() {
