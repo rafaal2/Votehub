@@ -78,7 +78,7 @@ public class TelaSelectVotacao extends JFrame {
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				LoginUsuario telalogin = new LoginUsuario();
+				TelaLoginVotante telalogin = new TelaLoginVotante();
 				telalogin.setVisible(true);
 				dispose();
 			}

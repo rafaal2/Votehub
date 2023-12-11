@@ -69,7 +69,7 @@ public class ConfirmacaoVoto {
 		botaoConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, "Voto Efetuado.");
-				SwingUtilities.invokeLater(LoginUsuario::new);
+				SwingUtilities.invokeLater(TelaLoginVotante::new);
 				frame.dispose();
 			}
 			

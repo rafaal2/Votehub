@@ -31,7 +31,7 @@ import br.com.votehub.model.vo.Votante;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.SwingConstants;
 
-public class TelaLoginUsuarioModelo extends JFrame {
+public class TelaLoginVotante extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -42,7 +42,7 @@ public class TelaLoginUsuarioModelo extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaLoginUsuarioModelo frame = new TelaLoginUsuarioModelo();
+					TelaLoginVotante frame = new TelaLoginVotante();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +51,7 @@ public class TelaLoginUsuarioModelo extends JFrame {
 		});
 	}
 
-	public TelaLoginUsuarioModelo() {
+	public TelaLoginVotante() {
 		try {
 			initialize();
 			setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -100,6 +100,7 @@ public class TelaLoginUsuarioModelo extends JFrame {
 
 		textFieldMatricula = new JTextField();
 		panelInferior.add(textFieldMatricula, "cell 3 2,growx,aligny center");
+		textFieldMatricula.setToolTipText("Utilize Apenas Números e Letras.  ex: 20001r31rc0234");
 
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -107,6 +108,7 @@ public class TelaLoginUsuarioModelo extends JFrame {
 
 		textFieldSenha = new JPasswordField();
 		panelInferior.add(textFieldSenha, "cell 3 4,growx,aligny center");
+		textFieldSenha.setToolTipText("Utilize Apenas Números.    ex:12378912301");
 
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
@@ -118,7 +120,7 @@ public class TelaLoginUsuarioModelo extends JFrame {
 					ControllerVotante contvot = new ControllerVotante();
 					Votante vtt = contvot.buscarVotante(loginDigitada);
 					
-					//Proibe Votantees que ja votaram de acessar a tela de votação
+					//Proibe Votantes que ja votaram de acessar a tela de votação
 					//contVotacaoVotante.checarVotabilidade(vtt.getId_votante());
 												
 					contvot.verificarloginvot(loginDigitada);

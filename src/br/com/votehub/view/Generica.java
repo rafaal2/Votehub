@@ -66,7 +66,7 @@ public class Generica {
 		JButton botaoCancelar = new JButton("Cancelar");
 		botaoCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SwingUtilities.invokeLater(LoginUsuario::new);
+				SwingUtilities.invokeLater(TelaLoginVotante::new);
 				frame.dispose();
 			}
 		});

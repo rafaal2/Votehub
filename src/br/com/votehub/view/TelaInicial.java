@@ -121,7 +121,7 @@ public class TelaInicial extends JFrame {
 		panelBtnVotante.add(btnAcessoVotante);
 		btnAcessoVotante.addActionListener((ActionListener) new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginUsuario login = new LoginUsuario();
+				TelaLoginVotante login = new TelaLoginVotante();
 				login.setVisible(true);
 				dispose();
 			}

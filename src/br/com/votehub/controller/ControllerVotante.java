@@ -115,11 +115,11 @@ public class ControllerVotante {
 		
 		
 		if (matricula == null) {
-			throw new BusinessException("Não é possível editar um Votante sem sua matrícula");
+			throw new BusinessException("Não é possível editar um votante sem sua matrícula.");
 		}
 		
 		if (votanteRepository.searchVotanteById(id_votante) == null) {
-			throw new BusinessException("Votante referido não encontrado");
+			throw new BusinessException("Votante referido não encontrado.");
 		}
 
 		if (matricula.isBlank()) {
@@ -178,7 +178,7 @@ public class ControllerVotante {
 		VotanteDAO.verificarloginvot(loginDigitada);
 		Votante votante = votanteRepository.searchVotanteByMatricula(loginDigitada);
 		if (votante == null) {
-	        throw new BusinessException("login não encontrada");
+	        throw new BusinessException("Matrícula inválida.");
 	    }
 	}
 
