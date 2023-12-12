@@ -97,11 +97,11 @@ public class ControllerVotacao {
 		
 	}
 	
-	public void atualizarVotacao(int idVotacao, String nome_votacao, Date dataInicio, Date dataFim) throws BusinessException {
+	public void atualizarVotacao(int idVotacao, String nome_votacao, Date dataInicio, Date dataFim, String tipoVotacao) throws BusinessException {
 		
 		validarAtualizacao(idVotacao, nome_votacao, dataInicio, dataFim);
 		
-		votacaoRepository.updateVotacao(idVotacao, nome_votacao, dataInicio, dataFim);
+		votacaoRepository.updateVotacao(idVotacao, nome_votacao, dataInicio, dataFim, tipoVotacao);
 	}
 	
 	public void validarAtualizacao(int idVotacao, String nome_votacao, Date dataInicio, Date dataFim) throws BusinessException {

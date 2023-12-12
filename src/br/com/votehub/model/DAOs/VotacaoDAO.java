@@ -44,10 +44,10 @@ public class VotacaoDAO {
 
 	}
 	
-	public void updateVotacao(int idVotacao, String nome_votacao, java.util.Date dataInicio, java.util.Date dataFim) {
+	public void updateVotacao(int idVotacao, String nome_votacao, java.util.Date dataInicio, java.util.Date dataFim, String tipoVotacao) {
 		try {
 			conn = DB.getConnection();
-			stt1 = conn.prepareStatement("Update votacao " + "SET nome_votacao = ?, data_inicio = ?, data_fim = ?" + "WHERE " + "id_votacao = ?");
+			stt1 = conn.prepareStatement("Update votacao " + "SET nome_votacao = ?, data_inicio = ?, data_fim = ?, tipo_votacao = ?" + "WHERE " + "id_votacao = ?");
 
 			Timestamp dataInicioTimestamp = new Timestamp(dataInicio.getTime());
 	        Timestamp dataFimTimestamp = new Timestamp(dataFim.getTime());
@@ -55,7 +55,8 @@ public class VotacaoDAO {
 	        stt1.setString(1, nome_votacao);
 	        stt1.setTimestamp(2, dataInicioTimestamp);
 	        stt1.setTimestamp(3, dataFimTimestamp);
-	        stt1.setInt(4, idVotacao);
+	        stt1.setString(4, tipoVotacao);
+	        stt1.setInt(5, idVotacao);
 
 			stt1.executeUpdate();
 		} catch (SQLException e) {

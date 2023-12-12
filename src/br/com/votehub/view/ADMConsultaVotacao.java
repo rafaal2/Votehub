@@ -169,40 +169,40 @@ contentPane.setLayout(new MigLayout("", "[][][][grow][][][][][][][][][grow][][]"
 		
 		JButton btnEditar = new JButton("Editar");
 		contentPane.add(btnEditar, "cell 7 17");
-		btnEditar.addActionListener(new ActionListener() {
-
-			
-			public void actionPerformed(ActionEvent e) {
-				
-				int idVotacao = Integer.parseInt(textFieldIdVotacao.getText());
-				String nome = textNomeVotacao.getText();
-				String dataInicioStr = formattedDataInico.getText();
-				String dataFimStr = formattedDataFim.getText();
-				
-				SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-				
-				try {
-					
-					Date dataInicio = formato.parse(dataInicioStr);
-					Date dataFim = formato.parse(dataFimStr);
-					
-					ControllerVotacao contVotacao = new ControllerVotacao();
-					contVotacao.atualizarVotacao(idVotacao, nome, dataInicio, dataFim);
-					
-					JOptionPane.showMessageDialog(null, "Votacao atualizada com sucesso.");					
-				} catch (ParseException error) {
-					
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-					//error.printStackTrace();
-				} catch (BusinessException error) {
-					
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-					//error.printStackTrace();
-				}
-				
-			}
-			
-		});
+//		btnEditar.addActionListener(new ActionListener() {
+//
+//			
+//			public void actionPerformed(ActionEvent e) {
+//				
+//				int idVotacao = Integer.parseInt(textFieldIdVotacao.getText());
+//				String nome = textNomeVotacao.getText();
+//				String dataInicioStr = formattedDataInico.getText();
+//				String dataFimStr = formattedDataFim.getText();
+//				
+//				SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//				
+//				try {
+//					
+//					Date dataInicio = formato.parse(dataInicioStr);
+//					Date dataFim = formato.parse(dataFimStr);
+//					
+//					ControllerVotacao contVotacao = new ControllerVotacao();
+//					contVotacao.atualizarVotacao(idVotacao, nome, dataInicio, dataFim);
+//					
+//					JOptionPane.showMessageDialog(null, "Votacao atualizada com sucesso.");					
+//				} catch (ParseException error) {
+//					
+//					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+//					//error.printStackTrace();
+//				} catch (BusinessException error) {
+//					
+//					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+//					//error.printStackTrace();
+//				}
+//				
+//			}
+//			
+//		});
 		
 		JButton btnVoltar = new JButton("VOLTAR");
 		contentPane.add(btnVoltar, "cell 0 22");
