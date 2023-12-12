@@ -76,7 +76,6 @@ public class Generica {
 		frame.getContentPane().add(candidatoLabel, "cell 3 3,alignx center,aligny bottom");
 
 		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.addItem("<Selecione>");
 		carregarCandidatos(comboBox);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -97,7 +96,7 @@ public class Generica {
 		botaoAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AuxGenerica auxGenerica = new AuxGenerica();
-				guardarInformacoes(auxGenerica, comboBox);
+				guardarInformacoes(comboBox);
 				auxGenerica.sequenciaTelas();
 				frame.dispose();
 			}
@@ -165,19 +164,19 @@ public class Generica {
 		}
 	}
 
-	private void guardarInformacoes(AuxGenerica auxGenerica, JComboBox<String> comboBox) {
+	private void guardarInformacoes(JComboBox<String> comboBox) {
 		if ("da".equals(cargo)) {
-			auxGenerica.setNumeroCandidatoTela1((String) comboBox.getSelectedItem());
-			auxGenerica.setNomeCandidatoTela1(nomeCand);
-			auxGenerica.setCaminhoImagem1(caminhoImagem);
+			AuxGenerica.setNumeroCandidatoTela1((String) comboBox.getSelectedItem());
+			AuxGenerica.setNomeCandidatoTela1(nomeCand);
+			AuxGenerica.setCaminhoImagem1(caminhoImagem);
 		} else if ("diretor".equals(cargo)) {
-			auxGenerica.setNumeroCandidatoTela2((String) comboBox.getSelectedItem());
-			auxGenerica.setNomeCandidatoTela2(nomeCand);
-			auxGenerica.setCaminhoImagem2(caminhoImagem);
+			AuxGenerica.setNumeroCandidatoTela2((String) comboBox.getSelectedItem());
+			AuxGenerica.setNomeCandidatoTela2(nomeCand);
+			AuxGenerica.setCaminhoImagem2(caminhoImagem);
 		} else if ("reitor".equals(cargo)) {
-			auxGenerica.setNumeroCandidatoTela3((String) comboBox.getSelectedItem());
-			auxGenerica.setNomeCandidatoTela3(nomeCand);
-			auxGenerica.setCaminhoImagem3(caminhoImagem);
+			AuxGenerica.setNumeroCandidatoTela3((String) comboBox.getSelectedItem());
+			AuxGenerica.setNomeCandidatoTela3(nomeCand);
+			AuxGenerica.setCaminhoImagem3(caminhoImagem);
 		}
 	}
 
