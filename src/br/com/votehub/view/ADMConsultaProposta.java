@@ -1,5 +1,7 @@
 package br.com.votehub.view;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -30,8 +32,8 @@ public class ADMConsultaProposta extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textFieldTitulo;
 	private JTextField textFieldId;
+	private JTextField textFieldTitulo;
 	private JTextField textFieldDescricao;
 
 	/**
@@ -58,130 +60,57 @@ public class ADMConsultaProposta extends JFrame {
 //		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setBounds(100, 100, 558, 398);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("", "[][][][][grow][grow][][][][][][][]", "[][][][][][][][][][][][]"));
+		contentPane.setLayout(new MigLayout("fill", "[grow][][][][][][][][][][grow][][grow]", "[][][][][][][][]"));
 
+		JPanel panel = new JPanel();
+		contentPane.add(panel, "cell 6 0 1 3,alignx center,aligny center");
+		panel.setPreferredSize(new Dimension(800, 600));
+		panel.setLayout(
+				new MigLayout("fill", "[grow][][][][grow][][grow]", "[][][][][][][][][][][][][][][][][][][][][][][][][]"));
+		
 		JLabel lblProposta = new JLabel("Propostas");
-		lblProposta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProposta.setFont(new Font("Tahoma", Font.BOLD, 17));
-		contentPane.add(lblProposta, "cell 5 0 3 1");
-
-		JLabel lblId = new JLabel("ID");
+		panel.add(lblProposta, "cell 4 1,alignx center");
+		
+		JLabel lblId = new JLabel("ID: ");
 		lblId.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		contentPane.add(lblId, "cell 1 2");
-
+		panel.add(lblId, "cell 3 7,alignx center");
+		
 		textFieldId = new JTextField();
-		contentPane.add(textFieldId, "cell 2 2 8 1,growx");
+		panel.add(textFieldId, "cell 4 7,growx");
 		textFieldId.setColumns(10);
-
-		JLabel lblTitulo = new JLabel("Título");
+		
+		JLabel lblTitulo = new JLabel("Título: ");
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		contentPane.add(lblTitulo, "cell 1 4");
-
+		panel.add(lblTitulo, "cell 3 9,alignx center");
+		
 		textFieldTitulo = new JTextField();
-		contentPane.add(textFieldTitulo, "cell 2 4 8 1,growx");
+		panel.add(textFieldTitulo, "cell 4 9,growx");
 		textFieldTitulo.setColumns(10);
-
-		JLabel lblDescricao = new JLabel("Descrição");
+		
+		JLabel lblDescricao = new JLabel("Descrição: ");
 		lblDescricao.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		contentPane.add(lblDescricao, "cell 1 6");
-
+		panel.add(lblDescricao, "cell 3 11,alignx center");
+		
 		textFieldDescricao = new JTextField();
-		contentPane.add(textFieldDescricao, "cell 2 6 8 1,growx");
+		panel.add(textFieldDescricao, "cell 4 11,growx");
 		textFieldDescricao.setColumns(10);
-
-		JButton btnConsultar = new JButton("Consultar");
-		contentPane.add(btnConsultar, "cell 2 9 2 1");
-		btnConsultar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				try {
-					int idProposta = Integer.parseInt(textFieldId.getText());
-					ControllerProposta controllerProposta = new ControllerProposta();
-					Proposta proposta = controllerProposta.buscarProposta(idProposta);
-
-					if (proposta == null) {
-						JOptionPane.showMessageDialog(null, "Proposta não encontrada.");
-					} else {
-						textFieldTitulo.setText(proposta.getTitulo());
-						textFieldDescricao.setText(proposta.getDescricao());
-					}
-				} catch (NumberFormatException ex) {
-					JOptionPane.showMessageDialog(null, "Insira um ID válido.");
-				}
-			}
-		});
-
+		
 		JButton btnEditar = new JButton("Editar");
-		btnEditar.setHorizontalAlignment(SwingConstants.LEADING);
-		contentPane.add(btnEditar, "cell 6 9");
-		btnEditar.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        try {
-
-		            if (textFieldId.getText().isEmpty() || textFieldTitulo.getText().isEmpty()
-		                    || textFieldDescricao.getText().isEmpty()) {
-		                JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de editar.");
-		                return;
-		            }
-
-		            int id = Integer.parseInt(textFieldId.getText());
-		            String novoTitulo = textFieldTitulo.getText();
-		            String novaDescricao = textFieldDescricao.getText();
-
-		            ControllerProposta controller = new ControllerProposta();
-		            controller.atualizarProposta(id, novoTitulo, novaDescricao);
-
-		            JOptionPane.showMessageDialog(null, "Proposta atualizada com sucesso.");
-		        } catch (BusinessException ex) {
-		            JOptionPane.showMessageDialog(null, ex.getMessage());
-		        }
-		    }
-		});
-
-
+		panel.add(btnEditar, "cell 3 15,alignx center");
+		
+		JButton btnConsultar = new JButton("Consultar");
+		panel.add(btnConsultar, "cell 4 15,alignx center");
+		
 		JButton btnDeletar = new JButton("Deletar");
-		contentPane.add(btnDeletar, "cell 9 9");
-		btnDeletar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-
-					if (textFieldId.getText().isEmpty() || textFieldTitulo.getText().isEmpty()
-							|| textFieldDescricao.getText().isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de deletar.");
-						return;
-					}
-
-					int id = Integer.parseInt(textFieldId.getText());
-
-					ControllerProposta controller = new ControllerProposta();
-					controller.deletarProposta(id);
-
-					textFieldId.setText("");
-					textFieldTitulo.setText("");
-					textFieldDescricao.setText("");
-
-					JOptionPane.showMessageDialog(null, "Proposta deletada com sucesso.");
-				} catch (BusinessException error) {
-					JOptionPane.showMessageDialog(null, error.getMessage());
-				} catch (DbIntegrityException error2) {
-					JOptionPane.showMessageDialog(null, error2.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-
+		panel.add(btnDeletar, "cell 5 15,alignx center");
+		
 		JButton btnVoltar = new JButton("VOLTAR");
-		contentPane.add(btnVoltar, "cell 0 11");
-		btnVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				TelaConsulta tela = new TelaConsulta();
-				tela.setVisible(true);
-				dispose();
-			}
-		});
+		panel.add(btnVoltar, "cell 4 23,alignx center");
 	}
 
 }
