@@ -75,7 +75,7 @@ public class ADMPrincipal extends JFrame {
 		btnMenuConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				TelaConsulta consulta = new TelaConsulta();
+				ADMMenuConsulta consulta = new ADMMenuConsulta();
 				consulta.setVisible(true);
 				dispose();
 			}

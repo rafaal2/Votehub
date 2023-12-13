@@ -27,6 +27,7 @@ import javax.swing.border.EmptyBorder;
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.controller.ControllerVotacaoVotante;
 import br.com.votehub.controller.ControllerVotante;
+import br.com.votehub.model.DAOs.DbException;
 import br.com.votehub.model.vo.Votante;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.SwingConstants;
@@ -132,7 +133,7 @@ public class TelaLoginVotante extends JFrame {
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-				} 
+				}
 
 			}
 		});

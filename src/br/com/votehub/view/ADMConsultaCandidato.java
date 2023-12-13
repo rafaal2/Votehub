@@ -211,7 +211,7 @@ public class ADMConsultaCandidato extends JFrame {
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				TelaConsulta consulta = new TelaConsulta();
+				ADMMenuConsulta consulta = new ADMMenuConsulta();
 				consulta.setVisible(true);
 				dispose();
 			}

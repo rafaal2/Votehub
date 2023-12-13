@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.SwingConstants;
 
-public class TelaConsulta extends JFrame {
+public class ADMMenuConsulta extends JFrame {
 
 	private JPanel contentPane;
 
@@ -28,7 +28,7 @@ public class TelaConsulta extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaConsulta frame = new TelaConsulta();
+					ADMMenuConsulta frame = new ADMMenuConsulta();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,7 +40,7 @@ public class TelaConsulta extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaConsulta() {
+	public ADMMenuConsulta() {
 		setTitle("Menu Consulta");
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,7 +73,7 @@ public class TelaConsulta extends JFrame {
 			}
 		});
 
-		JButton btnConsultaVotante = new JButton("CONSULTAR Votante");
+		JButton btnConsultaVotante = new JButton("CONSULTAR VOTANTE");
 		btnConsultaVotante.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnConsultaVotante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -99,7 +99,7 @@ public class TelaConsulta extends JFrame {
 		});
 		panel.add(btnConsultarCandidato, "cell 3 6,growx,aligny center");
 
-		JButton btnConsultarVotacao = new JButton("CONSULTAR Votação");
+		JButton btnConsultarVotacao = new JButton("CONSULTAR VOTAÇÃO");
 		btnConsultarVotacao.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnConsultarVotacao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

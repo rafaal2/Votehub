@@ -102,15 +102,92 @@ public class ADMConsultaProposta extends JFrame {
 		
 		JButton btnEditar = new JButton("Editar");
 		panel.add(btnEditar, "cell 3 15,alignx center");
+		btnEditar.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        try {
+
+		            if (textFieldId.getText().isEmpty() || textFieldTitulo.getText().isEmpty()
+		                    || textFieldDescricao.getText().isEmpty()) {
+		                JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de editar.");
+		                return;
+		            }
+
+		            int id = Integer.parseInt(textFieldId.getText());
+		            String novoTitulo = textFieldTitulo.getText();
+		            String novaDescricao = textFieldDescricao.getText();
+
+		            ControllerProposta controller = new ControllerProposta();
+		            controller.atualizarProposta(id, novoTitulo, novaDescricao);
+
+		            JOptionPane.showMessageDialog(null, "Proposta atualizada com sucesso.");
+		        } catch (BusinessException ex) {
+		            JOptionPane.showMessageDialog(null, ex.getMessage());
+		        }
+		    }
+		});
 		
 		JButton btnConsultar = new JButton("Consultar");
 		panel.add(btnConsultar, "cell 4 15,alignx center");
+		btnConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					int idProposta = Integer.parseInt(textFieldId.getText());
+					ControllerProposta controllerProposta = new ControllerProposta();
+					Proposta proposta = controllerProposta.buscarProposta(idProposta);
+
+					if (proposta == null) {
+						JOptionPane.showMessageDialog(null, "Proposta não encontrada.");
+					} else {
+						textFieldTitulo.setText(proposta.getTitulo());
+						textFieldDescricao.setText(proposta.getDescricao());
+					}
+				} catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null, "Insira um ID válido.");
+				}
+			}
+		});
 		
 		JButton btnDeletar = new JButton("Deletar");
 		panel.add(btnDeletar, "cell 5 15,alignx center");
+		btnDeletar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+
+					if (textFieldId.getText().isEmpty() || textFieldTitulo.getText().isEmpty()
+							|| textFieldDescricao.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de deletar.");
+						return;
+					}
+
+					int id = Integer.parseInt(textFieldId.getText());
+
+					ControllerProposta controller = new ControllerProposta();
+					controller.deletarProposta(id);
+
+					textFieldId.setText("");
+					textFieldTitulo.setText("");
+					textFieldDescricao.setText("");
+
+					JOptionPane.showMessageDialog(null, "Proposta deletada com sucesso.");
+				} catch (BusinessException error) {
+					JOptionPane.showMessageDialog(null, error.getMessage());
+				} catch (DbIntegrityException error2) {
+					JOptionPane.showMessageDialog(null, error2.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		
 		JButton btnVoltar = new JButton("VOLTAR");
 		panel.add(btnVoltar, "cell 4 23,alignx center");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				ADMMenuConsulta tela = new ADMMenuConsulta();
+				tela.setVisible(true);
+				dispose();
+			}
+		});
 	}
 
 }
