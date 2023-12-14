@@ -1,8 +1,7 @@
 package testes;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.sql.SQLException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
