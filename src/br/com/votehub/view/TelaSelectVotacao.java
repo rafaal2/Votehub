@@ -3,13 +3,17 @@ package br.com.votehub.view;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import br.com.votehub.controller.BusinessException;
+import br.com.votehub.controller.ControllerVotacaoVotante;
 import br.com.votehub.model.vo.Votante;
 import net.miginfocom.swing.MigLayout;
 
@@ -50,15 +54,32 @@ public class TelaSelectVotacao extends JFrame {
 		contentPane.add(btnVotacaoCandidato, "cell 3 2,grow");
 		btnVotacaoCandidato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				TelaVotacao telavot = new TelaVotacao(vtt);
-				TelaVotacao.setVisible(true);
-				dispose();	
-				//AuxGenerica.setIdVotante(vtt);
-			//VerificarEleicoes verificarEleicoes = new VerificarEleicoes();
-			//verificarEleicoes.votacaoAbertaCandidatos();
-			//dispose();
-
+				
+				try {
+					
+					ControllerVotacaoVotante contVotacaoVotante = new ControllerVotacaoVotante();
+					contVotacaoVotante.checarVotabilidade(vtt.getId_votante());
+					
+					TelaVotacao telavot = new TelaVotacao(vtt);
+					TelaVotacao.setVisible(true);
+					dispose();
+					
+					//AuxGenerica.setIdVotante(vtt);
+					//VerificarEleicoes verificarEleicoes = new VerificarEleicoes();
+					//verificarEleicoes.votacaoAbertaCandidatos();
+					//dispose();
+					
+				} catch (SQLException error) {
+					
+					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+					error.printStackTrace();
+					
+				} catch (BusinessException error) {
+					
+					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+					error.printStackTrace();
+					
+				}
 			}
 		});
 		

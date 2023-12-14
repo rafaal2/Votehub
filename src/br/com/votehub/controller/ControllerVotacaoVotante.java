@@ -22,6 +22,12 @@ public class ControllerVotacaoVotante {
 			}
 			
 		}
+
+		public void setVotacaoVotanteRepository(VotacaoVotanteDAO votacaoVotanteRepository) {
+			this.VotacaoVotanteRepository = votacaoVotanteRepository;
+			
+		}
+		
 			
 		
 }

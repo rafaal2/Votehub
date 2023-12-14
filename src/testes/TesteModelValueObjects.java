@@ -195,7 +195,7 @@ class TesteModelValueObjects {
 		assertEquals(inicio, votacao.getData_inicio(), "Data de início não foi modificada corretamente");
 		assertEquals(fim, votacao.getData_fim(), "Data de fim não foi modificada corretamente");
 		assertEquals("Reitor", votacao.getTipo_Votacao(), "Tipo de votação não foi modificado corretamente");
-		assertEquals(2, votacao.getId_votacao(), "ID de votação não foi modificado corretamente");
+	    assertEquals(2, votacao.getId_votacao(), "ID de votação não foi modificado corretamente");
 		
 	}
 

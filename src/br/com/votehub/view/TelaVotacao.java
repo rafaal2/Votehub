@@ -1,4 +1,4 @@
-package br.com.votehub.view;
+	package br.com.votehub.view;
 
 import java.awt.Dimension;
 import java.awt.Font;

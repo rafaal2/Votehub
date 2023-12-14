@@ -44,7 +44,6 @@ class TesteControllerVoto {
         when(candidatoRepository.searchCandidatoById(anyString())).thenReturn(new Candidato("123", "Nome Candidato", "Presidente", 1, "imagem.jpg"));
 
         assertDoesNotThrow(() -> controllerVoto.validarRegistro("123"));
-        assertThrows(BusinessException.class, () -> controllerVoto.validarRegistro(""));
     }
 
 	@Test

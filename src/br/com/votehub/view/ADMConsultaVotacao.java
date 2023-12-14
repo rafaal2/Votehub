@@ -28,6 +28,8 @@ import br.com.votehub.model.vo.Votacao;
 import br.com.votehub.model.vo.Votante;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JFormattedTextField;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class ADMConsultaVotacao extends JFrame {
 
@@ -64,7 +66,7 @@ public class ADMConsultaVotacao extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-contentPane.setLayout(new MigLayout("", "[][][][grow][][][][][][][][][grow][][]", "[][][][][][][][][][][][][][][][][][][][][][][]"));
+contentPane.setLayout(new MigLayout("", "[][][][grow][][][][][][][][][grow][][]", "[][][][][][][][][][][][][][][][][][][][][][][][][][][]"));
 		
 		JLabel lblTitulo = new JLabel("Votação");
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -105,18 +107,29 @@ contentPane.setLayout(new MigLayout("", "[][][][grow][][][][][][][][][grow][][]"
 		JFormattedTextField formattedDataFim = new JFormattedTextField(new MaskFormatter("##/##/#### ##:##:##"));
 		formattedDataFim.setText("");
 		contentPane.add(formattedDataFim, "cell 3 10,growx");
-		formattedDataFim.setToolTipText("Informe a data e horario de termino no formato dia/mês/ano hora/minuto/segundo");		
+		formattedDataFim.setToolTipText("Informe a data e horario de termino no formato dia/mês/ano hora/minuto/segundo");
+		
+		JLabel lblTipoVotacao = new JLabel("Tipo de Votação");
+		lblTipoVotacao.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTipoVotacao.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		contentPane.add(lblTipoVotacao, "cell 1 13");
+		
+		JComboBox comboBoxTipoVotacao = new JComboBox();
+		comboBoxTipoVotacao.setModel(new DefaultComboBoxModel(new String[] {"candidatos", "propostas"}));
+		contentPane.add(comboBoxTipoVotacao, "cell 3 13,growx");
 		
 		JButton btnConsultar = new JButton("Consultar");
-		contentPane.add(btnConsultar, "cell 1 17");
+		contentPane.add(btnConsultar, "cell 1 21");
 		btnConsultar.addActionListener(new ActionListener() {
 
 			
 			public void actionPerformed(ActionEvent e) {
 				
+				
+				int idVotacao = Integer.parseInt(textFieldIdVotacao.getText());
 				String nome = textNomeVotacao.getText();
 				ControllerVotacao contVotacao = new ControllerVotacao();
-				Votacao vtc = contVotacao.buscarVotacaoNome(nome);
+				Votacao vtc = contVotacao.buscarVotacaoId(idVotacao);
 				
 				Date dataInicio = vtc.getData_inicio();
 				Date dataFim = vtc.getData_fim();
@@ -137,6 +150,7 @@ contentPane.setLayout(new MigLayout("", "[][][][grow][][][][][][][][][grow][][]"
 				//datas estão vindo sem hora
 				formattedDataInico.setText(dataInicioStr);
 				formattedDataFim.setText(dataFimStr);
+				comboBoxTipoVotacao.setSelectedItem(vtc.getTipo_Votacao());
 				//datas estão vindo sem hora
 				//datas estão vindo sem hora
 				//datas estão vindo sem hora
@@ -147,7 +161,7 @@ contentPane.setLayout(new MigLayout("", "[][][][grow][][][][][][][][][grow][][]"
 		
 				
 				JButton btnDeletar = new JButton("Deletar");
-				contentPane.add(btnDeletar, "cell 3 17");
+				contentPane.add(btnDeletar, "cell 3 21");
 				btnDeletar.addActionListener(new ActionListener() {
 
 					
@@ -168,44 +182,45 @@ contentPane.setLayout(new MigLayout("", "[][][][grow][][][][][][][][][grow][][]"
 				});
 		
 		JButton btnEditar = new JButton("Editar");
-		contentPane.add(btnEditar, "cell 7 17");
-//		btnEditar.addActionListener(new ActionListener() {
-//
-//			
-//			public void actionPerformed(ActionEvent e) {
-//				
-//				int idVotacao = Integer.parseInt(textFieldIdVotacao.getText());
-//				String nome = textNomeVotacao.getText();
-//				String dataInicioStr = formattedDataInico.getText();
-//				String dataFimStr = formattedDataFim.getText();
-//				
-//				SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//				
-//				try {
-//					
-//					Date dataInicio = formato.parse(dataInicioStr);
-//					Date dataFim = formato.parse(dataFimStr);
-//					
-//					ControllerVotacao contVotacao = new ControllerVotacao();
-//					contVotacao.atualizarVotacao(idVotacao, nome, dataInicio, dataFim);
-//					
-//					JOptionPane.showMessageDialog(null, "Votacao atualizada com sucesso.");					
-//				} catch (ParseException error) {
-//					
-//					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-//					//error.printStackTrace();
-//				} catch (BusinessException error) {
-//					
-//					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-//					//error.printStackTrace();
-//				}
-//				
-//			}
-//			
-//		});
+		contentPane.add(btnEditar, "cell 7 21");
+		btnEditar.addActionListener(new ActionListener() {
+
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				int idVotacao = Integer.parseInt(textFieldIdVotacao.getText());
+				String nome = textNomeVotacao.getText();
+				String dataInicioStr = formattedDataInico.getText();
+				String dataFimStr = formattedDataFim.getText();
+				String tipoVotacao = (String) comboBoxTipoVotacao.getSelectedItem();
+				
+				SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+				
+				try {
+					
+					Date dataInicio = formato.parse(dataInicioStr);
+					Date dataFim = formato.parse(dataFimStr);
+					
+					ControllerVotacao contVotacao = new ControllerVotacao();
+					contVotacao.atualizarVotacao(idVotacao, nome, dataInicio, dataFim, tipoVotacao);
+					
+					JOptionPane.showMessageDialog(null, "Votacao atualizada com sucesso.");					
+				} catch (ParseException error) {
+					
+					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+					//error.printStackTrace();
+				} catch (BusinessException error) {
+					
+					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+					//error.printStackTrace();
+				}
+				
+			}
+			
+		});
 		
 		JButton btnVoltar = new JButton("VOLTAR");
-		contentPane.add(btnVoltar, "cell 0 22");
+		contentPane.add(btnVoltar, "cell 0 26");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
