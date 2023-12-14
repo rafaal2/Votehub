@@ -203,6 +203,11 @@ public class ControllerVotacao {
 		return votacaoRepository.addIdVotacaoCandidatosCombobox();
 
 	}
+	
+	public Votacao buscarVotacaoId(int idVotacao) {
+		
+		return votacaoRepository.searchVotacaoById(idVotacao);
+	}
 
 }
  			

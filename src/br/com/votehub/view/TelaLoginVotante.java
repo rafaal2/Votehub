@@ -121,8 +121,7 @@ public class TelaLoginVotante extends JFrame {
 					ControllerVotante contvot = new ControllerVotante();
 					Votante vtt = contvot.buscarVotante(loginDigitada);
 					
-					//Proibe Votantes que ja votaram de acessar a tela de votação
-					//contVotacaoVotante.checarVotabilidade(vtt.getId_votante());
+					contVotacaoVotante.checarVotabilidade(vtt.getId_votante());
 												
 					contvot.verificarloginvot(loginDigitada);
 					contvot.verificarsenhavot(loginDigitada, senhaDigitada);
@@ -131,8 +130,8 @@ public class TelaLoginVotante extends JFrame {
             		dispose();
 				} catch (BusinessException error) {
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				} catch (SQLException error) {
+					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
