@@ -3,7 +3,9 @@ package br.com.votehub.controller;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import br.com.votehub.model.DAOs.CandidatoDAO;
 import br.com.votehub.model.DAOs.PropostaDAO;
+import br.com.votehub.model.DAOs.VotoDAO;
 import br.com.votehub.model.vo.Proposta;
 import br.com.votehub.model.vo.Votante;
 
@@ -19,6 +21,11 @@ public class ControllerProposta {
 		propostaRepository.addPropostas(p);
 
 	}
+	
+	public void setPropostaRepository(PropostaDAO PropostaDAO) {
+        this.propostaRepository = PropostaDAO;
+    }
+	
 
 	public void validarRegistro(String titulo, String descricao, int id_votacao)
 			throws BusinessException, SQLException {
@@ -38,15 +45,6 @@ public class ControllerProposta {
 		if (descricao.length() > 2000) {
 			throw new BusinessException("A Descrição deve ter no maximo 2000 caracteres.");
 		}
-
-//		if (id_votacao.isBlank()) {
-//			throw new BusinessException("A senha deve ser preenchida.");
-//		}
-
-//		if (verificarSePropostaExiste(titulo)) {
-//		throw new SQLException("A matrícula existente.");
-//	}
-
 	}
 
 	public void deletarProposta(int id_Proposta) throws BusinessException {
@@ -93,7 +91,7 @@ public class ControllerProposta {
 
 	}
 	
-
+	//para o metodo de editar
 	public void validarAtualizacao(int id_Proposta, String titulo, String descricao) throws BusinessException {
 		if (propostaRepository.searchPropostaById(id_Proposta) == null) {
 			throw new BusinessException("Proposta referida não encontrada");

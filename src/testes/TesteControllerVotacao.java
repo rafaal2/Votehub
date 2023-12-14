@@ -51,8 +51,8 @@ class TesteControllerVotacao {
 		try {
 			
 			SimpleDateFormat formatacao = new SimpleDateFormat("dd/MM/yyyy");
-			Date inicio = formatacao.parse("14/12/2023");
-			Date fim = formatacao.parse("15/12/2023");
+			Date inicio = formatacao.parse("15/12/2023");
+			Date fim = formatacao.parse("16/12/2023");
 			
 			contVotacao.atualizarVotacao(9, "TesteJ", inicio, fim, "Candidato");
 			

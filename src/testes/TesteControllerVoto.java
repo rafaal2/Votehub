@@ -26,7 +26,7 @@ class TesteControllerVoto {
 		candidatoRepository = mock(CandidatoDAO.class);
 		controllerVoto = new ControllerVoto();
 		controllerVoto.setVotoRepository(votoRepository);
-		controllerVoto.setCandidatoRepository(candidatoRepository);
+		controllerVoto.setCandidatoRepository(candidatoRepository);  
 	}
 
 	@Test
