@@ -15,28 +15,35 @@ public class ControllerVoto {
 
 	public void registrarVoto(String numeroCandidato) throws BusinessException {
 		//consertar esse metodo dps
-		// validarRegistro(numeroCandidato);
+		 validarRegistro(numeroCandidato);
 
 		Voto vt = new Voto(numeroCandidato);
 		votoRepository.addVoto(vt);
 
 	}
+	
+	public void setCandidatoRepository(CandidatoDAO candidatoDAO) {
+        this.candidatoRepository = candidatoDAO;
+    }
+	
+	public void setVotoRepository(VotoDAO votoDAO) {
+        this.votoRepository = votoDAO;
+    }
 
 	public void validarRegistro(String numeroCandidato) throws BusinessException {
 
-		if (candidatoRepository.searchCandidatoById(numeroCandidato) == null) {
+		if (numeroCandidato == null || numeroCandidato.isBlank()) {
+	        throw new BusinessException("O campo numero de candidato não pode estar vazio!");
+	    }
+		
+	    if (numeroCandidato.length() > 100) {
+	        throw new BusinessException("O numero de candidato não pode possuir mais do que 100 caracteres");
+	    }
 
-			throw new BusinessException("Candidato inexistente, informe um numero valido!");
-		}
+	    if (candidatoRepository.searchCandidatoById(numeroCandidato) == null) {
+	        throw new BusinessException("Candidato inexistente, informe um numero valido!");
+	    }
 
-		if (numeroCandidato.isBlank()) {
-			throw new BusinessException("O campo numero de candidato não pode estar vazio!");
-		}
-
-		if (numeroCandidato.length() > 100) {
-
-			throw new BusinessException("O numero de candidato não pode possuir mais do que 100 caracteres");
-		}
 
 	}
 
