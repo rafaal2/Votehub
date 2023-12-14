@@ -49,12 +49,12 @@ public class ControllerVotacao {
  		
 		if(dataInicio.before(now)) {
 			
-			throw new BusinessException("A Votação deve iniciar em uma data atual!");
+			throw new BusinessException("A votação deve iniciar em uma data atual!");
 		}
 		
 		if(dataFim.before(now)) {
 			
-			throw new BusinessException("A Votação deve ser finalizada em uma data atual ou futura!");
+			throw new BusinessException("A votação deve ser finalizada em uma data atual ou futura!");
 		}
 		
 		if(!dataFim.after(dataInicio)) {
@@ -109,7 +109,7 @@ public class ControllerVotacao {
 	//	alterar levando em considerações as condições do metodo a ser validado
 		if(votacaoRepository.searchVotacaoById(idVotacao) == null) {
 			
-			throw new BusinessException("Votacao informada não encontrada!");
+			throw new BusinessException("Votação informada não encontrada!");
 		}
 		
 //		if(!validadorDataInicio(dataInicio)) {

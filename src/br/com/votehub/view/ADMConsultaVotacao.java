@@ -28,6 +28,8 @@ import br.com.votehub.model.vo.Votacao;
 import br.com.votehub.model.vo.Votante;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JFormattedTextField;
+import java.awt.Color;
+import java.awt.Dimension;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
@@ -56,174 +58,180 @@ public class ADMConsultaVotacao extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @throws ParseException 
+	 * 
+	 * @throws ParseException
 	 */
 	public ADMConsultaVotacao() throws ParseException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(128, 128, 128));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-contentPane.setLayout(new MigLayout("", "[][][][grow][][][][][][][][][grow][][]", "[][][][][][][][][][][][][][][][][][][][][][][][][][][]"));
-		
+		contentPane.setLayout(new MigLayout("fill", "[grow][][][][][][][][][][grow][][grow]", "[][][][][][][][][]"));
+
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(164, 247, 176));
+		contentPane.add(panel, "cell 6 0,alignx center,aligny center");
+		panel.setPreferredSize(new Dimension(800, 600));
+		panel.setLayout(new MigLayout("fill", "[grow][][][][][][][][][][][][][][grow][][grow]", "[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]"));
+
 		JLabel lblTitulo = new JLabel("Votação");
+		panel.add(lblTitulo, "cell 5 1,alignx center");
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 17));
-		contentPane.add(lblTitulo, "cell 3 0");
-		
+
 		JLabel lblIdVotacao = new JLabel("ID");
+		lblIdVotacao.setHorizontalAlignment(SwingConstants.RIGHT);
+		panel.add(lblIdVotacao, "cell 0 3,alignx right");
 		lblIdVotacao.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		contentPane.add(lblIdVotacao, "cell 1 4");
-		
+
 		textFieldIdVotacao = new JTextField();
+		panel.add(textFieldIdVotacao, "cell 1 3 11 1,growx");
 		textFieldIdVotacao.setText("");
-		contentPane.add(textFieldIdVotacao, "cell 3 4,growx");
 		textFieldIdVotacao.setColumns(10);
-		
+
 		JLabel lblNomeVotacao = new JLabel("Nome");
+		panel.add(lblNomeVotacao, "cell 0 4,alignx right");
 		lblNomeVotacao.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		contentPane.add(lblNomeVotacao, "cell 1 6");
-		
+
 		textNomeVotacao = new JTextField();
-		contentPane.add(textNomeVotacao, "cell 3 6,growx");
+		panel.add(textNomeVotacao, "cell 1 4 11 1,growx");
 		textNomeVotacao.setColumns(10);
-		
-		
+
 		JLabel lblDataInicio = new JLabel("Data e hora inicial");
+		panel.add(lblDataInicio, "cell 0 5,alignx right");
 		lblDataInicio.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		contentPane.add(lblDataInicio, "cell 1 8");
-		
+
 		JFormattedTextField formattedDataInico = new JFormattedTextField(new MaskFormatter("##/##/#### ##:##:##"));
-		contentPane.add(formattedDataInico, "cell 3 8,growx");
-		formattedDataInico.setToolTipText("Informe a data e horario de termino no formato dia/mês/ano hora/minuto/segundo");
-		
-		
+		panel.add(formattedDataInico, "cell 1 5 11 1,growx");
+		formattedDataInico
+				.setToolTipText("Informe a data e horario de termino no formato dia/mês/ano hora/minuto/segundo");
+
 		JLabel lblDataFim = new JLabel("Data e hora final");
+		panel.add(lblDataFim, "cell 0 7,alignx right");
 		lblDataFim.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDataFim.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		contentPane.add(lblDataFim, "cell 1 10");
-		
+
 		JFormattedTextField formattedDataFim = new JFormattedTextField(new MaskFormatter("##/##/#### ##:##:##"));
+		panel.add(formattedDataFim, "cell 1 7 11 1,growx");
 		formattedDataFim.setText("");
-		contentPane.add(formattedDataFim, "cell 3 10,growx");
-		formattedDataFim.setToolTipText("Informe a data e horario de termino no formato dia/mês/ano hora/minuto/segundo");
-		
+		formattedDataFim
+				.setToolTipText("Informe a data e horario de termino no formato dia/mês/ano hora/minuto/segundo");
+
 		JLabel lblTipoVotacao = new JLabel("Tipo de Votação");
 		lblTipoVotacao.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTipoVotacao.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		contentPane.add(lblTipoVotacao, "cell 1 13");
-		
+		panel.add(lblTipoVotacao, "cell 0 9,alignx right");
+
 		JComboBox comboBoxTipoVotacao = new JComboBox();
-		comboBoxTipoVotacao.setModel(new DefaultComboBoxModel(new String[] {"candidatos", "propostas"}));
-		contentPane.add(comboBoxTipoVotacao, "cell 3 13,growx");
-		
+		comboBoxTipoVotacao.setModel(new DefaultComboBoxModel(new String[] { "candidatos", "propostas" }));
+		panel.add(comboBoxTipoVotacao, "cell 1 9 10 1,growx");
+
 		JButton btnConsultar = new JButton("Consultar");
-		contentPane.add(btnConsultar, "cell 1 21");
+		panel.add(btnConsultar, "cell 2 19");
 		btnConsultar.addActionListener(new ActionListener() {
 
-			
 			public void actionPerformed(ActionEvent e) {
-				
-				
-				int idVotacao = Integer.parseInt(textFieldIdVotacao.getText());
-				String nome = textNomeVotacao.getText();
-				ControllerVotacao contVotacao = new ControllerVotacao();
-				Votacao vtc = contVotacao.buscarVotacaoId(idVotacao);
-				
-				Date dataInicio = vtc.getData_inicio();
-				Date dataFim = vtc.getData_fim();
-				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-				String dataInicioStr = dateFormat.format(dataInicio);
-				String dataFimStr = dateFormat.format(dataFim);
-		       			
-			if(vtc == null) {				
-				
-				JOptionPane.showMessageDialog(null, "Votacão não encontrada ou inexistente.");	
-				
-			} else {
-				
-				textFieldIdVotacao.setText(Integer.toString(vtc.getId_votacao()));
-				textNomeVotacao.setText(vtc.getNome_votacao());
-				//datas estão vindo sem hora
-				//datas estão vindo sem hora
-				//datas estão vindo sem hora
-				formattedDataInico.setText(dataInicioStr);
-				formattedDataFim.setText(dataFimStr);
-				comboBoxTipoVotacao.setSelectedItem(vtc.getTipo_Votacao());
-				//datas estão vindo sem hora
-				//datas estão vindo sem hora
-				//datas estão vindo sem hora
-			}
-			}
-			
-		});
-		
-				
-				JButton btnDeletar = new JButton("Deletar");
-				contentPane.add(btnDeletar, "cell 3 21");
-				btnDeletar.addActionListener(new ActionListener() {
 
-					
-					public void actionPerformed(ActionEvent e) {
-						
-						int idVotacao = Integer.parseInt(textFieldIdVotacao.getText());				
-						ControllerVotacao contVotacao = new ControllerVotacao();	
-						contVotacao.excluirVotacao(idVotacao);
-						
-						textFieldIdVotacao.setText("");
-						textNomeVotacao.setText("");
-						formattedDataInico.setText("");
-						formattedDataFim.setText("");
-						
-						JOptionPane.showMessageDialog(null, "Votação deletada com sucesso.");			
-					}
-					
-				});
-		
+				if (textFieldIdVotacao.getText().trim().isEmpty()) {
+		            JOptionPane.showMessageDialog(null, "Por favor, insira o ID da votação para consultar.", "Campo em Branco", JOptionPane.WARNING_MESSAGE);
+		            return; // Sai do método se o ID estiver em branco
+		        }
+
+		        try {
+		            int idVotacao = Integer.parseInt(textFieldIdVotacao.getText());
+		            String nome = textNomeVotacao.getText();
+		            ControllerVotacao contVotacao = new ControllerVotacao();
+		            Votacao vtc = contVotacao.buscarVotacaoId(idVotacao);
+
+		            if (vtc == null) {
+		                JOptionPane.showMessageDialog(null, "Votação não encontrada.");
+		            } else {
+		                Date dataInicio = vtc.getData_inicio();
+		                Date dataFim = vtc.getData_fim();
+		                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		                String dataInicioStr = dateFormat.format(dataInicio);
+		                String dataFimStr = dateFormat.format(dataFim);
+
+		                textFieldIdVotacao.setText(Integer.toString(vtc.getId_votacao()));
+		                textNomeVotacao.setText(vtc.getNome_votacao());
+		                formattedDataInico.setText(dataInicioStr);
+		                formattedDataFim.setText(dataFimStr);
+		                comboBoxTipoVotacao.setSelectedItem(vtc.getTipo_Votacao());
+		            }
+		        } catch (NumberFormatException ex) {
+		            JOptionPane.showMessageDialog(null, "ID de votação inválido. Insira um número válido.", "Erro", JOptionPane.ERROR_MESSAGE);
+		        } catch (Exception ex) {
+		            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao buscar a votação.", "Erro", JOptionPane.ERROR_MESSAGE);
+		            ex.printStackTrace(); // Isso pode ser removido em um ambiente de produção
+		        }
+		    }
+		});
+
 		JButton btnEditar = new JButton("Editar");
-		contentPane.add(btnEditar, "cell 7 21");
+		panel.add(btnEditar, "cell 5 19");
 		btnEditar.addActionListener(new ActionListener() {
 
-			
 			public void actionPerformed(ActionEvent e) {
-				
+
 				int idVotacao = Integer.parseInt(textFieldIdVotacao.getText());
 				String nome = textNomeVotacao.getText();
 				String dataInicioStr = formattedDataInico.getText();
 				String dataFimStr = formattedDataFim.getText();
 				String tipoVotacao = (String) comboBoxTipoVotacao.getSelectedItem();
-				
+
 				SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-				
+
 				try {
-					
+
 					Date dataInicio = formato.parse(dataInicioStr);
 					Date dataFim = formato.parse(dataFimStr);
-					
+
 					ControllerVotacao contVotacao = new ControllerVotacao();
 					contVotacao.atualizarVotacao(idVotacao, nome, dataInicio, dataFim, tipoVotacao);
-					
-					JOptionPane.showMessageDialog(null, "Votacao atualizada com sucesso.");					
+
+					JOptionPane.showMessageDialog(null, "Votacao atualizada com sucesso.");
 				} catch (ParseException error) {
-					
+
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-					//error.printStackTrace();
+					// error.printStackTrace();
 				} catch (BusinessException error) {
-					
+
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-					//error.printStackTrace();
+					// error.printStackTrace();
 				}
-				
+
 			}
-			
+
 		});
-		
+
+		JButton btnDeletar = new JButton("Deletar");
+		panel.add(btnDeletar, "cell 7 19");
+		btnDeletar.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				int idVotacao = Integer.parseInt(textFieldIdVotacao.getText());
+				ControllerVotacao contVotacao = new ControllerVotacao();
+				contVotacao.excluirVotacao(idVotacao);
+
+				textFieldIdVotacao.setText("");
+				textNomeVotacao.setText("");
+				formattedDataInico.setText("");
+				formattedDataFim.setText("");
+
+				JOptionPane.showMessageDialog(null, "Votação deletada com sucesso.");
+			}
+
+		});
+
 		JButton btnVoltar = new JButton("VOLTAR");
-		contentPane.add(btnVoltar, "cell 0 26");
+		panel.add(btnVoltar, "cell 0 29");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				ADMMenuConsulta consulta = new ADMMenuConsulta();
 				consulta.setVisible(true);
 				dispose();
@@ -231,6 +239,3 @@ contentPane.setLayout(new MigLayout("", "[][][][grow][][][][][][][][][grow][][]"
 		});
 	}
 }
-	
-
-

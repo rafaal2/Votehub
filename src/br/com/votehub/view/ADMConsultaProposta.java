@@ -57,16 +57,17 @@ public class ADMConsultaProposta extends JFrame {
 	 */
 	public ADMConsultaProposta() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setBounds(100, 100, 558, 398);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.DARK_GRAY);
+		contentPane.setBackground(new Color(128, 128, 128));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("fill", "[grow][][][][][][][][][][grow][][grow]", "[][][][][][][][]"));
 
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(164, 247, 176));
 		contentPane.add(panel, "cell 6 0 1 3,alignx center,aligny center");
 		panel.setPreferredSize(new Dimension(800, 600));
 		panel.setLayout(
