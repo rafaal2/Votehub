@@ -49,10 +49,10 @@ public class Generica {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 450, 300); 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new MigLayout("fill", "[][grow][][grow][][grow][]", "[][][][][][][][]"));
-		String cargoLabel = cargo.toUpperCase();
+		String cargoLabel = cargo.toUpperCase(); 
 		JLabel lblNewLabel = new JLabel(cargoLabel);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
 		frame.getContentPane().add(lblNewLabel, "cell 3 0,alignx center,aligny bottom");

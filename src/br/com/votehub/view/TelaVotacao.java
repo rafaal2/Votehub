@@ -138,8 +138,6 @@ public class TelaVotacao {
 		botaoAvancar = new JButton("Avançar");
 		botaoAvancar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		botaoAvancar.setHorizontalAlignment(SwingConstants.RIGHT);
-		botaoAvancar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
 //				String numeroBusca = (String) comboBox.getSelectedItem();
 //				ControllerVotacao contVotacao = new ControllerVotacao();
 //				
@@ -154,28 +152,46 @@ public class TelaVotacao {
 //					return;
 //				}
 
-				ControllerVotacaoVotante cvv = new ControllerVotacaoVotante();
-				try {
-					cvv.registrarVotacaoVotante(1, vtt.getId_votante());
-				} catch (BusinessException error) {
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
+		botaoAvancar.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        String cargoReitor = "Reitor";
+		        String nmrReitor = (String) comboBox.getSelectedItem();
 
-				int n_votos = contarComboBoxes();
-				for (int i = 0; i < n_votos; i++) {
-					String numerocandidato = (String) comboBoxes_[i].getSelectedItem();
+		        String cargoDiretor = "Diretor";
+		        String nmrDiretor = (String) comboBox_1.getSelectedItem();
+
+		        String mensagem = "Cargo: " + cargoReitor + "\nNumero do Candidato: " + nmrReitor + "\n\n";
+		        mensagem += "Cargo: " + cargoDiretor + "\nNumero do Candidato: " + nmrDiretor + "\n\n";
+		        mensagem += "Confirma o voto?";
+
+		        int opcao = JOptionPane.showConfirmDialog(frame, mensagem, "Revisão de Voto", JOptionPane.YES_NO_OPTION);
+
+		        if (opcao == JOptionPane.YES_OPTION) {
+		        	ControllerVotacaoVotante cvv = new ControllerVotacaoVotante();
 					try {
-						ControllerVoto contVoto = new ControllerVoto();
-						contVoto.registrarVoto(numerocandidato);
+						cvv.registrarVotacaoVotante(1, vtt.getId_votante());
 					} catch (BusinessException error) {
 						JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+						return;
 					}
-				}
-				JOptionPane.showMessageDialog(null, "Voto cadastrado com sucesso!");
 
-			}
+					int n_votos = contarComboBoxes();
+					for (int i = 0; i < n_votos; i++) {
+						String numerocandidato = (String) comboBoxes_[i].getSelectedItem();
+						try {
+							ControllerVoto contVoto = new ControllerVoto();
+							contVoto.registrarVoto(numerocandidato);
+						} catch (BusinessException error) {
+							JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+						}
+					}
+					JOptionPane.showMessageDialog(null, "Voto cadastrado com sucesso!");
 
+				}      
+		         else {
+		            
+		        }
+		    }
 		});
 
 		botaoCancelar = new JButton("Cancelar");
@@ -221,14 +237,9 @@ public class TelaVotacao {
 	}
 
 	protected void dispose() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
-	public static void setVisible(boolean b) {
-		// TODO Auto-generated method stub
-
-	}
 
 	public void restaurarReitorCombobox() {
 		try {
@@ -242,7 +253,6 @@ public class TelaVotacao {
 
 			JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
-
 	}
 
 	public void restaurarDiretorCombobox() {
@@ -288,6 +298,10 @@ public class TelaVotacao {
 		} else {
 			System.err.println("Imagem não encontrada: " + caminhoImagem);
 		}
+	}
+
+	public static void setVisible(boolean b) {
+		// TODO Auto-generated method stub		
 	}
 
 }

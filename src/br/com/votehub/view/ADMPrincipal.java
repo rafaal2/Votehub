@@ -93,10 +93,6 @@ public class ADMPrincipal extends JFrame {
 		});
 		panel.add(btnMenuApurar, "cell 3 3,growx,aligny center");
 		
-		JButton btnIniciarVotacao = new JButton("INICIAR VOTAÇÃO");
-		btnIniciarVotacao.setFont(new Font("Tahoma", Font.BOLD, 12));
-		panel.add(btnIniciarVotacao, "cell 3 4,growx,aligny center");
-		
 		JButton btnNewButton = new JButton("VOLTAR");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -106,7 +102,7 @@ public class ADMPrincipal extends JFrame {
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		panel.add(btnNewButton, "cell 3 5,growx,aligny baseline");
+		panel.add(btnNewButton, "cell 3 4,growx,aligny baseline");
 	}
 
 }
