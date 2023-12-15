@@ -40,6 +40,7 @@ public class ApurarProposta extends JFrame {
 	private JComboBox<String> comboBoxPropostas;
 	private JComboBox<String> comboBoxVotacao;
 	private JLabel lblNrRespostas;
+	private String idVotacaoSelecionada;
 
 	public ApurarProposta() {
 
