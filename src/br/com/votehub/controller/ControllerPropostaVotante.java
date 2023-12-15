@@ -16,7 +16,7 @@ public class ControllerPropostaVotante {
 		
 	}
 	
-	//metodo para lançar exception
+
 	public void checarRespostaUnica (int idVotante, int idProposta) throws SQLException, BusinessException {
 		
 		if(propostaVotanteRepository.verificarRespostaUnica(idVotante, idProposta)) {
@@ -24,6 +24,12 @@ public class ControllerPropostaVotante {
 			throw new BusinessException("Votante já possui resposta registrada nessa proposta.");
 			
 		}
+	}
+
+
+	public void setPropostaVotanteRepository(PropostaVotanteDAO propostaVotanteRepository2) {
+		this.propostaVotanteRepository = propostaVotanteRepository2;
+		
 	}
 			
 	
