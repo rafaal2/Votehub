@@ -67,7 +67,7 @@ public class Apuracao extends JFrame {
 		});
 		
 		JButton btnVoltar = new JButton("VOLTAR");
-		btnVoltar.setBounds(44, 319, 61, 23);
+		btnVoltar.setBounds(44, 319, 100, 23);
 		contentPane.add(btnVoltar);
 		btnVoltar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
