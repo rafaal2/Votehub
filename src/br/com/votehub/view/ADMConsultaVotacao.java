@@ -32,6 +32,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.SystemColor;
 
 public class ADMConsultaVotacao extends JFrame {
 
@@ -66,14 +67,14 @@ public class ADMConsultaVotacao extends JFrame {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(128, 128, 128));
+		contentPane.setBackground(new Color(164, 247, 176));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
+		
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("fill", "[grow][][][][][][][][][][grow][][grow]", "[][][][][][][][][]"));
 
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(164, 247, 176));
+		panel.setBackground(SystemColor.menu);
 		contentPane.add(panel, "cell 6 0,alignx center,aligny center");
 		panel.setPreferredSize(new Dimension(800, 600));
 		panel.setLayout(new MigLayout("fill", "[grow][][][][][][][][][][][][][][grow][][grow]",

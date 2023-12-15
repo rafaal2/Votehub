@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -62,14 +63,14 @@ public class ADMConsultaVotante extends JFrame {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setBounds(100, 100, 558, 398);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(128, 128, 128));
+		contentPane.setBackground(new Color(164, 247, 176));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("fill", "[grow][][][][][][][][][][grow][][grow]", "[][][][][][][][]"));
 
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(164, 247, 176));
+		panel.setBackground(SystemColor.menu);
 		contentPane.add(panel, "cell 6 0 1 3,alignx center,aligny center");
 		panel.setPreferredSize(new Dimension(800, 600));
 		panel.setLayout(new MigLayout("fill", "[grow][][][][grow][][grow]",

@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -55,7 +56,7 @@ public class ADMLogin extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(192, 192, 192));
+		contentPane.setBackground(new Color(164, 247, 176));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -75,7 +76,7 @@ public class ADMLogin extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, "cell 3 6,alignx trailing,growy");
 		panel.setPreferredSize(new Dimension(400, 250));
-		panel.setBackground(new Color(164, 247, 176));
+		panel.setBackground(SystemColor.menu);
 		panel.setLayout(new MigLayout("fill", "[][][][][][][]", "[][][][][]"));
 
 		JLabel lblUserLogin = new JLabel("Usuário :");
