@@ -198,6 +198,10 @@ public class TelaVotacao {
 						}
 					}
 					JOptionPane.showMessageDialog(null, "Voto cadastrado com sucesso!");
+					frame.dispose();
+
+		            TelaSelectVotacao telaSelectVotacao = new TelaSelectVotacao(vtt);
+		            telaSelectVotacao.setVisible(true);
 
 				} else {
 
