@@ -1,6 +1,5 @@
 package br.com.votehub.view;
 
-
 import br.com.votehub.controller.ControllerCandidato;
 
 import java.awt.EventQueue;
@@ -165,6 +164,12 @@ public class ADMConsultaCandidato extends JFrame {
 		btnEditar.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		    	try {
+		    		
+		    		if (textFieldNumeroCandidato.getText().isEmpty() || textFieldNome.getText().isEmpty() || textFieldCargo.getText().isEmpty() || textFieldVotacao == null) {
+		    		    JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de editar.");
+		    		    return;
+		    		}
+		    		
 		            String numeroCandidato = textFieldNumeroCandidato.getText();
 		            String novoNome = textFieldNome.getText();
 		            String novoCargo = textFieldCargo.getText();
@@ -186,6 +191,7 @@ public class ADMConsultaCandidato extends JFrame {
 		btnDeletar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					
 					String numeroCandidato = textFieldNumeroCandidato.getText();
 
 					ControllerCandidato controller = new ControllerCandidato();
@@ -217,31 +223,30 @@ public class ADMConsultaCandidato extends JFrame {
 			}
 		});
 	}
-	
+
 	private void exibirImagemNoLabel(JLabel label, String caminhoImagem) {
-        ImageIcon icon = new ImageIcon(caminhoImagem);
-        Image imagem = icon.getImage();
-        Image novaImagem = imagem.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
-        label.setIcon(new ImageIcon(novaImagem));
-    }
+		ImageIcon icon = new ImageIcon(caminhoImagem);
+		Image imagem = icon.getImage();
+		Image novaImagem = imagem.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
+		label.setIcon(new ImageIcon(novaImagem));
+	}
 
 	public void addImg() throws BusinessException, IOException {
-	    JFileChooser jfc = new JFileChooser();
-	    jfc.setDialogTitle("selecionar arquivo");
-	    jfc.setFileFilter(new FileNameExtensionFilter("arquivo de imagens (*.PNG, *.JPG, *.JPEG) ", "png", "jpg", "jpeg"));
-	    int resultado = jfc.showOpenDialog(this);
-	    if (resultado == JFileChooser.APPROVE_OPTION) {
-	        fis = new FileInputStream(jfc.getSelectedFile());
-	        tamanho = (int) jfc.getSelectedFile().length();
-	        Image img = ImageIO.read(jfc.getSelectedFile()).getScaledInstance(this.lblImg.getWidth(),
-	                this.lblImg.getHeight(), Image.SCALE_SMOOTH);
-	        lblImg.setIcon(new ImageIcon(img));
-	        lblImg.updateUI();
-	        img_candidato = jfc.getSelectedFile().getAbsolutePath();
-	    }
+		JFileChooser jfc = new JFileChooser();
+		jfc.setDialogTitle("selecionar arquivo");
+		jfc.setFileFilter(
+				new FileNameExtensionFilter("arquivo de imagens (*.PNG, *.JPG, *.JPEG) ", "png", "jpg", "jpeg"));
+		int resultado = jfc.showOpenDialog(this);
+		if (resultado == JFileChooser.APPROVE_OPTION) {
+			fis = new FileInputStream(jfc.getSelectedFile());
+			tamanho = (int) jfc.getSelectedFile().length();
+			Image img = ImageIO.read(jfc.getSelectedFile()).getScaledInstance(this.lblImg.getWidth(),
+					this.lblImg.getHeight(), Image.SCALE_SMOOTH);
+			lblImg.setIcon(new ImageIcon(img));
+			lblImg.updateUI();
+			img_candidato = jfc.getSelectedFile().getAbsolutePath();
+		}
 	}
-	
-
 
 	private void configurarImagemJLabel(JLabel label, String caminhoImagem) {
 		URL resource = getClass().getClassLoader().getResource(caminhoImagem);

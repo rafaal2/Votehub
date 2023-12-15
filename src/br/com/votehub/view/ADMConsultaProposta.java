@@ -107,8 +107,7 @@ public class ADMConsultaProposta extends JFrame {
 		    public void actionPerformed(ActionEvent e) {
 		        try {
 
-		            if (textFieldId.getText().isEmpty() || textFieldTitulo.getText().isEmpty()
-		                    || textFieldDescricao.getText().isEmpty()) {
+		            if (textFieldId.getText().isEmpty() || textFieldTitulo.getText().isEmpty() || textFieldDescricao.getText().isEmpty()) {
 		                JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de editar.");
 		                return;
 		            }

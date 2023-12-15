@@ -158,8 +158,7 @@ public class ADMConsultaVotante extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 
-					if (textFieldId.getText().isEmpty() || textFieldMatricula.getText().isEmpty()
-							|| textFieldNome.getText().isEmpty()) {
+					if (textFieldId.getText().isEmpty() || textFieldMatricula.getText().isEmpty() || textFieldNome.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de deletar.");
 						return;
 					}

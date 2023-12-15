@@ -76,7 +76,8 @@ public class ADMConsultaVotacao extends JFrame {
 		panel.setBackground(new Color(164, 247, 176));
 		contentPane.add(panel, "cell 6 0,alignx center,aligny center");
 		panel.setPreferredSize(new Dimension(800, 600));
-		panel.setLayout(new MigLayout("fill", "[grow][][][][][][][][][][][][][][grow][][grow]", "[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]"));
+		panel.setLayout(new MigLayout("fill", "[grow][][][][][][][][][][][][][][grow][][grow]",
+				"[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]"));
 
 		JLabel lblTitulo = new JLabel("Votação");
 		panel.add(lblTitulo, "cell 5 1,alignx center");
@@ -136,74 +137,78 @@ public class ADMConsultaVotacao extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				if (textFieldIdVotacao.getText().trim().isEmpty()) {
-		            JOptionPane.showMessageDialog(null, "Por favor, insira o ID da votação para consultar.", "Campo em Branco", JOptionPane.WARNING_MESSAGE);
-		            return; // Sai do método se o ID estiver em branco
-		        }
+					JOptionPane.showMessageDialog(null, "Por favor, insira o ID da votação para consultar.",
+							"Campo em Branco", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
 
-		        try {
-		            int idVotacao = Integer.parseInt(textFieldIdVotacao.getText());
-		            String nome = textNomeVotacao.getText();
-		            ControllerVotacao contVotacao = new ControllerVotacao();
-		            Votacao vtc = contVotacao.buscarVotacaoId(idVotacao);
+				try {
+					int idVotacao = Integer.parseInt(textFieldIdVotacao.getText());
+					String nome = textNomeVotacao.getText();
+					ControllerVotacao contVotacao = new ControllerVotacao();
+					Votacao vtc = contVotacao.buscarVotacaoId(idVotacao);
 
-		            if (vtc == null) {
-		                JOptionPane.showMessageDialog(null, "Votação não encontrada.");
-		            } else {
-		                Date dataInicio = vtc.getData_inicio();
-		                Date dataFim = vtc.getData_fim();
-		                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		                String dataInicioStr = dateFormat.format(dataInicio);
-		                String dataFimStr = dateFormat.format(dataFim);
+					if (vtc == null) {
+						JOptionPane.showMessageDialog(null, "Votação não encontrada.");
+					} else {
+						Date dataInicio = vtc.getData_inicio();
+						Date dataFim = vtc.getData_fim();
+						DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+						String dataInicioStr = dateFormat.format(dataInicio);
+						String dataFimStr = dateFormat.format(dataFim);
 
-		                textFieldIdVotacao.setText(Integer.toString(vtc.getId_votacao()));
-		                textNomeVotacao.setText(vtc.getNome_votacao());
-		                formattedDataInico.setText(dataInicioStr);
-		                formattedDataFim.setText(dataFimStr);
-		                comboBoxTipoVotacao.setSelectedItem(vtc.getTipo_Votacao());
-		            }
-		        } catch (NumberFormatException ex) {
-		            JOptionPane.showMessageDialog(null, "ID de votação inválido. Insira um número válido.", "Erro", JOptionPane.ERROR_MESSAGE);
-		        } catch (Exception ex) {
-		            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao buscar a votação.", "Erro", JOptionPane.ERROR_MESSAGE);
-		            ex.printStackTrace(); // Isso pode ser removido em um ambiente de produção
-		        }
-		    }
+						textFieldIdVotacao.setText(Integer.toString(vtc.getId_votacao()));
+						textNomeVotacao.setText(vtc.getNome_votacao());
+						formattedDataInico.setText(dataInicioStr);
+						formattedDataFim.setText(dataFimStr);
+						comboBoxTipoVotacao.setSelectedItem(vtc.getTipo_Votacao());
+					}
+				} catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null, "ID de votação inválido. Insira um número válido.", "Erro",
+							JOptionPane.ERROR_MESSAGE);
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Ocorreu um erro ao buscar a votação.", "Erro",
+							JOptionPane.ERROR_MESSAGE);
+					ex.printStackTrace(); // Isso pode ser removido em um ambiente de produção
+				}
+			}
 		});
 
 		JButton btnEditar = new JButton("Editar");
 		panel.add(btnEditar, "cell 5 19");
 		btnEditar.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 
-				int idVotacao = Integer.parseInt(textFieldIdVotacao.getText());
-				String nome = textNomeVotacao.getText();
-				String dataInicioStr = formattedDataInico.getText();
-				String dataFimStr = formattedDataFim.getText();
-				String tipoVotacao = (String) comboBoxTipoVotacao.getSelectedItem();
+		        try {
+		            String idVotacaoStr = textFieldIdVotacao.getText().trim();
+		            if (idVotacaoStr.isEmpty() || textNomeVotacao.getText().isEmpty()) {
+		                JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de editar.");
+		                return;
+		            }
 
-				SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		            int idVotacao = Integer.parseInt(idVotacaoStr);
+		            String nome = textNomeVotacao.getText();
+		            String dataInicioStr = formattedDataInico.getText();
+		            String dataFimStr = formattedDataFim.getText();
+		            String tipoVotacao = (String) comboBoxTipoVotacao.getSelectedItem();
 
-				try {
+		            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-					Date dataInicio = formato.parse(dataInicioStr);
-					Date dataFim = formato.parse(dataFimStr);
+		            Date dataInicio = formato.parse(dataInicioStr);
+		            Date dataFim = formato.parse(dataFimStr);
 
-					ControllerVotacao contVotacao = new ControllerVotacao();
-					contVotacao.atualizarVotacao(idVotacao, nome, dataInicio, dataFim, tipoVotacao);
+		            ControllerVotacao contVotacao = new ControllerVotacao();
+		            contVotacao.atualizarVotacao(idVotacao, nome, dataInicio, dataFim, tipoVotacao);
 
-					JOptionPane.showMessageDialog(null, "Votacao atualizada com sucesso.");
-				} catch (ParseException error) {
-
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-					// error.printStackTrace();
-				} catch (BusinessException error) {
-
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-					// error.printStackTrace();
-				}
-
-			}
+		            JOptionPane.showMessageDialog(null, "Votação atualizada com sucesso.");
+		        } catch (NumberFormatException ex) {
+		            JOptionPane.showMessageDialog(null, "ID de votação inválido. Insira um número válido.", "Erro",
+		                    JOptionPane.ERROR_MESSAGE);
+		        } catch (ParseException | BusinessException error) {
+		            JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+		        }
+		    }
 
 		});
 
@@ -211,19 +216,31 @@ public class ADMConsultaVotacao extends JFrame {
 		panel.add(btnDeletar, "cell 7 19");
 		btnDeletar.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 
-				int idVotacao = Integer.parseInt(textFieldIdVotacao.getText());
-				ControllerVotacao contVotacao = new ControllerVotacao();
-				contVotacao.excluirVotacao(idVotacao);
+		        try {
+		            String idVotacaoStr = textFieldIdVotacao.getText().trim();
+		            if (idVotacaoStr.isEmpty()) {
+		                JOptionPane.showMessageDialog(null, "Insira o ID da votação para deletar.");
+		                return;
+		            }
 
-				textFieldIdVotacao.setText("");
-				textNomeVotacao.setText("");
-				formattedDataInico.setText("");
-				formattedDataFim.setText("");
+		            int idVotacao = Integer.parseInt(idVotacaoStr);
+		            ControllerVotacao contVotacao = new ControllerVotacao();
+		            contVotacao.excluirVotacao(idVotacao);
 
-				JOptionPane.showMessageDialog(null, "Votação deletada com sucesso.");
-			}
+		            textFieldIdVotacao.setText("");
+		            textNomeVotacao.setText("");
+		            formattedDataInico.setText("");
+		            formattedDataFim.setText("");
+
+		            JOptionPane.showMessageDialog(null, "Votação deletada com sucesso.");
+		        } catch (NumberFormatException ex) {
+		            JOptionPane.showMessageDialog(null, "ID de votação inválido. Insira um número válido.");
+		        } catch (DbIntegrityException error) {
+		            JOptionPane.showMessageDialog(null,  "A votação inserida não pode ser excluída pois possui candidatos cadastrados.");
+		        }
+		    }
 
 		});
 
