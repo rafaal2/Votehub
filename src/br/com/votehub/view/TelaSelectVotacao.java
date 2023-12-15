@@ -1,5 +1,6 @@
 package br.com.votehub.view;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,7 +38,7 @@ public class TelaSelectVotacao extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setToolTipText("");
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
+		contentPane.setBackground(new Color(164, 247, 176));
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("fill", "[][grow][][grow][][grow][]", "[][][][][][][][]"));
 		

@@ -1,5 +1,6 @@
 package br.com.votehub.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -29,19 +30,6 @@ public class TelaProposta extends JFrame {
 	private static Votante vtt;
 	private JComboBox<String> comboBoxPropostas;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaProposta frame = new TelaProposta(vtt);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public TelaProposta(Votante vtt) {
 		TelaProposta.vtt = vtt;
 		setTitle("votação de proposta");
@@ -50,6 +38,7 @@ public class TelaProposta extends JFrame {
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(new Color(164, 247, 176));
 		setContentPane(contentPane);
 
 		JPanel panel = new JPanel();
@@ -72,7 +61,6 @@ public class TelaProposta extends JFrame {
 				dispose();
 			}
 		});
-		
 
 		JLabel lblTextProposta = new JLabel("PROPOSTAS ABERTAS:");
 		lblTextProposta.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -89,10 +77,10 @@ public class TelaProposta extends JFrame {
 		panel.add(comboBoxPropostas);
 		restaurarTituloCombobox();
 
-		JComboBox comboBoxResposta = new JComboBox<>(new String[]{"Sim", "Provavelmente sim", "Talvez", "Provavelmente não", "não"});
+		JComboBox comboBoxResposta = new JComboBox<>(
+				new String[] { "Sim", "Provavelmente sim", "Talvez", "Provavelmente não", "não" });
 		comboBoxResposta.setBounds(427, 379, 150, 30);
 		panel.add(comboBoxResposta);
-		
 
 		JButton btnDescricao = new JButton("Descrição da Proposta");
 		btnDescricao.setFont(new Font("Tahoma", Font.BOLD, 10));
@@ -130,21 +118,21 @@ public class TelaProposta extends JFrame {
 					ControllerPropostaVotante contpv = new ControllerPropostaVotante();
 					contpv.checarRespostaUnica(vtt.getId_votante(), idProposta);
 					contpv.adicionarPropostaVotante(vtt.getId_votante(), idProposta);
-					
+
 					ControllerRespostaProposta contVoto = new ControllerRespostaProposta();
 					contVoto.registrarRespostaProposta(resposta, idProposta);
-					
+
 					JOptionPane.showMessageDialog(null, "Resposta cadastrada com sucesso!");
 				} catch (BusinessException error) {
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				} catch (SQLException error) {
-					
+
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-					//e1.printStackTrace();
+					// e1.printStackTrace();
 				}
 			}
 		});
-		
+
 	}
 
 	public void restaurarTituloCombobox() {
@@ -160,20 +148,22 @@ public class TelaProposta extends JFrame {
 	}
 
 	private void exibirDescricaoProposta(String tituloProposta) throws SQLException {
-	    ControllerProposta objProposta = new ControllerProposta();
-	    String descricao = objProposta.obterDescricaoPorTitulo(tituloProposta);
+		ControllerProposta objProposta = new ControllerProposta();
+		String descricao = objProposta.obterDescricaoPorTitulo(tituloProposta);
 
-	    if (descricao != null) {
-	        // Substitui caracteres de quebra de linha do banco de dados por quebras de linha reais
-	        descricao = descricao.replace("\\n", "<br>");
+		if (descricao != null) {
+			// Substitui caracteres de quebra de linha do banco de dados por quebras de
+			// linha reais
+			descricao = descricao.replace("\\n", "<br>");
 
-	        // Formata o texto como HTML
-	        String htmlDesc = "<html><body style='width: 300px;'>" + descricao + "</body></html>";
+			// Formata o texto como HTML
+			String htmlDesc = "<html><body style='width: 300px;'>" + descricao + "</body></html>";
 
-	        // Exibe a descrição em um JOptionPane com suporte HTML
-	        JOptionPane.showMessageDialog(this, htmlDesc, "Descrição da Proposta", JOptionPane.INFORMATION_MESSAGE);
-	    } else {
-	        JOptionPane.showMessageDialog(this, "Descrição não encontrada para a proposta selecionada.", "Erro", JOptionPane.ERROR_MESSAGE);
-	    }
+			// Exibe a descrição em um JOptionPane com suporte HTML
+			JOptionPane.showMessageDialog(this, htmlDesc, "Descrição da Proposta", JOptionPane.INFORMATION_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(this, "Descrição não encontrada para a proposta selecionada.", "Erro",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }

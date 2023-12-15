@@ -1,5 +1,6 @@
-	package br.com.votehub.view;
+package br.com.votehub.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
@@ -17,7 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
+import javax.swing.border.LineBorder;
 
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.controller.ControllerCandidato;
@@ -76,33 +77,46 @@ public class TelaVotacao {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setForeground(Color.GREEN);
+		frame.getContentPane().setForeground(Color.GREEN);
 		frame.setBounds(100, 100, 625, 427);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setBackground(new Color(164, 247, 176));
 		frame.getContentPane()
-				.setLayout(new MigLayout("fill", "[][][grow][][][20%,grow][grow][][grow][][]", "[][][][][][][][]"));
+				.setLayout(new MigLayout("fill", "[][][grow][][][][][][][][][20%,grow][grow][][grow][][]", "[][][][][][][][]"));
+		
+				lblNewLabel = new JLabel("REITOR:");
+				lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
+				frame.getContentPane().add(lblNewLabel, "cell 10 2,alignx center");
 
 		lblimgReitor = new JLabel("");
 		configurarImagemJLabel(lblimgReitor, "icons8-câmera-100.png");
-		frame.getContentPane().add(lblimgReitor, "cell 5 2,alignx trailing");
+		lblimgReitor.setBorder(new LineBorder(Color(164, 247, 176), 3));
+		frame.getContentPane().add(lblimgReitor, "cell 11 2,alignx trailing");
 
 		comboBox = new JComboBox();
 		comboBoxes_[0] = comboBox;
-		frame.getContentPane().add(comboBox, "cell 6 2,growx");
+		frame.getContentPane().add(comboBox, "cell 12 2,growx");
+		
+				lblNewLabel_1 = new JLabel("DIRETOR:");
+				lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
+				frame.getContentPane().add(lblNewLabel_1, "cell 10 3,alignx center");
 
 		lblimgDiretor = new JLabel("");
 		configurarImagemJLabel(lblimgDiretor, "icons8-câmera-100.png");
-		frame.getContentPane().add(lblimgDiretor, "cell 5 3,alignx trailing");
+		lblimgDiretor.setBorder(new LineBorder(Color(164, 247, 176), 3));
+		frame.getContentPane().add(lblimgDiretor, "cell 11 3,alignx trailing");
 
-		lblimgReitor.setMaximumSize(new Dimension(128, 128)); 
-		lblimgDiretor.setMaximumSize(new Dimension(128, 128)); 
+		lblimgReitor.setMaximumSize(new Dimension(100, 100));
+		lblimgDiretor.setMaximumSize(new Dimension(100, 100));
 
 		comboBox_1 = new JComboBox();
 		comboBoxes_[1] = comboBox_1;
-		frame.getContentPane().add(comboBox_1, "cell 6 3,growx");
+		frame.getContentPane().add(comboBox_1, "cell 12 3,growx");
 
-		//comboBox_2 = new JComboBox();
-		//comboBoxes_[2] = comboBox_2;
-		//frame.getContentPane().add(comboBox_2, "cell 6 4,growx");
+		// comboBox_2 = new JComboBox();
+		// comboBoxes_[2] = comboBox_2;
+		// frame.getContentPane().add(comboBox_2, "cell 6 4,growx");
 
 //		comboBox.addActionListener(new ActionListener() {
 //	        public void actionPerformed(ActionEvent e) {
@@ -132,9 +146,6 @@ public class TelaVotacao {
 			}
 		});
 
-		// comboBox_3 = new JComboBox();
-		// comboBoxes_[3] = comboBox_3;
-
 		botaoAvancar = new JButton("Avançar");
 		botaoAvancar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		botaoAvancar.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -153,21 +164,22 @@ public class TelaVotacao {
 //				}
 
 		botaoAvancar.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        String cargoReitor = "Reitor";
-		        String nmrReitor = (String) comboBox.getSelectedItem();
+			public void actionPerformed(ActionEvent e) {
+				String cargoReitor = "Reitor";
+				String nmrReitor = (String) comboBox.getSelectedItem();
 
-		        String cargoDiretor = "Diretor";
-		        String nmrDiretor = (String) comboBox_1.getSelectedItem();
+				String cargoDiretor = "Diretor";
+				String nmrDiretor = (String) comboBox_1.getSelectedItem();
 
-		        String mensagem = "Cargo: " + cargoReitor + "\nNumero do Candidato: " + nmrReitor + "\n\n";
-		        mensagem += "Cargo: " + cargoDiretor + "\nNumero do Candidato: " + nmrDiretor + "\n\n";
-		        mensagem += "Confirma o voto?";
+				String mensagem = "Cargo: " + cargoReitor + "\nNumero do Candidato: " + nmrReitor + "\n\n";
+				mensagem += "Cargo: " + cargoDiretor + "\nNumero do Candidato: " + nmrDiretor + "\n\n";
+				mensagem += "Confirma o voto?";
 
-		        int opcao = JOptionPane.showConfirmDialog(frame, mensagem, "Revisão de Voto", JOptionPane.YES_NO_OPTION);
+				int opcao = JOptionPane.showConfirmDialog(frame, mensagem, "Revisão de Voto",
+						JOptionPane.YES_NO_OPTION);
 
-		        if (opcao == JOptionPane.YES_OPTION) {
-		        	ControllerVotacaoVotante cvv = new ControllerVotacaoVotante();
+				if (opcao == JOptionPane.YES_OPTION) {
+					ControllerVotacaoVotante cvv = new ControllerVotacaoVotante();
 					try {
 						cvv.registrarVotacaoVotante(1, vtt.getId_votante());
 					} catch (BusinessException error) {
@@ -187,59 +199,51 @@ public class TelaVotacao {
 					}
 					JOptionPane.showMessageDialog(null, "Voto cadastrado com sucesso!");
 
-				}      
-		         else {
-		            
-		        }
-		    }
+				} else {
+
+				}
+			}
 		});
 
 		botaoCancelar = new JButton("Cancelar");
 		botaoCancelar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		botaoCancelar.setHorizontalAlignment(SwingConstants.LEFT);
 		botaoCancelar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					TelaSelectVotacao admPrincipal = new TelaSelectVotacao(vtt);
-					admPrincipal.setVisible(true);
-					dispose();
-				}
-			});
-
-		lblNewLabel = new JLabel("REITOR:");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
-		frame.getContentPane().add(lblNewLabel, "cell 4 2,alignx center");
-
-//		comboBox = new JComboBox();
-//		frame.getContentPane().add(comboBox, "cell 6 2,growx");
-
-		lblNewLabel_1 = new JLabel("DIRETOR:");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
-		frame.getContentPane().add(lblNewLabel_1, "cell 4 3,alignx center");
+			public void actionPerformed(ActionEvent e) {
+				TelaSelectVotacao admPrincipal = new TelaSelectVotacao(vtt);
+				admPrincipal.setVisible(true);
+				dispose();
+			}
+		});
 
 //		comboBox_1 = new JComboBox();
 //		frame.getContentPane().add(comboBox_1, "cell 6 3,growx");
 
-		//lblNewLabel_2 = new JLabel("DA:");
-		//lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 13));
-		//frame.getContentPane().add(lblNewLabel_2, "cell 4 4,alignx center");
+// lblNewLabel_2 = new JLabel("DA:");
+// lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 13));
+// frame.getContentPane().add(lblNewLabel_2, "cell 4 4,alignx center");
 
 //		comboBox_2 = new JComboBox();
 //		frame.getContentPane().add(comboBox_2, "cell 6 4,growx");
 
-		// lblNewLabel_3 = new JLabel("New label");
-		// frame.getContentPane().add(lblNewLabel_3, "cell 4 5");
+//      lblNewLabel_3 = new JLabel("New label");
+//      frame.getContentPane().add(lblNewLabel_3, "cell 4 5");
 
 //		comboBox_3 = new JComboBox();
 
 		// frame.getContentPane().add(comboBox_3, "cell 6 5,growx");
 		frame.getContentPane().add(botaoCancelar, "flowx,cell 4 7,alignx center,aligny baseline");
-		frame.getContentPane().add(botaoAvancar, "cell 6 7,alignx center,aligny baseline");
+		frame.getContentPane().add(botaoAvancar, "cell 12 7,alignx center,aligny baseline");
+	}
+
+	private Color Color(int i, int j, int k) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	protected void dispose() {
-		// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub
 	}
-
 
 	public void restaurarReitorCombobox() {
 		try {
@@ -301,7 +305,6 @@ public class TelaVotacao {
 	}
 
 	public static void setVisible(boolean b) {
-		// TODO Auto-generated method stub		
 	}
 
 }
