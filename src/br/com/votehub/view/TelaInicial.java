@@ -5,10 +5,9 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.event.ActionListener;
-
 import java.awt.event.ActionEvent;
-
+import java.awt.event.ActionListener;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,6 +17,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
+
+import br.com.votehub.model.DAOs.DbException;
 import net.miginfocom.swing.MigLayout;
 
 public class TelaInicial extends JFrame {
@@ -29,16 +31,17 @@ public class TelaInicial extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaInicial frame = new TelaInicial();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	    EventQueue.invokeLater(new Runnable() {
+	        public void run() {
+	            try {
+	                TelaInicial frame = new TelaInicial();
+	                frame.setVisible(true);
+	            } 
+	             catch (Exception e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    });
 	}
 
 	public TelaInicial() {
@@ -49,7 +52,6 @@ public class TelaInicial extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		
 
 		ImageIcon icon = new ImageIcon("./icons/cedula.png");
 		ImageIcon adm = new ImageIcon("./icons/adm.png");
@@ -81,7 +83,8 @@ public class TelaInicial extends JFrame {
 		JPanel panelDireita = new JPanel();
 		panelDireita.setBackground(new Color(164, 247, 176));
 		getContentPane().add(panelDireita, "cell 1 0,grow");
-		panelDireita.setLayout(new MigLayout("fill", "[][][][grow][grow][][][grow][][]", "[][][][grow][][grow][grow][][grow][][][grow]"));
+		panelDireita.setLayout(new MigLayout("fill", "[][][][grow][grow][][][grow][][]",
+				"[][][][grow][][grow][grow][][grow][][][grow]"));
 
 		JLabel lblTituloPanel2 = new JLabel("Seja bem-vindo!");
 		lblTituloPanel2.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -95,8 +98,7 @@ public class TelaInicial extends JFrame {
 		panelBtnAdm.setBackground(new Color(192, 192, 192));
 		panelDireita.add(panelBtnAdm, "cell 4 5 2 1, grow, alignx center");
 		panelBtnAdm.setLayout(new GridLayout(1, 0, 0, 0));
-		
-		
+
 		JButton btnAcessoAdm = new JButton(resizedAdm);
 		panelBtnAdm.add(btnAcessoAdm);
 		btnAcessoAdm.addActionListener((ActionListener) new ActionListener() {
@@ -115,7 +117,6 @@ public class TelaInicial extends JFrame {
 		panelBtnVotante.setBackground(new Color(192, 192, 192));
 		panelDireita.add(panelBtnVotante, "cell 4 8 2 1, grow, alignx center");
 		panelBtnVotante.setLayout(new GridLayout(1, 0, 0, 0));
-		
 
 		JButton btnAcessoVotante = new JButton(resizedUser);
 		panelBtnVotante.add(btnAcessoVotante);

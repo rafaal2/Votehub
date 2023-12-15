@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,6 +24,8 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
+
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
 
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.controller.ControllerVotacaoVotante;
@@ -119,17 +122,27 @@ public class TelaLoginVotante extends JFrame {
 				try {
 					ControllerVotante contvot = new ControllerVotante();
 					Votante vtt = contvot.buscarVotante(loginDigitada);
-					
-												
+
 					contvot.verificarloginvot(loginDigitada);
 					contvot.verificarsenhavot(loginDigitada, senhaDigitada);
 					TelaSelectVotacao selectVotacao = new TelaSelectVotacao(vtt);
 					selectVotacao.setVisible(true);
-            		dispose();
+					dispose();
 				} catch (BusinessException error) {
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				} catch (SQLException error) {
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				} catch (DbException e1) {
+					if (e1.getCause() instanceof SQLIntegrityConstraintViolationException) {
+						JOptionPane.showMessageDialog(null, "erro do sistema", "Erro do sistema",
+								JOptionPane.ERROR_MESSAGE);
+					} else if (e1.getCause() instanceof CommunicationsException) {
+						JOptionPane.showMessageDialog(null, "erro do sistema", "Erro do sistema",
+								JOptionPane.ERROR_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(null, "erro do sistema", "Erro do sistema",
+								JOptionPane.ERROR_MESSAGE);
+					}
 				}
 
 			}

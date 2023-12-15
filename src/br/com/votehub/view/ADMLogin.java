@@ -9,6 +9,7 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,8 +21,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
+
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.controller.ControllerAdm;
+import br.com.votehub.model.DAOs.DbException;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLayeredPane;
 
@@ -129,8 +133,18 @@ public class ADMLogin extends JFrame {
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
+				} catch (DbException e1) {
+					if (e1.getCause() instanceof SQLIntegrityConstraintViolationException) {
+						JOptionPane.showMessageDialog(null, "erro do sistema", "Erro do sistema",
+								JOptionPane.ERROR_MESSAGE);
+					} else if (e1.getCause() instanceof CommunicationsException) {
+						JOptionPane.showMessageDialog(null, "erro do sistema", "Erro do sistema",
+								JOptionPane.ERROR_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(null, "erro do sistema", "Erro do sistema",
+								JOptionPane.ERROR_MESSAGE);
+					}
 				}
-
 			}
 		});
 	}

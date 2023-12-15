@@ -24,21 +24,4 @@ public class Main {
 		telaInicial.setVisible(true);	
 	}
         
-//        SwingUtilities.invokeLater(TelaVotacao::new);
-	
-//		SwingUtilities.invokeLater(LoginUsuario::new);
-//		boolean check = VotanteDAO.verificarsenhavot(senhaDigitada);
-	
-//			Main programa = new Main();
-//			programa.operação();
-	
-	
-	// ____TELAS____
-	//	SwingUtilities.invokeLater(() -> new Generica("Diretor"));
-	
-//	private void mostrarVotantes() {
-//		VotanteDAO cd = new VotanteDAO();
-//		cd.mostrarVotantes();
-//
-//	}
 }
