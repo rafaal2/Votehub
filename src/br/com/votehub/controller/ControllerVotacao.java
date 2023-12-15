@@ -43,8 +43,8 @@ public class ControllerVotacao {
 		}
 		
 		
-		if(nomeVotacao.length() > 200) {
-			throw new BusinessException("Nome da votação não pode exceder 200 caracteres");
+		if(nomeVotacao.length() > 30) {
+			throw new BusinessException("Nome da votação não pode exceder 30 caracteres");
 		}
  		
 		if(dataInicio.before(now)) {
@@ -99,12 +99,12 @@ public class ControllerVotacao {
 	
 	public void atualizarVotacao(int idVotacao, String nome_votacao, Date dataInicio, Date dataFim, String tipoVotacao) throws BusinessException {
 		
-		validarAtualizacao(idVotacao, nome_votacao, dataInicio, dataFim);
+	//	validarAtualizacao(idVotacao, nome_votacao, dataInicio, dataFim, tipoVotacao);
 		
 		votacaoRepository.updateVotacao(idVotacao, nome_votacao, dataInicio, dataFim, tipoVotacao);
 	}
 	
-	public void validarAtualizacao(int idVotacao, String nome_votacao, Date dataInicio, Date dataFim) throws BusinessException {
+	public void validarAtualizacao(int idVotacao, String nome_votacao, Date dataInicio, Date dataFim, String tipoVotacao) throws BusinessException {
 		
 	//	alterar levando em considerações as condições do metodo a ser validado
 		if(votacaoRepository.searchVotacaoById(idVotacao) == null) {

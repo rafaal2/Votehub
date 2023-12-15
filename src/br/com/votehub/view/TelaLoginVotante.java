@@ -117,11 +117,9 @@ public class TelaLoginVotante extends JFrame {
 				String loginDigitada = textFieldMatricula.getText();
 				String senhaDigitada = textFieldSenha.getText();
 				try {
-					ControllerVotacaoVotante contVotacaoVotante = new ControllerVotacaoVotante();
 					ControllerVotante contvot = new ControllerVotante();
 					Votante vtt = contvot.buscarVotante(loginDigitada);
 					
-					contVotacaoVotante.checarVotabilidade(vtt.getId_votante());
 												
 					contvot.verificarloginvot(loginDigitada);
 					contvot.verificarsenhavot(loginDigitada, senhaDigitada);
