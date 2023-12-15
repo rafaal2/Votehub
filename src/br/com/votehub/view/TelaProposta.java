@@ -56,7 +56,7 @@ public class TelaProposta extends JFrame {
 		panel.add(btnVoltar);
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaSelectVotacao admPrincipal = new TelaSelectVotacao(null);
+				TelaSelectVotacao admPrincipal = new TelaSelectVotacao(vtt);
 				admPrincipal.setVisible(true);
 				dispose();
 			}

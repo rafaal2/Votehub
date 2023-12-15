@@ -1,12 +1,15 @@
 package br.com.votehub.controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
+import java.util.Calendar;
 import java.util.Date;
 import java.sql.ResultSet;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import br.com.votehub.model.DAOs.CandidatoDAO;
@@ -28,15 +31,14 @@ public class ControllerVotacao {
 		votacaoRepository.addVotacao(vtc);
 	}
 	
-	public void validarRegistro(String nomeVotacao, Date dataInicio, Date dataFim) throws BusinessException {
+	public void validarRegistro(String nomeVotacao, Date dataInicio, Date dataFim) throws BusinessException {	
+		if(validadorDataInicio(dataInicio) == false) {
+			throw new BusinessException("Insira uma data inicial existente");
+		}
 		
-//		if(!validadorDataInicio(dataInicio)) {
-//			throw new BusinessException("Insira uma data inicial existente");
-//		}
-//		
-//		if(!validadorDataFim(dataFim)) {
-//			throw new BusinessException("Insira uma data final existente");
-//		}
+		if(validadorDataFim(dataFim) == false) {
+			throw new BusinessException("Insira uma data final existente");
+		}
 		
 		if(nomeVotacao.isBlank()) {
 			throw new BusinessException("Preencha o nome da votação");
@@ -66,32 +68,80 @@ public class ControllerVotacao {
 	}
 		
 		
-//		public Boolean validadorDataInicio(Date dataInicio) {
-//			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//			
-//			String dataParaString = dateFormat.format(dataInicio);
-//			return dataIsValid(dataParaString);
-//		}
-//		
-//		public Boolean validadorDataFim(Date dataFim) {
-//			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//			
-//			String dataParaString = dateFormat.format(dataFim);
-//			return dataIsValid(dataParaString);
-//		}
+		public Boolean validadorDataInicio(Date dataInicio) {
+			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			
+			String dataParaString = dateFormat.format(dataInicio);
+			return dataIsValid(dataParaString);
+		}
+		
+		public Boolean validadorDataFim(Date dataFim) {
+			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			
+			String dataParaString = dateFormat.format(dataFim);
+			return dataIsValid(dataParaString);
+		}
+		
+//	    public static boolean dataIsValid(String dataHora) {
+//	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+//
+//	        try {
+//	            LocalDateTime parsedDateTime = LocalDateTime.parse(dataHora, formatter);
+//	            
+//	            if (!dataHora.equals(parsedDateTime.format(formatter))) {
+//	                return false;
+//	            }
+//
+//	            return true;
+//	        } catch (Exception e) {
+//	            return false;
+//	        }
+//	    }
+		
+//		public static boolean dataIsValid(String dataHora) {
+//	        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//	        sdf.setLenient(false);
+//
+//	        try {
+//	            Date parsedDate = sdf.parse(dataHora);
+//
+//	            if (!dataHora.equals(sdf.format(parsedDate))) {
+//	                return false;
+//	            }
+//
+//	            Calendar calendar = Calendar.getInstance();
+//	            calendar.setTime(parsedDate);
+//
+//	            int ano = calendar.get(Calendar.YEAR);
+//	            int mes = calendar.get(Calendar.MONTH) + 1;
+//	            int dia = calendar.get(Calendar.DAY_OF_MONTH);
+//	            int horas = calendar.get(Calendar.HOUR_OF_DAY);
+//	            int minutos = calendar.get(Calendar.MINUTE);
+//	            int segundos = calendar.get(Calendar.SECOND);
+//
+//	            if (ano < 1000 || mes < 1 || mes > 12 || dia < 1 || dia > 31 ||
+//	                horas < 0 || horas > 23 || minutos < 0 || minutos > 59 || segundos < 0 || segundos > 59) {
+//	                return false;
+//	            }
+//
+//	            return true;
+//	        } catch (ParseException e) {
+//	            return false;
+//	        }
+//	    }
 		
 		public Boolean dataIsValid(String data) {
-		String formatacao = "dd/MM/yyyy HH:mm:ss"; 
-		//se falhar tentar uuuu
 		
 		DateTimeFormatter dateFormatter = DateTimeFormatter
-				.ofPattern(formatacao)
+				.ofPattern("dd/MM/yyyy HH:mm:ss")
 				.withResolverStyle(ResolverStyle.STRICT);
 		
 		try {
 			LocalDate d = LocalDate.parse(data, dateFormatter);
 			return true;
 		} catch(DateTimeParseException e) {
+			
+			e.printStackTrace();
 			return false;
 		}
 		
@@ -112,15 +162,15 @@ public class ControllerVotacao {
 			throw new BusinessException("Votação informada não encontrada!");
 		}
 		
-//		if(!validadorDataInicio(dataInicio)) {
-//			
-//			throw new BusinessException("Informe uma data inicial válida!");
-//		}
-//		
-//		if(!validadorDataFim(dataFim)) {
-//			
-//			throw new BusinessException("Informe uma data final válida!");
-//		}
+		if(!validadorDataInicio(dataInicio)) {
+			
+			throw new BusinessException("Informe uma data inicial válida!");
+		}
+		
+		if(!validadorDataFim(dataFim)) {
+			
+			throw new BusinessException("Informe uma data final válida!");
+		}
 		
 		if(dataInicio.before(now)) {
 			
