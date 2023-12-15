@@ -6,9 +6,11 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,6 +20,7 @@ import javax.swing.border.EmptyBorder;
 
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.controller.ControllerProposta;
+import br.com.votehub.controller.ControllerVotacao;
 import net.miginfocom.swing.MigLayout;
 
 public class ADMCadProposta extends JFrame {
@@ -27,6 +30,7 @@ public class ADMCadProposta extends JFrame {
 	private JTextField fieldTituloCad;
 	private JTextField fieldDescricaoCad;
 	private JTextField filedIdVotacao;
+	private JComboBox<Object> comboBoxNumeroVotacao;
 	// private JComboBox<String> comboBoxRespostaCad;
 
 	public ADMCadProposta() {
@@ -93,11 +97,11 @@ public class ADMCadProposta extends JFrame {
 		lblCadIdVotacao.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel.add(lblCadIdVotacao, "cell 1 5,alignx trailing");
 
-		filedIdVotacao = new JTextField();
-		filedIdVotacao.setBounds(248, 250, 359, 20);
-		panel.add(filedIdVotacao, "cell 2 5 7 1,growx");
-		filedIdVotacao.setColumns(10);
-
+		comboBoxNumeroVotacao = new JComboBox<>();
+		comboBoxNumeroVotacao.setBounds(248, 250, 359, 20);
+		panel.add(comboBoxNumeroVotacao);
+		restaurarIdEleicaoCombobox();
+		
 		JButton btnCadastrar = new JButton("CADASTRAR");
 		btnCadastrar.setBounds(684, 570, 109, 23);
 		btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -106,7 +110,7 @@ public class ADMCadProposta extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String titulo = fieldTituloCad.getText();
 				String descricao = fieldDescricaoCad.getText();
-				String idVotacaoText = filedIdVotacao.getText();
+				String idVotacaoText = (String) comboBoxNumeroVotacao.getSelectedItem();
 				if (idVotacaoText.isBlank()) {
 					JOptionPane.showMessageDialog(null, "todos os campos devem estar preenchidos", "Erro",
 							JOptionPane.ERROR_MESSAGE);
@@ -138,6 +142,21 @@ public class ADMCadProposta extends JFrame {
 				dispose();
 			}
 		});
+	}
+	public void restaurarIdEleicaoCombobox() {
+		try {
+			ControllerVotacao contVotacao = new ControllerVotacao();
+			ResultSet rs = contVotacao.exibirIdVotacaoProposta();
+
+			while (rs.next()) {
+				String id = Integer.toString(rs.getInt("id_votacao"));
+				comboBoxNumeroVotacao.addItem(id);
+			}
+		} catch (SQLException error) {
+
+			JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+		}
+
 	}
 
 }

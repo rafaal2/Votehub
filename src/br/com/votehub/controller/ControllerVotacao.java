@@ -254,6 +254,12 @@ public class ControllerVotacao {
 
 	}
 	
+	public ResultSet exibirIdVotacaoProposta() {
+
+		return votacaoRepository.addIdVotacaoPropostasCombobox();
+
+	}
+	
 	public Votacao buscarVotacaoId(int idVotacao) {
 		
 		return votacaoRepository.searchVotacaoById(idVotacao);

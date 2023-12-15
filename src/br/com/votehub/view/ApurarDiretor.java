@@ -14,6 +14,7 @@ import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -22,8 +23,10 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import br.com.votehub.controller.ControllerCandidato;
 import br.com.votehub.model.DAOs.DB;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 
 public class ApurarDiretor extends JFrame {
 	Connection conn = null;
@@ -35,16 +38,38 @@ public class ApurarDiretor extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
-	private JLabel lblNrVotos;
+	private JComboBox<String> comboBoxVotacao;
+    private DefaultTableModel tableModel = new DefaultTableModel();
+    private JLabel lblNrVotos = new JLabel();
+    private String idVotacaoSelecionada;
 
 	public ApurarDiretor() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setBounds(100, 100, 846, 413);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		JLabel lblVotacao = new JLabel("Selecione a votação :");
+        lblVotacao.setBounds(137, 100, 170, 30);
+        lblVotacao.setFont(new Font("Tahoma", Font.BOLD, 12));
+        contentPane.add(lblVotacao);
+
+        comboBoxVotacao = new JComboBox();
+        comboBoxVotacao.setBounds(323, 100, 170, 30);
+        contentPane.add(comboBoxVotacao);
+        comboBoxVotacao.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	idVotacaoSelecionada = (String) comboBoxVotacao.getSelectedItem();
+                apurarVotosDiretor();
+                atualizarNumeroVotos(idVotacaoSelecionada);
+            }
+        });
+        restaurarvotacaoCombobox();
 
 		JLabel lblNewLabel = new JLabel("Resultado Votação de Diretor");
 		lblNewLabel.setBounds(5, 5, 820, 26);
@@ -54,10 +79,10 @@ public class ApurarDiretor extends JFrame {
 
 		lblNrVotos = new JLabel("numero total de votos :");
 		lblNrVotos.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNrVotos.setBounds(137, 57, 300, 14);
+		lblNrVotos.setBounds(137, 150, 350, 14);
 		contentPane.add(lblNrVotos);
 
-		DefaultTableModel tableModel = new DefaultTableModel();
+		tableModel = new DefaultTableModel();
 
 		table = new JTable(tableModel) {
 		    public boolean isCellEditable(int row, int column) {
@@ -73,9 +98,9 @@ public class ApurarDiretor extends JFrame {
 		contentPane.add(table);
 
 		apurarVotosDiretor();
-		atualizarNumeroVotos();
+		//atualizarNumeroVotos();
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(137, 106, 548, 80);
+		scrollPane.setBounds(137, 200, 548, 80);
 		contentPane.add(scrollPane);
 
 		JButton btnVoltar = new JButton("VOLTAR");
@@ -90,53 +115,77 @@ public class ApurarDiretor extends JFrame {
 		});
 	}
 
-	public void apurarVotosDiretor() {
-		DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-		tableModel.setRowCount(0);
-		try {
-			conn = DB.getConnection();
-			st = conn.createStatement();
-			rs = st.executeQuery("SELECT\r\n" + "	  candidato.numero_candidato,\r\n"
-					+ "	  candidato.nome AS nome_candidato,\r\n" + "	  COUNT(voto.id_voto) AS numero_de_votos\r\n"
-					+ "	  FROM\r\n" + "		    candidato\r\n" + "	  LEFT JOIN\r\n"
-					+ "		    voto ON candidato.numero_candidato = voto.numero_candidato\r\n" + "	  WHERE\r\n"
-					+ "		    candidato.cargo = 'Diretor'\r\n" + "	  GROUP BY\r\n"
-					+ "		    candidato.numero_candidato, candidato.nome\r\n" + "	  ORDER BY\r\n"
-					+ "		    numero_de_votos DESC;");
+	 public void apurarVotosDiretor() {
+	        if (tableModel == null) {
+	            tableModel = new DefaultTableModel(); // Inicialize se for nulo
+	        }
+	        tableModel.setRowCount(0);
+	        //String idVotacaoSelecionada = (String) comboBoxVotacao.getSelectedItem();
+	        try {
+	            conn = DB.getConnection();
+	            st = conn.createStatement();
+	            rs = st.executeQuery("SELECT\r\n"
+	                    + "	  candidato.numero_candidato,\r\n"
+	                    + "	  candidato.nome AS nome_candidato,\r\n"
+	                    + "	  COUNT(voto.id_voto) AS numero_de_votos\r\n"
+	                    + "	  FROM\r\n"
+	                    + "		    candidato\r\n"
+	                    + "	  LEFT JOIN\r\n"
+	                    + "		    voto ON candidato.numero_candidato = voto.numero_candidato\r\n"
+	                    + "	  WHERE\r\n"
+	                    + "		    candidato.cargo = 'Diretor'\r\n"
+	                    + "   AND candidato.id_votacao = " + idVotacaoSelecionada + "\r\n"
+	                    + "	  GROUP BY\r\n"
+	                    + "		    candidato.numero_candidato, candidato.nome\r\n"
+	                    + "	  ORDER BY\r\n"
+	                    + "		    numero_de_votos DESC;");
 
-			while (rs.next()) {
-				Vector<Object> row = new Vector<>();
-				row.add(rs.getString("numero_candidato"));
-				row.add(rs.getString("nome_candidato"));
-				row.add(rs.getInt("numero_de_votos"));
-				tableModel.addRow(row);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DB.closeResultSet(rs);
-			DB.closestatement(st);
-		}
-	}
+	            while (rs.next()) {
+	                Vector<Object> row = new Vector<>();
+	                row.add(rs.getString("numero_candidato"));
+	                row.add(rs.getString("nome_candidato"));
+	                row.add(rs.getInt("numero_de_votos"));
+	                tableModel.addRow(row);
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        } finally {
+	            DB.closeResultSet(rs);
+	            DB.closestatement(st);
+	        }
+	    }
 
-	public void atualizarNumeroVotos() {
-		try {
-			conn = DB.getConnection();
-			st = conn.createStatement();
-			rs = st.executeQuery("SELECT\r\n" + "    COUNT(voto.id_voto) AS numero_total_votos\r\n" + "FROM\r\n"
-					+ "    voto\r\n" + "LEFT JOIN\r\n"
-					+ "    candidato ON voto.numero_candidato = candidato.numero_candidato\r\n" + "WHERE\r\n"
-					+ "    candidato.cargo = 'Diretor';");
+	 public void atualizarNumeroVotos(String idVotacao) {
+	        try {
+	            conn = DB.getConnection();
+	            st = conn.createStatement();
+	            rs = st.executeQuery("SELECT\r\n" + "    COUNT(voto.id_voto) AS numero_total_votos\r\n" + "FROM\r\n"
+	                    + "    voto\r\n" + "LEFT JOIN\r\n"
+	                    + "    candidato ON voto.numero_candidato = candidato.numero_candidato\r\n" + "WHERE\r\n"
+	                    + "    candidato.cargo = 'Diretor' AND candidato.id_votacao = " + idVotacao + ";");
 
-			if (rs.next()) {
-				int numeroTotalVotos = rs.getInt("numero_total_votos");
-				lblNrVotos.setText("Número total de votos na Votação de Diretor: " + numeroTotalVotos);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DB.closeResultSet(rs);
-			DB.closestatement(st);
-		}
-	}
+	            if (rs.next()) {
+	                int numeroTotalVotos = rs.getInt("numero_total_votos");
+	                lblNrVotos.setText("Número total de votos na Votação de Diretor: " + numeroTotalVotos);
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        } finally {
+	            DB.closeResultSet(rs);
+	            DB.closestatement(st);
+	        }
+	    }
+	
+	public void restaurarvotacaoCombobox() {
+        try {
+            ControllerCandidato objCand = new ControllerCandidato();
+            comboBoxVotacao.removeAllItems();
+            ResultSet rs = objCand.exibirReitor();
+            while (rs.next()) {
+                this.comboBoxVotacao.addItem(rs.getString("id_votacao"));
+            }
+        } catch (SQLException error) {
+            JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }

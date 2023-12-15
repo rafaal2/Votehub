@@ -150,6 +150,21 @@ public class PropostaDAO {
 		}
 
 	}
+	
+	public ResultSet addVotacaoCombobox() {
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * \r\n" + "FROM proposta \r\n");
+			return rs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+//			DB.closeResultSet(rs);
+//			DB.closestatement(st);
+//			DB.closeConnection();
+		}}
 
 	public String obterDescricaoPorTitulo(String titulo) {
 		try {
@@ -206,6 +221,19 @@ public class PropostaDAO {
 //			DB.closeConnection();
 		}
 
+	}
+
+	public ResultSet obterTituloPorVotacao(int id_votacao) {
+	    try {
+	        conn = DB.getConnection();
+	        stt = conn.prepareStatement("SELECT titulo FROM proposta WHERE id_votacao = ?");
+	        stt.setInt(1, id_votacao);
+	        return stt.executeQuery();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	    }
+	    return null;
 	}
 	
 }

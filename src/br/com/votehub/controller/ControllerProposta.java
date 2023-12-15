@@ -112,6 +112,12 @@ public class ControllerProposta {
 		return propostaRepository.addTituloCombobox();
 
 	}
+	
+	public ResultSet exibirVotacao() {
+
+		return propostaRepository.addVotacaoCombobox();
+
+	}
 
 	public String obterDescricaoPorTitulo(String titulo) {
 		return propostaRepository.obterDescricaoPorTitulo(titulo);
@@ -119,6 +125,10 @@ public class ControllerProposta {
 
 	public int obterIdPorTitulo(String titulo) throws SQLException {
 		return propostaRepository.obterIdPorTitulo(titulo);
+	}
+	
+	public ResultSet obterTituloPorVotacao(int id_votacao) throws SQLException {
+		return propostaRepository.obterTituloPorVotacao(id_votacao);
 	}
 	
 	public Proposta buscarProposta(int id) {
