@@ -1,23 +1,16 @@
 package br.com.votehub.controller;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.sql.ResultSet;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import br.com.votehub.model.DAOs.CandidatoDAO;
 import br.com.votehub.model.DAOs.VotacaoDAO;
 import br.com.votehub.model.vo.Candidato;
 import br.com.votehub.model.vo.Votacao;
-import br.com.votehub.model.vo.Votante;
 
 public class ControllerVotacao {
 	
@@ -34,13 +27,13 @@ public class ControllerVotacao {
 	}
 	
 	public void validarRegistro(String nomeVotacao, Date dataInicio, Date dataFim) throws BusinessException {	
-		if(validadorDataInicio(dataInicio) == false) {
-			throw new BusinessException("Insira uma data inicial existente");
-		}
-		
-		if(validadorDataFim(dataFim) == false) {
-			throw new BusinessException("Insira uma data final existente");
-		}
+//		if(validadorDataInicio(dataInicio) == false) {
+//			throw new BusinessException("Insira uma data inicial existente");
+//		}
+//		
+//		if(validadorDataFim(dataFim) == false) {
+//			throw new BusinessException("Insira uma data final existente");
+//		}
 		
 		if(nomeVotacao.isBlank()) {
 			throw new BusinessException("Preencha o nome da votação");
@@ -70,67 +63,20 @@ public class ControllerVotacao {
 	}
 		
 		
-		public Boolean validadorDataInicio(Date dataInicio) {
-			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-			
-			String dataParaString = dateFormat.format(dataInicio);
-			return dataIsValid(dataParaString);
-		}
+//		public Boolean validadorDataInicio(Date dataInicio) {
+//			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//			
+//			String dataParaString = dateFormat.format(dataInicio);
+//			return dataIsValid(dataParaString);
+//		}
+//		
+//		public Boolean validadorDataFim(Date dataFim) {
+//			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//			
+//			String dataParaString = dateFormat.format(dataFim);
+//			return dataIsValid(dataParaString);
+//		}
 		
-		public Boolean validadorDataFim(Date dataFim) {
-			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-			
-			String dataParaString = dateFormat.format(dataFim);
-			return dataIsValid(dataParaString);
-		}
-		
-//	    public static boolean dataIsValid(String dataHora) {
-//	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-//
-//	        try {
-//	            LocalDateTime parsedDateTime = LocalDateTime.parse(dataHora, formatter);
-//	            
-//	            if (!dataHora.equals(parsedDateTime.format(formatter))) {
-//	                return false;
-//	            }
-//
-//	            return true;
-//	        } catch (Exception e) {
-//	            return false;
-//	        }
-//	    }
-		
-//		public static boolean dataIsValid(String dataHora) {
-//	        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//	        sdf.setLenient(false);
-//
-//	        try {
-//	            Date parsedDate = sdf.parse(dataHora);
-//
-//	            if (!dataHora.equals(sdf.format(parsedDate))) {
-//	                return false;
-//	            }
-//
-//	            Calendar calendar = Calendar.getInstance();
-//	            calendar.setTime(parsedDate);
-//
-//	            int ano = calendar.get(Calendar.YEAR);
-//	            int mes = calendar.get(Calendar.MONTH) + 1;
-//	            int dia = calendar.get(Calendar.DAY_OF_MONTH);
-//	            int horas = calendar.get(Calendar.HOUR_OF_DAY);
-//	            int minutos = calendar.get(Calendar.MINUTE);
-//	            int segundos = calendar.get(Calendar.SECOND);
-//
-//	            if (ano < 1000 || mes < 1 || mes > 12 || dia < 1 || dia > 31 ||
-//	                horas < 0 || horas > 23 || minutos < 0 || minutos > 59 || segundos < 0 || segundos > 59) {
-//	                return false;
-//	            }
-//
-//	            return true;
-//	        } catch (ParseException e) {
-//	            return false;
-//	        }
-//	    }
 		
 		public Boolean dataIsValid(String data) {
 		
@@ -151,28 +97,26 @@ public class ControllerVotacao {
 	
 	public void atualizarVotacao(int idVotacao, String nome_votacao, Date dataInicio, Date dataFim, String tipoVotacao) throws BusinessException {
 		
-	//	validarAtualizacao(idVotacao, nome_votacao, dataInicio, dataFim, tipoVotacao);
+	validarAtualizacao(idVotacao, nome_votacao, dataInicio, dataFim, tipoVotacao);
 		
 		votacaoRepository.updateVotacao(idVotacao, nome_votacao, dataInicio, dataFim, tipoVotacao);
 	}
 	
 	public void validarAtualizacao(int idVotacao, String nome_votacao, Date dataInicio, Date dataFim, String tipoVotacao) throws BusinessException {
-		
-	//	alterar levando em considerações as condições do metodo a ser validado
 		if(votacaoRepository.searchVotacaoById(idVotacao) == null) {
 			
 			throw new BusinessException("Votação informada não encontrada!");
 		}
 		
-		if(!validadorDataInicio(dataInicio)) {
-			
-			throw new BusinessException("Informe uma data inicial válida!");
-		}
-		
-		if(!validadorDataFim(dataFim)) {
-			
-			throw new BusinessException("Informe uma data final válida!");
-		}
+//		if(!validadorDataInicio(dataInicio)) {
+//			
+//			throw new BusinessException("Informe uma data inicial válida!");
+//		}
+//		
+//		if(!validadorDataFim(dataFim)) {
+//			
+//			throw new BusinessException("Informe uma data final válida!");
+//		}
 		
 		if(dataInicio.before(now)) {
 			
@@ -218,7 +162,6 @@ public class ControllerVotacao {
 		}
 	}
 	
-	//criar excessões para metodos de checagem
 
 	public void checarTermino(String numero) throws BusinessException {
 	
@@ -234,7 +177,6 @@ public class ControllerVotacao {
 		
 	}
 	
-	//criar excessões para metodos de checagem
 	
 }
 	

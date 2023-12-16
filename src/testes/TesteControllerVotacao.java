@@ -83,97 +83,97 @@ class TesteControllerVotacao {
 			}						
 	}
 	
-//	@Test
-//	void deveLancarExcecaoDataDeTerminoAntiga() {
-//		
-//		try {
-//			
-//			SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
-//			Date inicio = formatoData.parse("15/12/2023");
-//			Date fim = formatoData.parse("14/12/2023");
-//			
-//			doThrow(new BusinessException("A Votação deve ser finalizada em uma data atual ou futura!"))
-//			.when(contVotacao).registrarVotacao(anyString(), any(Date.class), any(Date.class), anyString());
-//			
-//			assertThrows(BusinessException.class, () -> contVotacao.registrarVotacao("Votacao", inicio, fim, "candidatos"));
-//						
-//			} catch (ParseException e) {
-//				
-//				e.printStackTrace();
-//			} catch (BusinessException e) {
-//				
-//				e.printStackTrace();
-//			}						
-//	}
-//	
-//	@Test
-//	void deveLancarExcecaoDataDeTerminoAntesDoInicio() {
-//		
-//		try {
-//			
-//			SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
-//			Date inicio = formatoData.parse("18/12/2023");
-//			Date fim = formatoData.parse("17/12/2023");
-//			
-//			doThrow(new BusinessException("A data de termino deve ser após a data de inicio!"))
-//			.when(contVotacao).registrarVotacao(anyString(), any(Date.class), any(Date.class), anyString());
-//			
-//			assertThrows(BusinessException.class, () -> contVotacao.registrarVotacao("Votacao", inicio, fim, "candidatos"));
-//						
-//			} catch (ParseException e) {
-//				
-//				e.printStackTrace();
-//			} catch (BusinessException e) {
-//				
-//				e.printStackTrace();
-//			}						
-//	}
-//	
-//	@Test
-//	void deveLancarExcecaoNomeEmBranco() {
-//			
-//			try {
-//				
-//				SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
-//				Date inicio = formatoData.parse("16/12/2023");
-//				Date fim = formatoData.parse("17/12/2023");
-//				
-//				doThrow(new BusinessException("Preencha o nome da votação"))
-//				.when(contVotacao).registrarVotacao(anyString(), any(Date.class), any(Date.class), anyString());
-//				
-//				assertThrows(BusinessException.class, () -> contVotacao.registrarVotacao("  ", inicio, fim, "candidatos"));
-//							
-//				} catch (ParseException e) {
-//					
-//					e.printStackTrace();
-//				} catch (BusinessException e) {
-//					
-//					e.printStackTrace();
-//				}						
-//		}
-//	
-//	@Test
-//	void deveLancarExcecaoNomeLongo() {
-//			
-//			try {
-//				
-//				SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
-//				Date inicio = formatoData.parse("16/12/2023");
-//				Date fim = formatoData.parse("17/12/2023");
-//				
-//				doThrow(new BusinessException("Nome da votação não pode exceder 30 caracteres"))
-//				.when(contVotacao).registrarVotacao(anyString(), any(Date.class), any(Date.class), anyString());
-//				
-//				assertThrows(BusinessException.class,
-//						() -> contVotacao.registrarVotacao("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", inicio, fim, "candidatos"));
-//							
-//				} catch (ParseException e) {
-//					
-//					e.printStackTrace();
-//				} catch (BusinessException e) {
-//					
-//					e.printStackTrace();
-//				}						
-//		}
-//	
+	@Test
+	void deveLancarExcecaoDataDeTerminoAntiga() {
+		
+		try {
+			
+			SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+			Date inicio = formatoData.parse("15/12/2023");
+			Date fim = formatoData.parse("14/12/2023");
+			
+			doThrow(new BusinessException("A Votação deve ser finalizada em uma data atual ou futura!"))
+			.when(contVotacao).registrarVotacao(anyString(), any(Date.class), any(Date.class), anyString());
+			
+			assertThrows(BusinessException.class, () -> contVotacao.registrarVotacao("Votacao", inicio, fim, "candidatos"));
+						
+			} catch (ParseException e) {
+				
+				e.printStackTrace();
+			} catch (BusinessException e) {
+				
+				e.printStackTrace();
+			}						
+	}
+	
+	@Test
+	void deveLancarExcecaoDataDeTerminoAntesDoInicio() {
+		
+		try {
+			
+			SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+			Date inicio = formatoData.parse("18/12/2023");
+			Date fim = formatoData.parse("17/12/2023");
+			
+			doThrow(new BusinessException("A data de termino deve ser após a data de inicio!"))
+			.when(contVotacao).registrarVotacao(anyString(), any(Date.class), any(Date.class), anyString());
+			
+			assertThrows(BusinessException.class, () -> contVotacao.registrarVotacao("Votacao", inicio, fim, "candidatos"));
+						
+			} catch (ParseException e) {
+				
+				e.printStackTrace();
+			} catch (BusinessException e) {
+				
+				e.printStackTrace();
+			}						
+	}
+	
+	@Test
+	void deveLancarExcecaoNomeEmBranco() {
+			
+			try {
+				
+				SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+				Date inicio = formatoData.parse("16/12/2023");
+				Date fim = formatoData.parse("17/12/2023");
+				
+				doThrow(new BusinessException("Preencha o nome da votação"))
+				.when(contVotacao).registrarVotacao(anyString(), any(Date.class), any(Date.class), anyString());
+				
+				assertThrows(BusinessException.class, () -> contVotacao.registrarVotacao("  ", inicio, fim, "candidatos"));
+							
+				} catch (ParseException e) {
+					
+					e.printStackTrace();
+				} catch (BusinessException e) {
+					
+					e.printStackTrace();
+				}						
+		}
+	
+	@Test
+	void deveLancarExcecaoNomeLongo() {
+			
+			try {
+				
+				SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+				Date inicio = formatoData.parse("16/12/2023");
+				Date fim = formatoData.parse("17/12/2023");
+				
+				doThrow(new BusinessException("Nome da votação não pode exceder 30 caracteres"))
+				.when(contVotacao).registrarVotacao(anyString(), any(Date.class), any(Date.class), anyString());
+				
+				assertThrows(BusinessException.class,
+						() -> contVotacao.registrarVotacao("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", inicio, fim, "candidatos"));
+							
+				} catch (ParseException e) {
+					
+					e.printStackTrace();
+				} catch (BusinessException e) {
+					
+					e.printStackTrace();
+				}						
+		}
+	
 }
