@@ -19,20 +19,17 @@ public class ControllerAdm {
 	}
 
 	public void validarRegistro(int id_adm, String login, String senha) throws BusinessException {
-//		if (AdmRepository.verificarSeIdExiste(id_adm)) {
-//			throw new BusinessException ("ID informado já existe!");
-//		}
 		
 		if (login.isBlank() || senha.isBlank()) {
 			throw new BusinessException("Todos os campos devem estar preenchidos.");
 		}
 
-		if (senha.length() > 10) {
-			throw new BusinessException("A senha informada deve possuir limite de 10 caracteres!");
+		if (senha.length() > 20) {
+			throw new BusinessException("A senha informada deve possuir limite de 20 caracteres!");
 		}
 
-		if (login.length() > 10) {
-			throw new BusinessException("O login deve possuir limite de 10 caracteres!");
+		if (login.length() > 30) {
+			throw new BusinessException("O login deve possuir limite de 30 caracteres!");
 		}
 	}
 
@@ -40,11 +37,9 @@ public class ControllerAdm {
 		AdmRepository.deleteAdm(id_adm);
 	}
 
-	// public void validarExclusao(int id_adm) throws BusinessException {
-	// if (AdmRepository.searchVotanteById(id_adm) == null) {
-	// throw new BusinessException("Adm referido não encontrado!");}
+
 	public void atualizarAdm(int id_adm, String login, String senha) throws BusinessException {
-		validarAtualizacao(id_adm, login, senha);
+		//validarAtualizacao(id_adm, login, senha);
 
 		AdmRepository.updateAdm(id_adm, login, senha);
 	}
