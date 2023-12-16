@@ -2,11 +2,13 @@ package br.com.votehub.controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import br.com.votehub.model.DAOs.CandidatoDAO;
 import br.com.votehub.model.DAOs.PropostaDAO;
 import br.com.votehub.model.DAOs.VotoDAO;
 import br.com.votehub.model.vo.Proposta;
+import br.com.votehub.model.vo.Votacao;
 import br.com.votehub.model.vo.Votante;
 
 public class ControllerProposta {
@@ -142,4 +144,9 @@ public class ControllerProposta {
 		return propostaRepository.addIdVotacaoPropostasCombobox();
 
 	}
+	public List<Proposta> ExibirPropostas() {
+		return propostaRepository.obterTodasPropostas();
+		
+	}
+	
 }

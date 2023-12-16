@@ -5,10 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 
 import br.com.votehub.model.vo.Candidato;
+import br.com.votehub.model.vo.Votante;
 
 public class CandidatoDAO {
 	
@@ -19,22 +22,33 @@ public class CandidatoDAO {
 	PreparedStatement stt1 = null;
 	PreparedStatement stt2 = null;
 
-	public void mostrarCandidatos() {
-		try {
-			conn = DB.getConnection();
-			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * \r\n" + "FROM candidato \r\n");
-			while (rs.next()) {
-				
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DB.closeResultSet(rs);
-			DB.closestatement(st);
-			//DB.closeConnection();
-		}
+	public List<Candidato> obterTodosCandidatos() {
+	    List<Candidato> candidatos = new ArrayList<>();
 
+	    try {
+	        conn = DB.getConnection();
+	        stt = conn.prepareStatement("SELECT * FROM candidato");
+
+	        rs = stt.executeQuery();
+
+	        while (rs.next()) {
+	            String numero_candidato = rs.getString("numero_candidato");
+	            String nome = rs.getString("nome");
+	            String cargo = rs.getString("cargo");
+	            int id_votacao = rs.getInt("id_votacao");
+	            String img_candidato = rs.getString("img_candidato");
+
+	            Candidato candidato = new Candidato(numero_candidato, nome, cargo, id_votacao, img_candidato);
+	            candidatos.add(candidato);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        DB.closeResultSet(rs);
+	        DB.closestatement(stt);
+	    }
+
+	    return candidatos;
 	}
 
 	public void addCandidato(Candidato c) {
@@ -203,5 +217,6 @@ public class CandidatoDAO {
 		return null;
 
 	}	
+	
 
 }

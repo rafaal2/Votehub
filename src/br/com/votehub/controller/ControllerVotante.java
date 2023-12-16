@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.List;
 
 import br.com.votehub.model.DAOs.*;
 import br.com.votehub.model.criptografia.Encriptador;
@@ -191,4 +192,11 @@ public class ControllerVotante {
 		return votanteRepository.searchVotanteByMatricula(matricula);
 		
 	}
+	
+    public List<Votante> ExibirVotantes() {
+		return votanteRepository.obterTodosVotantes();
+		
+	}
+	
+	
 }

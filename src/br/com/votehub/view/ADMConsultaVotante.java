@@ -19,9 +19,11 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
 import br.com.votehub.controller.BusinessException;
@@ -29,6 +31,8 @@ import br.com.votehub.controller.ControllerProposta;
 import br.com.votehub.controller.ControllerVotante;
 import br.com.votehub.model.DAOs.DbIntegrityException;
 import br.com.votehub.model.DAOs.VotanteDAO;
+import javax.swing.JList;
+import javax.swing.border.BevelBorder;
 
 public class ADMConsultaVotante extends JFrame {
 
@@ -37,6 +41,8 @@ public class ADMConsultaVotante extends JFrame {
 	private JTextField textFieldId;
 	private JTextField textFieldNome;
 	private JTextField textFieldMatricula;
+	 private JList<String> list;
+	    private DefaultListModel<String> listModel;
 
 	/**
 	 * Launch the application.
@@ -67,11 +73,12 @@ public class ADMConsultaVotante extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("fill", "[grow][][][][][][][][][][grow][][grow]", "[][][][][][][][]"));
+		contentPane.setLayout(new MigLayout("fill", "[grow][][][grow][][][][][][][grow][][grow]", "[grow][][][][][][][]"));
 
 		JPanel panel = new JPanel();
+		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panel.setBackground(SystemColor.menu);
-		contentPane.add(panel, "cell 6 0 1 3,alignx center,aligny center");
+		contentPane.add(panel, "cell 1 0 1 3,alignx center,aligny center");
 		panel.setPreferredSize(new Dimension(800, 600));
 		panel.setLayout(new MigLayout("fill", "[grow][][][][grow][][grow]",
 				"[][][][][][][][][][][][][][][][][][][][][][][][][]"));
@@ -105,6 +112,17 @@ public class ADMConsultaVotante extends JFrame {
 		textFieldNome = new JTextField();
 		panel.add(textFieldNome, "cell 4 11,growx");
 		textFieldNome.setColumns(10);
+		
+		 listModel = new DefaultListModel<>();
+	        
+	        JLabel lblNewLabel = new JLabel("votantes cadastrados");
+	        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+	        contentPane.add(lblNewLabel, "cell 3 0");
+	        list = new JList<>(listModel);
+	        list.setBackground(SystemColor.menu);
+	        list.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+	        contentPane.add(list, "cell 4 0 1 3,alignx center,aligny center");
+	        atualizarListaVotantes();
 
 		JButton btnEditar = new JButton("Editar");
 		panel.add(btnEditar, "cell 3 15,alignx center");
@@ -185,6 +203,8 @@ public class ADMConsultaVotante extends JFrame {
 
 		JButton btnVoltar = new JButton("VOLTAR");
 		panel.add(btnVoltar, "cell 4 23,alignx center");
+		
+		
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -194,4 +214,15 @@ public class ADMConsultaVotante extends JFrame {
 			}
 		});
 	}
-}
+	
+	 private void atualizarListaVotantes() {
+	  
+	        listModel.clear();
+
+	        ControllerVotante controllerVotante = new ControllerVotante();
+	        List<Votante> votantes = controllerVotante.ExibirVotantes();
+	        for (Votante votante : votantes) {
+	            listModel.addElement("ID: " + votante.getId_votante() + " | Nome: " + votante.getNome());
+	        }
+	    }
+	}

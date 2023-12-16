@@ -7,6 +7,7 @@ import br.com.votehub.model.vo.Candidato;
 import br.com.votehub.model.vo.Votante;
 
 import java.sql.*;
+import java.util.List;
 
 public class ControllerCandidato {
 	private CandidatoDAO candidatoRepository = new CandidatoDAO();
@@ -126,12 +127,9 @@ public class ControllerCandidato {
 		return false;
 	}
 
-	// deve ser alterado o quanto antes retornando uma lista de candidatos que possa
-	// ser exibida na interface grafica
-	public void exibirCandidato() {
-
-		candidatoRepository.mostrarCandidatos();
-
+	public List<Candidato> ExibirCandidatos() {
+		return candidatoRepository.obterTodosCandidatos();
+		
 	}
 
 	public ResultSet exibirReitor() {

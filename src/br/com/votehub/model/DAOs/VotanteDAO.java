@@ -5,11 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import br.com.votehub.controller.BusinessException;
-import br.com.votehub.model.criptografia.Encriptador;
 import br.com.votehub.model.vo.Votante;
 
 public class VotanteDAO {
@@ -20,6 +21,38 @@ public class VotanteDAO {
 	PreparedStatement stt = null;
 	PreparedStatement stt1 = null;
 	PreparedStatement stt2 = null;
+	
+	 public List<Votante> obterTodosVotantes() {
+	        List<Votante> votantes = new ArrayList<>();
+
+	        try {
+	            conn = DB.getConnection();
+	            stt = conn.prepareStatement("SELECT * FROM votante");
+
+	            rs = stt.executeQuery();
+
+	            while (rs.next()) {
+	                int id = rs.getInt("id_votante");
+	                String matricula = rs.getString("matricula");
+	                String nome = rs.getString("nome");
+
+	                Votante votante = new Votante(matricula, nome);
+	                votante.setId_votante(id);
+
+	                votantes.add(votante);
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        } finally {
+	            DB.closeResultSet(rs);
+	            DB.closestatement(stt);
+	        }
+
+	        return votantes;
+	    }
+		
+
+	
 
 	public void addVotante(Votante v) {
 

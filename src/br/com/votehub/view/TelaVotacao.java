@@ -37,7 +37,6 @@ public class TelaVotacao {
 	private JComboBox comboBox;
 	private JComboBox comboBox_1;
 	private JComboBox comboBox_2;
-	// private JComboBox comboBox_3;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
@@ -72,9 +71,6 @@ public class TelaVotacao {
 		return count;
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
 		frame.setForeground(Color.GREEN);
@@ -114,22 +110,6 @@ public class TelaVotacao {
 		comboBoxes_[1] = comboBox_1;
 		frame.getContentPane().add(comboBox_1, "cell 12 3,growx");
 
-		// comboBox_2 = new JComboBox();
-		// comboBoxes_[2] = comboBox_2;
-		// frame.getContentPane().add(comboBox_2, "cell 6 4,growx");
-
-//		comboBox.addActionListener(new ActionListener() {
-//	        public void actionPerformed(ActionEvent e) {
-//	            String numeroCandidato = (String) comboBox.getSelectedItem();
-//	            exibirImagemCandidato(numeroCandidato, lblimgReitor);
-//	        }
-//	    });
-//		comboBox.addActionListener(new ActionListener() {
-//	        public void actionPerformed(ActionEvent e) {
-//	            String numeroCandidato = (String) comboBox.getSelectedItem();
-//	            exibirImagemCandidato(numeroCandidato, lblimgDiretor);     
-//	        }
-//	    });
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String numeroCandidato = (String) comboBox.getSelectedItem();
@@ -220,22 +200,6 @@ public class TelaVotacao {
 			}
 		});
 
-//		comboBox_1 = new JComboBox();
-//		frame.getContentPane().add(comboBox_1, "cell 6 3,growx");
-
-// lblNewLabel_2 = new JLabel("DA:");
-// lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 13));
-// frame.getContentPane().add(lblNewLabel_2, "cell 4 4,alignx center");
-
-//		comboBox_2 = new JComboBox();
-//		frame.getContentPane().add(comboBox_2, "cell 6 4,growx");
-
-//      lblNewLabel_3 = new JLabel("New label");
-//      frame.getContentPane().add(lblNewLabel_3, "cell 4 5");
-
-//		comboBox_3 = new JComboBox();
-
-		// frame.getContentPane().add(comboBox_3, "cell 6 5,growx");
 		frame.getContentPane().add(botaoCancelar, "flowx,cell 4 7,alignx center,aligny baseline");
 		frame.getContentPane().add(botaoAvancar, "cell 12 7,alignx center,aligny baseline");
 	}

@@ -2,19 +2,20 @@ package br.com.votehub.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
 import br.com.votehub.controller.BusinessException;
@@ -29,6 +30,8 @@ public class TelaProposta extends JFrame {
 	private JPanel contentPane;
 	private static Votante vtt;
 	private JComboBox<String> comboBoxPropostas;
+	private ButtonGroup buttonGroup;
+	private JRadioButton[] radioButtons;
 
 	public TelaProposta(Votante vtt) {
 		TelaProposta.vtt = vtt;
@@ -76,11 +79,17 @@ public class TelaProposta extends JFrame {
 		comboBoxPropostas.setBounds(427, 173, 150, 30);
 		panel.add(comboBoxPropostas);
 		restaurarTituloCombobox();
+		
+		 buttonGroup = new ButtonGroup();
+	        radioButtons = new JRadioButton[5]; 
 
-		JComboBox comboBoxResposta = new JComboBox<>(
-				new String[] { "Sim", "Provavelmente sim", "Talvez", "Provavelmente não", "não" });
-		comboBoxResposta.setBounds(427, 379, 150, 30);
-		panel.add(comboBoxResposta);
+	        for (int i = 0; i < radioButtons.length; i++) {
+	            radioButtons[i] = new JRadioButton(obterTextoOpcao(i));
+	            radioButtons[i].setBounds(427, 379 + i * 30, 150, 30);
+	            panel.add(radioButtons[i]);
+	            buttonGroup.add(radioButtons[i]);
+	        }
+
 
 		JButton btnDescricao = new JButton("Descrição da Proposta");
 		btnDescricao.setFont(new Font("Tahoma", Font.BOLD, 10));
@@ -93,7 +102,6 @@ public class TelaProposta extends JFrame {
 					try {
 						exibirDescricaoProposta(tituloSelecionado);
 					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
@@ -104,37 +112,38 @@ public class TelaProposta extends JFrame {
 		btnConfirmar.setToolTipText("");
 		panel.add(btnConfirmar);
 		btnConfirmar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String tituloSelecionado = (String) comboBoxPropostas.getSelectedItem();
-				ControllerProposta contProposta = new ControllerProposta();
-				String resposta = (String) comboBoxResposta.getSelectedItem();
-				int idProposta = 0;
-				try {
-					idProposta = contProposta.obterIdPorTitulo(tituloSelecionado);
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-				try {
-					ControllerPropostaVotante contpv = new ControllerPropostaVotante();
-					contpv.checarRespostaUnica(vtt.getId_votante(), idProposta);
-					contpv.adicionarPropostaVotante(vtt.getId_votante(), idProposta);
+		    public void actionPerformed(ActionEvent e) {
+		        String tituloSelecionado = (String) comboBoxPropostas.getSelectedItem();
+		        ControllerProposta contProposta = new ControllerProposta();
+		        
+		        // Utilize o método obterRespostaSelecionada para obter a resposta selecionada
+		        String resposta = obterRespostaSelecionada();
+		        
+		        int idProposta = 0;
+		        try {
+		            idProposta = contProposta.obterIdPorTitulo(tituloSelecionado);
+		        } catch (SQLException e1) {
+		            e1.printStackTrace();
+		        }
+		        
+		        try {
+		            ControllerPropostaVotante contpv = new ControllerPropostaVotante();
+		            contpv.checarRespostaUnica(vtt.getId_votante(), idProposta);
+		            contpv.adicionarPropostaVotante(vtt.getId_votante(), idProposta);
 
-					ControllerRespostaProposta contVoto = new ControllerRespostaProposta();
-					contVoto.registrarRespostaProposta(resposta, idProposta);
+		            ControllerRespostaProposta contVoto = new ControllerRespostaProposta();
+		            contVoto.registrarRespostaProposta(resposta, idProposta);
 
-					JOptionPane.showMessageDialog(null, "Resposta cadastrada com sucesso!");
-				} catch (BusinessException error) {
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-				} catch (SQLException error) {
-
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-					// e1.printStackTrace();
-				}
-			}
+		            JOptionPane.showMessageDialog(null, "Resposta cadastrada com sucesso!");
+		        } catch (BusinessException error) {
+		            JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+		        } catch (SQLException error) {
+		            JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+		            // e1.printStackTrace();
+		        }
+		    }
 		});
-
 	}
-
 	public void restaurarTituloCombobox() {
 		try {
 			ControllerProposta objProposta = new ControllerProposta();
@@ -152,18 +161,38 @@ public class TelaProposta extends JFrame {
 		String descricao = objProposta.obterDescricaoPorTitulo(tituloProposta);
 
 		if (descricao != null) {
-			// Substitui caracteres de quebra de linha do banco de dados por quebras de
-			// linha reais
 			descricao = descricao.replace("\\n", "<br>");
-
-			// Formata o texto como HTML
 			String htmlDesc = "<html><body style='width: 300px;'>" + descricao + "</body></html>";
-
-			// Exibe a descrição em um JOptionPane com suporte HTML
 			JOptionPane.showMessageDialog(this, htmlDesc, "Descrição da Proposta", JOptionPane.INFORMATION_MESSAGE);
 		} else {
 			JOptionPane.showMessageDialog(this, "Descrição não encontrada para a proposta selecionada.", "Erro",
 					JOptionPane.ERROR_MESSAGE);
 		}
+	}
+
+	private String obterTextoOpcao(int indice) {
+		switch (indice) {
+		case 0:
+			return "Sim";
+		case 1:
+			return "Provavelmente sim";
+		case 2:
+			return "Talvez";
+		case 3:
+			return "Provavelmente não";
+		case 4:
+			return "Não";
+		default:
+			return "";
+		}
+	}
+
+	private String obterRespostaSelecionada() {
+		for (int i = 0; i < radioButtons.length; i++) {
+			if (radioButtons[i].isSelected()) {
+				return obterTextoOpcao(i);
+			}
+		}
+		return "";
 	}
 }

@@ -7,9 +7,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.votehub.model.vo.Candidato;
 import br.com.votehub.model.vo.Votacao;
+import br.com.votehub.model.vo.Votante;
 
 public class VotacaoDAO {
 	
@@ -19,6 +22,41 @@ public class VotacaoDAO {
 	PreparedStatement stt = null;
 	PreparedStatement stt1 = null;
 	PreparedStatement stt2 = null;
+	
+	
+	public List<Votacao> obterTodasVotacoes() {
+	    List<Votacao> votacoes = new ArrayList<>();
+
+	    try {
+	        conn = DB.getConnection();
+	        stt = conn.prepareStatement("SELECT * FROM votacao");
+
+	        rs = stt.executeQuery();
+
+	        while (rs.next()) {
+	            int id_votacao = rs.getInt("id_votacao");
+	            String nome_votacao = rs.getString("nome_votacao");
+	            Date data_inicio = rs.getDate("data_inicio");
+	            Date data_fim = rs.getDate("data_fim");
+	            String tipo_votacao = rs.getString("tipo_votacao");
+
+	            Votacao votacao = new Votacao(nome_votacao, data_inicio, data_fim, tipo_votacao);
+	            votacao.setId_votacao(id_votacao);
+
+	            votacoes.add(votacao);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        DB.closeResultSet(rs);
+	        DB.closestatement(stt);
+	    }
+
+	    return votacoes;
+	}
+	
+	
+	
 	
 	public void addVotacao(Votacao votacao) {
 		try {

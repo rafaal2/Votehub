@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.votehub.model.vo.Proposta;
 import br.com.votehub.model.vo.Votante;
@@ -17,21 +19,34 @@ public class PropostaDAO {
 	PreparedStatement stt1 = null;
 	PreparedStatement stt2 = null;
 
-	public void mostrarPropostas() {
-		try {
-			conn = DB.getConnection();
-			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * \r\n" + "FROM proposta \r\n");
-			while (rs.next()) {
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DB.closeResultSet(rs);
-			DB.closestatement(st);
-			// DB.closeConnection();
-		}
+	public List<Proposta> obterTodasPropostas() {
+	    List<Proposta> propostas = new ArrayList<>();
 
+	    try {
+	        conn = DB.getConnection();
+	        stt = conn.prepareStatement("SELECT * FROM proposta");
+
+	        rs = stt.executeQuery();
+
+	        while (rs.next()) {
+	            int id_proposta = rs.getInt("id_proposta");
+	            String titulo = rs.getString("titulo");
+	            String descricao = rs.getString("descricao");
+	            int id_votacao = rs.getInt("id_votacao");
+
+	            Proposta proposta = new Proposta(titulo, descricao, id_votacao);
+	            proposta.setId_Proposta(id_proposta);
+
+	            propostas.add(proposta);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        DB.closeResultSet(rs);
+	        DB.closestatement(stt);
+	    }
+
+	    return propostas;
 	}
 
 	public void addPropostas(Proposta p) {

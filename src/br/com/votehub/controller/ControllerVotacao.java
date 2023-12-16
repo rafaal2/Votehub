@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -16,6 +17,7 @@ import br.com.votehub.model.DAOs.CandidatoDAO;
 import br.com.votehub.model.DAOs.VotacaoDAO;
 import br.com.votehub.model.vo.Candidato;
 import br.com.votehub.model.vo.Votacao;
+import br.com.votehub.model.vo.Votante;
 
 public class ControllerVotacao {
 	
@@ -263,6 +265,11 @@ public class ControllerVotacao {
 	public Votacao buscarVotacaoId(int idVotacao) {
 		
 		return votacaoRepository.searchVotacaoById(idVotacao);
+	}
+	
+	public List<Votacao> ExibirVotacoes() {
+		return votacaoRepository.obterTodasVotacoes();
+		
 	}
 
 }

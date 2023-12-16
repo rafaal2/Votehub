@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
 import br.com.votehub.controller.ControllerVotante;
@@ -13,8 +14,11 @@ import br.com.votehub.model.DAOs.DbIntegrityException;
 import br.com.votehub.model.vo.Proposta;
 import br.com.votehub.model.vo.Votante;
 import net.miginfocom.swing.MigLayout;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
@@ -22,6 +26,7 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -36,6 +41,9 @@ public class ADMConsultaProposta extends JFrame {
 	private JTextField textFieldId;
 	private JTextField textFieldTitulo;
 	private JTextField textFieldDescricao;
+	private JList<String> list;
+    private DefaultListModel<String> listModel;
+
 
 	/**
 	 * Launch the application.
@@ -68,8 +76,9 @@ public class ADMConsultaProposta extends JFrame {
 		contentPane.setLayout(new MigLayout("fill", "[grow][][][][][][][][][][grow][][grow]", "[][][][][][][][]"));
 
 		JPanel panel = new JPanel();
+		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panel.setBackground(SystemColor.menu);
-		contentPane.add(panel, "cell 6 0 1 3,alignx center,aligny center");
+		contentPane.add(panel, "cell 1 0 1 3,alignx center,aligny center");
 		panel.setPreferredSize(new Dimension(800, 600));
 		panel.setLayout(
 				new MigLayout("fill", "[grow][][][][grow][][grow]", "[][][][][][][][][][][][][][][][][][][][][][][][][]"));
@@ -89,6 +98,17 @@ public class ADMConsultaProposta extends JFrame {
 		JLabel lblTitulo = new JLabel("Título: ");
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		panel.add(lblTitulo, "cell 3 9,alignx center");
+		
+		listModel = new DefaultListModel<>();
+        
+        JLabel lblNewLabel = new JLabel("propostas cadastradas");
+        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+        contentPane.add(lblNewLabel, "cell 3 0");
+        list = new JList<>(listModel);
+        list.setBackground(SystemColor.menu);
+        list.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+        contentPane.add(list, "cell 4 0 1 3,alignx center,aligny center");
+        atualizarListaProposta();
 		
 		textFieldTitulo = new JTextField();
 		panel.add(textFieldTitulo, "cell 4 9,growx");
@@ -190,5 +210,16 @@ public class ADMConsultaProposta extends JFrame {
 			}
 		});
 	}
+	
+	 private void atualizarListaProposta() {
+		  
+	        listModel.clear();
+
+	        ControllerProposta controllerProposta = new ControllerProposta();
+	        List<Proposta> propostas = controllerProposta.ExibirPropostas();
+	        for (Proposta proposta : propostas) {
+	            listModel.addElement("ID : " + proposta.getId_Proposta() + " | Titulo : " + proposta.getTitulo());
+	        }
+	    }
 
 }

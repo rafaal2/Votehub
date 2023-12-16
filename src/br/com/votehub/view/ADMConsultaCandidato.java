@@ -11,25 +11,30 @@ import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import br.com.votehub.controller.BusinessException;
 import br.com.votehub.controller.ControllerCandidato;
-import br.com.votehub.model.DAOs.CandidatoDAO;
+import br.com.votehub.controller.ControllerVotante;
 import br.com.votehub.model.DAOs.DbIntegrityException;
 import br.com.votehub.model.vo.Candidato;
+import br.com.votehub.model.vo.Votante;
 import net.miginfocom.swing.MigLayout;
 
 public class ADMConsultaCandidato extends JFrame {
@@ -42,6 +47,8 @@ public class ADMConsultaCandidato extends JFrame {
 	private JTextField textFieldVotacao;
 	private JLabel lblImg;
 	private String img_candidato;
+	private JList<String> list;
+    private DefaultListModel<String> listModel;
 
 	public ADMConsultaCandidato() {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -52,10 +59,21 @@ public class ADMConsultaCandidato extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("fill", "[grow][][][][][][][][][][grow][][grow]", "[][][][][][][][]"));
+		
+		 listModel = new DefaultListModel<>();
+	        
+	        JLabel lblTxtGeral = new JLabel("Candidatos cadastrados :");
+	        lblTxtGeral.setFont(new Font("Tahoma", Font.BOLD, 12));
+	        contentPane.add(lblTxtGeral, "cell 3 2");
+	        list = new JList<>(listModel);
+	        list.setBackground(SystemColor.menu);
+	        list.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+	        contentPane.add(list, "cell 4 0 1 3,alignx center,aligny center");
+	        atualizarListaCandidatos();
 
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.menu);
-		contentPane.add(panel, "cell 6 0 1 3,alignx center,aligny center");
+		contentPane.add(panel, "cell 1 0 1 3,alignx center,aligny center");
 		panel.setPreferredSize(new Dimension(800, 600));
 		panel.setLayout(new MigLayout("fill", "[][grow][][][][][grow][][][][grow][][][][][]",
 				"[][][][][][][][][][][][][][][][][][][][][][][][][][][][]"));
@@ -176,7 +194,7 @@ public class ADMConsultaCandidato extends JFrame {
 					JOptionPane.showMessageDialog(null, error2.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 			}
-		});
+		}); 
 
 		JButton btnVoltar = new JButton("VOLTAR");
 		panel.add(btnVoltar, "cell 0 26,growx");
@@ -225,4 +243,15 @@ public class ADMConsultaCandidato extends JFrame {
 			}
 		});
 	}
+	
+	 private void atualizarListaCandidatos() {
+		  
+	        listModel.clear();
+
+	        ControllerCandidato controllerCandidato = new ControllerCandidato();
+	        List<Candidato> Candidatos = controllerCandidato.ExibirCandidatos();
+	        for (Candidato candidato : Candidatos) {
+	            listModel.addElement("Numero: " + candidato.getNumero_candidato() + " | Nome: " + candidato.getNome() + " | Cargo: " + candidato.getCargo());
+	        }
+	    }
 }
