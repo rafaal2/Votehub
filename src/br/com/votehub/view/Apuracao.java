@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,63 +27,81 @@ public class Apuracao extends JFrame {
 		setForeground(Color.LIGHT_GRAY);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		setFont(new Font("Tahoma", Font.PLAIN, 13));
 		setTitle("Apurar votos\r\n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(164, 247, 176));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder(5, 20, 20, 20));
 		contentPane.setForeground(Color.LIGHT_GRAY);
 		contentPane.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("fill", "[grow][][][][][][][][][][grow][][grow]", "[][][][][][][][][]"));
+		contentPane.setLayout(new MigLayout("fill", "[][][][][][][]", "[][][][][][][][][]"));
 		
 		JPanel panel = new JPanel();
-		contentPane.add(panel, "cell 6 0,alignx center,aligny center");
-		panel.setPreferredSize(new Dimension(800, 600));
-		panel.setLayout(new MigLayout("fill", "[grow][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][grow][][grow]", "[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]"));
+		contentPane.add(panel, "cell 0 1 7 8,grow");
+		panel.setLayout(new MigLayout("fill", "[grow][][grow][][grow][][grow]", "[][][][][][][]"));
 		
-		JLabel lblTitulo = new JLabel("Apuração de resultados");
-		panel.add(lblTitulo, "cell 26 1,alignx center");
+		JLabel lblTitulo = new JLabel("Apuração de Resultados");
+		contentPane.add(lblTitulo,  "cell 0 0 7 1,alignx center");
 		lblTitulo.setVerticalAlignment(SwingConstants.TOP);
-		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 22));
 		
-		JButton btnApurarReitor = new JButton("Resultado Reitor");
-		panel.add(btnApurarReitor, "cell 26 10,grow");
+		ImageIcon ar = new ImageIcon("./icons/menu_apurar/apu_cand.png");
+		Image arImg = ar.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+		ImageIcon resizedAr = new ImageIcon(arImg);
+		JButton btnApurarReitor = new JButton("RESULTADO REITOR");
+		btnApurarReitor.setIcon(resizedAr);
+		btnApurarReitor.setPreferredSize(new Dimension(220, 100));
+		btnApurarReitor.setFont(new Font("Tahoma", Font.BOLD, 12));
+		panel.add(btnApurarReitor, "cell 1 1,growx,aligny center");
 		btnApurarReitor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
+			public void actionPerformed(ActionEvent e) {	
 				ApurarReitor reitor = new ApurarReitor();
 				reitor.setVisible(true);
 				dispose();
 			}
 		});
 		
-		JButton btnApurarProposta = new JButton("Resultado Propostas");
-		panel.add(btnApurarProposta, "cell 26 15,grow");
+		ImageIcon ap = new ImageIcon("./icons/menu_apurar/apu_pro.png");
+		Image apImg = ap.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+		ImageIcon resizedAp = new ImageIcon(apImg);
+		JButton btnApurarProposta = new JButton("RESULTADO PROPOSTAS");
+		btnApurarProposta.setIcon(resizedAp);
+		btnApurarProposta.setPreferredSize(new Dimension(220, 100));
+		btnApurarProposta.setFont(new Font("Tahoma", Font.BOLD, 12));
+		panel.add(btnApurarProposta, "cell 3 1,growx,aligny center");
 		btnApurarProposta.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
+			public void actionPerformed(ActionEvent e) {	
 				ApurarProposta proposta = new ApurarProposta();
 				proposta.setVisible(true);
 				dispose();
 			}
 		});
 		
-		JButton btnApurarDiretor = new JButton("Resultado Diretor");
-		panel.add(btnApurarDiretor, "cell 26 20,grow");
+		ImageIcon ad = new ImageIcon("./icons/menu_apurar/apu_cand.png");
+		Image adImg = ad.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+		ImageIcon resizedAd = new ImageIcon(adImg);
+		JButton btnApurarDiretor = new JButton("RESULTADO DIRETOR");
+		btnApurarDiretor.setIcon(resizedAd);
+		btnApurarDiretor.setPreferredSize(new Dimension(220, 100));
+		btnApurarDiretor.setFont(new Font("Tahoma", Font.BOLD, 12));
+		panel.add(btnApurarDiretor, "cell 5 1,growx,aligny center");
 		btnApurarDiretor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
+			public void actionPerformed(ActionEvent e) {	
 				ApurarDiretor diretor = new ApurarDiretor();
 				diretor.setVisible(true);
 				dispose();
 			}
 		});
 		
+		JButton espaco = new JButton("CONSULTAR VOTANTE");
+		espaco.setPreferredSize(new Dimension(220, 100));
+		panel.add(espaco, "cell 1 3,growx,aligny center");
+		espaco.setVisible(false);
+		
 		JButton btnVoltar = new JButton("VOLTAR");
-		panel.add(btnVoltar, "cell 26 40,growx,aligny center");
+		panel.add(btnVoltar, "cell 1 5,alignx center,aligny center");
 		btnVoltar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
     			ADMPrincipal admp = new ADMPrincipal();

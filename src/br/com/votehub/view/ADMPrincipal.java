@@ -59,7 +59,6 @@ public class ADMPrincipal extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.menu);
-
 		contentPane.add(panel, "cell 0 1 7 8,grow");
 		panel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 		panel.setLayout(new MigLayout("fill", "[grow][][grow][][grow][][grow]", "[][][][][][][]"));
@@ -69,8 +68,7 @@ public class ADMPrincipal extends JFrame {
 		ImageIcon resizedCad = new ImageIcon(cadImg);
 		JButton btnMenuCadastrar = new JButton("CADASTRAR");
 		btnMenuCadastrar.setIcon(resizedCad);
-		btnMenuCadastrar.setPreferredSize(new Dimension(220, 100));
-		
+		btnMenuCadastrar.setPreferredSize(new Dimension(220, 100));	
 		panel.add(btnMenuCadastrar, "cell 1 1");
 		btnMenuCadastrar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnMenuCadastrar.addActionListener(new ActionListener() {
@@ -125,6 +123,11 @@ public class ADMPrincipal extends JFrame {
 				dispose();
 			}
 		});
+		
+		JButton espaco = new JButton("CONSULTAR VOTANTE");
+		espaco.setPreferredSize(new Dimension(220, 100));
+		panel.add(espaco, "cell 1 3,growx,aligny center");
+		espaco.setVisible(false);
 	}
 
 }
