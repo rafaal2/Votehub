@@ -4,10 +4,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -46,24 +49,30 @@ public class ADMPrincipal extends JFrame {
 		setBounds(100, 100, 501, 381);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(164, 247, 176));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
+		contentPane.setBorder(new EmptyBorder(5, 20, 20, 20));
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("fill", "[grow][][][][][][][][][][grow][][grow]", "[][][][][][][][]"));
+		contentPane.setLayout(new MigLayout("fill", "[][][][][][][]", "[][][][][][][][][]"));
+		
+		JLabel lblMenu = new JLabel("Menu Principal");
+		contentPane.add(lblMenu, "cell 0 0 7 1,alignx center");
+		lblMenu.setFont(new Font("Tahoma", Font.BOLD, 22));
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.menu);
-		contentPane.add(panel, "cell 5 0 1 3,alignx center,aligny center");
-		panel.setPreferredSize(new Dimension(800, 600)); 
-		panel.setLayout(new MigLayout("fill", "[grow][][][grow][][grow]", "[][][][][][][][][]"));
+
+		contentPane.add(panel, "cell 0 1 7 8,grow");
+		panel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		panel.setLayout(new MigLayout("fill", "[grow][][grow][][grow][][grow]", "[][][][][][][]"));
 		
-		JLabel lblMenu = new JLabel("Menu Principal");
-		lblMenu.setFont(new Font("Tahoma", Font.BOLD, 17));
-		panel.add(lblMenu, "cell 3 0,alignx center,aligny center");
-		
+		ImageIcon cad = new ImageIcon("./icons/cadastrar.png");
+		Image cadImg = cad.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+		ImageIcon resizedCad = new ImageIcon(cadImg);
 		JButton btnMenuCadastrar = new JButton("CADASTRAR");
+		btnMenuCadastrar.setIcon(resizedCad);
+		btnMenuCadastrar.setPreferredSize(new Dimension(220, 100));
+		
+		panel.add(btnMenuCadastrar, "cell 1 1");
 		btnMenuCadastrar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		panel.add(btnMenuCadastrar, "cell 3 1,growx,aligny center");
 		btnMenuCadastrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ADMCadastro admCadastro = new ADMCadastro();
@@ -72,30 +81,27 @@ public class ADMPrincipal extends JFrame {
             }
         });
 		
-		JButton btnMenuConsultar = new JButton("CONSULTAR");
-		btnMenuConsultar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnMenuConsultar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				ADMMenuConsulta consulta = new ADMMenuConsulta();
-				consulta.setVisible(true);
-				dispose();
-			}
-		});
-		panel.add(btnMenuConsultar, "cell 3 2,growx,aligny center");
-		
+		ImageIcon ap = new ImageIcon("./icons/apurar.png");
+		Image apImg = ap.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+		ImageIcon resizedap = new ImageIcon(apImg);
 		JButton btnMenuApurar = new JButton("APURAR VOTOS");
+		btnMenuApurar.setIcon(resizedap);
+		btnMenuApurar.setPreferredSize(new Dimension(220, 100));
+
+		panel.add(btnMenuApurar, "cell 3 1");
 		btnMenuApurar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnMenuApurar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Apuracao apurar = new Apuracao();
-				apurar.setVisible(true);
-				dispose();
-			}
-		});
-		panel.add(btnMenuApurar, "cell 3 3,growx,aligny center");
+		
+		ImageIcon con = new ImageIcon("./icons/consultar.png");
+		Image conImg = con.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+		ImageIcon resizedCon = new ImageIcon(conImg);
+		JButton btnMenuConsultar = new JButton("CONSULTAR");
+		btnMenuConsultar.setIcon(resizedCon);
+		btnMenuConsultar.setPreferredSize(new Dimension(220, 100));
+		panel.add(btnMenuConsultar, "cell 5 1 2 1");
+		btnMenuConsultar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
 		JButton btnNewButton = new JButton("VOLTAR");
+		panel.add(btnNewButton, "cell 1 5,alignx center");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaInicial telaInicial = new TelaInicial();
@@ -104,7 +110,21 @@ public class ADMPrincipal extends JFrame {
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		panel.add(btnNewButton, "cell 3 4,growx,aligny baseline");
+		btnMenuConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				ADMMenuConsulta consulta = new ADMMenuConsulta();
+				consulta.setVisible(true);
+				dispose();
+			}
+		});
+		btnMenuApurar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Apuracao apurar = new Apuracao();
+				apurar.setVisible(true);
+				dispose();
+			}
+		});
 	}
 
 }
