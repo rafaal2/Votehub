@@ -78,7 +78,7 @@ public class ApurarReitor extends JFrame {
 		panel.setPreferredSize(new Dimension(800, 600));
 		panel.setLayout(new MigLayout("fill", "[grow]", "[][][][][][][][][][][][][][][][][][][][][][][][][]"));
 
-		JLabel lblTitulo = new JLabel("Resultado Votação de Reitor");
+		JLabel lblTitulo = new JLabel("Resultado da votação de reitor");
 		lblTitulo.setHorizontalAlignment(JLabel.CENTER);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		panel.add(lblTitulo, "cell 0 0, alignx center, aligny center");

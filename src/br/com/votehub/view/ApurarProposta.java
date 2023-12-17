@@ -1,8 +1,9 @@
 package br.com.votehub.view;
 
 import java.awt.Color;
-import java.awt.EventQueue;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -20,54 +21,118 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import br.com.votehub.controller.ControllerProposta;
 import br.com.votehub.model.DAOs.DB;
+import net.miginfocom.swing.MigLayout;
 
 public class ApurarProposta extends JFrame {
-	Connection conn = null;
-	Statement st = null;
-	ResultSet rs = null;
-	PreparedStatement stt = null;
-	PreparedStatement stt1 = null;
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTable tableResposta;
-	private JComboBox<String> comboBoxPropostas;
-	private JComboBox<String> comboBoxVotacao;
-	private JLabel lblNrRespostas;
-	private String idVotacaoSelecionada;
 
-	public ApurarProposta() {
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+    private JTable tableResposta;
+    private JComboBox<String> comboBoxPropostas;
+    private JComboBox<String> comboBoxVotacao;
+    private JLabel lblNrRespostas;
 
-		setBackground(Color.LIGHT_GRAY);
-		setForeground(Color.LIGHT_GRAY);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 778, 603);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    ApurarProposta frame = new ApurarProposta();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
-		JLabel lblNewLabel = new JLabel("Resultado Das propostas");
-		lblNewLabel.setBounds(5, 5, 820, 26);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		contentPane.add(lblNewLabel);
+    public ApurarProposta() {
+        setTitle("Apuração das propostas");
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 501, 381);
+        contentPane = new JPanel();
+        contentPane.setBackground(new Color(164, 247, 176));
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		lblNrRespostas = new JLabel("numero de respostas cadastradas :");
-		lblNrRespostas.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNrRespostas.setBounds(430, 300, 250, 14);
-		contentPane.add(lblNrRespostas);
+        setContentPane(contentPane);
+        contentPane.setLayout(new MigLayout("fill", "[grow][][][][][][][][][][grow][][grow]", "[][][][][][][][]"));
 
-		JButton btnVoltar = new JButton("VOLTAR");
+        JPanel panel = new JPanel();
+        panel.setBackground(SystemColor.menu);
+        contentPane.add(panel, "cell 0 0 12 9,alignx center,aligny center");
+        panel.setPreferredSize(new Dimension(800, 600));
+        panel.setLayout(new MigLayout("fill", "[grow]", "[][][][][][][][][][][][][][][][][][][][][][][][][][]"));
+
+        JLabel lblTitulo = new JLabel("Resultado da votação de propostas");
+        lblTitulo.setHorizontalAlignment(JLabel.CENTER);
+        lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 21));
+        panel.add(lblTitulo, "cell 0 0, alignx center, wrap");
+
+        lblNrRespostas = new JLabel("Número de respostas cadastradas: ");
+        lblNrRespostas.setFont(new Font("Tahoma", Font.BOLD, 12));
+        panel.add(lblNrRespostas, "cell 0 1, alignx center, wrap");
+
+        JLabel lblVotacao = new JLabel("Selecione a votação:");
+        lblVotacao.setFont(new Font("Tahoma", Font.BOLD, 12));
+        panel.add(lblVotacao, "alignx center, split 2");
+
+        comboBoxVotacao = new JComboBox<>();
+        panel.add(comboBoxVotacao, "alignx left, wrap");
+        comboBoxVotacao.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                restaurarTituloCombobox();
+            }
+        });
+
+        JLabel lblProposta = new JLabel("Selecione a proposta:");
+        lblProposta.setFont(new Font("Tahoma", Font.BOLD, 12));
+        panel.add(lblProposta, "alignx center, split 2");
+
+        comboBoxPropostas = new JComboBox<>();
+        panel.add(comboBoxPropostas, "alignx left, wrap");
+        comboBoxPropostas.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                apurarVotosProposta();
+                atualizarNumeroRespostas();
+            }
+        });
+
+        DefaultTableModel tableModel = new DefaultTableModel();
+
+        tableResposta = new JTable(tableModel) {
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        tableModel.setColumnIdentifiers(
+                new Object[] { "id da proposta", "titulo", "resposta", "numero_respostas_totais" });
+        tableResposta.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+        tableResposta.setDoubleBuffered(true);
+        tableResposta.getColumnModel().getColumn(0).setPreferredWidth(114);
+        tableResposta.setBackground(Color.LIGHT_GRAY);
+        panel.add(tableResposta, "cell 0 4, grow, span");
+
+        JScrollPane scrollPane = new JScrollPane(tableResposta);
+        panel.add(scrollPane, "cell 0 6, grow, span");
+
+        JLabel lblTxtResultado = new JLabel("Resultados");
+        lblTxtResultado.setFont(new Font("Tahoma", Font.BOLD, 12));
+        panel.add(lblTxtResultado, "cell 0 5, alignx center");
+
+        restaurarvotacaoCombobox();
+        
+        JButton btnVoltar = new JButton("VOLTAR");
 		btnVoltar.setBounds(68, 484, 89, 23);
-		contentPane.add(btnVoltar);
+		panel.add(btnVoltar, "cell 0 17, alignx center");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Apuracao apvoto = new Apuracao();
@@ -75,154 +140,91 @@ public class ApurarProposta extends JFrame {
 				dispose();
 			}
 		});
+    }
 
-		JLabel lblVotacao = new JLabel("Selecione a votação :");
-		lblVotacao.setBounds(137, 150, 170, 30);
-		lblVotacao.setFont(new Font("Tahoma", Font.BOLD, 12));
-		contentPane.add(lblVotacao);
+    public void restaurarTituloCombobox() {
+        try {
+            ControllerProposta objProposta = new ControllerProposta();
+            comboBoxPropostas.removeAllItems();
+            String idVotacaoSelecionada = (String) comboBoxVotacao.getSelectedItem();
 
-		comboBoxVotacao = new JComboBox();
-		comboBoxVotacao.setBounds(323, 150, 170, 30);
-		contentPane.add(comboBoxVotacao);
-		restaurarvotacaoCombobox();
-		comboBoxVotacao.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				restaurarTituloCombobox();
-			}
-		});
+            if (idVotacaoSelecionada != null) {
+                ResultSet rs = objProposta.obterTituloPorVotacao(Integer.parseInt(idVotacaoSelecionada));
+                while (rs.next()) {
+                    String titulo = rs.getString("titulo");
+                    if (titulo != null) {
+                        comboBoxPropostas.addItem(titulo);
+                    }
+                }
+            }
+        } catch (SQLException | NumberFormatException error) {
+            JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
-		JLabel lblProposta = new JLabel("Selecione a proprosta :");
-		lblProposta.setBounds(137, 200, 170, 30);
-		lblProposta.setFont(new Font("Tahoma", Font.BOLD, 12));
-		contentPane.add(lblProposta);
+    public void restaurarvotacaoCombobox() {
+        try {
+            ControllerProposta objProposta = new ControllerProposta();
+            comboBoxVotacao.removeAllItems();
+            ResultSet rs = objProposta.exibirTitulo();
+            while (rs.next()) {
+                comboBoxVotacao.addItem(rs.getString("id_votacao"));
+            }
+        } catch (SQLException error) {
+            JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
-		comboBoxPropostas = new JComboBox();
-		comboBoxPropostas.setBounds(323, 200, 170, 30);
-		contentPane.add(comboBoxPropostas);
-		restaurarTituloCombobox();
-		comboBoxPropostas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				apurarVotosProposta();
-				atualizarNumeroRespostas();
-			}
+    public void apurarVotosProposta() {
+        DefaultTableModel tableModel = (DefaultTableModel) tableResposta.getModel();
+        tableModel.setRowCount(0);
+        String propostaSelecionada = (String) comboBoxPropostas.getSelectedItem();
+        String idVotacaoSelecionada = (String) comboBoxVotacao.getSelectedItem();
 
-		});
+        try {
+            Connection conn = DB.getConnection();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT\r\n" + "    p.id_proposta,\r\n" + "    p.titulo AS pergunta,\r\n"
+                    + "    r.resposta,\r\n" + "    COUNT(r.id_respostaproposta) AS numero_respostas_totais\r\n"
+                    + "FROM\r\n" + "    proposta p\r\n" + "LEFT JOIN\r\n"
+                    + "    respostaproposta r ON p.id_proposta = r.id_proposta\r\n" + "WHERE\r\n"
+                    + "    p.titulo = '" + propostaSelecionada + "'\r\n" + "    AND p.id_votacao = "
+                    + idVotacaoSelecionada + "\r\n" + "GROUP BY\r\n"
+                    + "    p.id_proposta, p.titulo, r.resposta;");
 
-		DefaultTableModel tableModel = new DefaultTableModel();
+            while (rs.next()) {
+                Vector<Object> row = new Vector<>();
+                row.add(rs.getString("id_proposta"));
+                row.add(rs.getString("pergunta"));
+                row.add(rs.getString("resposta"));
+                row.add(rs.getInt("numero_respostas_totais"));
+                tableModel.addRow(row);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
-		tableResposta = new JTable(tableModel) {
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
-		tableModel.setColumnIdentifiers(
-				new Object[] { "id da proposta", "titulo", "resposta", "numero_respostas_totais" });
-		tableResposta.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		tableResposta.setDoubleBuffered(true);
-		tableResposta.getColumnModel().getColumn(0).setPreferredWidth(114);
-		tableResposta.setBackground(Color.LIGHT_GRAY);
-		tableResposta.setBounds(137, 300, 548, 80);
-		contentPane.add(tableResposta);
-		apurarVotosProposta();
-		atualizarNumeroRespostas();
+    public void atualizarNumeroRespostas() {
+        String propostaSelecionada = (String) comboBoxPropostas.getSelectedItem();
+        if (propostaSelecionada != null) {
+            try {
+                Connection conn = DB.getConnection();
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery("SELECT\r\n" + "    p.id_proposta,\r\n" + "    p.titulo AS pergunta,\r\n"
+                        + "    COUNT(rp.id_respostaproposta) AS numero_respostas\r\n" + "FROM\r\n"
+                        + "    proposta p\r\n" + "LEFT JOIN\r\n"
+                        + "    respostaproposta rp ON p.id_proposta = rp.id_proposta\r\n" + "WHERE\r\n"
+                        + "    p.titulo = '" + propostaSelecionada + "'\r\n" + "GROUP BY\r\n"
+                        + "    p.id_proposta, p.titulo;");
 
-		JScrollPane scrollPane = new JScrollPane(tableResposta);
-		scrollPane.setBounds(137, 350, 548, 80);
-		contentPane.add(scrollPane);
-
-		JLabel lblTxtResultado = new JLabel("Resultados");
-		lblTxtResultado.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblTxtResultado.setBounds(300, 300, 100, 14);
-		contentPane.add(lblTxtResultado);
-
-	}
-
-	public void restaurarTituloCombobox() {
-		try {
-			ControllerProposta objProposta = new ControllerProposta();
-			comboBoxPropostas.removeAllItems();
-			String idVotacaoSelecionada = (String) comboBoxVotacao.getSelectedItem();
-
-			if (idVotacaoSelecionada != null) {
-				ResultSet rs = objProposta.obterTituloPorVotacao(Integer.parseInt(idVotacaoSelecionada));
-				while (rs.next()) {
-					this.comboBoxPropostas.addItem(rs.getString("titulo"));
-				}
-			}
-		} catch (SQLException | NumberFormatException error) {
-			JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-		}
-	}
-
-	public void restaurarvotacaoCombobox() {
-		try {
-			ControllerProposta objProposta = new ControllerProposta();
-			comboBoxVotacao.removeAllItems();
-			ResultSet rs = objProposta.exibirTitulo();
-			while (rs.next()) {
-				this.comboBoxVotacao.addItem(rs.getString("id_votacao"));
-			}
-		} catch (SQLException error) {
-			JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-		}
-	}
-
-	public void apurarVotosProposta() {
-		DefaultTableModel tableModel = (DefaultTableModel) tableResposta.getModel();
-		tableModel.setRowCount(0);
-		String propostaSelecionada = (String) comboBoxPropostas.getSelectedItem();
-		String idVotacaoSelecionada = (String) comboBoxVotacao.getSelectedItem();
-
-		try {
-			conn = DB.getConnection();
-			st = conn.createStatement();
-			rs = st.executeQuery("SELECT\r\n" + "    p.id_proposta,\r\n" + "    p.titulo AS pergunta,\r\n"
-					+ "    r.resposta,\r\n" + "    COUNT(r.id_respostaproposta) AS numero_respostas_totais\r\n"
-					+ "FROM\r\n" + "    proposta p\r\n" + "LEFT JOIN\r\n"
-					+ "    respostaproposta r ON p.id_proposta = r.id_proposta\r\n" + "WHERE\r\n" + "    p.titulo = '"
-					+ propostaSelecionada + "'\r\n" + "    AND p.id_votacao = " + idVotacaoSelecionada + "\r\n"
-					+ "GROUP BY\r\n" + "    p.id_proposta, p.titulo, r.resposta;");
-
-			while (rs.next()) {
-				Vector<Object> row = new Vector<>();
-				row.add(rs.getString("id_proposta"));
-				row.add(rs.getString("pergunta"));
-				row.add(rs.getString("resposta"));
-				row.add(rs.getInt("numero_respostas_totais"));
-				tableModel.addRow(row);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DB.closeResultSet(rs);
-			DB.closestatement(st);
-		}
-	}
-
-	public void atualizarNumeroRespostas() {
-		String propostaSelecionada = (String) comboBoxPropostas.getSelectedItem();
-		if (propostaSelecionada != null) {
-			try {
-				conn = DB.getConnection();
-				st = conn.createStatement();
-				rs = st.executeQuery("SELECT\r\n" + "    p.id_proposta,\r\n" + "    p.titulo AS pergunta,\r\n"
-						+ "    COUNT(rp.id_respostaproposta) AS numero_respostas\r\n" + "FROM\r\n"
-						+ "    proposta p\r\n" + "LEFT JOIN\r\n"
-						+ "    respostaproposta rp ON p.id_proposta = rp.id_proposta\r\n" + "WHERE\r\n"
-						+ "    p.titulo = '" + propostaSelecionada + "'\r\n" + "GROUP BY\r\n"
-						+ "    p.id_proposta, p.titulo;");
-
-				if (rs.next()) {
-					int numeroRespostas = rs.getInt("numero_respostas");
-					lblNrRespostas.setText("Número de respostas cadastradas: " + numeroRespostas);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				DB.closeResultSet(rs);
-				DB.closestatement(st);
-			}
-		}
-	}
+                if (rs.next()) {
+                    int numeroRespostas = rs.getInt("numero_respostas");
+                    lblNrRespostas.setText("Número de respostas cadastradas: " + numeroRespostas);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

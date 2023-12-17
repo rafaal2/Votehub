@@ -43,6 +43,8 @@ public class ADMCadProposta extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("fill", "[grow][][][][][][][][][][grow][][grow]", "[][][][][][][][]"));
+		
+		
 
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.menu);
@@ -112,11 +114,10 @@ public class ADMCadProposta extends JFrame {
 				String descricao = fieldDescricaoCad.getText();
 				String idVotacaoText = (String) comboBoxNumeroVotacao.getSelectedItem();
 				if (idVotacaoText.isBlank()) {
-					JOptionPane.showMessageDialog(null, "todos os campos devem estar preenchidos", "Erro",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "todos os campos devem estar preenchidos", "Erro",JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				int id_votacao = Integer.parseInt(filedIdVotacao.getText());
+				int id_votacao = Integer.parseInt(idVotacaoText);
 
 				ControllerProposta contVotante = new ControllerProposta();
 				try {
