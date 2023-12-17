@@ -136,7 +136,8 @@ public class ControllerVotacao {
 		
 	}
 	
-	public void excluirVotacao(int idVotacao) {
+	public void excluirVotacao(int idVotacao) throws BusinessException {
+		validarExclusao(idVotacao);
 		
 		votacaoRepository.deleteVotacao(idVotacao);
 	}

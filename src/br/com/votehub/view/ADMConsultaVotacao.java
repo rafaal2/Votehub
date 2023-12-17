@@ -261,7 +261,10 @@ public class ADMConsultaVotacao extends JFrame {
 		            JOptionPane.showMessageDialog(null, "ID de votação inválido. Insira um número válido.");
 		        } catch (DbIntegrityException error) {
 		            JOptionPane.showMessageDialog(null,  "A votação inserida não pode ser excluída pois possui candidatos cadastrados.");
-		        }
+		        } catch (BusinessException error) {
+					
+		        	JOptionPane.showMessageDialog(null, error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				}
 		    }
 
 		});
