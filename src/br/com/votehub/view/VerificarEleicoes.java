@@ -11,16 +11,19 @@ import javax.swing.SwingUtilities;
 
 import br.com.votehub.*;
 import br.com.votehub.model.DAOs.DB;
+import br.com.votehub.model.vo.Votante;
 
 public class VerificarEleicoes {
 
 	private int idVotacao;
 	private int idProposta;
+	private Votante vtt;
 	Connection conn = null;
     ResultSet rs = null;
     PreparedStatement ps = null;
 	
-	public void votacaoAbertaCandidatos() {
+	
+	public void votacaoAbertaCandidatos(Votante vtt) {
 		try {
             conn = DB.getConnection();
             String query = "SELECT data_inicio, data_fim, id_votacao \r\n FROM votacao \r\n WHERE tipo_votacao = 'candidatos'";
@@ -33,8 +36,10 @@ public class VerificarEleicoes {
                 Date dataAtual = new Date();
                 boolean andamento = dataAtual.after(dataInicio) && dataAtual.before(dataFim);
                 if(andamento == true) {
-                	AuxGenerica auxGenerica = new AuxGenerica();
-                	auxGenerica.obterCargos(idVotacao);
+//                	AuxGenerica auxGenerica = new AuxGenerica();
+//                	auxGenerica.obterCargos(idVotacao);
+                	TelaVotacao2 telavot = new TelaVotacao2(vtt, idVotacao);
+					TelaVotacao2.setVisible(true);
                 	break;
                 }
             }
@@ -57,6 +62,7 @@ public class VerificarEleicoes {
                 Date dataAtual = new Date();
                 boolean andamento = dataAtual.after(dataInicio) && dataAtual.before(dataFim);
                 if(andamento) {
+                	
                 	break;
                 }
             }

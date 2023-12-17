@@ -164,7 +164,7 @@ public class CandidatoDAO {
 		try {
 			conn = DB.getConnection();
 			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * FROM candidato where cargo = \"Reitor\"");
+			rs = st.executeQuery("SELECT * FROM candidato where cargo = \"Reitor\"");	
 			return rs;
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -63,7 +63,6 @@ public class ConfirmacaoVoto {
 		botaoCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				SwingUtilities.invokeLater((Runnable) new TelaVotacao(null));
 			}
 		});
 		

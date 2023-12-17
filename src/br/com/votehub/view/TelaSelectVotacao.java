@@ -61,13 +61,13 @@ public class TelaSelectVotacao extends JFrame {
 					ControllerVotacaoVotante contVotacaoVotante = new ControllerVotacaoVotante();
 					contVotacaoVotante.checarVotabilidade(vtt.getId_votante());
 					
-					TelaVotacao telavot = new TelaVotacao(vtt);
-					TelaVotacao.setVisible(true);
-					dispose();
+//					TelaVotacao telavot = new TelaVotacao(vtt);
+//					TelaVotacao.setVisible(true);
+//					dispose();
+					VerificarEleicoes verificarEleicoes = new VerificarEleicoes();
+					verificarEleicoes.votacaoAbertaCandidatos(vtt);
 					
 					//AuxGenerica.setIdVotante(vtt);
-					//VerificarEleicoes verificarEleicoes = new VerificarEleicoes();
-					//verificarEleicoes.votacaoAbertaCandidatos();
 					//dispose();
 					
 				} catch (SQLException error) {
