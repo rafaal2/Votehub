@@ -98,13 +98,13 @@ public class TelaVotacao2 {
 //				}
 
 		obterCargos(idVotacao);
-		if (diretor == true) {
+		if (diretor && reitor) {
 			cargo1("diretor", idVotacao);
-			if (reitor == true) {
-				cargo2(idVotacao);
-			}
-		} else if (reitor == true) {
-			cargo1("reitor: ", idVotacao);
+			cargo2(idVotacao);
+		} else if(diretor) {
+			cargo1("diretor", idVotacao);
+		} else if (reitor) {
+			cargo1("reitor", idVotacao);
 		}
 
 		botaoAvancar.addActionListener(new ActionListener() {
@@ -118,7 +118,7 @@ public class TelaVotacao2 {
 					mensagem = "Cargo: " + "Diretor" + "\nNumero do Candidato: " + (String) comboBox1.getSelectedItem()
 							+ "\n\n";
 				} else if (reitor) {
-					mensagem = "Cargo: " + "Reitor" + "\nNumero do Candidato: " + (String) comboBox2.getSelectedItem()
+					mensagem = "Cargo: " + "Reitor" + "\nNumero do Candidato: " + (String) comboBox1.getSelectedItem()
 							+ "\n\n";
 				}
 				mensagem += "Confirma o voto?";
@@ -151,8 +151,8 @@ public class TelaVotacao2 {
 					JOptionPane.showMessageDialog(null, "Voto cadastrado com sucesso!");
 					frame.dispose();
 
-					TelaSelectVotacao telaSelectVotacao = new TelaSelectVotacao(vtt);
-					telaSelectVotacao.setVisible(true);
+//					TelaSelectVotacao telaSelectVotacao = new TelaSelectVotacao(vtt);
+//					telaSelectVotacao.setVisible(true);
 
 				} else {
 
@@ -165,8 +165,8 @@ public class TelaVotacao2 {
 		botaoCancelar.setHorizontalAlignment(SwingConstants.LEFT);
 		botaoCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaSelectVotacao admPrincipal = new TelaSelectVotacao(vtt);
-				admPrincipal.setVisible(true);
+//				TelaSelectVotacao admPrincipal = new TelaSelectVotacao(vtt);
+//				admPrincipal.setVisible(true);
 				dispose();
 			}
 		});

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import br.com.votehub.*;

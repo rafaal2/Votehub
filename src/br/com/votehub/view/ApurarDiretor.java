@@ -136,7 +136,7 @@ public class ApurarDiretor extends JFrame {
                     + "	  COUNT(voto.id_voto) AS numero_de_votos\r\n" + "	  FROM\r\n"
                     + "		    candidato\r\n" + "	  LEFT JOIN\r\n"
                     + "		    voto ON candidato.numero_candidato = voto.numero_candidato\r\n" + "	  WHERE\r\n"
-                    + "		    candidato.cargo = 'Reitor'\r\n" + "   AND candidato.id_votacao = "
+                    + "		    candidato.cargo = 'diretor'\r\n" + "   AND candidato.id_votacao = "
                     + idVotacaoSelecionada + "\r\n" + "	  GROUP BY\r\n"
                     + "		    candidato.numero_candidato, candidato.nome\r\n" + "	  ORDER BY\r\n"
                     + "		    numero_de_votos DESC;");
@@ -163,11 +163,11 @@ public class ApurarDiretor extends JFrame {
             rs = st.executeQuery("SELECT\r\n" + "    COUNT(voto.id_voto) AS numero_total_votos\r\n" + "FROM\r\n"
                     + "    voto\r\n" + "LEFT JOIN\r\n"
                     + "    candidato ON voto.numero_candidato = candidato.numero_candidato\r\n" + "WHERE\r\n"
-                    + "    candidato.cargo = 'Reitor' AND candidato.id_votacao = " + idVotacao + ";");
+                    + "    candidato.cargo = 'diretor' AND candidato.id_votacao = " + idVotacao + ";");
 
             if (rs.next()) {
                 int numeroTotalVotos = rs.getInt("numero_total_votos");
-                lblNrVotos.setText("Número total de votos na Votação de Reitor: " + numeroTotalVotos);
+                lblNrVotos.setText("Número total de votos na Votação de Diretor: " + numeroTotalVotos);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -181,7 +181,7 @@ public class ApurarDiretor extends JFrame {
         try {
             ControllerCandidato objCand = new ControllerCandidato();
             comboBoxVotacao.removeAllItems();
-            ResultSet rs = objCand.exibirReitor();
+            ResultSet rs = objCand.exibirDiretor();
             while (rs.next()) {
                 this.comboBoxVotacao.addItem(rs.getString("id_votacao"));
             }

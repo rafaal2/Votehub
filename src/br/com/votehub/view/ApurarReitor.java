@@ -149,7 +149,7 @@ public class ApurarReitor extends JFrame {
 					+ "	  candidato.nome AS nome_candidato,\r\n" + "	  COUNT(voto.id_voto) AS numero_de_votos\r\n"
 					+ "	  FROM\r\n" + "		    candidato\r\n" + "	  LEFT JOIN\r\n"
 					+ "		    voto ON candidato.numero_candidato = voto.numero_candidato\r\n" + "	  WHERE\r\n"
-					+ "		    candidato.cargo = 'Reitor'\r\n" + "   AND candidato.id_votacao = "
+					+ "		    candidato.cargo = 'reitor'\r\n" + "   AND candidato.id_votacao = "
 					+ idVotacaoSelecionada + "\r\n" + "	  GROUP BY\r\n"
 					+ "		    candidato.numero_candidato, candidato.nome\r\n" + "	  ORDER BY\r\n"
 					+ "		    numero_de_votos DESC;");
@@ -176,7 +176,7 @@ public class ApurarReitor extends JFrame {
 			rs = st.executeQuery("SELECT\r\n" + "    COUNT(voto.id_voto) AS numero_total_votos\r\n" + "FROM\r\n"
 					+ "    voto\r\n" + "LEFT JOIN\r\n"
 					+ "    candidato ON voto.numero_candidato = candidato.numero_candidato\r\n" + "WHERE\r\n"
-					+ "    candidato.cargo = 'Reitor' AND candidato.id_votacao = " + idVotacao + ";");
+					+ "    candidato.cargo = 'reitor' AND candidato.id_votacao = " + idVotacao + ";");
 
 			if (rs.next()) {
 				int numeroTotalVotos = rs.getInt("numero_total_votos");

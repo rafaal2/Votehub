@@ -112,7 +112,7 @@ public class ADMLogin extends JFrame {
 		// Separação entre botoes Entrar e Voltar
 		JPanel panel_1 = new JPanel();
 		panel_1.setPreferredSize(new Dimension(120, 0));
-		panel_1.setBackground(new Color(192, 192, 192));
+		panel_1.setBackground(new Color(164, 247, 176));
 		contentPane.add(panel_1, "cell 3 8");
 
 		JButton btnEntrarLogin = new JButton("ENTRAR");

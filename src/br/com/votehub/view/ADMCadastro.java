@@ -95,7 +95,7 @@ public class ADMCadastro extends JFrame {
 		panel.add(btnCadCandidato, "cell 3 1,growx,aligny center");
 
 		ImageIcon cv = new ImageIcon("./icons/menu_consulta/cad_votacao.png");
-		Image cvImg = vt.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+		Image cvImg = cv.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 		ImageIcon resizedCv = new ImageIcon(cvImg);
 		JButton btnCadVotacao = new JButton("CADASTRAR VOTAÇÃO");
 		btnCadVotacao.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -135,7 +135,7 @@ public class ADMCadastro extends JFrame {
 		ImageIcon resizedPp = new ImageIcon(ppImg);
 		JButton btnCadProposta = new JButton("CADASTRAR PROPOSTA");
 		btnCadProposta.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnCadProposta.setIcon(resizedCv);
+		btnCadProposta.setIcon(resizedPp);
 		btnCadProposta.setPreferredSize(new Dimension(220, 100));
 		btnCadProposta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
