@@ -155,4 +155,9 @@ public class ControllerCandidato {
 		
 	}
 
+	public void setCandidatoRepository(CandidatoDAO candidatoRepository2) {
+		this.candidatoRepository = candidatoRepository2;
+		
+	}
+
 }
