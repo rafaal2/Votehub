@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
@@ -33,6 +35,7 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JFormattedTextField;
 
 public class ADMCadVotacao extends JFrame {
@@ -71,58 +74,54 @@ public class ADMCadVotacao extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("fill", "[grow][][][][][][][][][][grow][][grow]", "[][][][][][][][]"));
+		contentPane.setLayout(new MigLayout("fill", "[][][][][][][]", "[][][][][][][][]"));
 
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.menu);
-		contentPane.add(panel, "cell 5 0 1 3,alignx center,aligny center");
-		panel.setPreferredSize(new Dimension(800, 600));
-		panel.setLayout(new MigLayout("fill", "[grow][grow][grow][grow][grow][grow][grow][][][grow][][grow]",
-				"[][][][][][][grow][grow][][][][]"));
+		panel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		contentPane.add(panel, "cell 2 1 3 6,grow");
+		panel.setLayout(
+				new MigLayout("fill", "[][][][][][]", "[][][][][][][][][][][][][][][][]"));
+
+		ImageIcon cv = new ImageIcon("./icons/menu_cadastro/cad_votacao.png");
+		Image cvImg = cv.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+		ImageIcon resizedCv = new ImageIcon(cvImg);
+		JLabel icon = new JLabel(resizedCv);
+		panel.add(icon, "cell 0 1 7 1,alignx center,aligny center");
 
 		JLabel lblCadVotacao = new JLabel("Cadastro de Votação");
-		lblCadVotacao.setFont(new Font("Tahoma", Font.BOLD, 17));
-		panel.add(lblCadVotacao, "cell 0 0 12 1,alignx center,aligny center");
-
-		JButton btnVoltarCad = new JButton("VOLTAR");
-		btnVoltarCad.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnVoltarCad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ADMCadastro admCadastro = new ADMCadastro();
-				admCadastro.setVisible(true);
-				dispose();
-			}
-		});
+		lblCadVotacao.setFont(new Font("Tahoma", Font.BOLD, 22));
+		panel.add(lblCadVotacao, "cell 0 2 7 1,alignx center");
 
 		JLabel lblCadNome = new JLabel("Nome :");
 		lblCadNome.setFont(new Font("Tahoma", Font.BOLD, 11));
-		panel.add(lblCadNome, "cell 1 3,alignx trailing");
+		panel.add(lblCadNome, "cell 1 5,alignx trailing");
 
 		fieldNomeCad = new JTextField();
-		panel.add(fieldNomeCad, "cell 3 3,growx");
+		panel.add(fieldNomeCad, "cell 2 5,growx");
 		fieldNomeCad.setColumns(10);
 
 		JLabel lblCadDataInicio = new JLabel("Data e Hora de Início :");
 		lblCadDataInicio.setFont(new Font("Tahoma", Font.BOLD, 11));
-		panel.add(lblCadDataInicio, "cell 1 4,alignx trailing,aligny baseline");
+		panel.add(lblCadDataInicio, "cell 1 7,alignx trailing,aligny baseline");
 
 		JFormattedTextField formattedDataInicio = new JFormattedTextField(new MaskFormatter("##/##/#### ##:##:##"));
-		panel.add(formattedDataInicio, "cell 3 4,growx");
+		panel.add(formattedDataInicio, "cell 2 7,growx");
 		formattedDataInicio
 				.setToolTipText("Informe a data e horario de inicio no formato dia/mês/ano hora/minuto/segundo");
 
 		JLabel lblCadDataFinal = new JLabel("Data e Hora de termino :");
 		lblCadDataFinal.setFont(new Font("Tahoma", Font.BOLD, 11));
-		panel.add(lblCadDataFinal, "cell 1 5,alignx trailing");
+		panel.add(lblCadDataFinal, "cell 1 9,alignx trailing");
 
 		JFormattedTextField formattedDataFim = new JFormattedTextField(new MaskFormatter("##/##/#### ##:##:##"));
-		panel.add(formattedDataFim, "cell 3 5,growx");
+		panel.add(formattedDataFim, "cell 2 9,growx");
 		formattedDataFim
 				.setToolTipText("Informe a data e horario de termino no formato dia/mês/ano hora/minuto/segundo");
 
 		JLabel lblNewLabel = new JLabel("Tipo de Votação :");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		panel.add(lblNewLabel, "cell 1 7");
+		panel.add(lblNewLabel, "cell 1 11,alignx right");
 
 		JList list = new JList();
 		list.setModel(new AbstractListModel() {
@@ -136,12 +135,22 @@ public class ADMCadVotacao extends JFrame {
 				return values[index];
 			}
 		});
-		panel.add(list, "cell 3 7,growx,aligny baseline");
-		panel.add(btnVoltarCad, "cell 0 11,alignx center,aligny bottom");
+		panel.add(list, "cell 2 11,growx,aligny baseline");
+
+		JButton btnVoltarCad = new JButton("VOLTAR");
+		btnVoltarCad.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnVoltarCad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ADMCadastro admCadastro = new ADMCadastro();
+				admCadastro.setVisible(true);
+				dispose();
+			}
+		});
+		panel.add(btnVoltarCad, "cell 0 14,alignx center,aligny center");
 
 		JButton btnNext = new JButton("PRÓXIMO");
 		btnNext.setFont(new Font("Tahoma", Font.BOLD, 12));
-		panel.add(btnNext, "cell 11 11,alignx right,aligny bottom");
+		panel.add(btnNext, "cell 5 14,alignx center,aligny center");
 		btnNext.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -155,16 +164,16 @@ public class ADMCadVotacao extends JFrame {
 					String tipoVotacao = (String) list.getSelectedValue();
 
 					if (nomeVotacao.isEmpty() || dataInicioString.isEmpty() || dataFimString.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de cadastrar.", "Erro",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de cadastrar.", "Erro",
+								JOptionPane.ERROR_MESSAGE);
 						return;
 					}
-					
+
 					if (list.getSelectedValue() != null) {
 						tipoVotacao = ((String) list.getSelectedValue()).toLowerCase();
 					} else {
 						tipoVotacao = "";
 					}
-					
 
 					Date dataInicio = formato.parse(dataInicioString);
 					Date dataFim = formato.parse(dataFimString);

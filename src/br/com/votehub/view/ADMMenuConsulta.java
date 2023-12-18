@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
@@ -57,7 +58,7 @@ public class ADMMenuConsulta extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.menu);
-		panel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		contentPane.add(panel, "cell 0 1 7 8,grow");
 		panel.setLayout(new MigLayout("fill", "[grow][][grow][][grow][][grow]", "[][][][][][][]"));
 

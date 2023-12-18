@@ -52,6 +52,7 @@ public class TelaVotacao2 {
 	private JComboBox<String> comboBox2;
 	private boolean diretor;
 	private boolean reitor;
+	private boolean fechar;
 	private String mensagem;
 	Connection conn = null;
 	ResultSet rs = null;
@@ -180,8 +181,8 @@ public class TelaVotacao2 {
 		return null;
 	}
 
-	protected void dispose() {
-		// TODO Auto-generated method stub
+	public void dispose() {
+		frame.dispose();
 	}
 
 	private Image exibirImagemCandidato(String numeroCandidato, JLabel lblimgReitor) {
@@ -269,6 +270,9 @@ public class TelaVotacao2 {
 				} else if ("reitor".equals(temp.toLowerCase())) {
 					reitor = true;
 				}
+			}
+			if(!diretor && !reitor) {
+	            fechar = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
 import com.mysql.cj.jdbc.exceptions.CommunicationsException;
@@ -78,6 +79,7 @@ public class ADMLogin extends JFrame {
 		lblVoteHub.setFont(new Font("Tahoma", Font.BOLD, 17));
 
 		JPanel panel = new JPanel();
+		panel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		contentPane.add(panel, "cell 3 6,alignx trailing,growy");
 		panel.setPreferredSize(new Dimension(400, 250));
 		panel.setBackground(SystemColor.menu);

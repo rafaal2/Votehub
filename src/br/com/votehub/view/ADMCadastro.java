@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
@@ -53,7 +54,7 @@ public class ADMCadastro extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.menu);
-		panel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		contentPane.add(panel, "cell 0 1 7 8,grow");
 		panel.setLayout(new MigLayout("fill", "[grow][][grow][][grow][][grow]", "[][][][][][][]"));
 
@@ -94,7 +95,7 @@ public class ADMCadastro extends JFrame {
 		});
 		panel.add(btnCadCandidato, "cell 3 1,growx,aligny center");
 
-		ImageIcon cv = new ImageIcon("./icons/menu_consulta/cad_votacao.png");
+		ImageIcon cv = new ImageIcon("./icons/menu_cadastro/cad_votacao.png");
 		Image cvImg = cv.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 		ImageIcon resizedCv = new ImageIcon(cvImg);
 		JButton btnCadVotacao = new JButton("CADASTRAR VOTAÇÃO");

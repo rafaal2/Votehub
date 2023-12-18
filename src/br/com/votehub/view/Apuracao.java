@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import net.miginfocom.swing.MigLayout;
 
@@ -39,6 +40,7 @@ public class Apuracao extends JFrame {
 		contentPane.setLayout(new MigLayout("fill", "[][][][][][][]", "[][][][][][][][][]"));
 		
 		JPanel panel = new JPanel();
+		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		contentPane.add(panel, "cell 0 1 7 8,grow");
 		panel.setLayout(new MigLayout("fill", "[grow][][grow][][grow][][grow]", "[][][][][][][]"));
 		

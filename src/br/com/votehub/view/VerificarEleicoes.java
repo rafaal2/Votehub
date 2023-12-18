@@ -26,6 +26,7 @@ public class VerificarEleicoes {
 	
 	public void votacaoAbertaCandidatos(Votante vtt) {
 		try {
+			boolean vot = false;
             conn = DB.getConnection();
             String query = "SELECT data_inicio, data_fim, id_votacao \r\n FROM votacao \r\n WHERE tipo_votacao = 'candidatos'";
             ps = conn.prepareStatement(query);
@@ -36,14 +37,18 @@ public class VerificarEleicoes {
                 idVotacao = rs.getInt("id_votacao");
                 Date dataAtual = new Date();
                 boolean andamento = dataAtual.after(dataInicio) && dataAtual.before(dataFim);
-                if(andamento == true) {
+                if(andamento) {
 //                	AuxGenerica auxGenerica = new AuxGenerica();
 //                	auxGenerica.obterCargos(idVotacao);
+                	vot = true;
                 	TelaVotacao2 telavot = new TelaVotacao2(vtt, idVotacao);
 					TelaVotacao2.setVisible(true);
                 	break;
                 }
             }
+           if(!vot) {
+               JOptionPane.showMessageDialog(null, "Não há votação de candidatos em andamento.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+           }
         } catch (SQLException e) {
             e.printStackTrace();
         } 
