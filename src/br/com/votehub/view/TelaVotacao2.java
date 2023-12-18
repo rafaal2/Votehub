@@ -165,8 +165,8 @@ public class TelaVotacao2 {
 		botaoCancelar.setHorizontalAlignment(SwingConstants.LEFT);
 		botaoCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				TelaSelectVotacao admPrincipal = new TelaSelectVotacao(vtt);
-//				admPrincipal.setVisible(true);
+				TelaSelectVotacao admPrincipal = new TelaSelectVotacao(vtt);
+				admPrincipal.setVisible(true);
 				dispose();
 			}
 		});

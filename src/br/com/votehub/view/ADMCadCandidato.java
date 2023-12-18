@@ -157,10 +157,12 @@ public class ADMCadCandidato extends JFrame {
 				String nomeCandidato = fieldNomeCad.getText();
 				String cargoCandidato = (String) comboBoxCargo.getSelectedItem();
 				String idVotacaoText = (String) comboBoxNumeroVotacao.getSelectedItem();
-		        if (idVotacaoText.isBlank()) {
+				if (idVotacaoText.isBlank() || numero_candidato.isBlank() || nomeCandidato.isBlank() || cargoCandidato.isBlank()) {
 		            JOptionPane.showMessageDialog(null, "todos os campos devem estar preenchidos", "Erro", JOptionPane.ERROR_MESSAGE);
 		            return;  
-		        }
+		        }if(nomeCandidato.length() > 200) {
+		        	JOptionPane.showMessageDialog(null, "o nome do candidato deve possuir no maximo 200 caracteres", "Erro", JOptionPane.ERROR_MESSAGE);
+				}
 		        int id_votacao = Integer.parseInt(idVotacaoText);
 				copiarImagem(nomeCandidato);
 				ControllerCandidato contCandidato = new ControllerCandidato();

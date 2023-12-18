@@ -44,25 +44,6 @@ public class ADMConsultaVotante extends JFrame {
 	 private JList<String> list;
 	    private DefaultListModel<String> listModel;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ADMConsultaVotante frame = new ADMConsultaVotante();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 
 	public ADMConsultaVotante() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
