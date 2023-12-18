@@ -114,9 +114,9 @@ public class ADMConsultaVotacao extends JFrame {
 		
 		listModel = new DefaultListModel<>();
         
-        JLabel lblNewLabel = new JLabel("votações cadastradas");
+        JLabel lblNewLabel = new JLabel("Votações Cadastradas:");
         lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-        contentPane.add(lblNewLabel, "cell 3 0");
+        contentPane.add(lblNewLabel, "cell 3 0 1 3");
         list = new JList<>(listModel);
         list.setBackground(SystemColor.menu);
         list.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));

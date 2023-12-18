@@ -100,10 +100,6 @@ public class ADMConsultaProposta extends JFrame {
 		panel.add(lblTitulo, "cell 3 9,alignx center");
 		
 		listModel = new DefaultListModel<>();
-        
-        JLabel lblNewLabel = new JLabel("propostas cadastradas");
-        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-        contentPane.add(lblNewLabel, "cell 3 0");
         list = new JList<>(listModel);
         list.setBackground(SystemColor.menu);
         list.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -201,6 +197,10 @@ public class ADMConsultaProposta extends JFrame {
 		
 		JButton btnVoltar = new JButton("VOLTAR");
 		panel.add(btnVoltar, "cell 4 23,alignx center");
+		
+		JLabel lblNewLabel = new JLabel("Propostas Cadastradas:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		contentPane.add(lblNewLabel, "cell 3 0 1 3");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 

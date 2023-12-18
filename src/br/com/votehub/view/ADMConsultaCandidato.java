@@ -64,7 +64,7 @@ public class ADMConsultaCandidato extends JFrame {
 	        
 	        JLabel lblTxtGeral = new JLabel("Candidatos cadastrados :");
 	        lblTxtGeral.setFont(new Font("Tahoma", Font.BOLD, 12));
-	        contentPane.add(lblTxtGeral, "cell 3 2");
+	        contentPane.add(lblTxtGeral, "cell 3 0 1 3");
 	        list = new JList<>(listModel);
 	        list.setBackground(SystemColor.menu);
 	        list.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
